@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+cd ~/.normen
+git add -A
+git commit
+git push -f -u origin master
+

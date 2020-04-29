@@ -1,0 +1,5 @@
+#!/bin/zsh
+set -e
+brew update
+brew upgrade
+brew cask upgrade
