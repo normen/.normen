@@ -9,6 +9,9 @@ alias ls='ls -al'
 # Make <Esc> quicker
 export KEYTIMEOUT=1
 
+# Fix vifm colorschemes
+export TERM=xterm-256color
+
 # Set up the prompt
 autoload -Uz promptinit
 promptinit
