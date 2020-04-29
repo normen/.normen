@@ -113,10 +113,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " these don't work in vim, only neo?
-noremap <silent> <C-Up> :vertical resize +3<CR>
-noremap <silent> <C-Down> :vertical resize -3<CR>
-noremap <silent> <C-Left> :resize +3<CR>
-noremap <silent> <C-Right> :resize -3<CR>
+noremap <silent> <C-Up> :resize +3<CR>
+noremap <silent> <C-Down> :resize -3<CR>
+noremap <silent> <C-Left> :vertical resize +3<CR>
+noremap <silent> <C-Right> :vertical resize -3<CR>
 
 "masochism
 nnoremap <up> ddkP
@@ -134,11 +134,9 @@ nnoremap <Leader>P "*P
 
 " german keys
 nmap ü ]
-"nmap üü ]]
+nnoremap ]ü ]]
 nmap ä [
-"nmap ää [[
-"nmap üä ][
-"nmap äü []
+nnoremap [ä [[
 
 " operate on 'method'
 nnoremap vm Vf{%
