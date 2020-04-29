@@ -5,7 +5,7 @@ echo "**************************************************************"
 echo ""
 echo ".normen: install base apps (git,zsh,vim,ctags,vifm,mosh,tmux)?"
 echo ""
-select yn in "MacOS" "Debian" "No";
+select yn in "No" "MacOS" "Debian";
 do
   case $yn in
     "MacOS" )
@@ -24,37 +24,9 @@ done
 
 echo "**************************************************************"
 echo ""
-echo ".normen: setup dotfiles?"
-echo ""
-select yn in "Yes" "No";
-do
-  case $yn in
-    "Yes" )
-      cd ~/
-      if [ ! -d ".normen" ]; then
-        git clone https://github.com/normen/.normen
-      fi
-      rm -rf ~/.vim || true
-      ln -s ~/.normen/.vim ~/.vim
-      rm -f ~/.zshrc || true
-      ln -s ~/.normen/.zshrc ~/.zshrc
-      rm -f ~/.tmux.conf || true
-      ln -s ~/.normen/.tmux.conf ~/.tmux.conf
-      rm -f ~/.inputrc || true
-      ln -s ~/.normen/.inputrc ~/.inputrc
-      rm -f ~/.eslintrc.json || true
-      ln -s ~/.normen/.eslintrc.json ~/.eslintrc.json
-      break;;
-    "No" )
-      break;;
-  esac
-done
-
-echo "**************************************************************"
-echo ""
 echo ".normen: install vim plugins?"
 echo ""
-select yn in "Yes" "No" "Delete";
+select yn in "No" "Delete" "Yes";
 do
   case $yn in
     "Delete" )
@@ -79,8 +51,55 @@ do
   esac
 done
 
+
+echo "**************************************************************"
+echo ""
+echo ".normen: install node + npm via n"
+echo ""
+select yn in "No" "MacOS" "nosudo" "sudo";
+do
+  case $yn in
+    "MacOS" )
+      brew install n
+      n 10
+      break;;
+    "nosudo" )
+      curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
+      n 10
+      break;;
+    "sudo" )
+      sudo curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
+      sudo n 10
+      break;;
+    "No" )
+      break;;
+  esac
+done
+
+echo "**************************************************************"
+echo ""
+echo ".normen: install spaceship?"
+echo ""
+echo " -> mac usually nosudo"
+select yn in "No" "nosudo" "sudo";
+do
+  case $yn in
+    "nosudo" )
+      npm install -g spaceship-prompt
+      break;;
+    "sudo" )
+      sudo npm install -g spaceship-prompt --unsafe-perm
+      break;;
+    "No" )
+      break;;
+  esac
+done
+
+echo "**************************************************************"
+echo ""
 echo ".normen: setup vifm? (do zo in vifm then :q)"
-select yn in "Yes" "No";
+echo ""
+select yn in "No" "Yes";
 do
   case $yn in
     "Yes" )
@@ -89,6 +108,34 @@ do
       git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
       echo "colorscheme gruvbox">> ~/.config/vifm/vifmrc
       echo "nnoremap <C-e> :q<CR>">> ~/.config/vifm/vifmrc
+      break;;
+    "No" )
+      break;;
+  esac
+done
+
+echo "**************************************************************"
+echo ""
+echo ".normen: setup dotfiles?"
+echo ""
+select yn in "No" "Yes";
+do
+  case $yn in
+    "Yes" )
+      cd ~/
+      if [ ! -d ".normen" ]; then
+        git clone https://github.com/normen/.normen
+      fi
+      rm -rf ~/.vim || true
+      ln -s ~/.normen/.vim ~/.vim
+      rm -f ~/.zshrc || true
+      ln -s ~/.normen/.zshrc ~/.zshrc
+      rm -f ~/.tmux.conf || true
+      ln -s ~/.normen/.tmux.conf ~/.tmux.conf
+      rm -f ~/.inputrc || true
+      ln -s ~/.normen/.inputrc ~/.inputrc
+      rm -f ~/.eslintrc.json || true
+      ln -s ~/.normen/.eslintrc.json ~/.eslintrc.json
       break;;
     "No" )
       break;;

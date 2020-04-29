@@ -1,3 +1,4 @@
+fpath=($fpath ~/.zfunctions)
 alias start='sudo systemctl start'
 alias stop='sudo systemctl stop'
 alias restart='sudo systemctl restart'
@@ -11,11 +12,6 @@ export KEYTIMEOUT=1
 
 # Fix vifm colorschemes
 export TERM=xterm-256color
-
-# Set up the prompt
-autoload -Uz promptinit
-promptinit
-prompt bart
 
 setopt histignorealldups #sharehistory
 
@@ -53,9 +49,10 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 
 # show VIM [NORMAL] mode
+# apparently fixes spaceship's mode detection as well
 function zle-line-init zle-keymap-select {
-  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+#  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+#  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
   zle reset-prompt
 }
 zle -N zle-line-init
@@ -63,4 +60,9 @@ zle -N zle-keymap-select
 
 # set EDITOR
 export EDITOR=$(which vim)
+
+# Set up the prompt
+autoload -Uz promptinit
+promptinit
+prompt spaceship
 
