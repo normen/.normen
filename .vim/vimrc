@@ -25,6 +25,7 @@ set noerrorbells
 "set display=truncate
 set updatetime=500
 set mouse=a
+set ttymouse=xterm2
 "set clipboard=unnamed
 set path+=**
 set wildmenu
