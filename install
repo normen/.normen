@@ -3,7 +3,7 @@ set -e
 
 echo "**************************************************************"
 echo ""
-echo ".normen: install base apps (git,zsh,vim,ctags,vifm,mosh,tmux)?"
+echo "🤓 install base apps (git,zsh,vim,ctags,vifm,mosh,tmux)?"
 echo ""
 select yn in "No" "Debian" "MacOS (install brew)" "MacOS (brew installed)";
 do
@@ -33,7 +33,7 @@ fi
 
 echo "**************************************************************"
 echo ""
-echo ".normen: install vim plugins?"
+echo "🤓 install vim plugins?"
 echo ""
 select yn in "No" "Yes" "Delete";
 do
@@ -62,7 +62,22 @@ done
 
 echo "**************************************************************"
 echo ""
-echo ".normen: setup vifm? ()"
+echo "🤓 install tmux-resurrect?"
+echo ""
+select yn in "No" "Yes";
+do
+  case $yn in
+    "Yes" )
+      git clone https://github.com/tmux-plugins/tmux-resurrect ~/.normen/.tmux/plugins/tmux-resurrect
+      break;;
+    "No" ) 
+      break;;
+  esac
+done
+
+echo "**************************************************************"
+echo ""
+echo "🤓 setup vifm? ()"
 echo ""
 echo "->do 'zo' in vifm then ':q'"
 select yn in "No" "Yes";
@@ -83,7 +98,7 @@ done
 
 echo "**************************************************************"
 echo ""
-echo ".normen: install node 10?"
+echo "🤓 install node 10?"
 echo ""
 select yn in "No" "sudo (n)" "nosudo (n)" "MacOS (brew)";
 do
@@ -109,7 +124,7 @@ done
 
 echo "**************************************************************"
 echo ""
-echo ".normen: (node) install eslint + semistandard?"
+echo "🤓 (node) install eslint + semistandard?"
 echo ""
 echo " -> mac usually nosudo"
 select yn in "No" "sudo" "nosudo";
@@ -128,7 +143,7 @@ done
 
 echo "**************************************************************"
 echo ""
-echo ".normen: (node) install spaceship?"
+echo "🤓 (node) install spaceship?"
 echo ""
 echo " -> mac usually nosudo"
 select yn in "No" "sudo" "nosudo";
@@ -147,7 +162,7 @@ done
 
 echo "**************************************************************"
 echo ""
-echo ".normen: replace dotfiles?"
+echo "🤓 replace / symlink dotfiles?"
 echo ""
 select yn in "No" "Yes";
 do
@@ -157,8 +172,10 @@ do
       ln -s ~/.normen/.vim ~/.vim
       rm -f ~/.zshrc || true
       ln -s ~/.normen/.zshrc ~/.zshrc
+      rm -f ~/.tmux || true
+      ln -s ~/.normen/.tmux ~/.tmux
       rm -f ~/.tmux.conf || true
-      ln -s ~/.normen/.tmux.conf ~/.tmux.conf
+      ln -s ~/.normen/.tmux/tmux.conf ~/.tmux.conf
       rm -f ~/.inputrc || true
       ln -s ~/.normen/.inputrc ~/.inputrc
       rm -f ~/.eslintrc.json || true

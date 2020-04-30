@@ -19,6 +19,7 @@ set shiftwidth=2
 set expandtab
 set nowrap
 set linebreak
+set cursorline
 " avoid adding line breaks while typing
 set textwidth=0
 set noerrorbells
