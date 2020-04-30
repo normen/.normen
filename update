@@ -27,10 +27,10 @@ select yn in "No" "sudo" "nosudo";
 do
   case $yn in
     "nosudo" )
-      npm install -g spaceship-prompt
+      npm update -g spaceship-prompt
       break;;
     "sudo" )
-      sudo npm install -g spaceship-prompt --unsafe-perm
+      sudo npm update -g spaceship-prompt --unsafe-perm
       break;;
     "No" )
       break;;
