@@ -5,6 +5,9 @@ alias restart='sudo systemctl restart'
 alias log='sudo journalctl -f -u'
 alias :e='vim'
 alias :q=exit
+alias la='ls -A'
+alias ll='la -alF'
+alias l='ls -CF'
 
 # Make <Esc> quicker
 export KEYTIMEOUT=1
@@ -13,6 +16,9 @@ export KEYTIMEOUT=1
 export TERM=xterm-256color
 
 setopt histignorealldups #sharehistory
+
+# use paths as cd command
+setopt -s autocd
 
 # Use vi keybindings
 bindkey -v
