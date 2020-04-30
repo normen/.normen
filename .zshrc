@@ -58,14 +58,15 @@ man() {
   command man "$@"
 }
 
-# show VIM [NORMAL] mode
-# apparently fixes spaceship's mode detection as well
-function zle-line-init zle-keymap-select {
-#  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-#  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-  zle reset-prompt
+# normal mode by default
+function zle-line-init {
+  zle -K vicmd
 }
 zle -N zle-line-init
+# apparently fixes spaceship's mode detection as well
+function zle-keymap-select {
+  zle reset-prompt
+}
 zle -N zle-keymap-select
 
 # set EDITOR
