@@ -58,11 +58,13 @@ man() {
   command man "$@"
 }
 
-# normal mode by default
-function zle-line-init {
-  zle -K vicmd
-}
-zle -N zle-line-init
+# normal mode by default (causes issues)
+#function zle-line-init {
+#  zle -K vicmd
+#  zle reset-prompt
+#}
+#zle -N zle-line-init
+
 # apparently fixes spaceship's mode detection as well
 function zle-keymap-select {
   zle reset-prompt
