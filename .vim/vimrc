@@ -182,18 +182,18 @@ map <Leader><BS> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:noh<CR>
 :command FixLineEndings :%s//\r/g
 :command FixAdditionalLineEndings :%s///g
 
-:command -nargs=1 GitClone !git clone <args>
-:command GitInit !git init
-:command GitCommit !git commit
-:command GitCommitThis !git add %;git commit
-:command GitCommitAll !git add -A;git commit
-:command GitPush !git push -f -u origin master
-:command GitCommitAndPush !git add -A;git commit;git push -f -u origin master
-:command GitPull !git pull --rebase origin master
-:command GitStash !git stash save -a
-:command GitPop !git stash pop
-:command GitUntracked !git ls-files --others --exclude-standard
-:command GitUnStageAll !git reset HEAD -- .
+":command -nargs=1 GitClone Git clone <args>
+":command GitInit Git init
+":command GitCommit Git commit
+:command GitCommitThis Git add %|Git commit
+:command GitCommitAll Git add -A|Git commit
+:command GitPushMaster Git push -f -u origin master
+:command GitPushAllMaster Git add -A|Git commit|Git push -f -u origin master
+:command GitPull Git pull --rebase origin master
+:command GitStash Git stash save -a
+:command GitPop Git stash pop
+:command GitUntracked Git ls-files --others --exclude-standard
+:command GitUnStageAll Git reset HEAD -- .
 
 :command HbUploadPlugin !rsync -azrv --delete ${PWD} pi@homebridge.local:~/npm-code/
 :command HbUploadPluginDry !rsync -n -azrv --delete ${PWD} pi@homebridge.local:~/npm-code/
