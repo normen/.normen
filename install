@@ -85,10 +85,14 @@ do
   case $yn in
     "Yes" )
       vifm
-      rm -rf ~/.config/vifm/colors
-      git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
-      echo "colorscheme gruvbox">> ~/.config/vifm/vifmrc
-      echo "nnoremap <C-e> :q<CR>">> ~/.config/vifm/vifmrc
+      VIFM_PATH=~/.config/vifm
+      if [ -d ~/.vifm ]; then
+        VIFM_PATH=~/.vifm
+      fi
+      rm -rf $VIFM_PATH/colors
+      git clone https://github.com/vifm/vifm-colors $VIFM_PATH/colors
+      echo "colorscheme gruvbox">> $VIFM_PATH/vifmrc
+      echo "nnoremap <C-e> :q<CR>">> $VIFM_PATH/vifmrc
       break;;
     "No" )
       break;;
