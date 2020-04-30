@@ -19,7 +19,7 @@ do
       sudo apt update
       sudo apt install git zsh vim ctags vifm mosh tmux
       chsh -s $(which zsh)
-      sudo chsh -s $(which zsh)
+      sudo chsh -s $(which zsh) || true
       break;;
     "No" ) 
       break;;
@@ -60,13 +60,13 @@ echo "**************************************************************"
 echo ""
 echo ".normen: install node + npm"
 echo ""
-select yn in "No" "sudo" "nosudo" "MacOS (brew)";
+select yn in "No" "sudo (n)" "nosudo (n)" "MacOS (brew)";
 do
   case $yn in
-    "sudo" )
+    "sudo (n)" )
       sudo bash <(curl -s https://raw.githubusercontent.com/tj/n/master/bin/n)
       break;;
-    "nosudo" )
+    "nosudo (n)" )
       bash <(curl -s https://raw.githubusercontent.com/tj/n/master/bin/n)
       break;;
     "MacOS (brew)" )
