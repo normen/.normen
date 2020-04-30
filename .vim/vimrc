@@ -188,8 +188,8 @@ map <Leader><BS> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:noh<CR>
 :command GitCommitThis Git add %|Git commit
 :command GitCommitAll Git add -A|Git commit
 :command GitPushMaster Git push -f -u origin master
-:command GitPushAllMaster Git add -A|Git commit|Git push -f -u origin master
-:command GitPull Git pull --rebase origin master
+":command GitPushAllMaster Git add -A|Git commit|Git push -f -u origin master
+:command GitPullMaster Git pull --rebase origin master
 :command GitStash Git stash save -a
 :command GitPop Git stash pop
 :command GitUntracked Git ls-files --others --exclude-standard
