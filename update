@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -e
 cd ~/.normen
-git pull --rebase origin master
+#git pull --rebase origin master
 
-if [ -d "~/.normen/.vim/pack" ]; then
+if [ -d ~/.normen/.vim/pack ]; then
   ~/.normen/bin/git-recursive-update ~/.normen/.vim/pack
 fi
-if [ -d "~/.normen/.tmux/plugins" ]; then
+if [ -d ~/.normen/.tmux/plugins ]; then
   ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
 fi
