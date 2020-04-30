@@ -5,7 +5,6 @@ alias restart='sudo systemctl restart'
 alias log='sudo journalctl -f -u'
 alias :e='vim'
 alias :q=exit
-alias ls='ls -al'
 
 # Make <Esc> quicker
 export KEYTIMEOUT=1
