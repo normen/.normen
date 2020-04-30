@@ -18,7 +18,7 @@ export TERM=xterm-256color
 setopt histignorealldups #sharehistory
 
 # use paths as cd command
-setopt -s autocd
+setopt -S autocd
 
 # Use vi keybindings
 bindkey -v
