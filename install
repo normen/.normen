@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-cd ~/
-if [ ! -d ".normen" ]; then
-  git clone https://github.com/normen/.normen
-fi
-
 echo "**************************************************************"
 echo ""
 echo ".normen: install base apps (git,zsh,vim,ctags,vifm,mosh,tmux)?"
@@ -30,6 +25,11 @@ do
       break;;
   esac
 done
+
+cd ~/
+if [ ! -d ".normen" ]; then
+  git clone https://github.com/normen/.normen
+fi
 
 echo "**************************************************************"
 echo ""
