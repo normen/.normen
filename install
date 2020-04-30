@@ -55,10 +55,29 @@ do
   esac
 done
 
+echo "**************************************************************"
+echo ""
+echo ".normen: setup vifm? (do zo in vifm then :q)"
+echo ""
+select yn in "No" "Yes";
+do
+  case $yn in
+    "Yes" )
+      vifm
+      rm -rf ~/.config/vifm/colors
+      git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
+      echo "colorscheme gruvbox">> ~/.config/vifm/vifmrc
+      echo "nnoremap <C-e> :q<CR>">> ~/.config/vifm/vifmrc
+      break;;
+    "No" )
+      break;;
+  esac
+done
+
 
 echo "**************************************************************"
 echo ""
-echo ".normen: install node + npm"
+echo ".normen: install node 10?"
 echo ""
 select yn in "No" "sudo (n)" "nosudo (n)" "MacOS (brew)";
 do
@@ -84,6 +103,25 @@ done
 
 echo "**************************************************************"
 echo ""
+echo ".normen: install eslint + semistandard?"
+echo ""
+echo " -> mac usually nosudo"
+select yn in "No" "sudo" "nosudo";
+do
+  case $yn in
+    "nosudo" )
+      npm install -g eslint semistandard
+      break;;
+    "sudo" )
+      sudo npm install -g eslint semistandard --unsafe-perm
+      break;;
+    "No" )
+      break;;
+  esac
+done
+
+echo "**************************************************************"
+echo ""
 echo ".normen: install spaceship?"
 echo ""
 echo " -> mac usually nosudo"
@@ -95,25 +133,6 @@ do
       break;;
     "sudo" )
       sudo npm install -g spaceship-prompt --unsafe-perm
-      break;;
-    "No" )
-      break;;
-  esac
-done
-
-echo "**************************************************************"
-echo ""
-echo ".normen: setup vifm? (do zo in vifm then :q)"
-echo ""
-select yn in "No" "Yes";
-do
-  case $yn in
-    "Yes" )
-      vifm
-      rm -rf ~/.config/vifm/colors
-      git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
-      echo "colorscheme gruvbox">> ~/.config/vifm/vifmrc
-      echo "nnoremap <C-e> :q<CR>">> ~/.config/vifm/vifmrc
       break;;
     "No" )
       break;;
