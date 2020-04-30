@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+cd ~/
+if [ ! -d ".normen" ]; then
+  git clone https://github.com/normen/.normen
+fi
+
 echo "**************************************************************"
 echo ""
 echo ".normen: install base apps (git,zsh,vim,ctags,vifm,mosh,tmux)?"
@@ -148,10 +153,6 @@ select yn in "No" "Yes";
 do
   case $yn in
     "Yes" )
-      cd ~/
-      if [ ! -d ".normen" ]; then
-        git clone https://github.com/normen/.normen
-      fi
       rm -rf ~/.vim || true
       ln -s ~/.normen/.vim ~/.vim
       rm -f ~/.zshrc || true
