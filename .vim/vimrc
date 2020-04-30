@@ -184,6 +184,7 @@ map <Leader><BS> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:noh<CR>
 :command GitStash !git stash save -a
 :command GitPop !git stash pop
 :command GitUntracked !git ls-files --others --exclude-standard
+:command GitUnStageAll !git reset HEAD -- .
 
 :command HbUploadPlugin !rsync -azrv --delete ${PWD} pi@homebridge.local:~/npm-code/
 :command HbUploadPluginDry !rsync -n -azrv --delete ${PWD} pi@homebridge.local:~/npm-code/
