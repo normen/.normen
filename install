@@ -64,10 +64,14 @@ select yn in "No" "sudo (n)" "nosudo (n)" "MacOS (brew)";
 do
   case $yn in
     "sudo (n)" )
-      sudo bash <(curl -s https://raw.githubusercontent.com/tj/n/master/bin/n)
+      cd ~/
+      curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
+      sudo bash n 10
       break;;
     "nosudo (n)" )
-      bash <(curl -s https://raw.githubusercontent.com/tj/n/master/bin/n)
+      cd ~/
+      curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
+      bash n 10
       break;;
     "MacOS (brew)" )
       brew install node@10
