@@ -4,7 +4,6 @@ cd ~/.normen
 git pull --rebase origin master
 
 echo "🤓 update vim+tmux plugins?"
-echo ""
 select yn in "No" "Yes";
 do
   case $yn in
