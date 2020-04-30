@@ -22,9 +22,8 @@ do
 done
 
 echo "🤓 (node) install/update spaceship?"
+echo " -> mac usually nosudo"
 select yn in "No" "sudo" "nosudo";
-echo " -> mac usually nosudo"
-echo " -> mac usually nosudo"
 do
   case $yn in
     "nosudo" )
