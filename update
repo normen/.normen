@@ -3,36 +3,3 @@ set -e
 cd ~/.normen
 git pull --rebase origin master
 
-echo "🤓 update vim+tmux plugins?"
-select yn in "No" "Yes";
-do
-  case $yn in
-    "Yes" )
-      if [ -d ~/.normen/.vim/pack ]; then
-        ~/.normen/bin/git-recursive-update ~/.normen/.vim/pack
-      fi
-      if [ -d ~/.normen/.tmux/plugins ]; then
-        ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
-      fi
-      break;;
-    "No" ) 
-      break;;
-  esac
-done
-
-echo "🤓 (node) install/update spaceship?"
-echo " -> mac usually nosudo"
-select yn in "No" "sudo" "nosudo";
-do
-  case $yn in
-    "nosudo" )
-      npm update -g spaceship-prompt
-      break;;
-    "sudo" )
-      sudo npm update -g spaceship-prompt --unsafe-perm
-      break;;
-    "No" )
-      break;;
-  esac
-done
-
