@@ -114,6 +114,7 @@ if !executable('vifm')
   map <silent> <C-E> :Lexplore<CR>
 else
   map <silent> <C-E> :Vifm<CR>
+  map <silent> <C-W><C-E> :VsplitVifm<CR>
 endif
 
 " window nav
