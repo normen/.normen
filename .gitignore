@@ -3,4 +3,5 @@
 .vim/.netrwhist
 .tmux/plugins/**
 .tmux/resurrect/**
+session.vim
 
