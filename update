@@ -3,3 +3,9 @@ set -e
 cd ~/.normen
 git pull --rebase origin master
 
+if [ -d "~/.normen/.vim/pack" ]; then
+  ~/.normen/bin/git-recursive-update ~/.normen/.vim/pack
+fi
+if [ -d "~/.normen/.tmux/plugins" ]; then
+  ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
+fi
