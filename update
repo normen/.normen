@@ -3,9 +3,38 @@ set -e
 cd ~/.normen
 git pull --rebase origin master
 
-if [ -d ~/.normen/.vim/pack ]; then
-  ~/.normen/bin/git-recursive-update ~/.normen/.vim/pack
-fi
-if [ -d ~/.normen/.tmux/plugins ]; then
-  ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
-fi
+echo "🤓 update vim+tmux plugins?"
+echo ""
+select yn in "No" "Yes";
+do
+  case $yn in
+    "Yes" )
+      if [ -d ~/.normen/.vim/pack ]; then
+        ~/.normen/bin/git-recursive-update ~/.normen/.vim/pack
+      fi
+      if [ -d ~/.normen/.tmux/plugins ]; then
+        ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
+      fi
+      break;;
+    "No" ) 
+      break;;
+  esac
+done
+
+echo "🤓 (node) install/update spaceship?"
+select yn in "No" "sudo" "nosudo";
+echo " -> mac usually nosudo"
+echo " -> mac usually nosudo"
+do
+  case $yn in
+    "nosudo" )
+      npm install -g spaceship-prompt
+      break;;
+    "sudo" )
+      sudo npm install -g spaceship-prompt --unsafe-perm
+      break;;
+    "No" )
+      break;;
+  esac
+done
+
