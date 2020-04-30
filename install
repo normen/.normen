@@ -5,10 +5,14 @@ echo "**************************************************************"
 echo ""
 echo ".normen: install base apps (git,zsh,vim,ctags,vifm,mosh,tmux)?"
 echo ""
-select yn in "No" "MacOS" "Debian";
+select yn in "No" "Debian" "MacOS (install brew)" "MacOS (brew installed)";
 do
   case $yn in
-    "MacOS" )
+    "MacOS (install brew)" )
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+      brew install vim ctags vifm mosh tmux
+      break;;
+    "MacOS (brew installed)" )
       brew install vim ctags vifm mosh tmux
       break;;
     "Debian" )
@@ -26,7 +30,7 @@ echo "**************************************************************"
 echo ""
 echo ".normen: install vim plugins?"
 echo ""
-select yn in "No" "Delete" "Yes";
+select yn in "No" "Yes" "Delete";
 do
   case $yn in
     "Delete" )
@@ -54,22 +58,20 @@ done
 
 echo "**************************************************************"
 echo ""
-echo ".normen: install node + npm via n"
+echo ".normen: install node + npm"
 echo ""
-select yn in "No" "MacOS" "nosudo" "sudo";
+select yn in "No" "sudo" "nosudo" "MacOS (brew)";
 do
   case $yn in
-    "MacOS" )
-      brew install n
-      n 10
+    "sudo" )
+      sudo bash <(curl -s https://raw.githubusercontent.com/tj/n/master/bin/n)
       break;;
     "nosudo" )
-      curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
-      n 10
+      bash <(curl -s https://raw.githubusercontent.com/tj/n/master/bin/n)
       break;;
-    "sudo" )
-      sudo curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
-      sudo n 10
+    "MacOS (brew)" )
+      brew install node@10
+      brew link node@10 --force
       break;;
     "No" )
       break;;
@@ -81,7 +83,7 @@ echo ""
 echo ".normen: install spaceship?"
 echo ""
 echo " -> mac usually nosudo"
-select yn in "No" "nosudo" "sudo";
+select yn in "No" "sudo" "nosudo";
 do
   case $yn in
     "nosudo" )
