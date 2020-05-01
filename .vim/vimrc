@@ -141,6 +141,9 @@ vnoremap <Leader>y "*y
 nnoremap <Leader>p "*p
 nnoremap <Leader>P "*P
 
+" quick tools
+nnoremap <Leader>. :noh<CR>
+
 " german keys
 nmap ü ]
 nnoremap ]ü ]]
