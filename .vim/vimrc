@@ -144,6 +144,9 @@ nnoremap <Leader>P "*P
 " quick tools
 nnoremap <Leader>. :noh<CR>
 
+" opening/closing brackets
+inoremap {<CR> {<CR>}<ESC>O
+
 " german keys
 nmap ü ]
 nnoremap ]ü ]]
