@@ -192,3 +192,7 @@ do
   esac
 done
 
+if [ -f ~/.normen/install.local ]; then
+    ~/.normen/install.local
+fi
+

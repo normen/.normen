@@ -4,4 +4,7 @@
 .tmux/plugins/**
 .tmux/resurrect/**
 session.vim
+plugin-update.local
+update.local
+install.local
 

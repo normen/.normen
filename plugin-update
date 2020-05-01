@@ -33,3 +33,7 @@ do
   esac
 done
 
+if [ -f ~/.normen/plugin-update.local ]; then
+  ~/.normen/plugin-update.local
+fi
+

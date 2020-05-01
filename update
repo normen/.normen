@@ -3,3 +3,7 @@ set -e
 cd ~/.normen
 git pull --rebase origin master
 
+if [ -f ~/.normen/update.local ]; then
+    ~/.normen/update.local
+fi
+
