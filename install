@@ -74,7 +74,7 @@ do
       echo "YouCompleteMe deleted."
       ;;
     "Yes" )
-      cd ~/.vim/pack/default/start
+      cd ~/.normen/.vim/pack/default/start
       git clone https://github.com/ycm-core/YouCompleteMe YouCompleteMe
       cd YouCompleteMe
       git submodule update --init --recursive
