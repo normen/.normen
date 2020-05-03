@@ -33,6 +33,20 @@ do
   esac
 done
 
+echo "🤓 install/update YouCompleteMe?"
+select yn in "No" "Yes";
+do
+  case $yn in
+    "Yes" )
+      cd ~/.vim/pack/default/start/YouCompleteMe
+      git submodule update --init --recursive
+      python3 install.py --ts-completer
+      break;;
+    "No" )
+      break;;
+  esac
+done
+
 if [ -f ~/.normen/plugin-update.local ]; then
   ~/.normen/plugin-update.local
 fi
