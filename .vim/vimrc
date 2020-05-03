@@ -217,3 +217,6 @@ map <Leader><BS> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:noh<CR>
 
 :command PIOCreateMakefile !cp ~/.vim/templates/PlatformIO-Makefile ./Makefile
 :command -nargs=1 PIOInit !platformio project init --ide vim --board <args>
+
+:command JSCompletionEnable !cp ~/.vim/templates/jsconfig.json ./
+
