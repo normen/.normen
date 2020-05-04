@@ -8,6 +8,8 @@ alias :q=exit
 alias la='ls -A'
 alias ll='la -alF'
 alias l='ls -CF'
+alias mv='mv -i'
+alias rm='rm -i'
 
 # Make <Esc> quicker
 export KEYTIMEOUT=1
