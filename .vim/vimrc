@@ -143,6 +143,7 @@ nnoremap <Leader>P "*P
 
 " quick tools
 nnoremap <Leader>n :noh<CR>
+nnoremap <Leader>. @w
 
 " opening/closing brackets
 inoremap {<CR> {<CR>}<ESC>O
