@@ -93,8 +93,12 @@ do
       fi
       rm -rf $VIFM_PATH/colors
       git clone https://github.com/vifm/vifm-colors $VIFM_PATH/colors
-      echo "colorscheme gruvbox">> $VIFM_PATH/vifmrc
-      echo "nnoremap <C-e> :q<CR>">> $VIFM_PATH/vifmrc
+      if grep -q "colorscheme gruvbox" "$VIFM_PATH/vifmrc"; then
+        echo "Config already applied"
+      else
+        echo "colorscheme gruvbox">> $VIFM_PATH/vifmrc
+        echo "nnoremap <C-e> :q<CR>">> $VIFM_PATH/vifmrc
+      fi
       break;;
     "No" )
       break;;
