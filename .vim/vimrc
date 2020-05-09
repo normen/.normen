@@ -101,6 +101,7 @@ nnoremap <F1> :silent source! session.vim<CR>
 nnoremap <F2> :silent mksession! session.vim<CR>
 
 " build/generate commands
+nnoremap <F4> :silent set ft=homebridge\|make\|set ft=javascript<CR>
 nnoremap <F5> :silent make<CR>:cw<CR><C-L>
 nnoremap <F6> :silent !semistandard % --fix<CR><C-L>
 nnoremap <F7> :silent !ctags -R .<CR><C-L>
