@@ -56,6 +56,8 @@ do
       vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vifm/doc" -c q || true
       git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.normen/.vim/pack/default/start/vim-tmux-navigator || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-tmux-navigator/doc" -c q || true
+      git clone https://github.com/vimwiki/vimwiki ~/.normen/.vim/pack/default/start/vim-wiki || true
+      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-wiki/doc" -c q || true
       break;;
     "No" ) 
       break;;

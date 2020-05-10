@@ -76,6 +76,9 @@ set title
 "set titlestring=%{\"file://\".hostname().expand(\"%:p\")}
 auto BufEnter * let &titlestring = "file://" . substitute(hostname().expand("%:p"), " ", "+", "")
 
+" set vimwiki path and syntax
+let g:vimwiki_list = [{'path': '~/.normen/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+
 " disable gitgutter if no git executable
 if !executable('git')
   let g:gitgutter_enabled = 0
