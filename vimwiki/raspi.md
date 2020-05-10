@@ -1,6 +1,7 @@
 * [[raspi/homebridge]]
 * [[raspi/makerpi]]
 * [[raspi/friesenrack]]
+* [[raspi/cncjs]]
 
 ## General Raspi Info
 ```
