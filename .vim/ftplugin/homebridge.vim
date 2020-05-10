@@ -1,4 +1,4 @@
-set makeprg=homebridge\ -I\ -U\ ~/npm-code/testhomebridge/.homebridge
+set makeprg=npm\ run\ test
 
 " (c) https://github.com/felixge/vim-nodejs-errorformat/blob/master/ftplugin/javascript.vim
 " Error: bar
