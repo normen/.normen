@@ -1,17 +1,17 @@
 # Notes & Snippets
-* [[git]]
-* [[vim]]
-* [[npm]]
-* [[node]]
-* [[c]]
-* [[raspi]]
-* [[linux]]
-* [[macos]]
-* [[docker]]
-* [[dd-wrt]]
-* [[marlin]]
-* [[opencv]]
-* [[js-neuralnet]]
-* [[windows]]
-* [[hardware]]
+* [git](git)
+* [vim](vim)
+* [npm](npm)
+* [node](node)
+* [c](c)
+* [raspi](raspi)
+* [linux](linux)
+* [macos](macos)
+* [docker](docker)
+* [dd-wrt](dd-wrt)
+* [marlin](marlin)
+* [opencv](opencv)
+* [js-neuralnet](js-neuralnet)
+* [windows](windows)
+* [hardware](hardware)
 

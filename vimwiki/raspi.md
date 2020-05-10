@@ -1,9 +1,9 @@
 # Raspberry Pi
 ## Configured Boxes
-* [[raspi/homebridge]]
-* [[raspi/makerpi]]
-* [[raspi/friesenrack]]
-* [[raspi/cncjs]]
+* [raspi/homebridge](raspi/homebridge)
+* [raspi/makerpi](raspi/makerpi)
+* [raspi/friesenrack](raspi/friesenrack)
+* [raspi/cncjs](raspi/cncjs)
 
 ## General Raspi Info
 ```

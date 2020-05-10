@@ -1,8 +1,8 @@
 # Various Hardware
 ## Microcontrollers
-* [[hardware/ESP8266]]
-* [[hardware/LinkItSmart7688]]
-* [[hardware/Roomba]]
+* [hardware/ESP8266](hardware/ESP8266)
+* [hardware/LinkItSmart7688](hardware/LinkItSmart7688)
+* [hardware/Roomba](hardware/Roomba)
 
 ## Home Device Infos
 ```
