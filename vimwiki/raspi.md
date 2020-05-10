@@ -1,8 +1,8 @@
-[[raspi/homebridge]]
-[[raspi/makerpi]]
-[[raspi/friesenrack]]
+* [[raspi/homebridge]]
+* [[raspi/makerpi]]
+* [[raspi/friesenrack]]
 
-== General Raspi Info ==
+## General Raspi Info
 ```
 #image to disk osx:
 df -h

@@ -1,4 +1,4 @@
-= Maker Pi =
+## Maker Pi
 ```
 https://github.com/foosel/OctoPrint/wiki/Controlling-a-relay-board-from-your-RPi
 

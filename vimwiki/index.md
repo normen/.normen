@@ -1,7 +1,7 @@
-# Notes & Snippets
-[[git]]
-[[npm]]
-[[vim]]
-[[raspi]]
-[[linux]]
+[#](#) Notes & Snippets
+* [[git]]
+* [[npm]]
+* [[vim]]
+* [[raspi]]
+* [[linux]]
 

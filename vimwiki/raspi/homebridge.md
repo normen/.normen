@@ -1,4 +1,4 @@
-= Homebridge =
+## Homebridge
 ```
 {
             "accessory": "HttpAdvancedAccessory",

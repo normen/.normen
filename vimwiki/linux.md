@@ -1,4 +1,4 @@
-= Linux =
+## Linux
 ```
 #tar.gz
 tar -xvzf myfile.tar.gz
