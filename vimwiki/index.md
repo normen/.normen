@@ -3,4 +3,5 @@
 [[npm]]
 [[vim]]
 [[raspi]]
+[[linux]]
 

@@ -1,4 +1,6 @@
 [[raspi/homebridge]]
+[[raspi/makerpi]]
+[[raspi/friesenrack]]
 
 == General Raspi Info ==
 ```
