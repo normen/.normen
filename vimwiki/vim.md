@@ -1,4 +1,5 @@
 ## VIM
+#### Noob Stuff
 ```
 <Esc> - enter normal mode
 :q - quit
@@ -26,7 +27,9 @@ H, M, L - go to high, middle, low in visible window
 
 :ws - save&quit
 :q! - quit w/o saving
-
+```
+#### File Handling
+```
 :find name<Tab> - find file
 :e . - open file browser (:edit .)
 :tabf name<Tab> - find and open in tab
@@ -39,7 +42,9 @@ H, M, L - go to high, middle, low in visible window
 :ls - show open files
 :b filen - open of opened files (partial name)
 :bd - buffer delete (close open file)
-
+```
+#### Window/Commands
+```
 :split - split window (vsplit, hsplit)
 C-w C-w - switch window
 C-w _ - window max height
@@ -53,6 +58,24 @@ C-w o - only this window
 :bufdo - do for all buffers
 :tabdo bd - close all buffers in tabs
 
+# tabs
+vim -p file1 file2 file3 - open in tabs
+:tabnew filename - open in new tab
+:tabf inven* - find and open in new tab
+:tabn - next tab (or gt)
+:tabp - prev tab
+:tabdo %s/foo/bar/g - replace in all tabs
+:tabdo bd - close all tabs
+:tab sball - open all buffers in tabs
+
+# workspace
+:mksession session.vim
+
+# set build tool
+:set makeprg=npm\ run
+```
+#### Editing/Movement
+```
 :%y - copy whole file
 d$ - delete til end of line
 d0 - delete til beginning of line
@@ -113,7 +136,9 @@ v - select - :w FILE - save selection to new file
 > - indent
 
 vii - visual select inside indentation
-
+```
+#### Autocomplete/Special
+```
 # autocomplete (insert mode)
 C-n - autocomplete from after
 C-p - autocomplete from before
@@ -148,26 +173,12 @@ N - prev found
 :set ic - ignore case
 :set noic - no ignore case
 :set hls is - highlight + increment search
-
+```
+#### Scripts+Plugins
+```
 # numbers
 C-a / C-x - inc/dec numbers
 gC-a - sequential increment
-
-# tabs
-vim -p file1 file2 file3 - open in tabs
-:tabnew filename - open in new tab
-:tabf inven* - find and open in new tab
-:tabn - next tab (or gt)
-:tabp - prev tab
-:tabdo %s/foo/bar/g - replace in all tabs
-:tabdo bd - close all tabs
-:tab sball - open all buffers in tabs
-
-# workspace
-:mksession session.vim
-
-# set build tool
-:set makeprg=npm\ run
 
 # set register to..
 :let @a = "hello!"
