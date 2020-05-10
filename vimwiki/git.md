@@ -103,11 +103,6 @@ git rebase -i HEAD~3 //3 last commits
 #change pick -> reword in list
 git push --force
 
-# SETUP
-# cache password for an hour
-git config --global credential.helper cache
-git config --global credential.helper 'cache --timeout=3600'
-
 #! /bin/bash
 # git-interactive-merge
 from=$1

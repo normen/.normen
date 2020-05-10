@@ -3,5 +3,5 @@ set -e
 cd ~/.normen
 git add -A
 git commit -m "update"
-git push -f -u origin master
+git push origin master
 
