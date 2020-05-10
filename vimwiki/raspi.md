@@ -1,3 +1,5 @@
+# Raspberry Pi
+## Configured Boxes
 * [[raspi/homebridge]]
 * [[raspi/makerpi]]
 * [[raspi/friesenrack]]

@@ -1,8 +1,17 @@
 # Notes & Snippets
 * [[git]]
-* [[npm]]
 * [[vim]]
+* [[npm]]
+* [[node]]
+* [[c]]
 * [[raspi]]
 * [[linux]]
+* [[macos]]
+* [[docker]]
 * [[dd-wrt]]
+* [[marlin]]
+* [[opencv]]
+* [[js-neuralnet]]
+* [[windows]]
+* [[hardware]]
 
