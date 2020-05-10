@@ -1,4 +1,4 @@
-[#](#) Notes & Snippets
+# Notes & Snippets
 * [[git]]
 * [[npm]]
 * [[vim]]
