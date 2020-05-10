@@ -17,7 +17,7 @@ do
   esac
 done
 
-echo "🤓 (node) install/update spaceship?"
+echo "🤓 (node) update spaceship?"
 echo " -> mac usually nosudo"
 select yn in "No" "sudo" "nosudo";
 do
@@ -33,7 +33,7 @@ do
   esac
 done
 
-echo "🤓 install/update YouCompleteMe?"
+echo "🤓 update YouCompleteMe?"
 select yn in "No" "Yes";
 do
   case $yn in
