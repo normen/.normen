@@ -69,14 +69,16 @@ nano-ecs -> Entity system
 
 ### (command line) executables
 npm install -g pkg
-pkg . -> package native binary incl. runtime
---> package.json
+pkg . #-> package native binary incl. runtime
+<<CONTENT package.json
   "bin": "index.js",
   "pkg":{
     "targets": ["node10-macos-x64"]
   },
-<--
-
+CONTENT
+```
+#### code snippets
+```javascript
 ## JAVASCARIPT
 # download file
 var http = require('http');
