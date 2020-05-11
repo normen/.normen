@@ -61,11 +61,6 @@ sudo -H -u otheruser bash -c 'echo "I am $USER, with uid $UID"'
 # apt-get
 sudo apt-get autoremove --purge
 
-# install Node.js 8
-(use N!)
---- curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - ---
---- sudo apt install -y nodejs ---
-
 # systemd service
 # file at /etc/systemd/system/homebridge.service
 <<CONTENT

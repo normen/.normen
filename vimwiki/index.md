@@ -5,6 +5,7 @@
 * [npm](npm.md)
 * [node](node.md)
 * [c](c.md)
+* [bash](bash.md)
 ## Systems
 * [raspi](raspi.md)
 * [linux](linux.md)
