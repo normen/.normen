@@ -1,5 +1,5 @@
 ## cncjs
-```
+```bash
 invert spindle enable pin
 
 #raspbian jessie! (PS3 Controller doesn't work on stretch?)
@@ -16,7 +16,7 @@ sudo npm install --unsafe-perm -g cncjs
 cncjs
 
 #nano ~/.cncrc ->
-->
+<<CONTENT
   "watchDirectory": "/home/pi/cncdata",
   "accessTokenLifetime": "30d",
   "allowRemoteAccess": true,
@@ -24,12 +24,12 @@ cncjs
   "state": {
     "checkForUpdates": false
   },
-<-
+CONTENT
 
 #port 80
 sudo apt-get install haproxy
 #sudo nano /etc/haproxy/haproxy.cfg
-->
+<<CONTENT
 frontend public
         bind :::80 v4v6
         use_backend webcam if { path_beg /webcam/ }
@@ -43,7 +43,7 @@ backend cncjs
 backend webcam
         reqrep ^([^\ :]*)\ /webcam/(.*)     \1\ /\2
         server webcam1  127.0.0.1:8080
-<-
+CONTENT
 
 sudo systemctl enable haproxy
 
@@ -52,7 +52,7 @@ sudo service haproxy start
 
 # systemd service
 # sudo nano /etc/systemd/system/cncjs.service
--->
+<<CONTENT
 [Unit]
 Description=cncjs Server 
 After=syslog.target network-online.target
@@ -67,7 +67,7 @@ KillMode=process
 
 [Install]
 WantedBy=multi-user.target
-<--
+CONTENT
 
 sudo systemctl daemon-reload
 sudo systemctl enable cncjs
@@ -121,7 +121,7 @@ sudo nano /usr/lib/node_modules/cncjs-pendant-ps3/index.js
 -> set distances
 
 # sudo nano /etc/systemd/system/cncjs-pendant-ps3.service
--->
+<<CONTENT
 [Unit]
 Description=cncjs-pendant-ps3 Server 
 After=syslog.target network-online.target
@@ -136,17 +136,17 @@ KillMode=control-group
 
 [Install]
 WantedBy=multi-user.target
-<--
+CONTENT
 
 sudo systemctl daemon-reload
 sudo systemctl enable cncjs-pendant-ps3
 sudo systemctl start cncjs-pendant-ps3
 
 
-[[
+#[[
 sudo usermod -a -G input pi
 sudo usermod -a -G plugdev pi
-]]
+#]]
 
 #camera
 sudo apt-get install build-essential libjpeg62-turbo-dev imagemagick libv4l-dev libav-tools cmake -y
@@ -157,7 +157,7 @@ make -j 4
 sudo make install
 
 # nano /home/pi/mjpg-streamer.sh
-->
+<<CONTENT
 #!/bin/bash
 # chmod +x mjpg-streamer.sh
 # Crontab: @reboot /home/pi/mjpg-streamer/mjpg-streamer.sh start
@@ -304,15 +304,15 @@ else
     help
 
 fi
-<-
+CONTENT
 
 
 chmod +x /home/pi/mjpg-streamer.sh
 #nano /etc/rc.local
-->
+<<CONTENT
 sudo modprobe bcm2835-v4l2
 sudo /home/pi/mjpg-streamer.sh start
-<-
+CONTENT
 
 #readonly
 wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/read-only-fs.sh

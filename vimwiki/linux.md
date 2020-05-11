@@ -64,7 +64,7 @@ sudo apt-get autoremove --purge
 
 # systemd service
 # file at /etc/systemd/system/homebridge.service
--->
+<<CONTENT
 [Unit]
 Description=Node.js HomeKit Server 
 After=syslog.target network-online.target
@@ -83,7 +83,7 @@ KillMode=process
 
 [Install]
 WantedBy=multi-user.target
-<--
+CONTENT
 sudo systemctl daemon-reload
 sudo systemctl enable homebridge
 sudo systemctl start homebridge

@@ -1,5 +1,5 @@
 ## Friesenrack
-```
+```bash
 # RASPBIAN stretch
 sudo apt-get update
 sudo apt-get upgrade
@@ -17,7 +17,7 @@ npm install
 
 # MIDI-BLE
 sudo nano /etc/systemd/system/midi-ble.service
--->
+<<CONTENT
 [Unit]
 Description=Midi-BLE Bridge 
 After=syslog.target bluetooth.target network.target
@@ -32,7 +32,7 @@ KillMode=process
 
 [Install]
 WantedBy=multi-user.target
-<--
+CONTENT
 sudo systemctl daemon-reload
 sudo systemctl enable midi-ble
 sudo systemctl start midi-ble
@@ -45,14 +45,14 @@ sudo nano /etc/dhcpcd.conf
 sudo brctl addbr br0
 sudo brctl addif br0 eth0
 sudo nano /etc/network/interfaces
-->
+<<CONTENT
 #Bridge setup
 auto br0
 iface br0 inet static
 bridge_ports eth0 wlan0
 address 192.168.1.1
 netmask 255.255.255.0
-<-
+CONTENT
 
 # ACCESS POINT
 sudo nano /etc/hostapd/hostapd.conf
@@ -60,7 +60,7 @@ sudo nano /etc/hostapd/hostapd.conf
 # channel = acs_survey
 #5GHz
 # hw_mode=a
-->
+<<CONTENT
 interface=wlan0
 bridge=br0
 #driver=nl80211
@@ -76,7 +76,7 @@ wpa_passphrase=Password
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
-<-
+CONTENT
 sudo nano /etc/default/hostapd
 #DAEMON_CONF="/etc/hostapd/hostapd.conf"
 
@@ -93,10 +93,10 @@ sudo apt-get install dnsmasq
 sudo systemctl stop dnsmasq
 sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
 sudo nano /etc/dnsmasq.conf
-->
+<<CONTENT
 interface=br0
   dhcp-range=192.168.1.100,192.168.1.199,255.255.255.0,24h
-<-
+CONTENT
 
 # READONLY
 wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/read-only-fs.sh

@@ -1,6 +1,6 @@
 ## Maker Pi
-```
-https://github.com/foosel/OctoPrint/wiki/Controlling-a-relay-board-from-your-RPi
+```bash
+#https://github.com/foosel/OctoPrint/wiki/Controlling-a-relay-board-from-your-RPi
 
 #Octoprint
 sudo apt-get install python-pip python-dev python-setuptools python-virtualenv git libyaml-dev build-essential
@@ -31,7 +31,7 @@ sudo update-rc.d octoprint defaults
 #port 80
 sudo apt-get install haproxy
 #/etc/haproxy/haproxy.cfg
-->
+<<CONTENT
 frontend public
         bind :::80 v4v6
         use_backend webcam if { path_beg /webcam/ }
@@ -45,16 +45,16 @@ backend octoprint
 backend webcam
         reqrep ^([^\ :]*)\ /webcam/(.*)     \1\ /\2
         server webcam1  127.0.0.1:8080
-<-
+CONTENT
 
 #modify /etc/default/haproxy and enable HAProxy by setting ENABLED to 1.
 sudo service haproxy start
 
 #~/.octoprint/config.yaml make the server bind only to the loopback interface:
- ->
+<<CONTENT
 server:
     host: 127.0.0.1
-<-
+CONTENT
 
 #Restart the server. OctoPrint should still be available on port 80, including the webcam feed (if enabled).
 

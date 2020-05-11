@@ -1,4 +1,292 @@
 ## Homebridge
+```bash
+!!------------------------!!
+!! GPIO 0+2 of RPi Broken !!
+!!------------------------!!
+
+#node update
+sudo n 10.15.3
+
+#Need compile/reinstall after node update:
+sudo npm install -g --unsafe-perm homebridge homebridge-apple-tv homebridge-config-ui-x
+#miio ps4-waker ?
+
+#Need compile after node update (npm-code)
+sudo npm rebuild --unsafe-perm
+#in folders:
+homebridge-433-arduino homebridge-roomba-arduino
+
+---- Good general Info ---
+
+https://www.npmjs.com/package/homebridge-hue
+
+sudo systemctl restart avahi-daemon
+
+---- Typical Commands ----
+
+sudo npm outdated -g --depth=0
+
+sudo npm update -g --unsafe-perm <library names>
+
+---- Other Devices -------
+
+MiLight web user/pass: admin/admin
+
+--------------------------
+INSTALLATION:
+--------------------------
+sudo apt-get update
+sudo apt-get upgrade
+
+raspi-config
+
+# static IP, edit in /etc/dhcpcd.conf
+interface eth0
+static ip_address=192.168.2.100/24
+static routers=192.168.2.1
+static domain_name_servers=192.168.2.1
+
+# WLAN -> put in /boot/wpa_supplicant.conf
+/etc/wpa_supplicant/wpa_supplicant.conf
+<<CONTENT
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=SE
+
+network={
+	ssid="My Home SSID"
+	psk="My Passkey In Plain Text"
+	key_mgmt=WPA-PSK
+}
+CONTENT
+
+#power save off?
+iw wlan0 get power_save
+sudo iw wlan0 set power_save off
+/etc/network/interfaces
+<<CONTENT
+iface wlan0 inet dhcp
+  wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+  post-up iw wlan0 set power_save off
+CONTENT
+
+# rpi-update, updates firmware
+sudo apt-get install rpi-update
+sudo rpi-update
+
+sudo apt-get install git make
+
+sudo apt-get install wiringpi
+
+[[# wiringPi library / executable
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build
+sudo gpio
+]]
+
+[[# node.js ble (noble)
+sudo apt-get install libudev-dev
+#enable access to BLE for node process
+sudo apt-get install libcap2-bin
+sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
+]]
+
+# boot/config.txt
+#shutdown button on gpio 3 (actual pin 5, 6 is ground)
+dtoverlay=gpio-shutdown
+#send powe  r off signal on gpio 26 (e.g. turn off power supply)
+dtoverlay=gpio-poweroff
+
+# crontab, shut down wlan on boot and restart server monday 6:05
+sudo crontab -e
+-> @reboot sudo ifdown wlan0
+-> 5 6 * * Mon sudo /etc/init.d/homebridge restart
+
+# -> net command
+sudo apt-get install samba-common-bin 
+-> net rpc -S gamepc -U normen%password shutdown -t 1 -f
+
+sudo apt-get install libavahi-compat-libdnssd-dev
+
+sudo apt-get install libuv-dev
+
+# install Node.JS
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# so npm is not slow (rpi1)
+npm set progress=false
+npm config set registry http://registry.npmjs.org/
+# npm has issues? use npm@4.6.1 instead of 5.0.3
+
+
+#for appletv plugin rebuild after
+sudo npm install -g --unsafe-perm sodium
+
+sudo npm install --unsafe-perm -g homebridge homebridge-433-arduino homebridge-bravia homebridge-milight homebridge-camera-ffmpeg homebridge-platform-maxcube homebridge-cmdswitch2 homebridge-dummy homebridge-http-switch homebridge-videodoorbell homebridge-config-ui-x homebridge-http-motion-sensor
+
+# for doorbridge
+sudo npm install --unsafe-perm -g homebridge homebridge-gpio-device homebridge-config-ui-x
+
+
+#(insert changed homebridge modules)
+
+#(copy homebridge to etc/init.d)
+
+sudo update-rc.d homebridge defaults
+
+sudo npm install --unsafe-perm -g ps4-waker
+
+sudo ps4-waker (to get PS4 credentials)
+
+sudo homebridge (to get SonyTV credentials)
+
+# logrotate
+sudo touch /etc/logrotate.d/homebridge
+<<CONTENT (once for each log)
+/var/log/homebridge.log {
+    rotate 5
+    weekly
+    compress
+    missingok
+    notifempty
+}
+CONTENT
+
+
+# for omx to work
+GPU mem >= 64, best 256 for decoding and encoding
+sudo usermod -aG video pi //user access to video
+
+# Compile ffmpeg/cam stuffs -> takes 5+ hours on Pi1!! See deb below.
+# install build tools
+sudo apt-get install pkg-config autoconf automake libtool libx264-dev
+
+# download and build fdk-aac
+git clone https://github.com/mstorsjo/fdk-aac.git
+cd fdk-aac
+./autogen.sh
+./configure --prefix=/usr/local --enable-shared --enable-static
+make -j4
+sudo make install
+sudo ldconfig
+cd ..
+
+# download and build ffmpeg
+git clone https://github.com/FFmpeg/FFmpeg.git
+cd FFmpeg
+./configure --prefix=/usr/local --arch=armel --target-os=linux --enable-omx-rpi --enable-nonfree --enable-gpl --enable-libfdk-aac --enable-mmal --enable-libx264 --enable-decoder=h264 --enable-network --enable-protocol=tcp --enable-demuxer=rtsp
+make -j4
+sudo make install
+
+
+# add homebridge user (optional)
+sudo adduser homebridge
+sudo usermod -L homebridge #no login
+sudo usermod -a -G tty homebridge #USB access
+sudo usermod -a -G dialout homebridge #USB access
+sudo usermod -aG video homebridge #add GPU access
+sudo chsh homebridge -s /usr/sbin/nologin #no shell
+sudo passwd -d -l homebridge #remove password
+
+
+
+# busybox style readonly server
+https://kofler.info/raspbian-lite-fuer-den-read-only-betrieb/
+https://hallard.me/raspberry-pi-read-only/
+
+
+#--------------------------
+#RANDOM HOMEBRIDGE INFO
+#--------------------------
+
+#WATCHDOG
+
+sudo apt-get install watchdog
+sudo modprobe bcm2835_wdt
+sudo nano /etc/watchdog.conf
+<<CONTENT
+watchdog-device = /dev/watchdog
+max-load-1 = 24
+CONTENT
+
+sudo nano /lib/systemd/system/watchdog.service
+<<CONTENT
+[Install]
+WantedBy=multi-user.target
+CONTENT
+sudo systemctl enable watchdog
+sudo systemctl start watchdog.service
+
+# watchdog ping doesn't work 2018, see DIY below
+
+sudo nano /usr/local/bin/network_status.sh
+<<CONTENT
+#!/bin/bash
+
+gateway="192.168.2.1"
+interface="wlan0"
+
+ping -c4 $gateway > /dev/null
+if [ $? != 0 ] 
+then
+#  ifdown $interface
+#  sleep 3
+#  ifup --force $interface
+  reboot now
+fi
+CONTENT
+
+sudo chmod +x /usr/local/bin/network_status.sh
+
+sudo nano /etc/systemd/system/network_status.service
+<<CONTENT
+[Unit]
+Description=Check Network Status
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/network_status.sh
+CONTENT
+
+sudo nano /etc/systemd/system/network_status.timer
+<<CONTENT
+[Unit]
+Description=Runs Check Network Status every 2 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=2min
+Unit= network_status.service
+
+[Install]
+WantedBy=multi-user.target
+CONTENT
+
+sudo systemctl enable network_status.timer
+sudo systemctl start network_status.timer
+
+# noble
+sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
+
+
+
+
+
+
+#DEBUG kworker:
+sudo apt-get install linux-tools
+sudo apt-get install linux-tools-4.4
+
+# Get stack traces for 10s.
+sudo perf record -e cpu-clock -g -a sleep 10
+
+# Analyze.
+sudo perf report
+
+```
+#### random info
 ```
 {
             "accessory": "HttpAdvancedAccessory",
@@ -67,291 +355,6 @@
                 }
             }
         },
-
-!!------------------------!!
-!! GPIO 0+2 of RPi Broken !!
-!!------------------------!!
-
-#node update
-sudo n 10.15.3
-
-#Need compile/reinstall after node update:
-sudo npm install -g --unsafe-perm homebridge homebridge-apple-tv homebridge-config-ui-x
-#miio ps4-waker ?
-
-#Need compile after node update (npm-code)
-sudo npm rebuild --unsafe-perm
-#in folders:
-homebridge-433-arduino homebridge-roomba-arduino
-
----- Good general Info ---
-
-https://www.npmjs.com/package/homebridge-hue
-
-sudo systemctl restart avahi-daemon
-
----- Typical Commands ----
-
-sudo npm outdated -g --depth=0
-
-sudo npm update -g --unsafe-perm <library names>
-
----- Other Devices -------
-
-MiLight web user/pass: admin/admin
-
---------------------------
-INSTALLATION:
---------------------------
-sudo apt-get update
-sudo apt-get upgrade
-
-raspi-config
-
-# static IP, edit in /etc/dhcpcd.conf
-interface eth0
-static ip_address=192.168.2.100/24
-static routers=192.168.2.1
-static domain_name_servers=192.168.2.1
-
-# WLAN -> put in /boot/wpa_supplicant.conf
-/etc/wpa_supplicant/wpa_supplicant.conf
-->
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-country=SE
-
-network={
-	ssid="My Home SSID"
-	psk="My Passkey In Plain Text"
-	key_mgmt=WPA-PSK
-}
-<-
-
-#power save off?
-iw wlan0 get power_save
-sudo iw wlan0 set power_save off
-/etc/network/interfaces
-->
-iface wlan0 inet dhcp
-  wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-  post-up iw wlan0 set power_save off
-<-
-
-# rpi-update, updates firmware
-sudo apt-get install rpi-update
-sudo rpi-update
-
-sudo apt-get install git make
-
-sudo apt-get install wiringpi
-
-[[# wiringPi library / executable
-git clone git://git.drogon.net/wiringPi
-cd wiringPi
-./build
-sudo gpio
-]]
-
-[[# node.js ble (noble)
-sudo apt-get install libudev-dev
-#enable access to BLE for node process
-sudo apt-get install libcap2-bin
-sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
-]]
-
-# boot/config.txt
-#shutdown button on gpio 3 (actual pin 5, 6 is ground)
-dtoverlay=gpio-shutdown
-#send powe  r off signal on gpio 26 (e.g. turn off power supply)
-dtoverlay=gpio-poweroff
-
-# crontab, shut down wlan on boot and restart server monday 6:05
-sudo crontab -e
--> @reboot sudo ifdown wlan0
--> 5 6 * * Mon sudo /etc/init.d/homebridge restart
-
-# -> net command
-sudo apt-get install samba-common-bin 
--> net rpc -S gamepc -U normen%password shutdown -t 1 -f
-
-sudo apt-get install libavahi-compat-libdnssd-dev
-
-sudo apt-get install libuv-dev
-
-# install Node.JS
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-[[# so npm is not slow (rpi1)
-npm set progress=false
-npm config set registry http://registry.npmjs.org/
-# npm has issues? use npm@4.6.1 instead of 5.0.3
-]]
-
-#for appletv plugin rebuild after
-sudo npm install -g --unsafe-perm sodium
-
-sudo npm install --unsafe-perm -g homebridge homebridge-433-arduino homebridge-bravia homebridge-milight homebridge-camera-ffmpeg homebridge-platform-maxcube homebridge-cmdswitch2 homebridge-dummy homebridge-http-switch homebridge-videodoorbell homebridge-config-ui-x homebridge-http-motion-sensor
-
-[[# for doorbridge
-sudo npm install --unsafe-perm -g homebridge homebridge-gpio-device homebridge-config-ui-x
-]]
-
-(insert changed homebridge modules)
-
-(copy homebridge to etc/init.d)
-
-sudo update-rc.d homebridge defaults
-
-sudo npm install --unsafe-perm -g ps4-waker
-
-sudo ps4-waker (to get PS4 credentials)
-
-sudo homebridge (to get SonyTV credentials)
-
-[[# logrotate
-sudo touch /etc/logrotate.d/homebridge
--> (once for each log)
-/var/log/homebridge.log {
-    rotate 5
-    weekly
-    compress
-    missingok
-    notifempty
-}
-<-
-]]
-
-# for omx to work
-GPU mem >= 64, best 256 for decoding and encoding
-sudo usermod -aG video pi //user access to video
-
-# Compile ffmpeg/cam stuffs -> takes 5+ hours on Pi1!! See deb below.
-# install build tools
-sudo apt-get install pkg-config autoconf automake libtool libx264-dev
-
-# download and build fdk-aac
-git clone https://github.com/mstorsjo/fdk-aac.git
-cd fdk-aac
-./autogen.sh
-./configure --prefix=/usr/local --enable-shared --enable-static
-make -j4
-sudo make install
-sudo ldconfig
-cd ..
-
-# download and build ffmpeg
-git clone https://github.com/FFmpeg/FFmpeg.git
-cd FFmpeg
-./configure --prefix=/usr/local --arch=armel --target-os=linux --enable-omx-rpi --enable-nonfree --enable-gpl --enable-libfdk-aac --enable-mmal --enable-libx264 --enable-decoder=h264 --enable-network --enable-protocol=tcp --enable-demuxer=rtsp
-make -j4
-sudo make install
-
-[
-# add homebridge user (optional)
-sudo adduser homebridge
-sudo usermod -L homebridge #no login
-sudo usermod -a -G tty homebridge #USB access
-sudo usermod -a -G dialout homebridge #USB access
-sudo usermod -aG video homebridge #add GPU access
-sudo chsh homebridge -s /usr/sbin/nologin #no shell
-sudo passwd -d -l homebridge #remove password
-]
-
-[
-# busybox style readonly server
-https://kofler.info/raspbian-lite-fuer-den-read-only-betrieb/
-https://hallard.me/raspberry-pi-read-only/
-]
-
---------------------------
-RANDOM HOMEBRIDGE INFO
---------------------------
-
-WATCHDOG
-
-sudo apt-get install watchdog
-sudo modprobe bcm2835_wdt
-sudo nano /etc/watchdog.conf
--->
-watchdog-device = /dev/watchdog
-max-load-1 = 24
-<--
-
-sudo nano /lib/systemd/system/watchdog.service
--->
-[Install]
-WantedBy=multi-user.target
-<--
-sudo systemctl enable watchdog
-sudo systemctl start watchdog.service
-
-# watchdog ping doesn't work 2018, see DIY below
-
-sudo nano /usr/local/bin/network_status.sh
--->
-#!/bin/bash
-
-gateway="192.168.2.1"
-interface="wlan0"
-
-ping -c4 $gateway > /dev/null
-if [ $? != 0 ] 
-then
-#  ifdown $interface
-#  sleep 3
-#  ifup --force $interface
-  reboot now
-fi
-<--
-
-sudo chmod +x /usr/local/bin/network_status.sh
-
-sudo nano /etc/systemd/system/network_status.service
--->
-[Unit]
-Description=Check Network Status
-
-[Service]
-Type=simple
-ExecStart=/usr/local/bin/network_status.sh
-<---
-
-sudo nano /etc/systemd/system/network_status.timer
--->
-[Unit]
-Description=Runs Check Network Status every 2 minutes
-
-[Timer]
-OnBootSec=2min
-OnUnitActiveSec=2min
-Unit= network_status.service
-
-[Install]
-WantedBy=multi-user.target
-<--
-
-sudo systemctl enable network_status.timer
-sudo systemctl start network_status.timer
-
-# noble
-sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
-
-
-
-
-
-
-DEBUG kworker:
-sudo apt-get install linux-tools
-sudo apt-get install linux-tools-4.4
-
-# Get stack traces for 10s.
-sudo perf record -e cpu-clock -g -a sleep 10
-
-# Analyze.
-sudo perf report
 
 -> bcm2835 (GPIO)
 

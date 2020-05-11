@@ -6,7 +6,7 @@
 * [raspi/cncjs](raspi/cncjs.md)
 
 ## General Raspi Info
-```
+```bash
 #image to disk osx:
 df -h
 #/dev/disk2s1 -> /dev/rdisk2
@@ -14,17 +14,19 @@ sudo dd of=/dev/rdisk2 if=./2019-04-08-raspbian-stretch.img bs=1m conv=sync
 
 #1024x600 HDMI:
 #/boot/config.txt
+<<CONTENT
 max_usb_current=1
 hdmi_drive=1
 disable_overscan=1
 hdmi_cvt=1024 600 60 6 0 0 0
 hdmi_group=2
 hdmi_mode=87
+CONTENT
 
 #first boot direct
 touch ssh
 vim wpa_supplicant.conf
-->
+<<CONTENT
 country=DE
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
@@ -32,7 +34,7 @@ network={
     ssid="wifi_ssid"
     psk="wifi_password"
 }
-<-
+CONTENT
 # add ssh key
 rsync -azv ~/.ssh/authorized_keys pi@raspberrypi:~/.ssh/
 
@@ -42,14 +44,14 @@ chsh -s $(which zsh)
 
 #desktop autostart
 sudo nano ~/.config/autostart/MeinAutostart.desktop
-->
+<<CONTENT
 [Desktop Entry]
 Name=Autostart-Script
 Comment=Kommentar
 Type=Application
 Exec=Mein-Script.sh
 Terminal=false
-<-
+CONTENT
 
 #POWER GOOD?
 vcgencmd get_throttled
@@ -78,15 +80,15 @@ sudo npm rebuild --unsafe-perm
 sudo apt-get install smbclient cifs-utils
 sudo mkdir /backup
 sudo nano /etc/fstab
-->
+<<CONTENT
 //hausrouter/backup /backup cifs defaults,noauto,nofail,vers=1.0,credentials=/home/pi/.smblogin,x-systemd.automount,x-systemd.requires=network-online.target    0    0
-<-
+CONTENT
 sudo nano /home/pi/.smblogin
-->
+<<CONTENT
 username=backup
 password=password
 workgroup=WORKGROUP
-<-
+CONTENT
 curl -s -L -O https://www.linux-tips-and-tricks.de/raspiBackupInstallUI.sh && sudo bash raspiBackupInstallUI.sh
 raspiBackup.sh
 
@@ -99,7 +101,7 @@ sudo raspiBackup.sh -d /dev/sda /backup/homebridge/homebridge-tar-backup-xxx/
 #-> Port 80
 sudo apt-get install haproxy
 #/etc/haproxy/haproxy.cfg
-->
+<<CONTENT
 frontend public
         bind :::80 v4v6
         use_backend webcam if { path_beg /webcam/ }
@@ -113,7 +115,7 @@ backend octoprint
 backend webcam
         reqrep ^([^\ :]*)\ /webcam/(.*)     \1\ /\2
         server webcam1  127.0.0.1:8080
-<-
+CONTENT
 
 #modify /etc/default/haproxy and enable HAProxy by setting ENABLED to 1.
 sudo service haproxy start
@@ -149,7 +151,7 @@ sudo apt install samba
 sudo mkdir -m 1777 /data
 sudo smbpasswd -a pi
 sudo vim /etc/samba/smb.conf
-->
+<<CONTENT
 [timemachine]
   comment = Time Machine
   path = /data
@@ -161,6 +163,6 @@ sudo vim /etc/samba/smb.conf
   vfs objects = catia fruit streams_xattr
   fruit:aapl = yes
   fruit:time machine = yes
-<-
+CONTENT
 
 ```
