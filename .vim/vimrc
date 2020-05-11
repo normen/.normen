@@ -153,7 +153,7 @@ nnoremap <Leader>n :noh<CR>
 nnoremap <Leader>. @w
 
 " wiki split
-nmap <Leader>wv :vsplit<CR>,ww
+nmap <Leader>wv :50vsplit<CR>,ww
 
 " opening/closing brackets
 inoremap {<CR> {<CR>}<ESC>O
