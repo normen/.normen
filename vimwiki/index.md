@@ -2,8 +2,8 @@
 ## Dev
 * [git](git.md)
 * [vim](vim.md)
-* [npm](npm.md)
 * [node](node.md)
+* [javascript](javascript.md)
 * [c](c.md)
 * [bash](bash.md)
 ## Systems
