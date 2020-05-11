@@ -1,5 +1,6 @@
 .DS_Store
 .vim/pack/**
+vimwiki/diary/**
 .vim/.netrwhist
 .tmux/plugins/**
 .tmux/resurrect/**
