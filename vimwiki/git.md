@@ -1,5 +1,5 @@
 ## GIT
-```
+```bash
 # init repo + add remote
 git init
 git remote add origin https://github.com/normen/blah.git

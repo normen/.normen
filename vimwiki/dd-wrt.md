@@ -1,5 +1,5 @@
 ## dd-wrt
-```
+```bash
 http://dd-wrt.com/
 
 # HAUSROUTER Netgear R6400 v2

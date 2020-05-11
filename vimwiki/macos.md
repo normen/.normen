@@ -1,5 +1,5 @@
 ## macos
-```
+```bash
 # log iCloud Drive activity
 brctl log -wt //--wait --shorten
 brctl log -wtl 6 //no debug

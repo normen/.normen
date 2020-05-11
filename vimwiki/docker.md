@@ -1,5 +1,5 @@
 ## docker
-```
+```bash
 # stat display ("top")
 docker stats
 # remove all images (keeps used ones)

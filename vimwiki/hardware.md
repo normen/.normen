@@ -1,11 +1,11 @@
 # Various Hardware
 ## Microcontrollers
-* [hardware/ESP8266](hardware/ESP8266)
-* [hardware/LinkItSmart7688](hardware/LinkItSmart7688)
-* [hardware/Roomba](hardware/Roomba)
+* [hardware/ESP8266](hardware/ESP8266.md)
+* [hardware/LinkItSmart7688](hardware/LinkItSmart7688.md)
+* [hardware/Roomba](hardware/Roomba.md)
 
 ## Home Device Infos
-```
+```bash
 # CAMS
 
 #Denver

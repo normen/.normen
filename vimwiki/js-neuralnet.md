@@ -1,9 +1,10 @@
 ## js-neuralnet
-```
+```bash
 # neural net
 npm install brain
 npm install one-hot
-
+```
+```javascript
 # brain
 const Brain = require('brain');
 var mind = new Brain.NeuralNetwork();

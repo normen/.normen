@@ -1,5 +1,5 @@
 ## Linux
-```
+```bash
 #tar.gz
 tar -xvzf myfile.tar.gz
 # start process and get PID

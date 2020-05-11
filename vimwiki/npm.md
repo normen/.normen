@@ -1,5 +1,5 @@
 ## NPM
-```
+```bash
 # log into account
 npm login
 # init project

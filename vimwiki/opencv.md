@@ -1,5 +1,5 @@
 ## opencv
-```
+```bash
 https://blog.mixable.de/opencv-python-eigene-haar-cascade-erstellen/
 
 # convert mjpeg to single jpg
