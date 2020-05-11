@@ -35,6 +35,10 @@ gunzip --to-stdout input.gz | zip > output.zip
 # find large files
 du -k | sort -n -r | head
 
+# zsh default shell
+sudo apt install zsh
+chsh -s $(which zsh)
+
 # ssh keys
 #local
 ssh-keygen

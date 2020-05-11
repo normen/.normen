@@ -26,10 +26,6 @@ rsync -azv ~/.ssh/authorized_keys pi@raspberrypi:~/.ssh/
 # install .normen
 bash <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install)
 
-# zsh default
-sudo apt install vim zsh mosh git
-chsh -s $(which zsh)
-
 #1024x600 HDMI:
 #/boot/config.txt
 <<CONTENT
