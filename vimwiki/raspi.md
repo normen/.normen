@@ -56,7 +56,7 @@ PasswordAuthentication no
 #image to disk osx:
 df -h
 #/dev/disk2s1 -> /dev/rdisk2
-sudo dd of=/dev/rdisk2 if=./2019-04-08-raspbian-stretch.img bs=1m conv=sync
+sudo dd of=/dev/rdisk2 if=./2019-04-08-raspbian-stretch.img bs=1m conv=sync status=progress
 
 #POWER GOOD?
 vcgencmd get_throttled
