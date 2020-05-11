@@ -192,7 +192,8 @@ shift-i - insert block
 
 # templates
 nnoremap ,mytemp :-lread $HOME/.vim/.mytemplate.js<CR>
-
+```
+```bash
 #### ctags
 brew install ctags
 ctags -R .
@@ -202,10 +203,10 @@ nnoremap <leader>t :silent !ctags -R .<CR><C-L>
 npm install -g eslint
 mkdir ~/.vim/ftplugin
 vim ~/.vim/ftplugin/javascript.vim
-->
+<<CONTENT
 setlocal makeprg=eslint\ --format\ compact\ %
 setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %m,%-G%.%#
-<-
+CONTENT
 
 :make - find errors
 :cn - next error
@@ -230,9 +231,9 @@ git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/pack/airblade/sta
 git clone https://tpope.io/vim/surround.git ~/.vim/pack/tpope/start/surround
 :helptags ~/.vim/pack/tpope/start/surround/doc
 
-cs"' - change surrounding " to '
-ds" - delete surrounding "
-ysiw( - surround inner word with (
+#cs"' - change surrounding " to '
+#ds" - delete surrounding "
+#ysiw( - surround inner word with (
 
 #### airline plugin
 git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
@@ -241,10 +242,10 @@ git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-
 #### gruvbox
 git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox
 vim ~/.vim/vimrc
-->
+<<CONTENT
 colorscheme gruvbox
 set background=dark
-<-
+CONTENT
 
 #### vifm 
 brew install vifm
@@ -252,16 +253,16 @@ vifm
 rm -rf ~/.config/vifm/colors
 git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
 vim ~/.config/vifm/vifmrc
-->
+<<CONTENT
 colorscheme gruvbox
 nnoremap <C-e> :q<CR>
-<-
+CONTENT
 git clone https://github.com/vifm/vifm.vim ~/.vim/pack/default/start/vifm
 :helptags ~/.vim/pack/default/start/vifm/doc
 
 #### vim-tmux-navigator
 git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.vim/pack/default/start/vim-tmux-navigator
-->
+<<CONTENT
 # Smart pane switching with awareness of Vim splits.
 # See: https://github.com/christoomey/vim-tmux-navigator
 is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
@@ -280,7 +281,7 @@ bind-key -T copy-mode-vi 'C-j' select-pane -D
 bind-key -T copy-mode-vi 'C-k' select-pane -U
 bind-key -T copy-mode-vi 'C-l' select-pane -R
 bind-key -T copy-mode-vi 'C-\' select-pane -l
-<-
+CONTENT
 tmux new -s mysession
 tmux new -A -s mysession # attaches if exists
 tmux attach -t mysession
@@ -318,6 +319,7 @@ git clone https://github.com/vim-syntastic/syntastic.git ~/.vim/pack/syntastic/s
 :helptags ~/.vim/pack/syntastic/start/syntastic/doc
 
 #.vimrc
+<<CONTENT
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -329,7 +331,7 @@ let g:syntastic_check_on_wq = 0
 
 :lopen - errors
 :lwindow - open error window
-
+CONTENT
 
 #### BUILDING VIM
 sudo apt-get install ncurses-dev python3-dev
