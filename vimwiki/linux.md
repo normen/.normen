@@ -42,6 +42,10 @@ ssh-keygen
 #remote
 key file -> .ssh/authorized_keys
 chmod 600 .ssh/authorized_keys
+# disable password login
+sudo vim /etc/ssh/sshd_config
+ChallengeResponseAuthentication no
+PasswordAuthentication no
 
 # fsck
 sudo tune2fs -l /dev/sda1 | grep "Last checked"

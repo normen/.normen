@@ -52,6 +52,11 @@ Exec=Mein-Script.sh
 Terminal=false
 CONTENT
 
+#disable password login
+sudo vim /etc/ssh/sshd_config
+ChallengeResponseAuthentication no
+PasswordAuthentication no
+
 #image to disk osx:
 df -h
 #/dev/disk2s1 -> /dev/rdisk2
