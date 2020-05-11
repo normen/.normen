@@ -7,25 +7,6 @@
 
 ## General Raspi Info
 ```bash
-# install .normen
-bash <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install)
-
-#image to disk osx:
-df -h
-#/dev/disk2s1 -> /dev/rdisk2
-sudo dd of=/dev/rdisk2 if=./2019-04-08-raspbian-stretch.img bs=1m conv=sync
-
-#1024x600 HDMI:
-#/boot/config.txt
-<<CONTENT
-max_usb_current=1
-hdmi_drive=1
-disable_overscan=1
-hdmi_cvt=1024 600 60 6 0 0 0
-hdmi_group=2
-hdmi_mode=87
-CONTENT
-
 #first boot direct
 touch ssh
 vim wpa_supplicant.conf
@@ -38,12 +19,27 @@ network={
     psk="wifi_password"
 }
 CONTENT
+
 # add ssh key
 rsync -azv ~/.ssh/authorized_keys pi@raspberrypi:~/.ssh/
+
+# install .normen
+bash <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install)
 
 # zsh default
 sudo apt install vim zsh mosh git
 chsh -s $(which zsh)
+
+#1024x600 HDMI:
+#/boot/config.txt
+<<CONTENT
+max_usb_current=1
+hdmi_drive=1
+disable_overscan=1
+hdmi_cvt=1024 600 60 6 0 0 0
+hdmi_group=2
+hdmi_mode=87
+CONTENT
 
 #desktop autostart
 sudo nano ~/.config/autostart/MeinAutostart.desktop
@@ -55,6 +51,11 @@ Type=Application
 Exec=Mein-Script.sh
 Terminal=false
 CONTENT
+
+#image to disk osx:
+df -h
+#/dev/disk2s1 -> /dev/rdisk2
+sudo dd of=/dev/rdisk2 if=./2019-04-08-raspbian-stretch.img bs=1m conv=sync
 
 #POWER GOOD?
 vcgencmd get_throttled
