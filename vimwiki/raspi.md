@@ -7,6 +7,9 @@
 
 ## General Raspi Info
 ```bash
+# install .normen
+bash <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install)
+
 #image to disk osx:
 df -h
 #/dev/disk2s1 -> /dev/rdisk2
