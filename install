@@ -54,11 +54,12 @@ do
       vim -u NONE -c "helptags ~/.normen/.vim/pack/dist/start/vim-airline/doc" -c q || true
       git clone https://github.com/vifm/vifm.vim ~/.normen/.vim/pack/default/start/vifm || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vifm/doc" -c q || true
-      git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.normen/.vim/pack/default/start/vim-tmux-navigator || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-tmux-navigator/doc" -c q || true
       git clone https://github.com/vimwiki/vimwiki ~/.normen/.vim/pack/default/start/vim-wiki || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-wiki/doc" -c q || true
-      git clone https://github.com/roxma/vim-tmux-clipboard ~/.normen/.vim/pack/default/start/vim-tmux-clipboard
+      git clone https://github.com/tmux-plugins/vim-tmux-focus-events ~/.normen/.vim/pack/default/start/vim-tmux-focus-events || true
+      git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.normen/.vim/pack/default/start/vim-tmux-navigator || true
+      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-tmux-navigator/doc" -c q || true
+      git clone https://github.com/roxma/vim-tmux-clipboard ~/.normen/.vim/pack/default/start/vim-tmux-clipboard || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-tmux-clipboard/doc" -c q || true
       break;;
     "No" ) 
