@@ -155,6 +155,14 @@ nnoremap <Leader>. @w
 " wiki split
 nmap <Leader>wv :50vsplit<CR>,ww
 
+" quick write to tmux pane
+nnoremap <Leader>tb :Twrite bottom<CR>
+nnoremap <Leader>tl :Twrite left<CR>
+nnoremap <Leader>tr :Twrite right<CR>
+vnoremap <Leader>tb :Twrite bottom<CR>
+vnoremap <Leader>tl :Twrite left<CR>
+vnoremap <Leader>tr :Twrite right<CR>
+
 " opening/closing brackets
 inoremap {<CR> {<CR>}<ESC>O
 
