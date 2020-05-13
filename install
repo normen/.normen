@@ -43,24 +43,34 @@ do
       echo "all plugins deleted."
       ;;
     "Yes" )
+      # gruvbox - eye candy
       git clone https://github.com/morhetz/gruvbox.git ~/.normen/.vim/pack/default/start/gruvbox || true
+      # gitgutter - git infos in file
       git clone https://github.com/airblade/vim-gitgutter.git ~/.normen/.vim/pack/airblade/start/vim-gitgutter || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/airblade/start/vim-gitgutter/doc" -c q || true
+      # fugitive - :G git command
       git clone https://tpope.io/vim/fugitive.git ~/.normen/.vim/pack/tpope/start/fugitive || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/tpope/start/fugitive/doc" -c q || true
+      # surround - work on surrounding quotes etc
       git clone https://tpope.io/vim/surround.git ~/.normen/.vim/pack/tpope/start/surround || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/tpope/start/surround/doc" -c q || true
+      # tbone - :Twrite / :Tyank etc. to work with tmux
       git clone https://tpope.io/vim/tbone.git ~/.normen/.vim/pack/tpope/start/tbone || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/tpope/start/tbone/doc" -c q || true
+      # airline - bottom status line
       git clone https://github.com/vim-airline/vim-airline ~/.normen/.vim/pack/dist/start/vim-airline || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/dist/start/vim-airline/doc" -c q || true
+      # vifm - integration with vifm file manager
       git clone https://github.com/vifm/vifm.vim ~/.normen/.vim/pack/default/start/vifm || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vifm/doc" -c q || true
+      # vimwiki - note taking
       git clone https://github.com/vimwiki/vimwiki ~/.normen/.vim/pack/default/start/vim-wiki || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-wiki/doc" -c q || true
-      git clone https://github.com/tmux-plugins/vim-tmux-focus-events ~/.normen/.vim/pack/default/start/vim-tmux-focus-events || true
+      # tmux-navigator - Ctrl-hjkl moving in tmux and vim
       git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.normen/.vim/pack/default/start/vim-tmux-navigator || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-tmux-navigator/doc" -c q || true
+      # tmux-clipboard - auto-sync clipboard of tmux and vim
+      git clone https://github.com/tmux-plugins/vim-tmux-focus-events ~/.normen/.vim/pack/default/start/vim-tmux-focus-events || true
       git clone https://github.com/roxma/vim-tmux-clipboard ~/.normen/.vim/pack/default/start/vim-tmux-clipboard || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-tmux-clipboard/doc" -c q || true
       break;;
