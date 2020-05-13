@@ -25,4 +25,9 @@ for i in \
 do
    printf '%s\n' "$i"
 done
+
+# quit when return != 0
+set -e
+# let != 0 pass:
+failing_process || true
 ```
