@@ -205,13 +205,13 @@ https://hallard.me/raspberry-pi-read-only/
 
 sudo apt-get install watchdog
 sudo modprobe bcm2835_wdt
-sudo nano /etc/watchdog.conf
+sudo vim /etc/watchdog.conf
 <<CONTENT
 watchdog-device = /dev/watchdog
 max-load-1 = 24
 CONTENT
 
-sudo nano /lib/systemd/system/watchdog.service
+sudo vim /lib/systemd/system/watchdog.service
 <<CONTENT
 [Install]
 WantedBy=multi-user.target
@@ -221,7 +221,7 @@ sudo systemctl start watchdog.service
 
 # watchdog ping doesn't work 2018, see DIY below
 
-sudo nano /usr/local/bin/network_status.sh
+sudo vim /usr/local/bin/network_status.sh
 <<CONTENT
 #!/bin/bash
 
@@ -240,7 +240,7 @@ CONTENT
 
 sudo chmod +x /usr/local/bin/network_status.sh
 
-sudo nano /etc/systemd/system/network_status.service
+sudo vim /etc/systemd/system/network_status.service
 <<CONTENT
 [Unit]
 Description=Check Network Status
@@ -250,7 +250,7 @@ Type=simple
 ExecStart=/usr/local/bin/network_status.sh
 CONTENT
 
-sudo nano /etc/systemd/system/network_status.timer
+sudo vim /etc/systemd/system/network_status.timer
 <<CONTENT
 [Unit]
 Description=Runs Check Network Status every 2 minutes

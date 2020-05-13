@@ -15,7 +15,7 @@ sudo apt install -y nodejs
 sudo npm install --unsafe-perm -g cncjs
 cncjs
 
-#nano ~/.cncrc ->
+#vim ~/.cncrc ->
 <<CONTENT
   "watchDirectory": "/home/pi/cncdata",
   "accessTokenLifetime": "30d",
@@ -28,7 +28,7 @@ CONTENT
 
 #port 80
 sudo apt-get install haproxy
-#sudo nano /etc/haproxy/haproxy.cfg
+#sudo vim /etc/haproxy/haproxy.cfg
 <<CONTENT
 frontend public
         bind :::80 v4v6
@@ -51,7 +51,7 @@ sudo systemctl enable haproxy
 sudo service haproxy start
 
 # systemd service
-# sudo nano /etc/systemd/system/cncjs.service
+# sudo vim /etc/systemd/system/cncjs.service
 <<CONTENT
 [Unit]
 Description=cncjs Server 
@@ -116,11 +116,11 @@ sudo udevadm control --reload-rules
 
 exit
 
-sudo nano /usr/lib/node_modules/cncjs-pendant-ps3/index.js
+sudo vim /usr/lib/node_modules/cncjs-pendant-ps3/index.js
 -> remove output to controller
 -> set distances
 
-# sudo nano /etc/systemd/system/cncjs-pendant-ps3.service
+# sudo vim /etc/systemd/system/cncjs-pendant-ps3.service
 <<CONTENT
 [Unit]
 Description=cncjs-pendant-ps3 Server 
@@ -156,7 +156,7 @@ cd mjpg-streamer/mjpg-streamer-experimental
 make -j 4
 sudo make install
 
-# nano /home/pi/mjpg-streamer.sh
+# vim /home/pi/mjpg-streamer.sh
 <<CONTENT
 #!/bin/bash
 # chmod +x mjpg-streamer.sh
@@ -308,7 +308,7 @@ CONTENT
 
 
 chmod +x /home/pi/mjpg-streamer.sh
-#nano /etc/rc.local
+#vim /etc/rc.local
 <<CONTENT
 sudo modprobe bcm2835-v4l2
 sudo /home/pi/mjpg-streamer.sh start
@@ -318,13 +318,13 @@ CONTENT
 wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/read-only-fs.sh
 sudo bash read-only-fs.sh
 
-#sudo nano /etc/fstab
+#sudo vim /etc/fstab
 tmpfs /usr/lib/node_modules/cncjs/dist/cnc/app/sessions tmpfs nodev,nosuid 0 0
 tmpfs /home/pi/cncdata tmpfs nodev,nosuid 0 0
 
 #fix time?
 sudo apt-get install ntpdate
-#sudo nano /etc/rc.local ->
+#sudo vim /etc/rc.local ->
 sudo /usr/sbin/ntpdate -b 0.de.pool.ntp.org
 
 #1.9.15:

@@ -38,7 +38,7 @@ hdmi_mode=87
 CONTENT
 
 #desktop autostart
-sudo nano ~/.config/autostart/MeinAutostart.desktop
+sudo vim ~/.config/autostart/MeinAutostart.desktop
 <<CONTENT
 [Desktop Entry]
 Name=Autostart-Script
@@ -64,7 +64,7 @@ vcgencmd get_throttled
 #readonly
 wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/read-only-fs.sh
 sudo bash read-only-fs.sh
-#sudo nano /etc/fstab
+#sudo vim /etc/fstab
 tmpfs /usr/lib/node_modules/cncjs/dist/cnc/app/sessions tmpfs nodev,nosuid 0 0
 tmpfs /home/pi/cncdata tmpfs nodev,nosuid 0 0
 
@@ -84,11 +84,11 @@ sudo npm rebuild --unsafe-perm
 # BACKUP TO NAS
 sudo apt-get install smbclient cifs-utils
 sudo mkdir /backup
-sudo nano /etc/fstab
+sudo vim /etc/fstab
 <<CONTENT
 //hausrouter/backup /backup cifs defaults,noauto,nofail,vers=1.0,credentials=/home/pi/.smblogin,x-systemd.automount,x-systemd.requires=network-online.target    0    0
 CONTENT
-sudo nano /home/pi/.smblogin
+sudo vim /home/pi/.smblogin
 <<CONTENT
 username=backup
 password=password

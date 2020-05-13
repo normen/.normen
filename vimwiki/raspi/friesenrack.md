@@ -16,7 +16,7 @@ cd /home/pi/midi-ble
 npm install
 
 # MIDI-BLE
-sudo nano /etc/systemd/system/midi-ble.service
+sudo vim /etc/systemd/system/midi-ble.service
 <<CONTENT
 [Unit]
 Description=Midi-BLE Bridge 
@@ -40,11 +40,11 @@ sudo systemctl start midi-ble
 # BRIDGE
 sudo apt-get install hostapd bridge-utils
 sudo systemctl stop hostapd
-sudo nano /etc/dhcpcd.conf
+sudo vim /etc/dhcpcd.conf
 #Add denyinterfaces wlan0 and denyinterfaces eth0 to the end of the file 
 sudo brctl addbr br0
 sudo brctl addif br0 eth0
-sudo nano /etc/network/interfaces
+sudo vim /etc/network/interfaces
 <<CONTENT
 #Bridge setup
 auto br0
@@ -55,7 +55,7 @@ netmask 255.255.255.0
 CONTENT
 
 # ACCESS POINT
-sudo nano /etc/hostapd/hostapd.conf
+sudo vim /etc/hostapd/hostapd.conf
 #wifi scan for access point channel:
 # channel = acs_survey
 #5GHz
@@ -77,7 +77,7 @@ wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 CONTENT
-sudo nano /etc/default/hostapd
+sudo vim /etc/default/hostapd
 #DAEMON_CONF="/etc/hostapd/hostapd.conf"
 
 #if hostapd fails on acs_survey:
@@ -92,7 +92,7 @@ RestartForceExitStatus=0
 sudo apt-get install dnsmasq 
 sudo systemctl stop dnsmasq
 sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
-sudo nano /etc/dnsmasq.conf
+sudo vim /etc/dnsmasq.conf
 <<CONTENT
 interface=br0
   dhcp-range=192.168.1.100,192.168.1.199,255.255.255.0,24h
@@ -102,13 +102,13 @@ CONTENT
 wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/read-only-fs.sh
 sudo bash read-only-fs.sh
 #needed for hostapd / dnsmasq
-sudo nano /etc/fstab
+sudo vim /etc/fstab
 tmpfs /var/lib/misc tmpfs nodev,nosuid 0 0
 tmpfs /var/cache/unbound tmpfs nodev,nosuid 0 0
 
 # COMMANDS
 #disable bridge (commands ap-mode / lan-mode)
-sudo nano /etc/network/interfaces
+sudo vim /etc/network/interfaces
 #comment address/netmask , make manual
 sudo systemctl disable dnsmasq
 
