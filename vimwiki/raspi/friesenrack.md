@@ -1,9 +1,9 @@
 ## Friesenrack
 ```bash
 # RASPBIAN stretch
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install build-essential libudev-dev libasound2-dev libbluetooth-dev bluetooth bluez libi2c-dev pigpio
+sudo apt update
+sudo apt upgrade
+sudo apt install build-essential libudev-dev libasound2-dev libbluetooth-dev bluetooth bluez libi2c-dev pigpio
 
 # NODE.js
 git clone https://github.com/tj/n
@@ -38,7 +38,7 @@ sudo systemctl enable midi-ble
 sudo systemctl start midi-ble
 
 # BRIDGE
-sudo apt-get install hostapd bridge-utils
+sudo apt install hostapd bridge-utils
 sudo systemctl stop hostapd
 sudo vim /etc/dhcpcd.conf
 #Add denyinterfaces wlan0 and denyinterfaces eth0 to the end of the file 
@@ -89,7 +89,7 @@ RestartSec=30
 RestartForceExitStatus=0
 
 # DHCP
-sudo apt-get install dnsmasq 
+sudo apt install dnsmasq 
 sudo systemctl stop dnsmasq
 sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
 sudo vim /etc/dnsmasq.conf

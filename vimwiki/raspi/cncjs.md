@@ -4,8 +4,8 @@ invert spindle enable pin
 
 #raspbian jessie! (PS3 Controller doesn't work on stretch?)
 sudo raspi-config
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt update
+sudo apt upgrade
 
 # install Node.js 8
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
@@ -27,7 +27,7 @@ cncjs
 CONTENT
 
 #port 80
-sudo apt-get install haproxy
+sudo apt install haproxy
 #sudo vim /etc/haproxy/haproxy.cfg
 <<CONTENT
 frontend public
@@ -74,7 +74,7 @@ sudo systemctl enable cncjs
 sudo systemctl start cncjs
 
 #joystick:
-sudo apt-get install -y bluetooth libbluetooth3 libusb-dev
+sudo apt install -y bluetooth libbluetooth3 libusb-dev
 sudo systemctl enable bluetooth.service
 sudo usermod -G bluetooth -a pi
 #pair
@@ -96,7 +96,7 @@ default-agent
 quit
 
 #cncjs-pendant-ps3 https://github.com/cncjs/cncjs-pendant-ps3
-sudo apt-get install -y libudev-dev libusb-1.0-0 libusb-1.0-0-dev build-essential
+sudo apt install -y libudev-dev libusb-1.0-0 libusb-1.0-0-dev build-essential
 sudo npm install -g cncjs-pendant-ps3 --unsafe-perm
 cd /usr/lib/node_modules/cncjs-pendant-ps3/
 sudo npm install node-hid --driver=hidraw --build-from-source --unsafe-perm
@@ -149,7 +149,7 @@ sudo usermod -a -G plugdev pi
 #]]
 
 #camera
-sudo apt-get install build-essential libjpeg62-turbo-dev imagemagick libv4l-dev libav-tools cmake -y
+sudo apt install build-essential libjpeg62-turbo-dev imagemagick libv4l-dev libav-tools cmake -y
 
 git clone https://github.com/jacksonliam/mjpg-streamer.git
 cd mjpg-streamer/mjpg-streamer-experimental
@@ -323,7 +323,7 @@ tmpfs /usr/lib/node_modules/cncjs/dist/cnc/app/sessions tmpfs nodev,nosuid 0 0
 tmpfs /home/pi/cncdata tmpfs nodev,nosuid 0 0
 
 #fix time?
-sudo apt-get install ntpdate
+sudo apt install ntpdate
 #sudo vim /etc/rc.local ->
 sudo /usr/sbin/ntpdate -b 0.de.pool.ntp.org
 
@@ -345,8 +345,8 @@ EOF
 ##
 sudo mount -o remount,rw /
 sudo mount -o remount,rw /boot/
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt update
+sudo apt upgrade
 sudo npm install -g --unsafe-perm cncjs
 sudo mount -o remount,ro /
 sudo mount -o remount,ro /boot/

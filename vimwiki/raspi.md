@@ -82,7 +82,7 @@ sudo n 10
 sudo npm rebuild --unsafe-perm
 
 # BACKUP TO NAS
-sudo apt-get install smbclient cifs-utils
+sudo apt install smbclient cifs-utils
 sudo mkdir /backup
 sudo vim /etc/fstab
 <<CONTENT
@@ -104,7 +104,7 @@ sudo raspiBackup.sh -d /dev/sda /backup/homebridge/homebridge-tar-backup-xxx/
 
 # HAPROXY
 #-> Port 80
-sudo apt-get install haproxy
+sudo apt install haproxy
 #/etc/haproxy/haproxy.cfg
 <<CONTENT
 frontend public
@@ -130,7 +130,7 @@ sudo rpi-update
 #only use rpi-update for kernel
 sudo apt-mark hold libraspberrypi0 libraspberrypi-bin raspberrypi-kernel raspberrypi-bootloader
 #reinstall stable kernel (unhold above to use apt again)
-sudo apt-get install --reinstall raspberrypi-bootloader raspberrypi-kernel
+sudo apt install --reinstall raspberrypi-bootloader raspberrypi-kernel
 #alternative
 sudo BRANCH=stable rpi-update
 
@@ -138,10 +138,10 @@ sudo BRANCH=stable rpi-update
 # /etc/apt/sources.list and /etc/apt/sources.list.d/raspi.list
 # change jessie -> stretch
 
-sudo apt-get update
-sudo apt-get -y dist-upgrade
-sudo apt-get -y purge "pulseaudio*"
-sudo apt-get autoremove
+sudo apt update
+sudo apt -y dist-upgrade
+sudo apt -y purge "pulseaudio*"
+sudo apt autoremove
 
 # SYNC FILES
 #dest is parent folder!

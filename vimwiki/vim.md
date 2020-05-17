@@ -334,7 +334,7 @@ let g:syntastic_check_on_wq = 0
 CONTENT
 
 #### BUILDING VIM
-sudo apt-get install ncurses-dev python3-dev
+sudo apt install ncurses-dev python3-dev
 git clone https://github.com/vim/vim.git vim-master
 cd vim-master
 cd src

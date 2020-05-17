@@ -35,8 +35,9 @@ MiLight web user/pass: admin/admin
 --------------------------
 INSTALLATION:
 --------------------------
+sudo apt upgrade
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt upgrade
 
 raspi-config
 
@@ -71,12 +72,12 @@ iface wlan0 inet dhcp
 CONTENT
 
 # rpi-update, updates firmware
-sudo apt-get install rpi-update
+sudo apt install rpi-update
 sudo rpi-update
 
-sudo apt-get install git make
+sudo apt install git make
 
-sudo apt-get install wiringpi
+sudo apt install wiringpi
 
 [[# wiringPi library / executable
 git clone git://git.drogon.net/wiringPi
@@ -86,9 +87,9 @@ sudo gpio
 ]]
 
 [[# node.js ble (noble)
-sudo apt-get install libudev-dev
+sudo apt install libudev-dev
 #enable access to BLE for node process
-sudo apt-get install libcap2-bin
+sudo apt install libcap2-bin
 sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
 ]]
 
@@ -104,16 +105,16 @@ sudo crontab -e
 -> 5 6 * * Mon sudo /etc/init.d/homebridge restart
 
 # -> net command
-sudo apt-get install samba-common-bin 
+sudo apt install samba-common-bin 
 -> net rpc -S gamepc -U normen%password shutdown -t 1 -f
 
-sudo apt-get install libavahi-compat-libdnssd-dev
+sudo apt install libavahi-compat-libdnssd-dev
 
-sudo apt-get install libuv-dev
+sudo apt install libuv-dev
 
 # install Node.JS
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt install -y nodejs
 
 # so npm is not slow (rpi1)
 npm set progress=false
@@ -161,7 +162,7 @@ sudo usermod -aG video pi //user access to video
 
 # Compile ffmpeg/cam stuffs -> takes 5+ hours on Pi1!! See deb below.
 # install build tools
-sudo apt-get install pkg-config autoconf automake libtool libx264-dev
+sudo apt install pkg-config autoconf automake libtool libx264-dev
 
 # download and build fdk-aac
 git clone https://github.com/mstorsjo/fdk-aac.git
@@ -203,7 +204,7 @@ https://hallard.me/raspberry-pi-read-only/
 
 #WATCHDOG
 
-sudo apt-get install watchdog
+sudo apt install watchdog
 sudo modprobe bcm2835_wdt
 sudo vim /etc/watchdog.conf
 <<CONTENT
@@ -276,8 +277,8 @@ sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
 
 
 #DEBUG kworker:
-sudo apt-get install linux-tools
-sudo apt-get install linux-tools-4.4
+sudo apt install linux-tools
+sudo apt install linux-tools-4.4
 
 # Get stack traces for 10s.
 sudo perf record -e cpu-clock -g -a sleep 10

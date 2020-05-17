@@ -62,8 +62,8 @@ sudo logrotate --force /etc/logrotate.d/homebridge
 # do as other user
 sudo -H -u otheruser bash -c 'echo "I am $USER, with uid $UID"' 
 
-# apt-get
-sudo apt-get autoremove --purge
+# apt
+sudo apt autoremove --purge
 
 # systemd service
 # file at /etc/systemd/system/homebridge.service

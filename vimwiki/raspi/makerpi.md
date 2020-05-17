@@ -3,7 +3,7 @@
 #https://github.com/foosel/OctoPrint/wiki/Controlling-a-relay-board-from-your-RPi
 
 #Octoprint
-sudo apt-get install python-pip python-dev python-setuptools python-virtualenv git libyaml-dev build-essential
+sudo apt install python-pip python-dev python-setuptools python-virtualenv git libyaml-dev build-essential
 git clone https://github.com/foosel/OctoPrint.git
 cd OctoPrint
 virtualenv venv
@@ -16,7 +16,7 @@ sudo usermod -a -G tty pi
 sudo usermod -a -G dialout pi
 
 #webcam support
-sudo apt-get install subversion libjpeg62-turbo-dev imagemagick ffmpeg libv4l-dev cmake
+sudo apt install subversion libjpeg62-turbo-dev imagemagick ffmpeg libv4l-dev cmake
 git clone https://github.com/jacksonliam/mjpg-streamer.git
 cd mjpg-streamer/mjpg-streamer-experimental
 export LD_LIBRARY_PATH=.
@@ -29,7 +29,7 @@ sudo cp ~/OctoPrint/scripts/octoprint.default /etc/default/octoprint
 sudo update-rc.d octoprint defaults
 
 #port 80
-sudo apt-get install haproxy
+sudo apt install haproxy
 #/etc/haproxy/haproxy.cfg
 <<CONTENT
 frontend public
