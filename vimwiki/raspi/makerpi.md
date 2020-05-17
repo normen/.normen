@@ -2,6 +2,30 @@
 ```bash
 #https://github.com/foosel/OctoPrint/wiki/Controlling-a-relay-board-from-your-RPi
 
+# updated buster
+cd OctoPrint
+virtualenv -p python3 venv
+venv/bin/pip3 install OctoPrint
+venv/bin/octoprint serve
+sudo vim /etc/systemd/system/octoprint.service
+<<CONTENT
+[Unit]
+Description=The snappy web interface for your 3D printer
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/home/pi/OctoPrint/venv/bin/octoprint
+
+[Install]
+WantedBy=multi-user.target
+CONTENT
+sudo systemctl daemon-reload
+sudo systemctl enable octoprint
+sudo systemctl start octoprint
+
 #Octoprint
 sudo apt install python-pip python-dev python-setuptools python-virtualenv git libyaml-dev build-essential
 git clone https://github.com/foosel/OctoPrint.git
