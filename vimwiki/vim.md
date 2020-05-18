@@ -1,4 +1,5 @@
 ## VIM
+- [vimscript](vimscript.md)
 #### Noob Stuff
 ```
 <Esc> - enter normal mode
