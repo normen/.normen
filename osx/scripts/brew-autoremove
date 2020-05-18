@@ -45,9 +45,13 @@ info.each { |f|
 info.each { |f|
 	deps = f['installed'].map{|ver| ver['runtime_dependencies'].map{|dep| dep['full_name']}}.flatten.sort.uniq
 
-	deps.each { |dep|
-		graph[dep][:rdeps].push(f['full_name'])
-	}
+	if (deps != nil) then 
+    deps.each { |dep|
+      if(graph[dep]!=nil) then
+        graph[dep][:rdeps].push(f['full_name'])
+      end
+    }
+  end
 }
 
 # Generate list unused entries.
