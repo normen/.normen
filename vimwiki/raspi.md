@@ -86,7 +86,7 @@ sudo apt install smbclient cifs-utils
 sudo mkdir /backup
 sudo vim /etc/fstab
 <<CONTENT
-//hausrouter/backup /backup cifs defaults,noauto,nofail,vers=1.0,credentials=/home/pi/.smblogin,x-systemd.automount,x-systemd.requires=network-online.target    0    0
+//hausrouter/backup /backup cifs defaults,noauto,nofail,vers=2.0,credentials=/home/pi/.smblogin,x-systemd.automount,x-systemd.requires=network-online.target    0    0
 CONTENT
 sudo vim /home/pi/.smblogin
 <<CONTENT
