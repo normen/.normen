@@ -62,11 +62,12 @@ sudo dd of=/dev/rdisk2 if=./2019-04-08-raspbian-stretch.img bs=1m conv=sync stat
 vcgencmd get_throttled
 
 #readonly
-wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/read-only-fs.sh
-sudo bash read-only-fs.sh
+sudo raspi-config
+#wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/read-only-fs.sh
+#sudo bash read-only-fs.sh
 #sudo vim /etc/fstab
-tmpfs /usr/lib/node_modules/cncjs/dist/cnc/app/sessions tmpfs nodev,nosuid 0 0
-tmpfs /home/pi/cncdata tmpfs nodev,nosuid 0 0
+#tmpfs /usr/lib/node_modules/cncjs/dist/cnc/app/sessions tmpfs nodev,nosuid 0 0
+#tmpfs /home/pi/cncdata tmpfs nodev,nosuid 0 0
 
 # COMMANDS
 #find version
