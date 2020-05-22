@@ -18,6 +18,10 @@ npm install --save mypackage
 sudo npm link
 # install only production local
 npm install --production
+# install with compilation
+npm install packagename --unsafe-perm
+# install wihout binary links
+npm install packagename --no-bin-links
 ```
 ## node
 ```bash
