@@ -17,6 +17,10 @@ if [ ! -d ".normen" ]; then
   git clone https://github.com/normen/.normen
 fi
 
+# check for string in file
+if grep -q "searchstring" "/path/to/file"; then
+fi
+
 # loop through list
 for i in \
     string1 \
