@@ -15,3 +15,25 @@ vim package.json
 # "proxy": "http://localhost:3001"
 
 ```
+### Libs
+```bash
+cd client
+# chakra UI
+npm install --save @chakra-ui/core
+# fetch
+npm install whatwg-fetch
+```
+```javascript
+// using fetch API
+fetch('/bookings')
+.then(function(response) {
+return response.json()
+}).then(function(json) {
+
+}).catch(function(ex) {
+
+}).finally(function(){
+
+});
+
+```
