@@ -154,6 +154,7 @@ nnoremap <Leader>. @w
 
 " wiki split
 nmap <Leader>wv :50vsplit<CR>,ww
+nmap <Leader>w<Leader>v :50vsplit<CR>,w,w
 
 " quick write to tmux pane
 nnoremap <Leader>tb :Twrite bottom<CR>
