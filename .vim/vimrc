@@ -157,9 +157,11 @@ nmap <Leader>wv :50vsplit<CR>,ww
 nmap <Leader>w<Leader>v :50vsplit<CR>,w,w
 
 " quick write to tmux pane
+nnoremap <Leader>tt :Twrite top<CR>
 nnoremap <Leader>tb :Twrite bottom<CR>
 nnoremap <Leader>tl :Twrite left<CR>
 nnoremap <Leader>tr :Twrite right<CR>
+vnoremap <Leader>tt :Twrite top<CR>
 vnoremap <Leader>tb :Twrite bottom<CR>
 vnoremap <Leader>tl :Twrite left<CR>
 vnoremap <Leader>tr :Twrite right<CR>
