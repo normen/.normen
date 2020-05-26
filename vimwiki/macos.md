@@ -23,6 +23,14 @@ sudo reboot
 diskutil resetUserPermissions / `id -u`
 #chmod .ssh/id !
 
+# aerc mail
+brew install go scdoc
+git clone https://git.sr.ht/~sircmpwn/aerc
+cd aerc
+make
+#OR
+GOFLAGS=-tags=notmuch make
+
 # notmuch mail
 brew install notmuch
 brew install isync
