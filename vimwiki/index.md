@@ -13,6 +13,7 @@
 * [windows](windows.md)
 * [hardware](hardware.md)
 ## Random
+* [brew](brew.md)
 * [docker](docker.md)
 * [dd-wrt](dd-wrt.md)
 * [marlin](marlin.md)
