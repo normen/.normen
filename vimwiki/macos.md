@@ -30,6 +30,8 @@ cd aerc
 make
 #OR
 GOFLAGS=-tags=notmuch make
+# to use all filters:
+brew install catimg w3c dante
 
 # notmuch mail
 brew install notmuch
