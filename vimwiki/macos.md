@@ -32,6 +32,8 @@ make
 GOFLAGS=-tags=notmuch make
 # to use all filters:
 brew install catimg w3c dante
+# to use contacts '%s'
+brew install keith/formulae/contacts-cli
 
 # notmuch mail
 brew install notmuch
