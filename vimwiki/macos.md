@@ -1,5 +1,8 @@
 ## macos
 ```bash
+# get password from keychain
+security find-internet-password -gs google.com -w
+
 # log iCloud Drive activity
 brctl log -wt //--wait --shorten
 brctl log -wtl 6 //no debug
