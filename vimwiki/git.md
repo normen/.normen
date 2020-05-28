@@ -103,6 +103,9 @@ git rebase -i HEAD~3 //3 last commits
 #change pick -> reword in list
 git push --force
 
+# prepare for email
+git format-patch origin
+
 #! /bin/bash
 # git-interactive-merge
 from=$1
