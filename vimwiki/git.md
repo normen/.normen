@@ -104,7 +104,7 @@ git rebase -i HEAD~3 //3 last commits
 git push --force
 
 # prepare for email
-git format-patch origin
+git format-patch origin/master
 
 #! /bin/bash
 # git-interactive-merge
