@@ -26,6 +26,9 @@ sudo reboot
 diskutil resetUserPermissions / `id -u`
 #chmod .ssh/id !
 
+# quicklook from terminal
+qlmanage -p FILE
+
 # aerc mail
 brew install go scdoc
 git clone https://git.sr.ht/~sircmpwn/aerc
