@@ -175,6 +175,9 @@ nnoremap ]ü ]]
 nmap ä [
 nnoremap [ä [[
 
+" more logical Y
+map Y y$
+
 " operate on 'method'
 nnoremap vm Vf{%
 nnoremap dm Vf{%d
