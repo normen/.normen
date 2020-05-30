@@ -122,6 +122,32 @@ do
   esac
 done
 
+echo "**************************************************************"
+echo ""
+echo "🤓 install aerc?"
+echo ""
+select yn in "No" "MacOS";
+do
+  case $yn in
+    "MacOS" )
+      brew install go scdoc jp2a imagemagick poppler catimg w3m dante keith/formulae/contacts-cli
+      cd ~
+      if [ ! -d ".normen/build/aerc" ]; then
+        git clone https://git.sr.ht/~sircmpwn/aerc ~/.normen/build/aerc || true
+      else
+        cd ~/.normen/build/aerc
+        git pull --rebase
+      fi
+      cd ~/.normen/build/aerc
+      make
+      make install
+      rm -rf ~/Library/Preferences/aerc || true
+      ln -s ~/.normen/aerc ~/Library/Preferences/aerc
+      break;;
+    "No" )
+      break;;
+  esac
+done
 
 echo "**************************************************************"
 echo ""

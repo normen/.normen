@@ -4,6 +4,7 @@ vimwiki/diary/**
 .vim/.netrwhist
 .tmux/plugins/**
 .tmux/resurrect/**
+build/**
 session.vim
 plugin-update.local
 update.local
