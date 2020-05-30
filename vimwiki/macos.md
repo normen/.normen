@@ -37,7 +37,7 @@ make
 #OR
 GOFLAGS=-tags=notmuch make
 # to use all filters:
-brew install catimg w3c dante
+brew install jp2a catimg w3c dante
 # to use contacts '%s'
 brew install keith/formulae/contacts-cli
 
