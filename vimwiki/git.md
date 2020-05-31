@@ -105,6 +105,8 @@ git push --force
 
 # prepare for email
 git format-patch origin/master
+# send last commit as mail
+git send-email --to 'normenweb@mac.com' HEAD^
 
 #! /bin/bash
 # git-interactive-merge
