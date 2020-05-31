@@ -6,6 +6,7 @@
 * [javascript](javascript.md)
 * [c](c.md)
 * [bash](bash.md)
+* [swift](swift.md)
 ## Systems
 * [raspi](raspi.md)
 * [linux](linux.md)
