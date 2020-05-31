@@ -123,6 +123,7 @@ do
         git clone https://git.sr.ht/~sircmpwn/aerc ~/.normen/build/aerc || true
       else
         cd ~/.normen/build/aerc
+        make clean
         git pull --rebase
       fi
       cd ~/.normen/build/aerc
