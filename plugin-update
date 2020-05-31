@@ -1,21 +1,11 @@
 #!/bin/bash
 
-echo "🤓 update vim+tmux plugins?"
-select yn in "No" "Yes";
-do
-  case $yn in
-    "Yes" )
-      if [ -d ~/.normen/.vim/pack ]; then
-        ~/.normen/bin/git-recursive-update ~/.normen/.vim/pack
-      fi
-      if [ -d ~/.normen/.tmux/plugins ]; then
-        ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
-      fi
-      break;;
-    "No" ) 
-      break;;
-  esac
-done
+if [ -d ~/.normen/.vim/pack ]; then
+  ~/.normen/bin/git-recursive-update ~/.normen/.vim/pack
+fi
+if [ -d ~/.normen/.tmux/plugins ]; then
+  ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
+fi
 
 echo "🤓 (node) update spaceship?"
 echo " -> mac usually nosudo"
