@@ -10,6 +10,11 @@ On {{dateFormat (.OriginalDate | toLocal) "Mon Jan 2, 2006 at 3:04 PM MST"}}, {{
 {{exec `~/Library/Preferences/aerc/filters/pdf` .OriginalText | quote}}
 {{else if eq .OriginalMIMEType "application/pdf"}}
 {{exec `~/Library/Preferences/aerc/filters/pdf` .OriginalText | quote}}
+{{else if eq .OriginalMIMEType "text/plain"}}
+{{quote .OriginalText}}
+{{else if eq .OriginalMIMEType "TEXT/PLAIN"}}
+{{quote .OriginalText}}
 {{else}}
+{{.OriginalMIMEType}}
 {{quote .OriginalText}}
 {{end}}
