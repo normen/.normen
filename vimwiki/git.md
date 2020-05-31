@@ -107,6 +107,16 @@ git push --force
 git format-patch origin/master
 # send last commit as mail
 git send-email --to 'normenweb@mac.com' HEAD^
+# configure send-email
+sudo -H cpan Net::SMTP::SSL IO::Socket::SSL
+vim ~/.gitconfig
+<<CONTENT
+[sendemail]
+	smtpserver = mail.example.org
+	smtpuser = you@example.org
+	smtpencryption = tls
+	smtpserverport = 587
+CONTENT
 
 #! /bin/bash
 # git-interactive-merge
