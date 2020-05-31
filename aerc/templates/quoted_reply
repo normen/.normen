@@ -1,0 +1,9 @@
+
+On {{dateFormat (.OriginalDate | toLocal) "Mon Jan 2, 2006 at 3:04 PM MST"}}, {{(index .OriginalFrom 0).Name}} wrote:
+{{if eq .OriginalMIMEType "TEXT/HTML"}}
+{{exec `/usr/local/share/aerc/filters/html` .OriginalText | wrap 72 | quote}}
+{{else if eq .OriginalMIMEType "APPLICATION/PDF"}}
+{{exec `~/Library/Preferences/aerc/filters/pdf` .OriginalText | wrap 72 | quote}}
+{{else}}
+{{wrap 72 .OriginalText | quote}}
+{{end}}
