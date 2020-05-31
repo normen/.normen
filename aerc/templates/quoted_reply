@@ -1,9 +1,15 @@
 
 On {{dateFormat (.OriginalDate | toLocal) "Mon Jan 2, 2006 at 3:04 PM MST"}}, {{(index .OriginalFrom 0).Name}} wrote:
 {{if eq .OriginalMIMEType "TEXT/HTML"}}
-{{exec `/usr/local/share/aerc/filters/html` .OriginalText | wrap 72 | quote}}
+{{exec `/usr/local/share/aerc/filters/html` .OriginalText | quote}}
+{{else if eq .OriginalMIMEType "text/html"}}
+{{exec `/usr/local/share/aerc/filters/html` .OriginalText | quote}}
+{{else if eq .OriginalMIMEType "multipart/related"}}
+{{exec `/usr/local/share/aerc/filters/html` .OriginalText | quote}}
 {{else if eq .OriginalMIMEType "APPLICATION/PDF"}}
-{{exec `~/Library/Preferences/aerc/filters/pdf` .OriginalText | wrap 72 | quote}}
+{{exec `~/Library/Preferences/aerc/filters/pdf` .OriginalText | quote}}
+{{else if eq .OriginalMIMEType "application/pdf"}}
+{{exec `~/Library/Preferences/aerc/filters/pdf` .OriginalText | quote}}
 {{else}}
 {{wrap 72 .OriginalText | quote}}
 {{end}}

@@ -107,6 +107,8 @@ git push --force
 git format-patch origin/master
 # send last commit as mail
 git send-email --to 'normenweb@mac.com' HEAD^
+# apply mail patch (pipe in)
+git am
 # configure send-email
 sudo -H cpan Net::SMTP::SSL IO::Socket::SSL
 vim ~/.gitconfig
