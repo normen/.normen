@@ -11,5 +11,5 @@ On {{dateFormat (.OriginalDate | toLocal) "Mon Jan 2, 2006 at 3:04 PM MST"}}, {{
 {{else if eq .OriginalMIMEType "application/pdf"}}
 {{exec `~/Library/Preferences/aerc/filters/pdf` .OriginalText | quote}}
 {{else}}
-{{wrap 72 .OriginalText | quote}}
+{{quote .OriginalText}}
 {{end}}
