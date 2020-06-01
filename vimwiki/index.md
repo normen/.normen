@@ -7,6 +7,7 @@
 * [c](c.md)
 * [bash](bash.md)
 * [swift](swift.md)
+* [go](go.md)
 ## Systems
 * [raspi](raspi.md)
 * [linux](linux.md)
