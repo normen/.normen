@@ -10,10 +10,10 @@ do
   case $yn in
     "MacOS (install brew)" )
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-      brew install macvim ctags vifm mosh tmux
+      brew install vim ctags vifm mosh tmux
       break;;
     "MacOS (brew installed)" )
-      brew install macvim ctags vifm mosh tmux
+      brew install vim ctags vifm mosh tmux
       break;;
     "Debian" )
       sudo apt update
