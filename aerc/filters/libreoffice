@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e
 TEMP_FILE=$(mktemp)
-#TEMP_DIR=$(mktemp -d)
 cat>$TEMP_FILE
 soffice --cat $TEMP_FILE
-#soffice --headless --convert-to "txt:Text (encoded):UTF8" $TEMP_FILE --outdir $TEMP_DIR
-#cat $TEMP_DIR/tmp.txt
 rm $TEMP_FILE
-#rm -rf $TEMP_DIR
