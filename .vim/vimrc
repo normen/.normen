@@ -145,6 +145,7 @@ nnoremap <right> o<Esc>k
 " copy-paste easily from clipboard
 nnoremap <Leader>yy "*yy
 vnoremap <Leader>y "*y
+vnoremap <Leader>Y "*y$
 nnoremap <Leader>p "*p
 nnoremap <Leader>P "*P
 
