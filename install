@@ -244,6 +244,8 @@ do
       ln -s ~/.normen/.inputrc ~/.inputrc
       rm -f ~/.eslintrc.json || true
       ln -s ~/.normen/.eslintrc.json ~/.eslintrc.json
+      rm -f ~/.ctags || true
+      ln -s ~/.normen/.ctags ~/.ctags
       break;;
     "No" )
       break;;
