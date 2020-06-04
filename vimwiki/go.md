@@ -1,6 +1,7 @@
 ## go
 #### Project
 ```bash
+## modules!
 cd ~/go
 mkdir src
 cd src
@@ -118,6 +119,10 @@ func main (){
   wg.Wait()
 }
 
+```
+
+#### Channels
+```go
 // with channel
 func main() {
   // make channel, for capacity (chan string, 10) 
@@ -141,5 +146,15 @@ func count(thing string, c chan string) {
   }
   // close channel
   close(c)
+}
+
+// drain multiple channels with select
+func main() {
+  select {
+    case msg1 := <- c1:
+      fmt.Println(msg1)
+    case msg2 := <- c2:
+      fmt.Println(msg2)
+  }
 }
 ```
