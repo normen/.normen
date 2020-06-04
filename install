@@ -45,6 +45,9 @@ do
     "Yes" )
       # gruvbox - eye candy
       git clone https://github.com/morhetz/gruvbox.git ~/.normen/.vim/pack/default/start/gruvbox || true
+      # go language support
+      git clone https://github.com/fatih/vim-go.git ~/.normen/.vim/pack/default/start/vim-go || true
+      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-go/doc" -c q || true
       # gitgutter - git infos in file
       git clone https://github.com/airblade/vim-gitgutter.git ~/.normen/.vim/pack/airblade/start/vim-gitgutter || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/airblade/start/vim-gitgutter/doc" -c q || true

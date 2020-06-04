@@ -77,7 +77,7 @@ set title
 auto BufEnter * let &titlestring = "file://" . substitute(hostname().expand("%:p"), " ", "+", "")
 
 " set vimwiki path and syntax
-let g:vimwiki_list = [{'path': '~/.normen/vimwiki/', 'syntax': 'markdown', 'ext': '.md', "nested_syntaxes": {'javascript':'javascript','bash':'bash','sh':'sh','c++':'cpp','python':'python'}}]
+let g:vimwiki_list = [{'path': '~/.normen/vimwiki/', 'syntax': 'markdown', 'ext': '.md', "nested_syntaxes": {'javascript':'javascript','bash':'bash','sh':'sh','c++':'cpp','python':'python','go':'go'}}]
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
 

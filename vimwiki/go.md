@@ -99,15 +99,14 @@ func main() {
 }
 
 func count(thing string) {
-  for i:=0;i<100;i++ {
+  for i:=0; i<100; i++ {
     fmt.Println(i, thing)
     time.Sleep(time.Milliseconds * 500)
   }
 }
 
 // with sync / wait
-
-func main () {
+func main (){
   var wg sync.WaitGroup
   wg.Add(1)
   go func() {
@@ -117,8 +116,22 @@ func main () {
   wg.Wait()
 }
 
-```
-#### streams
-```go
+// with channel
+func main() {
+  c := make(chan string)
+  go count("sheep", c)
+  // wait for data
+  msg := <- c
+  fmt.Println(msg)
+}
+
+func count(thing string, c chan string) {
+  for i:=0; i<100; i++ {
+    //send data
+    c <- thing
+    time.Sleep(time.Milliseconds * 500)
+  }
+}
+
 
 ```
