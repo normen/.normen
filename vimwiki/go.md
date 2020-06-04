@@ -10,6 +10,7 @@ go run main.go
 go build
 go install
 ```
+
 #### Basics
 ```go
 package main
@@ -80,6 +81,7 @@ func main() {
 varx := 5
 *vary = &varx
 ```
+
 #### Concurrency
 ```go
 // concurrency
@@ -118,6 +120,7 @@ func main (){
 
 // with channel
 func main() {
+  // make channel, for capacity (chan string, 10) 
   c := make(chan string)
   go count("sheep", c)
   // wait for data once
@@ -132,13 +135,11 @@ func main() {
 
 func count(thing string, c chan string) {
   for i:=0; i<100; i++ {
-    // send data (blocks)
+    // send data (blocks if channel full)
     c <- thing
     time.Sleep(time.Milliseconds * 500)
   }
   // close channel
   close(c)
 }
-
-
 ```
