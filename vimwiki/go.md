@@ -120,17 +120,24 @@ func main (){
 func main() {
   c := make(chan string)
   go count("sheep", c)
-  // wait for data
+  // wait for data once
   msg := <- c
   fmt.Println(msg)
+  // read til closed,
+  // alternatively msg, closed := <-c
+  for msg := range(c) {
+    fmt.Println(msg)
+  }
 }
 
 func count(thing string, c chan string) {
   for i:=0; i<100; i++ {
-    //send data
+    // send data (blocks)
     c <- thing
     time.Sleep(time.Milliseconds * 500)
   }
+  // close channel
+  close(c)
 }
 
 
