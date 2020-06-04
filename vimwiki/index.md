@@ -17,6 +17,7 @@
 ## Random
 * [brew](brew.md)
 * [docker](docker.md)
+* [aerc](aerc.md)
 * [dd-wrt](dd-wrt.md)
 * [marlin](marlin.md)
 * [opencv](opencv.md)
