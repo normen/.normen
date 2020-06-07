@@ -81,6 +81,9 @@ let g:vimwiki_list = [{'path': '~/.normen/vimwiki/', 'syntax': 'markdown', 'ext'
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
 
+" session vim content
+set sessionoptions=buffers,curdir,tabpages,winsize
+
 " disable gitgutter if no git executable
 if !executable('git')
   let g:gitgutter_enabled = 0
