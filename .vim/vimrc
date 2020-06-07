@@ -82,7 +82,7 @@ let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
 
 " session vim content
-set sessionoptions=buffers,curdir,tabpages,winsize
+set sessionoptions=globals,localoptions,buffers,curdir,tabpages,winsize
 
 " disable gitgutter if no git executable
 if !executable('git')
