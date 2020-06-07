@@ -140,6 +140,9 @@ vii - visual select inside indentation
 ```
 #### Autocomplete/Special
 ```
+# docs for language
+K - on word
+
 # autocomplete (insert mode)
 C-n - autocomplete from after
 C-p - autocomplete from before
