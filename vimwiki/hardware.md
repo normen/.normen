@@ -3,6 +3,7 @@
 * [hardware/ESP8266](hardware/ESP8266.md)
 * [hardware/LinkItSmart7688](hardware/LinkItSmart7688.md)
 * [hardware/Roomba](hardware/Roomba.md)
+* [hardware solar](hardware/solar.md)
 
 ## Home Device Infos
 ```bash
