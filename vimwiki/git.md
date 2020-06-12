@@ -28,6 +28,9 @@ git stash pop
 git stash save --keep-index
 git stash drop
 
+# show stash as patch
+git stash show -p
+
 # branching
 git branch branchname
 git checkout branchname
