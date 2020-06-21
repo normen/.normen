@@ -29,6 +29,9 @@ diskutil resetUserPermissions / `id -u`
 # quicklook from terminal
 qlmanage -p FILE
 
+# bitlbee
+brew install bitlbee
+bitlbee -d ~/.bitlbee -D -i 127.0.0.1
 
 # notmuch mail
 brew install notmuch
