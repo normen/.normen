@@ -32,6 +32,14 @@ qlmanage -p FILE
 # bitlbee
 brew install bitlbee
 bitlbee -d ~/.bitlbee -D -i 127.0.0.1
+# discord for bitlbee
+brew install autoconf automake
+git clone https://github.com/sm00th/bitlbee-discord
+cd bitlbee-discord
+./autogen.sh
+./configure --with-plugindir=/usr/local/lib/bitlbee --prefix=/usr/local
+make
+make install
 
 # notmuch mail
 brew install notmuch
