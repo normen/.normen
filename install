@@ -249,6 +249,8 @@ do
       ln -s ~/.normen/.eslintrc.json ~/.eslintrc.json
       rm -f ~/.ctags || true
       ln -s ~/.normen/.ctags ~/.ctags
+      rm -f ~/.nethackrc || true
+      ln -s ~/.normen/.nethackrc ~/.nethackrc
       break;;
     "No" )
       break;;

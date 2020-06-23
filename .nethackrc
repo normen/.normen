@@ -1,0 +1,6 @@
+OPTIONS=number_pad:-1
+OPTIONS=autopickup, pickup_types:$?!/="+
+OPTIONS=autoquiver
+#OPTIONS=autodig
+OPTIONS=windowtype:curses
+OPTIONS=force_invmenu
