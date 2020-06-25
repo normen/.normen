@@ -23,4 +23,5 @@
 * [opencv](opencv.md)
 * [js-neuralnet](js-neuralnet.md)
 * [react express](react-express.md)
+* [nethack](nethack.md)
 
