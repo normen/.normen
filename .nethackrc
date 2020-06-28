@@ -5,7 +5,8 @@ OPTIONS=windowtype:curses
 # Gameplay
 OPTIONS=autopickup, pickup_types:$?!/="+
 OPTIONS=autoquiver
-OPTIONS=autodig
+#OPTIONS=autodig
+#OPTIONS=mouse_support
 
 # Character
 OPTIONS=pettype:cat

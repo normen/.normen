@@ -2,6 +2,7 @@
 #### Notes
 - Dwarf don't eat gnome!
 - Dwavish Mattock (broad pick)
+- Aklys (thonged club)
 
 ## Skills
 #### Archeologist skills
