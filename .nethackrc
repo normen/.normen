@@ -19,11 +19,35 @@ OPTIONS=statuslines:3
 #OPTIONS=force_invmenu
 OPTIONS=perm_invent
 
+# Always show gold as the proper color.
+OPTIONS=hilite_status:gold/always/yellow
+
+# Show when XL changes.
+OPTIONS=hilite_status:experience-level/changed/white/cyan
+
+# Specify multiple cutoffs for all ability scores.
+OPTIONS=hilite_status:characteristics/<5/red
+OPTIONS=hilite_status:characteristics/>6/orange
+OPTIONS=hilite_status:characteristics/>8/brown
+OPTIONS=hilite_status:characteristics/>11/yellow
+OPTIONS=hilite_status:characteristics/>13/green
+OPTIONS=hilite_status:characteristics/>16/cyan
+OPTIONS=hilite_status:characteristics/>18/lightblue
+
+# Hilight multiple encumbrance statuses.
+OPTIONS=hilite_status:carrying-capacity/burdened/yellow/stressed/orange
+
 # Percentage cutoffs for hitpoints.
 OPTIONS=hilite_status:hitpoints/100%/brightgreen
 OPTIONS=hilite_status:hitpoints/<100%/green
 OPTIONS=hilite_status:hitpoints/<60%/yellow
 OPTIONS=hilite_status:hitpoints/<40%/red
+
+# Highlight hunger level.
+OPTIONS=hilite_status:hunger/satiated/green
+OPTIONS=hilite_status:hunger/hungry/yellow
+OPTIONS=hilite_status:hunger/weak/red
+OPTIONS=hilite_status:hunger/fainting/red&inverse
 
 OPTIONS=menucolors
 
