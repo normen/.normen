@@ -107,6 +107,7 @@ v - select
 V - select lines
 
 gv - select again
+gi - go to last insert
 
 y - copy
 d - cut
