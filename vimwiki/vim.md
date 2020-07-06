@@ -43,6 +43,7 @@ H, M, L - go to high, middle, low in visible window
 :ls - show open files
 :b filen - open of opened files (partial name)
 :bd - buffer delete (close open file)
+gF - go to file under cursor, allows line number
 ```
 #### Window/Commands
 ```
