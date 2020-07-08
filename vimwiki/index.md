@@ -21,6 +21,7 @@
 * [dd-wrt](dd-wrt.md)
 * [marlin](marlin.md)
 * [opencv](opencv.md)
+* [openai](openai.md)
 * [js-neuralnet](js-neuralnet.md)
 * [react express](react-express.md)
 * [nethack](nethack.md)
