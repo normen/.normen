@@ -88,6 +88,11 @@ gg - go to line 1
 G - go to EOF
 20G - go to line 20
 
+fx - find x
+tx - til x
+; - next find/til
+, - prev find/til
+
 qa - record macro into register a
 q - stop recording macro
 @a - play macro a
