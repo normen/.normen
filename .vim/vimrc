@@ -178,6 +178,7 @@ nmap ü ]
 nnoremap ]ü ]]
 nmap ä [
 nnoremap [ä [[
+nmap ö :
 
 " more logical Y
 map Y y$
