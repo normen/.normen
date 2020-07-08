@@ -105,6 +105,7 @@ do
       else
         echo "colorscheme gruvbox">> $VIFM_PATH/vifmrc
         echo "nnoremap <C-e> :q<CR>">> $VIFM_PATH/vifmrc
+        echo "nmap ö :">> $VIFM_PATH/vifmrc
       fi
       break;;
     "No" )
