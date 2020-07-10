@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+rm -rf ~/Library/Mobile\ Documents/com~apple~CloudDocs/vim/*
+cd ~/.normen/.vim/
+cp -R * ~/Library/Mobile\ Documents/com~apple~CloudDocs/vim/
+cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/vim/
+find . -name ".git" -type d -exec rm -rf {} \;
+
