@@ -46,6 +46,9 @@ brew tap Bios-Marcel/cordless
 brew install cordless
 #go get -u github.com/Bios-Marcel/cordless
 
+#tuir reddit client
+pip3 install tuir
+
 # notmuch mail
 brew install notmuch
 brew install isync
