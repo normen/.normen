@@ -6,4 +6,6 @@ docker stats
 docker rmi $(docker images -q)
 # remove all containers
 docker rm $(docker ps -a -q)
+#run shell
+docker exec -it imagename bash
 ```
