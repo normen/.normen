@@ -37,6 +37,15 @@ hdmi_group=2
 hdmi_mode=87
 CONTENT
 
+#bluetooth keyboard
+sudo bluetoothctla
+agent on
+default-agent
+scan on
+scan off
+trust 50:E6:66:2E:59:EB
+connect 50:E6:66:2E:59:EB
+
 #desktop autostart
 sudo vim ~/.config/autostart/MeinAutostart.desktop
 <<CONTENT
