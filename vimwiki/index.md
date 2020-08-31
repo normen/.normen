@@ -25,5 +25,6 @@
 * [js-neuralnet](js-neuralnet.md)
 * [react express](react-express.md)
 * [nethack](nethack.md)
+* [bitwaves](bitwaves.md)
 * [weechat](weechat.md)
 
