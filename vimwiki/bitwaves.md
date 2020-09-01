@@ -11,76 +11,76 @@ events {
 # RTMP configuration
 rtmp {
   server {
-		listen 1935; # Listen on standard RTMP port
-		chunk_size 4000; 
-		ping 30s;
-		notify_method get;
+    listen 1935; # Listen on standard RTMP port
+    chunk_size 4000; 
+    ping 30s;
+    notify_method get;
 
-		# This application is to accept incoming stream
-		application live {
-			live on; # Allows live input
+    # This application is to accept incoming stream
+    application live {
+      live on; # Allows live input
       deny play all; # disable consuming the stream from nginx as rtmp
       on_publish http://localhost:8080/auth;
-			push rtmp://localhost:1935/show;
-		}
+      push rtmp://localhost:1935/show;
+    }
 
-		# This is the HLS application
-		application show {
-			live on; # Allows live input from above application
+    # This is the HLS application
+    application show {
+      live on; # Allows live input from above application
       deny play all; # disable consuming the stream from nginx as rtmp
       allow publish 127.0.0.1; # only allow localhost to publish (app above)
       deny publish all; # deny all others to publish
 
-			hls on; # Enable HTTP Live Streaming
-			hls_fragment 3;
-			hls_playlist_length 10;
-			hls_path /mnt/hls/;  # hls fragments path
-						
-			# MPEG-DASH
+      hls on; # Enable HTTP Live Streaming
+      hls_fragment 3;
+      hls_playlist_length 10;
+      hls_path /mnt/hls/;  # hls fragments path
+            
+      # MPEG-DASH
       dash on;
       dash_path /mnt/dash/;  # dash fragments path
-			dash_fragment 3;
-			dash_playlist_length 10;			
-		}
-	}
+      dash_fragment 3;
+      dash_playlist_length 10;      
+    }
+  }
 }
 
 
 http {
-	sendfile off;
-	tcp_nopush on;
-	directio 512;
-	# aio on;
-	
-	# HTTP server required to serve the player and HLS fragments
-	server {
-		listen 8080;
-		
-		# Serve HLS fragments
-		location /hls {
-			types {
-				application/vnd.apple.mpegurl m3u8;
-				video/mp2t ts;
-			}
-			
-			root /mnt;
+  sendfile off;
+  tcp_nopush on;
+  directio 512;
+  # aio on;
+  
+  # HTTP server required to serve the player and HLS fragments
+  server {
+    listen 8080;
+    
+    # Serve HLS fragments
+    location /hls {
+      types {
+        application/vnd.apple.mpegurl m3u8;
+        video/mp2t ts;
+      }
+      
+      root /mnt;
 
       add_header Cache-Control no-cache; # Disable cache
-			
-			# CORS setup
-			add_header 'Access-Control-Allow-Origin' '*' always;
-			add_header 'Access-Control-Expose-Headers' 'Content-Length';
+      
+      # CORS setup
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Expose-Headers' 'Content-Length';
             
-			# allow CORS preflight requests
-			if ($request_method = 'OPTIONS') {
-				add_header 'Access-Control-Allow-Origin' '*';
-				add_header 'Access-Control-Max-Age' 1728000;
-				add_header 'Content-Type' 'text/plain charset=UTF-8';
-				add_header 'Content-Length' 0;
-				return 204;
-			}
-		}
-		
+      # allow CORS preflight requests
+      if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Max-Age' 1728000;
+        add_header 'Content-Type' 'text/plain charset=UTF-8';
+        add_header 'Content-Length' 0;
+        return 204;
+      }
+    }
+    
     # Serve DASH fragments
     location /dash {
       types {
@@ -88,9 +88,9 @@ http {
         video/mp4 mp4;
       }
 
-			root /mnt;
-			
-			add_header Cache-Control no-cache; # Disable cache
+      root /mnt;
+      
+      add_header Cache-Control no-cache; # Disable cache
 
 
       # CORS setup
@@ -105,18 +105,18 @@ http {
           add_header 'Content-Length' 0;
           return 204;
       }
-    }		
-		
-		# This URL provides RTMP statistics in XML
-		location /stat {
-			rtmp_stat all;
-			rtmp_stat_stylesheet stat.xsl; # Use stat.xsl stylesheet 
-		}
+    }   
+    
+    # This URL provides RTMP statistics in XML
+    location /stat {
+      rtmp_stat all;
+      rtmp_stat_stylesheet stat.xsl; # Use stat.xsl stylesheet 
+    }
 
-		location /stat.xsl {
-			# XML stylesheet to view RTMP stats.
-			root /usr/local/nginx/html;
-		}
+    location /stat.xsl {
+      # XML stylesheet to view RTMP stats.
+      root /usr/local/nginx/html;
+    }
 
     #auth for publishing
     location /auth {
@@ -127,6 +127,6 @@ http {
       }
       return 403;
     }
-	}
+  }
 }
 ```
