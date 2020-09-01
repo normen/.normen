@@ -144,6 +144,10 @@ v - select - :w FILE - save selection to new file
 > - indent
 
 vii - visual select inside indentation
+
+:retab - change tabs in doc
+= - format
+gg=G - format file
 ```
 #### Autocomplete/Special
 ```
