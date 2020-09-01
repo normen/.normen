@@ -1,6 +1,6 @@
 # bitwaves.de
 ## nginx rtmp
-´´´
+```
 worker_processes  auto;
 #error_log  logs/error.log;
 
