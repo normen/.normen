@@ -61,8 +61,8 @@ do
       git clone https://tpope.io/vim/tbone.git ~/.normen/.vim/pack/tpope/start/tbone || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/tpope/start/tbone/doc" -c q || true
       # sneak - find with two characters
-      git clone https://github.com/justinmk/vim-sneak ~/.normen/.vim/pack/default/start/vim-sneak || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-sneak/doc" -c q || true
+      #git clone https://github.com/justinmk/vim-sneak ~/.normen/.vim/pack/default/start/vim-sneak || true
+      #vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-sneak/doc" -c q || true
       # airline - bottom status line
       git clone https://github.com/vim-airline/vim-airline ~/.normen/.vim/pack/dist/start/vim-airline || true
       vim -u NONE -c "helptags ~/.normen/.vim/pack/dist/start/vim-airline/doc" -c q || true
