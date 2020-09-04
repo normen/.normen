@@ -1,5 +1,7 @@
 ## docker
 ```bash
+# restart
+docker container restart mycontainer
 # stat display ("top")
 docker stats
 # remove all images (keeps used ones)
