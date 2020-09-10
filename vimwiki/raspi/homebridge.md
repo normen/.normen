@@ -197,6 +197,21 @@ sudo passwd -d -l homebridge #remove password
 https://kofler.info/raspbian-lite-fuer-den-read-only-betrieb/
 https://hallard.me/raspberry-pi-read-only/
 
+# NUT (UPS)
+sudo apt-get install nut nut-client nut-server usbutils
+vim /etc/nut/ups.conf
+<< CONTENT
+[eaton]
+     driver = usbhid-ups
+     port = auto
+     productid = ffff
+     desc = "Eaton Ellipse Pro 650"
+CONTENT
+vim /etc/nut/nut.conf
+MODE=netserver
+vim /etc/not/upsd.conf
+LISTEN 127.0.0.1
+sudo systemctl disable nut-client
 
 #--------------------------
 #RANDOM HOMEBRIDGE INFO
