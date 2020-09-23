@@ -1,6 +1,21 @@
 ## go
 #### Project
 ```bash
+## install on raspi
+wget https://dl.google.com/go/go1.15.2.linux-armv6l.tar.gz
+sudo tar -C /usr/local -xzf go1.15.2.linux-armv6l.tar.gz
+vim ~/.profile
+<<CONTENT
+PATH=$PATH:/usr/local/go/bin
+GOPATH=$HOME/go
+CONTENT
+source ~/.profile
+
+git clone https://github.com/cli/cli.git gh-cli
+cd gh-cli
+make
+sudo cp bin/gh /usr/local/bin
+
 ## modules!
 cd ~/go
 mkdir src
