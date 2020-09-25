@@ -1,0 +1,2 @@
+#!/bin/bash
+tmux save-buffer -|ssh -x normenhansen@Normens-MacBook.local -i ~/.ssh/id_rsa -C 'pbcopy'

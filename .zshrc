@@ -128,7 +128,7 @@ case "$OSTYPE" in
     PATH=$PATH:$HOME/.normen/osx/scripts
   ;;
   linux*)
-    PATH=$PATH:$HOME/.normen/raspi/scripts
+    PATH=$PATH:$HOME/.normen/bin/raspi
   ;;
   dragonfly*|freebsd*|netbsd*|openbsd*)
   ;;

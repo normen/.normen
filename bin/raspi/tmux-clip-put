@@ -1,0 +1,3 @@
+#!/bin/bash
+ssh -x normenhansen@Normens-MacBook.local -i ~/.ssh/id_rsa -C 'pbpaste'|tmux load-buffer -
+
