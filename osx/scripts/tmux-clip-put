@@ -1,0 +1,2 @@
+#!/bin/bash
+pbpaste | tmux load-buffer -

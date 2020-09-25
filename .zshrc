@@ -86,6 +86,43 @@ zle -N zle-keymap-select
 # set EDITOR
 export EDITOR=$(which vim)
 
+# copy-paste to tmux
+function tmux-clip-wrap-widgets() {
+    # NB: Assume we are the first wrapper and that we only wrap native widgets
+    # See zsh-autosuggestions.zsh for a more generic and more robust wrapper
+    local copy_or_paste=$1
+    shift
+    for widget in $@; do
+        # Ugh, zsh doesn't have closures
+        if [[ $copy_or_paste == "copy" ]]; then
+            eval "
+            function _tmux-clip-wrapped-$widget() {
+                zle .$widget
+                tmux load-buffer - <<<\$CUTBUFFER
+            }
+            "
+        else
+            eval "
+            function _tmux-clip-wrapped-$widget() {
+                CUTBUFFER=\$(tmux save-buffer -)
+                zle .$widget
+            }
+            "
+        fi
+        zle -N $widget _tmux-clip-wrapped-$widget
+    done
+}
+local copy_widgets=(
+    vi-yank vi-yank-eol vi-delete vi-backward-kill-word vi-change-whole-line
+)
+local paste_widgets=(
+    vi-put-{before,after}
+)
+
+# NB: can atm. only wrap native widgets
+tmux-clip-wrap-widgets copy $copy_widgets
+tmux-clip-wrap-widgets paste  $paste_widgets
+
 # Set up the prompt
 autoload -Uz promptinit
 promptinit
