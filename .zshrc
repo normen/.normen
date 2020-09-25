@@ -118,10 +118,21 @@ local copy_widgets=(
 local paste_widgets=(
     vi-put-{before,after}
 )
-
 # NB: can atm. only wrap native widgets
 tmux-clip-wrap-widgets copy $copy_widgets
 tmux-clip-wrap-widgets paste  $paste_widgets
+
+# add own bin directory to path
+case "$OSTYPE" in
+  darwin*)
+    PATH=$PATH:$HOME/.normen/osx/scripts
+  ;;
+  linux*)
+    PATH=$PATH:$HOME/.normen/raspi/scripts
+  ;;
+  dragonfly*|freebsd*|netbsd*|openbsd*)
+  ;;
+esac
 
 # Set up the prompt
 autoload -Uz promptinit
