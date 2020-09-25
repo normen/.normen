@@ -16,6 +16,16 @@ export KEYTIMEOUT=1
 
 # Fix vifm colorschemes
 export TERM=xterm-256color
+# Fix for tmux
+if [[ -n ${TMUX} && -n ${commands[tmux]} ]];then
+  case $(tmux showenv TERM 2>/dev/null) in
+    *256color) ;&
+    TERM=fbterm)
+      TERM=screen-256color ;;
+    *)
+      TERM=screen
+  esac
+fi
 
 setopt histignorealldups #sharehistory
 
