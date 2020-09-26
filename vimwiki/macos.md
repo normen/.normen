@@ -94,4 +94,8 @@ notmuch
 /usr/local/Cellar/ruby/2.7.1_2/bin/gem install mail
 cd ~/.vim/pack/default/start/
 git clone https://github.com/imain/notmuch-vim
+
+## quspectrumanalyzer
+checkout git
+sudo pip3 install .
 ```
