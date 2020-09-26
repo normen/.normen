@@ -4,6 +4,7 @@
 * [raspi/makerpi](raspi/makerpi.md)
 * [raspi/friesenrack](raspi/friesenrack.md)
 * [raspi/cncjs](raspi/cncjs.md)
+* [raspi/analyzer](raspi/analyzer.md)
 
 ## General Raspi Info
 ```bash
@@ -45,6 +46,11 @@ scan on
 scan off
 trust 50:E6:66:2E:59:EB
 connect 50:E6:66:2E:59:EB
+
+#install desktop
+sudo apt install raspberrypi-ui-mods
+#for startx
+sudo apt install --no-install-recommends xinit
 
 #desktop autostart
 sudo vim ~/.config/autostart/MeinAutostart.desktop
