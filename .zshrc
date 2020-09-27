@@ -119,8 +119,10 @@ local paste_widgets=(
     vi-put-{before,after}
 )
 # NB: can atm. only wrap native widgets
-tmux-clip-wrap-widgets copy $copy_widgets
-tmux-clip-wrap-widgets paste  $paste_widgets
+if [ -n "$TMUX" ]; then
+  tmux-clip-wrap-widgets copy $copy_widgets
+  tmux-clip-wrap-widgets paste  $paste_widgets
+fi
 
 # add own bin directory to path
 case "$OSTYPE" in
