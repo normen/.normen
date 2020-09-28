@@ -5,7 +5,8 @@
 :split 20
 
 #bitlbee
-:chat list discord
-:chat add !1 #mychannel
+account add <protocol> <username> <password>
+chat list discord
+chat add !1 #mychannel
 :join #mychannel
 ```
