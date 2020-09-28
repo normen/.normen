@@ -10,6 +10,9 @@ docker rmi $(docker images -q)
 docker rm $(docker ps -a -q)
 #run shell
 docker exec -it imagename bash
+#update
+docker pull my/imagename
+
 
 # ufw instead of iptables
 vim /etc/docker/daemon.json
