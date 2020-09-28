@@ -16,7 +16,7 @@ cd gh-cli
 make
 sudo cp bin/gh /usr/local/bin
 
-## modules!
+## old project w/o modules
 cd ~/go
 mkdir src
 cd src
@@ -25,6 +25,20 @@ touch main.go
 go run main.go
 go build
 go install
+
+## using modules
+cd somewhere not GOPATH
+mkdir myapp
+cd myapp
+vim main.go
+<<CONTENT
+package myapp
+func Hello() string {
+  return "Hello, world."
+}
+CONTENT
+go mod init myname.com/myapp
+
 ```
 
 #### Basics
