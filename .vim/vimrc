@@ -133,6 +133,10 @@ else
   map <silent> <C-W><C-E> :VsplitVifm<CR>
 endif
 
+" ctrl-space
+imap <C-Space> <C-x><C-o>
+imap <C-@> <C-Space>
+
 " window nav
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
