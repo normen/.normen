@@ -251,6 +251,11 @@ map <Leader><BS> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:noh<CR>
 :command HbFullDownload !rsync -azrv --delete pi@homebridge.local:~/npm-code ~/Dev/NodeCode/homebridge/
 :command HbFullDownloadDry !rsync -n -azrv --delete pi@homebridge.local:~/npm-code ~/Dev/NodeCode/homebridge/
 
+:command GoUploadPlugin !rsync -azrv --delete ${PWD} pi@homebridge.local:~/go-code/
+:command GoDownloadPlugin !rsync -azrv --delete pi@homebridge.local:~/go-code/${PWD\#\#*/} ~/Dev/GoCode/homebridge/go-code/
+:command GoFullUpload !rsync -azrv --delete ~/Dev/GoCode/homebridge/go-code pi@homebridge.local:~/
+:command GoFullDownload !rsync -azrv --delete pi@homebridge.local:~/go-code ~/Dev/GoCode/homebridge/
+
 :command BackupDev !rsync -azrv --delete ~/Dev normen@normenhansen.de:~/backup/MacBook
 :command RestoreDevDry !rsync -n -azrv --delete normen@normenhansen.de:~/backup/MacBook/Dev ~/
 
