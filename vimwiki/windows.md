@@ -30,4 +30,19 @@ New-ItemProperty -Path $kbLayout -Name "Scancode Map" -PropertyType Binary -Valu
 # powerToys! Keyboard remappng for Ctrl-Ä
 https://github.com/microsoft/PowerToys
 
-```
+#OpenSSH
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+
+Set-Service -Name sshd -StartupType 'Automatic'
+Set-Service -Name ssh-agent -StartupType 'Automatic'
+Start-Service ssh-agent
+Start-Service sshd
+
+# for admin accounts copy authorized_keys to:
+$acl = Get-Acl C:\ProgramData\ssh\administrators_authorized_keys
+$acl.SetAccessRuleProtection($true, $false)
+$administratorsRule = New-Object system.security.accesscontrol.filesystemaccessrule("Administrators","FullControl","Allow")
+$systemRule = New-Object system.security.accesscontrol.filesystemaccessrule("SYSTEM","FullControl","Allow")
+$acl.SetAccessRule($administratorsRule)
+$acl.SetAccessRule($systemRule)
+$acl | Set-Acl
