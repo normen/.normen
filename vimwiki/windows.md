@@ -22,21 +22,13 @@ set VCPKG_DEFAULT_TRIPLET = x64-windows
 git clone https://github.com/AlexeyAB/darknet
 
 # make caps lock ctrl
-# in admin powershell:
+# in admin powershell: (or use powerToys)
 $hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".Split(',') | % { "0x$_"};
 $kbLayout = 'HKLM:\System\CurrentControlSet\Control\Keyboard Layout';
 New-ItemProperty -Path $kbLayout -Name "Scancode Map" -PropertyType Binary -Value ([byte[]]$hexified);
 
 # powerToys! Keyboard remappng for Ctrl-Ä
 https://github.com/microsoft/PowerToys
-
-#OpenSSH
-Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
-
-Set-Service -Name sshd -StartupType 'Automatic'
-Set-Service -Name ssh-agent -StartupType 'Automatic'
-Start-Service ssh-agent
-Start-Service sshd
 
 # Services
 Start-Service servicename
@@ -45,6 +37,14 @@ Stop-Service servicename
 
 # Event Log
 Get-EventLog -LogName Application -Newest 10
+
+# OpenSSH
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+
+Set-Service -Name sshd -StartupType 'Automatic'
+Set-Service -Name ssh-agent -StartupType 'Automatic'
+Start-Service ssh-agent
+Start-Service sshd
 
 # for admin accounts copy authorized_keys to:
 $acl = Get-Acl C:\ProgramData\ssh\administrators_authorized_keys
