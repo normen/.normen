@@ -38,6 +38,14 @@ Set-Service -Name ssh-agent -StartupType 'Automatic'
 Start-Service ssh-agent
 Start-Service sshd
 
+# Services
+Start-Service servicename
+Restart-Service servicename
+Stop-Service servicename
+
+# Event Log
+Get-EventLog -LogName Application -Newest 10
+
 # for admin accounts copy authorized_keys to:
 $acl = Get-Acl C:\ProgramData\ssh\administrators_authorized_keys
 $acl.SetAccessRuleProtection($true, $false)
