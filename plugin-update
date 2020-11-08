@@ -1,8 +1,5 @@
 #!/bin/bash
 
-if [ -d ~/.normen/.vim/pack ]; then
-  ~/.normen/bin/git-recursive-update ~/.normen/.vim/pack
-fi
 if [ -d ~/.normen/.tmux/plugins ]; then
   ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
 fi
@@ -17,20 +14,6 @@ do
       break;;
     "sudo" )
       sudo npm update -g spaceship-prompt --unsafe-perm
-      break;;
-    "No" )
-      break;;
-  esac
-done
-
-echo "🤓 update YouCompleteMe?"
-select yn in "No" "Yes";
-do
-  case $yn in
-    "Yes" )
-      cd ~/.vim/pack/default/start/YouCompleteMe
-      git submodule update --init --recursive
-      python3 install.py --ts-completer
       break;;
     "No" )
       break;;
