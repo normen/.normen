@@ -1,0 +1,14 @@
+call plug#begin('~/.vim/plugged')
+Plug 'morhetz/gruvbox'
+Plug 'fatih/vim-go'
+Plug 'airblade/vim-gitgutter'
+Plug 'https://tpope.io/vim/fugitive'
+Plug 'https://tpope.io/vim/surround'
+Plug 'https://tpope.io/vim/tbone'
+Plug 'vim-airline/vim-airline'
+Plug 'vifm/vifm.vim'
+Plug 'vimwiki/vimwiki'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+call plug#end()

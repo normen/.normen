@@ -29,58 +29,26 @@ done
 cd ~/
 if [ ! -d ".normen" ]; then
   git clone https://github.com/normen/.normen
+  # tmux-resurrect tmux plugin
+  git clone https://github.com/tmux-plugins/tmux-resurrect ~/.normen/.tmux/plugins/tmux-resurrect || true
 fi
 
 echo "**************************************************************"
 echo ""
-echo "📝 install vim plugins?"
+echo "📝 install default plug.vim?"
 echo ""
-select yn in "No" "Yes" "Delete";
+select yn in "No" "Yes" "Delete pack";
 do
   case $yn in
-    "Delete" )
+    "Delete pack" )
       rm -rf ~/.normen/.vim/pack || true
-      echo "all plugins deleted."
+      echo "all plugins in pack deleted"
       ;;
     "Yes" )
-      # gruvbox - eye candy
-      git clone https://github.com/morhetz/gruvbox.git ~/.normen/.vim/pack/default/start/gruvbox || true
-      # go language support
-      git clone https://github.com/fatih/vim-go.git ~/.normen/.vim/pack/default/start/vim-go || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-go/doc" -c q || true
-      # gitgutter - git infos in file
-      git clone https://github.com/airblade/vim-gitgutter.git ~/.normen/.vim/pack/airblade/start/vim-gitgutter || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/airblade/start/vim-gitgutter/doc" -c q || true
-      # fugitive - :G git command
-      git clone https://tpope.io/vim/fugitive.git ~/.normen/.vim/pack/tpope/start/fugitive || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/tpope/start/fugitive/doc" -c q || true
-      # surround - work on surrounding quotes etc
-      git clone https://tpope.io/vim/surround.git ~/.normen/.vim/pack/tpope/start/surround || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/tpope/start/surround/doc" -c q || true
-      # tbone - :Twrite / :Tyank etc. to work with tmux
-      git clone https://tpope.io/vim/tbone.git ~/.normen/.vim/pack/tpope/start/tbone || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/tpope/start/tbone/doc" -c q || true
+      cp ~/.normen/.vim/default_plug.vim ~/.normen/.vim/plug.vim
       # sneak - find with two characters
       #git clone https://github.com/justinmk/vim-sneak ~/.normen/.vim/pack/default/start/vim-sneak || true
       #vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-sneak/doc" -c q || true
-      # airline - bottom status line
-      git clone https://github.com/vim-airline/vim-airline ~/.normen/.vim/pack/dist/start/vim-airline || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/dist/start/vim-airline/doc" -c q || true
-      # vifm - integration with vifm file manager
-      git clone https://github.com/vifm/vifm.vim ~/.normen/.vim/pack/default/start/vifm || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vifm/doc" -c q || true
-      # vimwiki - note taking
-      git clone https://github.com/vimwiki/vimwiki ~/.normen/.vim/pack/default/start/vim-wiki || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-wiki/doc" -c q || true
-      # tmux-navigator - Ctrl-hjkl moving in tmux and vim
-      git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.normen/.vim/pack/default/start/vim-tmux-navigator || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-tmux-navigator/doc" -c q || true
-      # tmux-clipboard - auto-sync clipboard of tmux and vim
-      git clone https://github.com/tmux-plugins/vim-tmux-focus-events ~/.normen/.vim/pack/default/start/vim-tmux-focus-events || true
-      git clone https://github.com/roxma/vim-tmux-clipboard ~/.normen/.vim/pack/default/start/vim-tmux-clipboard || true
-      vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-tmux-clipboard/doc" -c q || true
-      # tmux-resurrect tmux plugin
-      git clone https://github.com/tmux-plugins/tmux-resurrect ~/.normen/.tmux/plugins/tmux-resurrect || true
       break;;
     "No" ) 
       break;;

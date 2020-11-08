@@ -1,4 +1,5 @@
 " standard stuff
+source ~/.vim/plug.vim
 set nocompatible
 set noswapfile
 set encoding=utf-8
