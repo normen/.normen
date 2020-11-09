@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
+Plug 'preservim/nerdcommenter'
 Plug 'fatih/vim-go'
 Plug 'airblade/vim-gitgutter'
 Plug 'https://tpope.io/vim/fugitive'
