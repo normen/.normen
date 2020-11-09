@@ -17,6 +17,7 @@
 ## Random
 * [brew](brew.md)
 * [docker](docker.md)
+* [platformio](platformio.md)
 * [plesk](plesk.md)
 * [aerc](aerc.md)
 * [dd-wrt](dd-wrt.md)
