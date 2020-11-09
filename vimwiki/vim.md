@@ -148,6 +148,8 @@ vii - visual select inside indentation
 :retab - change tabs in doc
 = - format
 gg=G - format file
+
+:cd %:h - go to current file dir
 ```
 #### Autocomplete/Special
 ```
