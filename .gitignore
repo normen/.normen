@@ -2,6 +2,7 @@
 .vim/pack/**
 .vim/plugged/**
 .vim/plug.vim
+.vim/coc-settings.json
 vimwiki/diary/**
 .vim/.netrwhist
 .tmux/plugins/**
