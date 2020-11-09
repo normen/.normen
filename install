@@ -140,29 +140,6 @@ done
 
 echo "**************************************************************"
 echo ""
-echo "😵 (📦) install YouCompleteMe?"
-echo ""
-select yn in "No" "Yes" "Delete";
-do
-  case $yn in
-    "Delete" )
-      rm -rf ~/.normen/.vim/pack/default/start/YouCompleteMe || true
-      echo "YouCompleteMe deleted."
-      ;;
-    "Yes" )
-      cd ~/.normen/.vim/pack/default/start
-      git clone https://github.com/ycm-core/YouCompleteMe YouCompleteMe
-      cd YouCompleteMe
-      git submodule update --init --recursive
-      python3 install.py --ts-completer
-      break;;
-    "No" ) 
-      break;;
-  esac
-done
-
-echo "**************************************************************"
-echo ""
 echo "🧐 (📦) install eslint + semistandard?"
 echo ""
 echo " -> mac usually nosudo"
