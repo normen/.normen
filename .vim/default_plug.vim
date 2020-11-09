@@ -12,4 +12,6 @@ Plug 'vimwiki/vimwiki'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
+"Plug 'neoclide/coc.nvim'
 call plug#end()
+"source ~/.vim/coc.vim
