@@ -62,6 +62,8 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 " vertical split
 let g:netrw_preview = 1
+" for vifm
+let g:vifm_embed_term=1
 
 " nicer vsplit character
 set fillchars+=vert:\┃
