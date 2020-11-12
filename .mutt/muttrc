@@ -1,5 +1,5 @@
 # apple mail
-set from             = "Normen Hansen <normen@mac.com>"
+set from             = "Normen Hansen <normenweb@mac.com>"
 set folder           = "imaps://imap.mail.me.com:993/"
 set spoolfile        = "+INBOX"
 set postponed        = "+Drafts"
