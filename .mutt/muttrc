@@ -46,7 +46,7 @@ set envelope_from                    # which from?
 #set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
 #set askcc                            # ask for CC:
-set fcc_attach                       # save attachments with the body
+#set fcc_attach                       # save attachments with the body
 #set forward_format = "Fwd: %s"       # format of subject when forwarding
 set forward_decode                   # decode when forwarding
 #set attribution = "On %d, %n wrote:" # format of quoting header
@@ -144,6 +144,8 @@ bind pager                      gg  top
 bind pager                      G   bottom
 bind pager                      k   previous-line
 bind pager                      j   next-line
+
+bind index,pager <Tab> next-unread-mailbox
 
 macro pager gx "|extract_url\n"
 
