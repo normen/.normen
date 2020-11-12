@@ -21,7 +21,7 @@ do
       chsh -s $(which zsh)
       sudo chsh -s $(which zsh) || true
       break;;
-    "No" ) 
+    "No" )
       break;;
   esac
 done
@@ -50,7 +50,7 @@ do
       #git clone https://github.com/justinmk/vim-sneak ~/.normen/.vim/pack/default/start/vim-sneak || true
       #vim -u NONE -c "helptags ~/.normen/.vim/pack/default/start/vim-sneak/doc" -c q || true
       break;;
-    "No" ) 
+    "No" )
       break;;
   esac
 done

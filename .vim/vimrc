@@ -230,6 +230,7 @@ map <Leader><BS> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:noh<CR>
 :command -nargs=* SearchFiles :vim /<args>/g **/*<bar>cw
 :command FixLineEndings :%s//\r/g
 :command FixAdditionalLineEndings :%s///g
+:command FixTrailingWhitespace :%s/\s\+$//e
 :command FormatJSON :%!python -m json.tool
 
 ":command -nargs=1 GitClone Git clone <args>
