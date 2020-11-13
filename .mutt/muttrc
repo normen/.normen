@@ -19,8 +19,9 @@ set ssl_verify_dates=yes
 set ssl_verify_host=yes
 set imap_pipeline_depth = 0
 set smtp_authenticators = 'gssapi:login'
-
 set imap_check_subscribed = yes
+
+alternates "normen@mac\.com|bitwaves@mac\.com|normen667@googlemail\.com|normen667@gmail\.com|kontakt@normenhansen\.de|github@normenhansen\.de|normen@normenhansen\.de|nhansen@nordcrew\.de|kontakt@melnstich5\.de|kontakt@megalith-studios\.de"
 
 mailboxes +INBOX
 mailboxes +Bestellungen
