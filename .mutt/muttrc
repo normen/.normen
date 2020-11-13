@@ -102,6 +102,7 @@ set message_cachedir = "~/.normen/.mutt/cache/bodies"
 set attach_save_dir = "~/Downloads/"
 
 set query_command = "contacts '%s'"
+set print_command = "lp -o cpi=16 -o lpi=10 -o media=A4"
 set editor = "~/.normen/.mutt/bgedit-screen-tmux.sh vim"
 set background_edit = yes
 
