@@ -1,0 +1,15 @@
+set from             = "Normen Hansen <normen.hansen@wenningstedt.de>"
+set folder           = "imaps://exchange.ionos.eu:993/"
+set spoolfile        = "+INBOX"
+set postponed        = "+Entwürfe"
+set record           = "+Gesendete Elemente"
+set trash            = "+Gelöschte Elemente"
+set imap_user        = "normen.hansen@wenningstedt.de"
+set imap_pass        = "`security find-internet-password -gs IMAP-WENNINGSTEDT -w`"
+set smtp_url         = "smtp://$imap_user@smtp.mail.me.com:587"
+set smtp_pass        = "`security find-internet-password -gs IMAP-WENNINGSTEDT -w`"
+set imap_pipeline_depth = 0
+set smtp_authenticators = 'gssapi:login'
+
+unmailboxes *
+mailboxes +INBOX

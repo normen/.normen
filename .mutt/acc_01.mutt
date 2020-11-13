@@ -1,0 +1,21 @@
+set from             = "Normen Hansen <normenweb@mac.com>"
+set folder           = "imaps://imap.mail.me.com:993/"
+set spoolfile        = "+INBOX"
+set postponed        = "+Drafts"
+set record           = "+Sent Messages"
+set trash            = "+Deleted Messages"
+set imap_user        = "normen"
+set imap_pass        = "`security find-internet-password -gs IMAPSERVER -w`"
+set smtp_url         = "smtp://$imap_user@smtp.mail.me.com:587"
+set smtp_pass        = "`security find-internet-password -gs IMAPSERVER -w`"
+set imap_pipeline_depth = 0
+set smtp_authenticators = 'gssapi:login'
+
+unmailboxes *
+mailboxes +INBOX
+mailboxes +Bestellungen
+mailboxes +News
+mailboxes +Notifications
+mailboxes +Server-Meldungen
+mailboxes +Junk
+mailboxes "+Sent Messages"

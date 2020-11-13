@@ -1,35 +1,10 @@
-# apple mail
-set from             = "Normen Hansen <normenweb@mac.com>"
-set folder           = "imaps://imap.mail.me.com:993/"
-set spoolfile        = "+INBOX"
-set postponed        = "+Drafts"
-set record           = "+Sent Messages"
-set trash            = "+Deleted Messages"
-set imap_user        = "normen"
-set imap_pass        = "`security find-internet-password -gs IMAPSERVER -w`"
-set smtp_url         = "smtp://$imap_user@smtp.mail.me.com:587"
-set smtp_pass        = "`security find-internet-password -gs IMAPSERVER -w`"
-set ssl_force_tls    = yes
-set ssl_starttls     = yes
-set ssl_use_sslv3=no
-set ssl_use_tlsv1=no
-set ssl_use_tlsv1_1=no
-set ssl_use_tlsv1_2=yes
-set ssl_verify_dates=yes
-set ssl_verify_host=yes
-set imap_pipeline_depth = 0
-set smtp_authenticators = 'gssapi:login'
+source ~/.normen/.mutt/acc_01.mutt
+macro index <f1> '<sync-mailbox><enter-command>source ~/.mutt/acc_01.mutt<enter><change-folder>!<enter>'
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/acc_02.mutt<enter><change-folder>!<enter>'
+
 set imap_check_subscribed = yes
 
-alternates "normen@mac\.com|bitwaves@mac\.com|normen667@googlemail\.com|normen667@gmail\.com|kontakt@normenhansen\.de|github@normenhansen\.de|normen@normenhansen\.de|nhansen@nordcrew\.de|kontakt@melnstich5\.de|kontakt@megalith-studios\.de"
-
-mailboxes +INBOX
-mailboxes +Bestellungen
-mailboxes +News
-mailboxes +Notifications
-mailboxes +Server-Meldungen
-mailboxes +Junk
-mailboxes "+Sent Messages"
+alternates "normen\.hansen@wenningstedt\.de|normenweb@mac\.com|normen@mac\.com|bitwaves@mac\.com|normen667@googlemail\.com|normen667@gmail\.com|kontakt@normenhansen\.de|github@normenhansen\.de|normen@normenhansen\.de|nhansen@nordcrew\.de|kontakt@melnstich5\.de|kontakt@megalith-studios\.de"
 
 # basic options
 set wait_key = no
@@ -108,18 +83,12 @@ set editor = "~/.normen/.mutt/bgedit-screen-tmux.sh vim"
 set background_edit = yes
 
 auto_view text/html                                      # view html automatically
-#auto_view image/*
 auto_view application/pdf
 alternative_order text/plain text/enriched text/html     # save html for last
 
 #------------------------------------------------------------
 # Vi Key Bindings
 #------------------------------------------------------------
-
-#bind index H sidebar-first
-#bind index L sidebar-open
-#bind index K sidebar-prev
-#bind index J sidebar-next
 
 bind index,pager H sidebar-prev
 bind index,pager L sidebar-next
@@ -157,10 +126,6 @@ bind attach,browser,pager,index \CF next-page
 bind attach,browser,pager,index \CB previous-page
 bind attach,browser,pager,index \Cu half-up
 bind attach,browser,pager,index \Cd half-down
-#bind browser,pager              \Ce next-line
-#bind browser,pager              \Cy previous-line
-#bind index                      \Ce next-line
-#bind index                      \Cy previous-line
 
 bind pager,index                d   noop
 bind pager,index                dd  delete-message
