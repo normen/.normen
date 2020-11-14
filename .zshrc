@@ -10,6 +10,7 @@ alias ll='la -alF'
 alias l='ls -CF'
 alias mv='mv -i'
 alias rm='rm -i'
+alias wiki='vim -c VimwikiIndex'
 
 # Make <Esc> quicker
 export KEYTIMEOUT=1
