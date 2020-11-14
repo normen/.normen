@@ -1,0 +1,3 @@
+set smtp_url = "smtps://normen667@gmail.com@smtp.gmail.com:465/"
+set smtp_pass = "`security find-internet-password -gs IMAP-GOOGLE -w`"
+set smtp_authenticators = 'gssapi:login'

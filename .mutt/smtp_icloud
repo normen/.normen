@@ -1,0 +1,3 @@
+set smtp_url         = "smtp://normen@smtp.mail.me.com:587"
+set smtp_pass        = "`security find-internet-password -gs IMAPSERVER -w`"
+set smtp_authenticators = 'gssapi:login'

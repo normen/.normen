@@ -1,0 +1,3 @@
+set smtp_url         = "smtp://normen.hansen%40wenningstedt.de@smtp.exchange.ionos.eu:587"
+set smtp_pass        = "`security find-internet-password -gs IMAP-WENNINGSTEDT -w`"
+set smtp_authenticators = 'gssapi:login'

@@ -1,10 +1,19 @@
-source ~/.normen/.mutt/acc_01.mutt
-macro index <f1> '<sync-mailbox><enter-command>source ~/.mutt/acc_01.mutt<enter><change-folder>!<enter>'
-macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/acc_02.mutt<enter><change-folder>!<enter>'
+source ~/.normen/.mutt/imap_icloud
+macro index <f1> '<sync-mailbox><enter-command>source ~/.normen/.mutt/imap_icloud<enter><change-folder>!<enter>'
+macro index <f2> '<sync-mailbox><enter-command>source ~/.normen/.mutt/imap_wenningstedt<enter><change-folder>!<enter>'
 
 set imap_check_subscribed = yes
 
 alternates "normen\.hansen@wenningstedt\.de|normenweb@mac\.com|normen@mac\.com|bitwaves@mac\.com|normen667@googlemail\.com|normen667@gmail\.com|kontakt@normenhansen\.de|github@normenhansen\.de|normen@normenhansen\.de|nhansen@nordcrew\.de|kontakt@melnstich5\.de|kontakt@megalith-studios\.de"
+
+send2-hook '~f .*@mac.com.*' 'source ~/.normen/.mutt/smtp_icloud'
+reply-hook '~f .*@mac.com.*' 'source ~/.normen/.mutt/smtp_icloud'
+send2-hook '~f .*@gmail.com.*' 'source ~/.normen/.mutt/smtp_google'
+reply-hook '~f .*@gmail.com.*' 'source ~/.normen/.mutt/smtp_google'
+send2-hook '~f .*@googlemail.com.*' 'source ~/.normen/.mutt/smtp_google'
+reply-hook '~f .*@googlemail.com.*' 'source ~/.normen/.mutt/smtp_google'
+send2-hook '~f .*@wenningstedt.de.*' 'source ~/.normen/.mutt/smtp_wenningstedt'
+reply-hook '~f .*@wenningstedt.de.*' 'source ~/.normen/.mutt/smtp_wenningstedt'
 
 # basic options
 set wait_key = no

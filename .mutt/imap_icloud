@@ -6,9 +6,10 @@ set record           = "+Sent Messages"
 set trash            = "+Deleted Messages"
 set imap_user        = "normen"
 set imap_pass        = "`security find-internet-password -gs IMAPSERVER -w`"
+set imap_pipeline_depth = 0
+
 set smtp_url         = "smtp://$imap_user@smtp.mail.me.com:587"
 set smtp_pass        = "`security find-internet-password -gs IMAPSERVER -w`"
-set imap_pipeline_depth = 0
 set smtp_authenticators = 'gssapi:login'
 
 unmailboxes *
