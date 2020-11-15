@@ -187,3 +187,13 @@ func main() {
   }
 }
 ```
+## Building
+```bash
+# get supported architectures
+go tool dist list
+# build for local arch
+go build -o myapp
+# build for other arch
+GOOS=windows go build -o myapp.exe
+GOOS=linux GOARCH=ppc64 go build -o myapp
+```
