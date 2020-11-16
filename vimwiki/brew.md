@@ -44,5 +44,12 @@ brew link --force --overwrite node@8
 # create go package
 brew create --go https://github.com/normen/whatscli/archive/v0.4.2.tar.gz
 vim /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/whatscli.rb
+<<CONTENT
+  def install
+    system "go", "build", *std_go_args, "-o", "whatscli"
+    mkdir bin.to_s
+    cp "whatscli", "#{bin}/"
+  end
+CONTENT
 brew audit --new-formula whatscli
 ```
