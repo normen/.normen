@@ -39,6 +39,10 @@ func Hello() string {
 CONTENT
 go mod init myname.com/myapp
 
+# update all packages
+go get -u
+# get specific commit
+go get github.com/someone/some_module@af044c0995fe
 ```
 
 #### Basics
