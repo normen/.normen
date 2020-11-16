@@ -17,6 +17,11 @@ if [ ! -d ".normen" ]; then
   git clone https://github.com/normen/.normen
 fi
 
+# check for arguments
+if [ $# -eq 0 ]; then
+  echo "No arguments supplied"
+fi
+      
 # check for string in file
 if grep -q "searchstring" "/path/to/file"; then
 fi
