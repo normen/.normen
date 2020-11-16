@@ -40,4 +40,9 @@ brew link node@8
 
 #For some older node versions (which are keg-only), it might be required to link them with the --force and --overwrite options:
 brew link --force --overwrite node@8
+
+# create go package
+brew create --go https://github.com/normen/whatscli/archive/v0.4.2.tar.gz
+vim /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/whatscli.rb
+brew audit --new-formula whatscli
 ```
