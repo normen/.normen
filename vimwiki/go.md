@@ -196,4 +196,6 @@ go build -o myapp
 # build for other arch
 GOOS=windows go build -o myapp.exe
 GOOS=linux GOARCH=ppc64 go build -o myapp
+# raspi
+GOOS=linux GOARCH=arm GOARM=5 go build -o whatscli
 ```
