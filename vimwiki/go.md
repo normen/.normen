@@ -43,6 +43,9 @@ go mod init myname.com/myapp
 go get -u
 # get specific commit
 go get github.com/someone/some_module@af044c0995fe
+# replace some import with fork
+# (at end of go.mod)
+replace github.com/Rhymen/go-whatsapp => github.com/SchulteMK/go-whatsapp v0.0.0-20201117193111-50e7347bfbb6
 ```
 
 #### Basics
