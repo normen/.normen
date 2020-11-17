@@ -191,6 +191,28 @@ N - prev found
 :set noic - no ignore case
 :set hls is - highlight + increment search
 ```
+#### CoC
+```
+<Tab> - expand
+[x ]x - go to next/prev issue
+gd - go to definition
+gy - type definition
+gi - implementation
+gr - references
+<Leader>qf - quick fix
+<Leader>rn - refactor-rename
+<Leader>ac - code action on file
+<space>a - all diagnostics
+<space>e - extensions
+<space>c - commands
+<space>o - outline doc
+<space>s - symbols
+<space>p - resume last
+
+:Format - format code
+:Fold - fold code (zo to open)
+:OR - organize imports
+```
 #### Scripts+Plugins
 ```
 # numbers
