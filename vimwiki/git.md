@@ -106,6 +106,10 @@ git rebase -i HEAD~3 //3 last commits
 #change pick -> reword in list
 git push --force
 
+# changes since last tag
+LASTTAG=$(git describe --tags --abbrev=0)
+git log $LASTTAG..HEAD --no-decorate --pretty=format:"- %s" --abbrev-commit > changes.txt
+
 # prepare for email
 git format-patch origin/master
 # send last commit as mail
