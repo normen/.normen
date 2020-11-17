@@ -128,14 +128,20 @@ fi
 # add own bin directory to path
 case "$OSTYPE" in
   darwin*)
-    PATH=$PATH:$HOME/.normen/osx/scripts
+    export PATH=$PATH:$HOME/.normen/osx/scripts
   ;;
   linux*)
-    PATH=$PATH:$HOME/.normen/bin/raspi
+    export PATH=$PATH:$HOME/.normen/bin/raspi
   ;;
   dragonfly*|freebsd*|netbsd*|openbsd*)
   ;;
 esac
+
+# add go bin
+if [ -d "$HOME/go" ]; then
+  export GOPATH=$HOME/go
+  export PATH=$PATH:$GOPATH/bin
+fi
 
 # Set up the prompt
 autoload -Uz promptinit
