@@ -106,6 +106,9 @@ bind index,pager <Return> sidebar-open
 bind pager K previous-entry
 bind pager J next-entry
 
+bind index K sidebar-prev
+bind index J sidebar-next
+
 bind attach,browser,pager,index ö enter-command
 
 bind index l display-message
