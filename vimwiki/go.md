@@ -70,7 +70,7 @@ func main() {
 
   // slice (range of managed backing array)
   var arr = []int{1,2,3}
-  append(arr,4)
+  arr = append(arr,4)
 
   // maps
   myMap := make(map[string]int)
