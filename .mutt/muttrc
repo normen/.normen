@@ -99,8 +99,6 @@ alternative_order text/plain text/enriched text/html     # save html for last
 # Vi Key Bindings
 #------------------------------------------------------------
 
-bind index,pager H sidebar-prev
-bind index,pager L sidebar-next
 bind index,pager <Return> sidebar-open
 
 bind pager K previous-entry
@@ -108,6 +106,7 @@ bind pager J next-entry
 
 bind index K sidebar-prev
 bind index J sidebar-next
+bind index L sidebar-open
 
 bind attach,browser,pager,index ö enter-command
 
