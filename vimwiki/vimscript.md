@@ -1,6 +1,8 @@
 # vimscript
 #### use location list
 ```vimscript
+:let mycmd = input("Enter a command: ", "", "command")
+
 call setloclist(0, map(systemlist('ls -a ~/'), {_, p -> {'filename': p}}))
 call setloclist(...) - function call
 
