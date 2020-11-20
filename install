@@ -114,7 +114,7 @@ done
 
 echo "**************************************************************"
 echo ""
-echo "📦 install node 10?"
+echo "📦 install node?"
 echo ""
 select yn in "No" "sudo (n)" "nosudo (n)" "MacOS (brew)";
 do
@@ -122,16 +122,15 @@ do
     "sudo (n)" )
       cd ~/
       curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
-      sudo bash n 10
+      sudo bash n 12
       break;;
     "nosudo (n)" )
       cd ~/
       curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
-      bash n 10
+      bash n 12
       break;;
     "MacOS (brew)" )
-      brew install node@10
-      brew link node@10 --force
+      brew install node
       break;;
     "No" )
       break;;
