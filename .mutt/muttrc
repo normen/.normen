@@ -16,6 +16,7 @@ send2-hook '~f .*@wenningstedt.de.*' 'source ~/.normen/.mutt/smtp_wenningstedt'
 reply-hook '~f .*@wenningstedt.de.*' 'source ~/.normen/.mutt/smtp_wenningstedt'
 
 # basic options
+set beep = no
 set wait_key = no
 set timeout = 3
 set mail_check_stats
