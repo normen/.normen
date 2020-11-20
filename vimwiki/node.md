@@ -33,6 +33,10 @@ npm install packagename --no-bin-links
 curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
 bash n lts
 
+# check for updates
+npm install -g npm-check
+npm-check -gu
+
 #up/downgrade Node.js
 sudo npm cache clean -f
 sudo npm install -g n
