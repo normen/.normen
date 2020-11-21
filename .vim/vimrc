@@ -1,4 +1,5 @@
 " standard stuff
+let mapleader = ","
 source ~/.vim/plug.vim
 set nocompatible
 set noswapfile
@@ -111,7 +112,6 @@ function! QuickFix_toggle()
 endfunction
 
 " ** Mappings & Commands **
-let mapleader = ","
 
 " session / project setup
 nnoremap <F1> :!~/.normen/update<CR><CR>
