@@ -184,7 +184,7 @@ vnoremap <Leader>tl :Twrite left<CR>
 vnoremap <Leader>tr :Twrite right<CR>
 
 " opening/closing brackets
-inoremap {<CR> {<CR>}<ESC>O
+" inoremap {<CR> {<CR>}<ESC>O
 
 " german keys
 nmap ü ]
