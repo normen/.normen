@@ -1,8 +1,20 @@
 "command! -nargs=+ GH call s:RunShellCommand('gh ' . <q-args>)
-command! -nargs=+ GH execute 'terminal gh '.<q-args>
+command! -nargs=+ GH  call s:OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
+command! -nargs=+ GH  call s:OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
+command! -nargs=+ GH  call s:OpenTermOnce('go ' . <q-args>, "GO Tool")
+"command! -nargs=+ GH execute 'terminal gh '.<q-args>
 command! GHNewIssue :terminal gh issue create
 command! GHIssueList call s:RunShellCommand('gh issue list')
 ":let mycmd = input("Enter a command: ", "", "command")
+"
+function! s:OpenTermOnce(command, buffername)
+  let bufnr = bufwinnr(a:buffername)
+  if(bufnr>0)
+    execute 'bd '.bufnr
+  endif
+  call term_start(a:command,{'term_name':a:buffername}) 
+endfunction  
+
 function! s:RunShellCommand(cmdline)
   echo a:cmdline
   let expanded_cmdline = a:cmdline
