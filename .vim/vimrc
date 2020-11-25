@@ -1,13 +1,10 @@
 " standard stuff
-let mapleader = ","
-source ~/.vim/plug.vim
 set nocompatible
 set noswapfile
 set encoding=utf-8
 syntax enable
 filetype plugin indent on
 color default
-colorscheme gruvbox
 set background=dark
 set splitbelow splitright
 set number
@@ -31,8 +28,6 @@ set ttymouse=xterm2
 set path+=**
 set wildmenu
 set wildignore=*.o,*.obj,*-
-set wildignore+=*vim/backups*
-set wildignore+=*sass-cache*
 set wildignore+=*node_modules*
 set wildignore+=*DS_Store*
 set wildignore+=*.png,*.jpg*,*.gif
@@ -80,11 +75,11 @@ endif
 
 " MacOS Terminal path in title
 " use Ctrl-V Esc and Ctrl-V Ctrl-G to insert
-set t_ts=]6;
-set t_fs=
-set title
+"set t_ts=]6;
+"set t_fs=
+"set title
 "set titlestring=%{\"file://\".hostname().expand(\"%:p\")}
-auto BufEnter * let &titlestring = "file://" . substitute(hostname().expand("%:p"), " ", "+", "")
+"auto BufEnter * let &titlestring = "file://" . substitute(hostname().expand("%:p"), " ", "+", "")
 
 " set vimwiki path and syntax
 let g:vimwiki_list = [{'path': '~/.normen/vimwiki/', 'syntax': 'markdown', 'ext': '.md', "nested_syntaxes": {'javascript':'javascript','bash':'bash','sh':'sh','c++':'cpp','python':'python','go':'go'}}]
@@ -94,24 +89,8 @@ let g:vimwiki_global_ext = 0
 " session vim content
 set sessionoptions=globals,localoptions,buffers,curdir,tabpages,winsize
 
-" disable gitgutter if no git executable
-if !executable('git')
-  let g:gitgutter_enabled = 0
-endif
-
-" allow toggling quick fix window
-function! QuickFix_toggle()
-  for i in range(1, winnr('$'))
-    let bnum = winbufnr(i)
-    if getbufvar(bnum, '&buftype') == 'quickfix'
-      cclose
-      return
-    endif
-  endfor
-  copen
-endfunction
-
 " ** Mappings & Commands **
+let mapleader = ","
 
 " session / project setup
 nnoremap <F1> :!~/.normen/update<CR><CR>
@@ -151,12 +130,12 @@ noremap <silent> <C-Left> :vertical resize -3<CR>
 noremap <silent> <C-Right> :vertical resize +3<CR>
 
 "masochism
-nnoremap <up> ddkP
-vnoremap <up> dkP
-nnoremap <down> ddjP
-vnoremap <down> djp
-nnoremap <left> O<Esc>j
-nnoremap <right> o<Esc>k
+"nnoremap <up> ddkP
+"vnoremap <up> dkP
+"nnoremap <down> ddjP
+"vnoremap <down> djp
+"nnoremap <left> O<Esc>j
+"nnoremap <right> o<Esc>k
 
 " copy-paste easily from clipboard
 nnoremap <Leader>yy "*yy
@@ -208,65 +187,6 @@ nnoremap dam va{Vd
 nnoremap yam va{Vy
 nnoremap cam va{Vc
 
-" commenting
-map <Leader># :s/^/#/<CR>:noh<CR>
-map <Leader>/ :s/^/\/\//<CR>:noh<CR>
-map <Leader>" :s/^/\"/<CR>:noh<CR>
-map <Leader>% :s/^/%/<CR>:noh<CR>
-map <Leader>! :s/^/!/<CR>:noh<CR>
-map <Leader>; :s/^/;/<CR>:noh<CR>
-map <Leader>- :s/^/--/<CR>:noh<CR>
-map <Leader><BS> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:noh<CR>
-
-"map <Leader>* :s/^\(.*\)$/\/\* \1 \*\//<CR>:noh<CR>
-"map <Leader>( :s/^\(.*\)$/\(\* \1 \*\)/<CR>:noh<CR>
-"map <Leader>< :s/^\(.*\)$/<!-- \1 -->/<CR>:noh<CR>
-"map <Leader>d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:noh<CR>
-
-" custom commands
-:command W w
-
-:command -nargs=* Search :vim /<args>/g %<bar>cw
-:command -nargs=* SearchFiles :vim /<args>/g **/*<bar>cw
-:command FixLineEndings :%s//\r/g
-:command FixAdditionalLineEndings :%s///g
-:command FixTrailingWhitespace :%s/\s\+$//e
-:command FormatJSON :%!python -m json.tool
-
-":command -nargs=1 GitClone Git clone <args>
-":command GitInit Git init
-":command GitCommit Git commit
-:command GitCommitThis Git add %|Git commit
-:command GitCommitAll Git add -A|Git commit
-:command GitPushMaster Git push -f -u origin master
-":command GitPushAllMaster Git add -A|Git commit|Git push -f -u origin master
-:command GitPullMaster Git pull --rebase origin master
-:command GitStash Git stash save -a
-:command GitPop Git stash pop
-:command GitUntracked Git ls-files --others --exclude-standard
-:command GitUnStageAll Git reset HEAD -- .
-
-:command HbUploadPlugin !rsync -azrv --delete ${PWD} pi@homebridge.local:~/npm-code/
-:command HbUploadPluginDry !rsync -n -azrv --delete ${PWD} pi@homebridge.local:~/npm-code/
-:command HbDownloadPlugin !rsync -azrv --delete pi@homebridge.local:~/npm-code/${PWD\#\#*/} ~/Dev/NodeCode/homebridge/npm-code/
-:command HbDownloadPluginDry !rsync -n -azrv --delete pi@homebridge.local:~/npm-code/${PWD\#\#*/} ~/Dev/NodeCode/homebridge/npm-code/
-:command HbFullUpload !rsync -azrv --delete ~/Dev/NodeCode/homebridge/npm-code pi@homebridge.local:~/
-:command HbFullUploadDry !rsync -n -azrv --delete ~/Dev/NodeCode/homebridge/npm-code pi@homebridge.local:~/
-:command HbFullDownload !rsync -azrv --delete pi@homebridge.local:~/npm-code ~/Dev/NodeCode/homebridge/
-:command HbFullDownloadDry !rsync -n -azrv --delete pi@homebridge.local:~/npm-code ~/Dev/NodeCode/homebridge/
-
-:command GoUploadPlugin !rsync -azrv --delete ${PWD} pi@homebridge.local:~/go-code/
-:command GoDownloadPlugin !rsync -azrv --delete pi@homebridge.local:~/go-code/${PWD\#\#*/} ~/Dev/GoCode/homebridge/go-code/
-:command GoFullUpload !rsync -azrv --delete ~/Dev/GoCode/homebridge/go-code pi@homebridge.local:~/
-:command GoFullDownload !rsync -azrv --delete pi@homebridge.local:~/go-code ~/Dev/GoCode/homebridge/
-
-:command BackupDev !rsync -azrv --delete ~/Dev normen@normenhansen.de:~/backup/MacBook
-:command RestoreDevDry !rsync -n -azrv --delete normen@normenhansen.de:~/backup/MacBook/Dev ~/
-
-:command WebAppUp !cd client;npm run build;cd ..;git add -A;git commit -m 'update';git push -u -f origin master
-
-:command PIOCreateMakefile !cp ~/.vim/templates/PlatformIO-Makefile ./Makefile
-:command -nargs=1 PIOInit !platformio project init --ide vim --board <args>
-
-:command JSCompletionEnable !cp ~/.vim/templates/jsconfig.json ./
-
+source ~/.normen/.vim/plug.vim
+source ~/.normen/.vim/commands.vim
+colorscheme gruvbox

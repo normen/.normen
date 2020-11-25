@@ -1,7 +1,7 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.normen/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdcommenter'
-Plug 'fatih/vim-go'
+"Plug 'fatih/vim-go'
 Plug 'airblade/vim-gitgutter'
 Plug 'https://tpope.io/vim/fugitive'
 Plug 'https://tpope.io/vim/surround'
@@ -13,8 +13,8 @@ Plug 'vimwiki/vimwiki'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
-"Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim'
 call plug#end()
-"source ~/.vim/coc.vim
-"source ~/.vim/gh.vim
-"autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+source ~/.normen/.vim/commands.vim
+source ~/.normen/.vim/coc.vim
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
