@@ -5,6 +5,8 @@ if [ -d ~/.normen/.tmux/plugins ]; then
 fi
 
 antigen update
+vim -c "PlugUpdate|:qa"
+#vim -c "CocUpdate|:qa"
 
 if [ -f ~/.normen/plugin-update.local ]; then
   ~/.normen/plugin-update.local
