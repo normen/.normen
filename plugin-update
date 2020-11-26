@@ -4,21 +4,7 @@ if [ -d ~/.normen/.tmux/plugins ]; then
   ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
 fi
 
-echo "🤓 (node) update spaceship?"
-echo " -> mac usually nosudo"
-select yn in "No" "sudo" "nosudo";
-do
-  case $yn in
-    "nosudo" )
-      npm update -g spaceship-prompt
-      break;;
-    "sudo" )
-      sudo npm update -g spaceship-prompt --unsafe-perm
-      break;;
-    "No" )
-      break;;
-  esac
-done
+antigen update
 
 if [ -f ~/.normen/plugin-update.local ]; then
   ~/.normen/plugin-update.local

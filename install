@@ -158,25 +158,6 @@ done
 
 echo "**************************************************************"
 echo ""
-echo "🚀 (📦) install spaceship?"
-echo ""
-echo " -> mac usually nosudo"
-select yn in "No" "sudo" "nosudo";
-do
-  case $yn in
-    "nosudo" )
-      npm install -g spaceship-prompt
-      break;;
-    "sudo" )
-      sudo npm install -g spaceship-prompt --unsafe-perm
-      break;;
-    "No" )
-      break;;
-  esac
-done
-
-echo "**************************************************************"
-echo ""
 echo "🦶 replace / symlink dotfiles?"
 echo ""
 select yn in "No" "Yes";

@@ -1,4 +1,3 @@
-fpath=($fpath ~/.zfunctions)
 alias start='sudo systemctl start'
 alias stop='sudo systemctl stop'
 alias restart='sudo systemctl restart'
@@ -143,8 +142,12 @@ if [ -d "$HOME/go" ]; then
   export PATH=$PATH:$GOPATH/bin
 fi
 
-# Set up the prompt
-autoload -Uz promptinit
-promptinit
-prompt spaceship
+# antigen-plugins for zsh
+ADOTDIR=$HOME/.normen/.antigen
+source $HOME/.normen/antigen.zsh
+SPACESHIP_ROOT=$HOME/.normen/.antigen/bundles/denysdovhan/spaceship-prompt
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen theme denysdovhan/spaceship-prompt
+antigen apply
 

@@ -1,4 +1,5 @@
 .DS_Store
+.antigen/**
 .vim/pack/**
 .vim/plugged/**
 .vim/plug.vim
