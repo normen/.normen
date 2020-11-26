@@ -121,7 +121,7 @@ if [ -d "$HOME/go" ]; then
 fi
 
 # tab for autosuggest
-bindkey '^I' vi-forward-word
+bindkey '^I' autosuggest-accept
 # ctrl-space for complete
 bindkey '^ ' expand-or-complete
 
