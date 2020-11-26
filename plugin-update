@@ -4,9 +4,9 @@ if [ -d ~/.normen/.tmux/plugins ]; then
   ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
 fi
 
-antigen update
-vim -c "PlugUpdate|:qa"
-#vim -c "CocUpdate|:qa"
+zsh -c 'source ~/.normen/.zshrc;antigen update'
+
+vim +CocUpdateSync +PlugUpdate +qa
 
 if [ -f ~/.normen/plugin-update.local ]; then
   ~/.normen/plugin-update.local
