@@ -1,11 +1,14 @@
 #!/bin/bash
 
-if [ -d ~/.normen/.tmux/plugins ]; then
-  ~/.normen/bin/git-recursive-update ~/.normen/.tmux/plugins
+# update tmux plugins (tpm)
+if [ -d ~/.normen/.tmux/plugins/tpm ]; then
+  ~/.normen/.tmux/plugins/tpm/bin/update_plugins all
 fi
 
+# update zsh plugins (antigen)
 zsh -c 'source ~/.normen/.zshrc;antigen update'
 
+# update vim plugins (plug/coc)
 vim +CocUpdateSync +PlugUpdate +qa
 
 if [ -f ~/.normen/plugin-update.local ]; then
