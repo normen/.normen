@@ -29,8 +29,10 @@ done
 cd ~/
 if [ ! -d ".normen" ]; then
   git clone https://github.com/normen/.normen
-  # tmux-resurrect tmux plugin
-  git clone https://github.com/tmux-plugins/tmux-resurrect ~/.normen/.tmux/plugins/tmux-resurrect || true
+fi
+
+if [ ! -d ".normen/.tmux/plugins/tpm" ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.normen/.tmux/plugins/tpm || true
 fi
 
 echo "**************************************************************"
