@@ -45,8 +45,8 @@ function! s:OpenTermOnce(command, buffername)
   if(bufnr>0)
     execute 'bd '.bufnr
   endif
-  call term_start(a:command,{'term_name':a:buffername}) 
-endfunction  
+  call term_start(a:command,{'term_name':a:buffername})
+endfunction
 
 function! s:RunShellCommand(cmdline)
   echo a:cmdline
