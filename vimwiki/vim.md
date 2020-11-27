@@ -330,6 +330,20 @@ tmux kill-session -t mysession
 <Ctrl-b>s - switch session
 <Ctrl-b>c - create window in session
 <Ctrl-b>n/p - next/previous window
+# SESSIONIST
+prefix + g - prompts for session name and switches to it. Performs 'kind-of' name completion.
+Faster than the built-in prefix + s prompt for long session lists.
+prefix + C (shift + c) - prompt for creating a new session by name.
+prefix + X (shift + x) - kill current session without detaching tmux.
+prefix + S (shift + s) - switches to the last session.
+The same as built-in prefix + L that everyone seems to override with some other binding.
+prefix + @ - promote current pane into a new session.
+Analogous to how prefix + ! breaks current pane to a new window.
+prefix + t<secondary-key> - join currently marked pane (prefix + m) to current session/window, and switch to it
+secondary-keys
+h, -, ": join horizontally
+v, |, %: join vertically
+f, @: join full screen
 
 #### spaceship
 npm install -g spaceship-prompt
