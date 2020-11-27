@@ -13,9 +13,11 @@ Plug 'vimwiki/vimwiki'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
+Plug 'edkolev/tmuxline.vim'
 Plug 'neoclide/coc.nvim'
 call plug#end()
 source ~/.normen/.vim/coc.vim
+"let g:tmuxline_powerline_separators = 0
 augroup normensplugins
   autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 augroup END
