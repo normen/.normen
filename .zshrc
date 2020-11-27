@@ -129,6 +129,7 @@ bindkey '^ ' expand-or-complete
 ADOTDIR=$HOME/.normen/.antigen
 SPACESHIP_ROOT=$HOME/.normen/.antigen/bundles/denysdovhan/spaceship-prompt
 ZSH_AUTOSUGGEST_USE_ASYNC=true
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # load antigen plugins
 source $HOME/.normen/antigen.zsh
