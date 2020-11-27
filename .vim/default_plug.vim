@@ -16,4 +16,6 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'neoclide/coc.nvim'
 call plug#end()
 source ~/.normen/.vim/coc.vim
-autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+augroup normensplugins
+  autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+augroup END
