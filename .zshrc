@@ -37,6 +37,16 @@ HISTFILE=~/.zsh_history
 # Use menu for completion, don't ask
 zstyle ':completion:*' menu yes select
 
+# make ls colors work on linux and OSX/BSD
+if whence dircolors >/dev/null; then
+  eval "$(dircolors -b)"
+  zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+  alias ls='ls --color'
+else
+  export CLICOLOR=1
+  zstyle ':completion:*:default' list-colors ''
+fi
+
 # color man pages
 man() {
   LESS_TERMCAP_md=$'\e[01;31m' \
