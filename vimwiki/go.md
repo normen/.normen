@@ -84,8 +84,10 @@ func main() {
     vari++
   }
 
+GetOut: //mark for break
   // loop over array or map
   for index, value := range arr {
+   break GetOut // breaks to mark
   }
 }
 
