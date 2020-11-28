@@ -187,6 +187,6 @@ nnoremap dam va{Vd
 nnoremap yam va{Vy
 nnoremap cam va{Vc
 
-source ~/.normen/.vim/plug.vim
+source ~/.normen/.vim/plugins.vim
 source ~/.normen/.vim/commands.vim
 colorscheme gruvbox

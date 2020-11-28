@@ -47,7 +47,7 @@ do
       echo "all plugins in pack deleted"
       ;;
     "Yes" )
-      cp ~/.normen/.vim/defaults/default_plug.vim ~/.normen/.vim/plug.vim
+      cp ~/.normen/.vim/defaults/default-plugins.vim ~/.normen/.vim/plugins.vim
       cp ~/.normen/.vim/defaults/default-coc-settings.vim ~/.normen/.vim/coc-settings.json
       # sneak - find with two characters
       #git clone https://github.com/justinmk/vim-sneak ~/.normen/.vim/pack/default/start/vim-sneak || true
