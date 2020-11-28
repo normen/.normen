@@ -1,15 +1,22 @@
 #!/bin/bash
 
-# update tmux plugins (tpm)
+echo ""
+echo "⚡️*** tmux plugins ***"
 if [ -d ~/.normen/.tmux/plugins/tpm ]; then
   ~/.normen/.tmux/plugins/tpm/bin/update_plugins all
 fi
 
-# update zsh plugins (antigen)
+echo ""
+echo "⚡️*** zsh plugins ***"
 zsh -c 'source ~/.normen/.zshrc;antigen update'
 
-# update vim plugins (plug/coc)
-vim +CocUpdateSync +PlugUpdate +qa
+echo ""
+echo "⚡️*** vim plugins ***"
+vim +PlugUpdate +qa
+
+echo ""
+echo "⚡️*** coc plugins ***"
+vim +CocUpdateSync +ls +qa
 
 if [ -f ~/.normen/plugin-update.local ]; then
   ~/.normen/plugin-update.local
