@@ -212,6 +212,8 @@ gr - references
 :Format - format code
 :Fold - fold code (zo to open)
 :OR - organize imports
+
+:noa w - save without format
 ```
 #### Plugins
 ```
