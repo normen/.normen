@@ -92,6 +92,16 @@ set sessionoptions=globals,localoptions,buffers,curdir,tabpages,winsize
 " ** Mappings & Commands **
 let mapleader = ","
 
+" move text around in visual mode with arrows
+vnoremap <Down> :m '>+1<CR>gv=gv
+vnoremap <Up> :m '<-2<CR>gv=gv
+nnoremap <Down> :m +1<CR>
+nnoremap <Up> :m -2<CR>
+
+" create space with left/right
+nnoremap <Left> O<Esc>j
+nnoremap <Right> o<Esc>k
+
 " session / project setup
 nnoremap <F1> :!~/.normen/update<CR><CR>
 nnoremap <F2> :silent mksession! session.vim<CR>
