@@ -213,7 +213,23 @@ gr - references
 :Fold - fold code (zo to open)
 :OR - organize imports
 ```
-#### Scripts+Plugins
+#### Plugins
+```
+# gitgutter
+,hu - undo hunk
+,hp - preview hunk
+,hs - stage hunk
+,dic - delete inside hunk
+,dac - delete outside hunk (incls space)
+
+# surround
+cs"' - change surrounding " to '
+ds" - delete surrounding "
+ysiw( - surround inner word with (
+
+
+```
+#### Scripts/Build
 ```
 # numbers
 C-a / C-x - inc/dec numbers
@@ -231,160 +247,6 @@ shift-i - insert block
 
 # templates
 nnoremap ,mytemp :-lread $HOME/.vim/.mytemplate.js<CR>
-```
-```bash
-#### ctags
-brew install ctags
-ctags -R .
-nnoremap <leader>t :silent !ctags -R .<CR><C-L>
-
-#### eslint
-npm install -g eslint
-mkdir ~/.vim/ftplugin
-vim ~/.vim/ftplugin/javascript.vim
-<<CONTENT
-setlocal makeprg=eslint\ --format\ compact\ %
-setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %m,%-G%.%#
-CONTENT
-
-:make - find errors
-:cn - next error
-:cc4 - error #4
-:cw - error window
-
-#### semistandard
-npm install -g semistandard
-nnoremap <leader>s :silent !semistandard % --fix<CR><C-L>
-
-#### git plugin
-git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/pack/airblade/start/vim-gitgutter
-:helptags ~/.vim/pack/airblade/start/vim-gitgutter/doc
-
-\hu - undo hunk
-\hp - preview hunk
-\hs - stage hunk
-\dic - delete inside hunk
-\dac - delete outside hunk (incls space)
-
-#### surround plugin
-git clone https://tpope.io/vim/surround.git ~/.vim/pack/tpope/start/surround
-:helptags ~/.vim/pack/tpope/start/surround/doc
-
-#cs"' - change surrounding " to '
-#ds" - delete surrounding "
-#ysiw( - surround inner word with (
-
-#### airline plugin
-git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
-:helptags ~/.vim/pack/dist/start/vim-airline/doc
-
-#### gruvbox
-git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox
-vim ~/.vim/vimrc
-<<CONTENT
-colorscheme gruvbox
-set background=dark
-CONTENT
-
-#### vifm 
-brew install vifm
-vifm
-rm -rf ~/.config/vifm/colors
-git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
-vim ~/.config/vifm/vifmrc
-<<CONTENT
-colorscheme gruvbox
-nnoremap <C-e> :q<CR>
-CONTENT
-git clone https://github.com/vifm/vifm.vim ~/.vim/pack/default/start/vifm
-:helptags ~/.vim/pack/default/start/vifm/doc
-
-#### vim-tmux-navigator
-git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.vim/pack/default/start/vim-tmux-navigator
-<<CONTENT
-# Smart pane switching with awareness of Vim splits.
-# See: https://github.com/christoomey/vim-tmux-navigator
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
-bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
-bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
-bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
-bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
-tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
-if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
-    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
-if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
-    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
-bind-key -T copy-mode-vi 'C-h' select-pane -L
-bind-key -T copy-mode-vi 'C-j' select-pane -D
-bind-key -T copy-mode-vi 'C-k' select-pane -U
-bind-key -T copy-mode-vi 'C-l' select-pane -R
-bind-key -T copy-mode-vi 'C-\' select-pane -l
-CONTENT
-tmux new -s mysession
-tmux new -A -s mysession # attaches if exists
-tmux attach -t mysession
-tmux kill-session -t mysession
-:new -s new-session
-<Ctrl-b><Ctrl-s> - save session (uses session.vim)
-<Ctrl-b>s - switch session
-<Ctrl-b>c - create window in session
-<Ctrl-b>n/p - next/previous window
-# SESSIONIST
-prefix + g - prompts for session name and switches to it. Performs 'kind-of' name completion.
-Faster than the built-in prefix + s prompt for long session lists.
-prefix + C (shift + c) - prompt for creating a new session by name.
-prefix + X (shift + x) - kill current session without detaching tmux.
-prefix + S (shift + s) - switches to the last session.
-The same as built-in prefix + L that everyone seems to override with some other binding.
-prefix + @ - promote current pane into a new session.
-Analogous to how prefix + ! breaks current pane to a new window.
-prefix + t<secondary-key> - join currently marked pane (prefix + m) to current session/window, and switch to it
-secondary-keys
-h, -, ": join horizontally
-v, |, %: join vertically
-f, @: join full screen
-
-#### spaceship
-npm install -g spaceship-prompt
-
-#### YouCompleteMe
-sudo apt install python3-dev cmake
-cd ~/.vim/pack/default/start
-git clone https://github.com/ycm-core/YouCompleteMe YouCompleteMe
-cd YouCompleteMe
-git submodule update --init --recursive
-python3 install.py --ts-completer
-## --clangd-completer
-## --all
-
-
-
-#### plain text highlight (disabled)
-git clone https://github.com/ZSaberLv0/ZFVimTxtHighlight ~/.vim/pack/zsaber/start/ZFVimTxtHighlight
-:helptags ~/.vim/pack/zsaber/start/ZFVimTxtHighlight/doc
-
-#### applescript syntax
-git clone https://github.com/dearrrfish/vim-applescript ~/.vim
-
-#### syntastic for eslint (disabled)
-git clone https://github.com/vim-syntastic/syntastic.git ~/.vim/pack/syntastic/start/syntastic
-:helptags ~/.vim/pack/syntastic/start/syntastic/doc
-
-#.vimrc
-<<CONTENT
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-:lopen - errors
-:lwindow - open error window
-CONTENT
 
 #### BUILDING VIM
 sudo apt install ncurses-dev python3-dev

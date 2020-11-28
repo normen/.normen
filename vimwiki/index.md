@@ -2,6 +2,7 @@
 ## Dev
 * [git](git.md)
 * [vim](vim.md)
+* [tmux](tmux.md)
 * [node](node.md)
 * [javascript](javascript.md)
 * [c](c.md)
