@@ -4,18 +4,19 @@ Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 " core
-Plug 'https://tpope.io/vim/surround'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'preservim/nerdcommenter'
 " git
-Plug 'https://tpope.io/vim/fugitive'
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " tools
-Plug 'https://tpope.io/vim/dispatch'
+Plug 'tpope/vim-dispatch'
 Plug 'vifm/vifm.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-utils/vim-man'
 " tmux
-Plug 'https://tpope.io/vim/tbone'
+Plug 'tpope/vim-tbone'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
@@ -35,3 +36,4 @@ let g:airline_powerline_fonts = 1
 augroup normensplugins
   autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 augroup END
+
