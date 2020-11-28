@@ -216,6 +216,7 @@ gr - references
 #### Plugins
 ```
 # gitgutter
+[c ]c - go to next/prev change
 ,hu - undo hunk
 ,hp - preview hunk
 ,hs - stage hunk
