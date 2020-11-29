@@ -225,6 +225,11 @@ gr - references
 ,dic - delete inside hunk
 ,dac - delete outside hunk (incls space)
 
+# fugitive - resolve
+:Gdiff
+dp - each hunk on side to keep
+:GWrite - save this version (any side or middle)
+
 # surround
 cs"' - change surrounding " to '
 ds" - delete surrounding "
