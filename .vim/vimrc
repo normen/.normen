@@ -177,10 +177,18 @@ vnoremap <Leader>tr :Twrite right<CR>
 
 " german keys
 nmap ü ]
-nnoremap ]ü ]]
+"nnoremap ]ü ]]
 nmap ä [
-nnoremap [ä [[
+"nnoremap [ä [[
 nmap ö :
+
+"section: stuff that doesn't start with blank and ends with {
+"^=start [^\s\t ]=anything but \s, \t or space $=end
+nnoremap ]ü /^[^\s\t ].*{$<CR>:noh<CR>
+nnoremap [ä ?^[^\s\t ].*{$<CR>:noh<CR>
+
+nnoremap ]] /^[^\s\t ].*{$<CR>:noh<CR>
+nnoremap [[ ?^[^\s\t ].*{$<CR>:noh<CR>
 
 " more logical Y
 map Y y$
