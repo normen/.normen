@@ -71,6 +71,8 @@ func main() {
   // slice (range of managed backing array)
   var arr = []int{1,2,3}
   arr = append(arr,4)
+  // rage from idx 1 to end:
+  subArr := arr[1:]
 
   // maps
   myMap := make(map[string]int)
