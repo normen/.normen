@@ -1,4 +1,8 @@
 # bitwaves.de
+```
+# dyndns
+homebridge server runs crontab!
+```
 ## nginx rtmp
 ```
 worker_processes  auto;
