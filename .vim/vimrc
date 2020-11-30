@@ -92,16 +92,6 @@ set sessionoptions=globals,localoptions,buffers,curdir,tabpages,winsize
 " ** Mappings & Commands **
 let mapleader = ","
 
-" move text around in visual mode with arrows
-vnoremap <Down> :m '>+1<CR>gv=gv
-vnoremap <Up> :m '<-2<CR>gv=gv
-nnoremap <Down> :m +1<CR>
-nnoremap <Up> :m -2<CR>
-
-" create space with left/right
-nnoremap <Left> O<Esc>j
-nnoremap <Right> o<Esc>k
-
 " session / project setup
 nnoremap <F1> :!~/.normen/update<CR><CR>
 nnoremap <F2> :silent mksession! session.vim<CR>
@@ -125,9 +115,25 @@ else
   map <silent> <C-W><C-E> :VsplitVifm<CR>
 endif
 
+" move text around in visual mode with arrows
+vnoremap <Down> :m '>+1<CR>gv=gv
+vnoremap <Up> :m '<-2<CR>gv=gv
+nnoremap <Down> :m +1<CR>
+nnoremap <Up> :m -2<CR>
+
+" create space with left/right
+nnoremap <Left> O<Esc>j
+nnoremap <Right> o<Esc>k
+
 " ctrl-space
 "imap <C-Space> <C-x><C-o>
 imap <C-@> <C-Space>
+
+" fix Ctrl-Arrows
+map <ESC>[1;5D <C-Left>
+map <ESC>[1;5C <C-Right>
+map <ESC>[1;5A <C-Up>
+map <ESC>[1;5B <C-Down>
 
 " window nav
 nnoremap <C-h> <C-w>h
@@ -138,14 +144,6 @@ noremap <silent> <C-Up> :resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
 noremap <silent> <C-Left> :vertical resize -3<CR>
 noremap <silent> <C-Right> :vertical resize +3<CR>
-
-"masochism
-"nnoremap <up> ddkP
-"vnoremap <up> dkP
-"nnoremap <down> ddjP
-"vnoremap <down> djp
-"nnoremap <left> O<Esc>j
-"nnoremap <right> o<Esc>k
 
 " copy-paste easily from clipboard
 nnoremap <Leader>yy "*yy
