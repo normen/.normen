@@ -3,6 +3,20 @@
 # dyndns
 homebridge server runs crontab!
 ```
+```bash
+#!/bin/bash
+set -e
+IP=`curl --ipv4 -s http://icanhazip.com/`
+IP6=`curl --ipv6 -s http://icanhazip.com/`
+OLD_IP=`cat ~/.curip`
+if [ "$IP" != "$OLD_IP" ]; then
+  echo "Set new IP: $IP"
+  echo "$IP">~/.curip
+  curl "https://bitwaves.de:password@dyndns.strato.com/nic/update?hostname=local.bitwaves.de&myip=$IP,$IP6"
+else
+  echo "IP still the same: $IP"
+fi
+```
 ## nginx rtmp
 ```
 worker_processes  auto;
