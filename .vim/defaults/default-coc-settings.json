@@ -1,12 +1,6 @@
 {
   "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "html",
-    "json",
-    "markdown",
-    "go",
-    "javascript",
-    "typescript"
+    "go"
   ],
   "diagnostic.warningSign": "!",
   "diagnostic.errorSign": "x",
