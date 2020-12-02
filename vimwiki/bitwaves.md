@@ -3,7 +3,10 @@
 # dyndns
 homebridge server runs crontab!
 # dendrite/matrix
-- proxied on matrix.bitwaves.de
+- install via docker-compose
+- monolith
+- proxied to / on matrix.bitwaves.de
+- proxier to /_matrix on bitwaves.de
 - additional directives in bitwaves.de
 location /.well-known/matrix/server {
 	return 200 '{ "m.server": "matrix.bitwaves.de:443" }';
