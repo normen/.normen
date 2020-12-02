@@ -15,6 +15,15 @@ location /.well-known/matrix/server {
 location /.well-known/matrix/client {
 	return 200 '{ "m.homeserver": { "base_url": "https://matrix.bitwaves.de" } }';
 }
+
+docker-compose -f docker-compose.monolith.yml down
+docker-compose -f docker-compose.monolith.yml up
+
+docker-compose -f docker-compose.deps.yml down
+docker-compose -f docker-compose.deps.yml up postgres
+
+docker update --restart unless-stopped dendrite_postgres_1
+docker update --restart unless-stopped dendrite_monolith_1
 ```
 ```bash
 #!/bin/bash
