@@ -2,6 +2,16 @@
 ```
 # dyndns
 homebridge server runs crontab!
+# dendrite/matrix
+- proxied on matrix.bitwaves.de
+- additional directives in bitwaves.de
+location /.well-known/matrix/server {
+	return 200 '{ "m.server": "matrix.bitwaves.de:443" }';
+}
+
+location /.well-known/matrix/client {
+	return 200 '{ "m.homeserver": { "base_url": "https://matrix.bitwaves.de" } }';
+}
 ```
 ```bash
 #!/bin/bash
