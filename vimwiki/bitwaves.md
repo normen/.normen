@@ -17,10 +17,10 @@ location /.well-known/matrix/client {
 }
 
 docker-compose -f docker-compose.monolith.yml down
-docker-compose -f docker-compose.monolith.yml up
+docker-compose -f docker-compose.monolith.yml up -d
 
 docker-compose -f docker-compose.deps.yml down
-docker-compose -f docker-compose.deps.yml up postgres
+docker-compose -f docker-compose.deps.yml up -d postgres
 
 docker update --restart unless-stopped dendrite_postgres_1
 docker update --restart unless-stopped dendrite_monolith_1
