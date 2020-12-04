@@ -1,4 +1,11 @@
 # bitwaves.de
+## docker-ufw
+```
+sudo wget -O /usr/local/bin/ufw-docker \
+  https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker
+chmod +x /usr/local/bin/ufw-docker
+ufw-docker allow container-name 8080
+```
 ```
 # dyndns
 homebridge server runs crontab!
