@@ -125,9 +125,14 @@ case "$OSTYPE" in
 esac
 
 # add go bin
-if [ -d "$HOME/go" ]; then
-  export GOPATH=$HOME/go
-  export PATH=$PATH:$GOPATH/bin
+#if [ -d "$HOME/go" ]; then
+#  export GOPATH=$HOME/go
+#  export PATH=$PATH:$GOPATH/bin
+#fi
+
+# source .profile if exists
+if [ -f "$HOME/.profile" ]; then
+  source $HOME/.profile
 fi
 
 # tab for autosuggest
