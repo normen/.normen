@@ -1,4 +1,11 @@
 ## go
+#### Packages
+```bash
+# install app (outside go folder!)
+go get github.com/user/app
+# remove installed
+go clean -i -n github.com/user/app...
+```
 #### Project
 ```bash
 ## install on raspi
