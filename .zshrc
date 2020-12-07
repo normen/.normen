@@ -4,6 +4,7 @@ alias restart='sudo systemctl restart'
 alias log='sudo journalctl -f -u'
 alias :e='vim'
 alias :q=exit
+alias öq=exit
 alias la='ls -A'
 alias ll='la -alF'
 alias l='ls -CF'
@@ -57,19 +58,6 @@ man() {
   LESS_TERMCAP_us=$'\e[01;32m' \
   command man "$@"
 }
-
-# normal mode by default (causes issues)
-#function zle-line-init {
-#  zle -K vicmd
-#  zle reset-prompt
-#}
-#zle -N zle-line-init
-
-# apparently fixes spaceship's mode detection as well
-function zle-keymap-select {
-  zle reset-prompt
-}
-zle -N zle-keymap-select
 
 # set EDITOR
 export EDITOR=$(which vim)
@@ -143,6 +131,8 @@ bindkey '^ ' expand-or-complete
 # antigen plugins settings
 ADOTDIR=$HOME/.normen/.antigen
 SPACESHIP_ROOT=$HOME/.normen/.antigen/bundles/denysdovhan/spaceship-prompt
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+SPACESHIP_PROMPT_SEPARATE_LINE=true
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
@@ -153,3 +143,5 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme denysdovhan/spaceship-prompt
 antigen apply
 
+# fix mode indicator
+eval spaceship_vi_mode_enable
