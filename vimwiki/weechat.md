@@ -7,8 +7,11 @@
 #bitlbee
 account add <protocol> <username> <password>
 for slack: user@example.com%<workspace>.slack.com
+acc discord set token_cache xxxxxxxx
 chat list discord
-chat add !1 #mychannel
+chat add discord !1 #mychannel
+chat add discord Hom.general #mychannel
+channel #mychannel del
 :join #mychannel
 
 #ssl issue
