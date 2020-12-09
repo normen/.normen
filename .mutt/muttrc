@@ -129,7 +129,7 @@ bind pager                      G   bottom
 bind pager                      k   previous-line
 bind pager                      j   next-line
 
-bind index,pager <Tab> next-unread-mailbox
+bind index,pager <backtab> next-unread-mailbox
 
 macro pager gx "|extract_url\n"
 
