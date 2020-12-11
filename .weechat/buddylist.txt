@@ -1,0 +1,4 @@
+bitlbee.Eric
+bitlbee.Zacknetic
+freenode.discord-bot
+freenode.romain

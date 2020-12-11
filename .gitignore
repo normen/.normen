@@ -9,6 +9,14 @@ vimwiki/diary/**
 .tmux/plugins/**
 .tmux/resurrect/**
 .mutt/cache/**
+.weechat/Downloads/**
+.weechat/xfer/**
+.weechat/*.log
+.weechat/*.pem
+.weechat/logs/
+.weechat/script/plugins.xml.gz
+.weechat/sec.conf
+.weechat/weechat_fifo
 build/**
 session.vim
 plugin-update.local
