@@ -33,18 +33,20 @@ docker update --restart unless-stopped dendrite_postgres_1
 docker update --restart unless-stopped dendrite_monolith_1
 ```
 ```bash
-#!/bin/bash
-set -e
-IP=`curl --ipv4 -s http://icanhazip.com/`
-IP6=`curl --ipv6 -s http://icanhazip.com/`
-OLD_IP=`cat ~/.curip`
-if [ "$IP" != "$OLD_IP" ]; then
-  echo "Set new IP: $IP"
-  echo "$IP">~/.curip
-  curl "https://bitwaves.de:password@dyndns.strato.com/nic/update?hostname=local.bitwaves.de&myip=$IP,$IP6"
-else
-  echo "IP still the same: $IP"
-fi
+vim /etc/fail2ban/action.d/iptables.conf
+vim /etc/fail2ban/action.d/iptables-multiport.conf
+vim /etc/fail2ban/action.d/iptables-allports.conf
+<<CONTENT
+[Definition]
+actionstart =
+actionstop =
+actioncheck =
+actionban = ufw insert 1 deny log from <ip> to any comment <name>
+actionunban = ufw delete deny log from <ip> to any
+[Init]
+port = ssh
+name = ssh
+CONTENT
 ```
 ## nginx rtmp
 ```
