@@ -22,6 +22,10 @@ if [ $# -eq 0 ]; then
   echo "No arguments supplied"
 fi
       
+if [ ! -z $MYVAR ]; then
+  echo "$MYVAR is not empty"
+fi
+
 # check for string in file
 if grep -q "searchstring" "/path/to/file"; then
 fi
