@@ -20,6 +20,7 @@
 * [docker](docker.md)
 * [platformio](platformio.md)
 * [plesk](plesk.md)
+* [nextcloud](nextcloud.md)
 * [aerc](aerc.md)
 * [dd-wrt](dd-wrt.md)
 * [marlin](marlin.md)
