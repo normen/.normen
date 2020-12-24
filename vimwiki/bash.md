@@ -36,6 +36,11 @@ if ! [ -x "$(command -v git)" ]; then
   exit 1
 fi
 
+# check if string contains char
+if [[ $IP =~ [:] ]];then
+  echo "IP contains :"
+fi
+
 # loop through list
 for i in \
     string1 \
