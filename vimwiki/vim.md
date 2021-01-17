@@ -76,6 +76,15 @@ vim -p file1 file2 file3 - open in tabs
 # set build tool
 :set makeprg=npm\ run
 ```
+#### Lists
+```
+Location List:
+:lv /search/g %
+:lopen
+Quickfix List:
+:vim /search/g %
+:copen
+```
 #### Editing/Movement
 ```
 :%y - copy whole file
