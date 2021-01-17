@@ -24,7 +24,7 @@ Plug 'wellle/tmux-complete.vim'
 " coc
 Plug 'neoclide/coc.nvim'
 " maptool
-Plug 'rkathey/mtgvim'
+Plug 'normen/mtgvim'
 call plug#end()
 source ~/.normen/.vim/coc.vim
 let g:airline_powerline_fonts = 1
