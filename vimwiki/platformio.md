@@ -6,6 +6,13 @@ brew install platformio
 # boards: d1_mini micro
 pio init --ide vim --board micro
 
+# libs
+pio lib search xxx
+pio lib install xxx
+
+# monitor
+pio device monitor
+
 # vim/coc completion
 brew install ccls
 vim ~/.vim/coc-settings.json
