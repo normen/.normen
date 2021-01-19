@@ -34,7 +34,7 @@
 command! -nargs=+ GH  call s:OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
 command! -nargs=+ NPM  call s:OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
 command! -nargs=+ GO  call s:OpenTermOnce('go ' . <q-args>, "GO Tool")
-command! -nargs=+ PIO  call s:OpenTermOnce('platformio ' . <q-args>, "Platformio")
+command! -nargs=+ PIO  call s:OpenTermOnce('platformio ' . <q-args>, "Platform IO")
 "command! -nargs=+ GH execute 'terminal gh '.<q-args>
 "command! -nargs=+ GH call s:RunShellCommand('gh ' . <q-args>)
 command! GHNewIssue :terminal gh issue create
