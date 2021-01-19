@@ -25,6 +25,9 @@
       "initializationOptions": {
         "cache": {
           "directory": "/tmp/ccls"
+        },
+        "client": {
+          "snippetSupport": true
         }
       }
     }
