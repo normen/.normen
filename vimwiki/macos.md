@@ -1,5 +1,8 @@
 ## macos
 ```bash
+# log all
+sudo log stream --style compact --predicate 'messageType == "error" || messageType == "fault"'
+
 # get password from keychain
 security find-internet-password -gs google.com -w
 
