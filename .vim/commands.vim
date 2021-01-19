@@ -25,6 +25,7 @@
 
 :command PIOCreateMakefile !cp ~/.normen/.vim/templates/PlatformIO-Makefile ./Makefile
 :command -nargs=1 PIOInit !platformio project init --ide vim --board <args>;sed -i '' '1s/.*/clang/' .ccls
+:command PIORefresh !platformio project init --ide vim;sed -i '' '1s/.*/clang/' .ccls
 
 :command GoCreateMakefile !cp ~/.normen/.vim/templates/Go-Makefile ./Makefile
 
