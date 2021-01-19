@@ -15,6 +15,7 @@ pio device monitor
 
 # vim/coc completion
 brew install ccls
+# replace first line in .ccls with "clang"!
 vim ~/.vim/coc-settings.json
 <<CONTENT
 {
