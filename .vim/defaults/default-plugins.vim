@@ -23,8 +23,10 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'wellle/tmux-complete.vim'
 " coc
 Plug 'neoclide/coc.nvim'
-" maptool
+" maptool ft
 Plug 'normen/mtgvim'
+" openscad ft
+Plug 'sirtaj/vim-openscad'
 call plug#end()
 source ~/.normen/.vim/coc.vim
 let g:airline_powerline_fonts = 1
