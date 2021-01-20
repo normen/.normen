@@ -26,7 +26,7 @@ Plug 'neoclide/coc.nvim'
 " maptool ft
 Plug 'normen/mtgvim'
 " openscad ft
-Plug 'sirtaj/vim-openscad'
+Plug 'Lattay/vim-openscad'
 call plug#end()
 source ~/.normen/.vim/coc.vim
 let g:airline_powerline_fonts = 1
