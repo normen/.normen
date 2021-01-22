@@ -31,6 +31,7 @@
 
 :command JSCompletionEnable !cp ~/.vim/templates/jsconfig.json ./
 
+:command SCADOpen !openscad %&
 :command SCADExport !openscad -o %:r.stl %
 :command SCADPrint !openscad -o %:r.stl %;open %:r.stl
 
