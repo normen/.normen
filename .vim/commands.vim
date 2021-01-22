@@ -31,6 +31,9 @@
 
 :command JSCompletionEnable !cp ~/.vim/templates/jsconfig.json ./
 
+:command SCADExport !openscad -o %:r.stl %
+:command SCADPrint !openscad -o %:r.stl %;open %:r.stl
+
 command! -nargs=+ GH  call s:OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
 command! -nargs=+ NPM  call s:OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
 command! -nargs=+ GO  call s:OpenTermOnce('go ' . <q-args>, "GO Tool")
