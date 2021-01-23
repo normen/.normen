@@ -24,9 +24,9 @@ Plug 'wellle/tmux-complete.vim'
 " coc
 Plug 'neoclide/coc.nvim'
 " maptool ft
-Plug 'normen/mtgvim'
+Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 " openscad ft
-Plug 'Lattay/vim-openscad'
+Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 call plug#end()
 source ~/.normen/.vim/coc.vim
 let g:airline_powerline_fonts = 1
