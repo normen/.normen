@@ -162,8 +162,8 @@ nnoremap <Leader>n :noh<CR>
 nnoremap <Leader>. @w
 
 " wiki split
-nmap <Leader>wv :50vsplit<CR>,ww
-nmap <Leader>w<Leader>v :50vsplit<CR>,w,w
+nmap <Leader>wv :50vsplit<CR><Leader>ww
+nmap <Leader>w<Leader>v :50vsplit<CR><Leader>w<Leader>w
 
 " quick write to tmux pane
 nnoremap <Leader>tt :Twrite top<CR>
