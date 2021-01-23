@@ -90,7 +90,8 @@ let g:vimwiki_global_ext = 0
 set sessionoptions=globals,localoptions,buffers,curdir,tabpages,winsize
 
 " ** Mappings & Commands **
-let mapleader = ","
+let mapleader = " "
+nmap , ;
 
 " session / project setup
 nnoremap <F1> :!~/.normen/update<CR><CR>
