@@ -1,5 +1,8 @@
 ## Linux
 ```bash
+# download recursively
+wget -nH --reject-regex 'Especial|Special|Ayuda|Help|action|printable|Archivo:' --recursive --page-requisites --html-extension --convert-links --restrict-file-names=windows --domains domain.com --no-parent http://domain.com/wiki
+
 #tar.gz
 tar -xvzf myfile.tar.gz
 # start process and get PID
