@@ -21,6 +21,7 @@
 * [platformio](platformio.md)
 * [plesk](plesk.md)
 * [nextcloud](nextcloud.md)
+* [dendrite](dendrite.md)
 * [aerc](aerc.md)
 * [dd-wrt](dd-wrt.md)
 * [marlin](marlin.md)
