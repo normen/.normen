@@ -1,4 +1,17 @@
 # bitwaves.de
+## Hidrive S3
+```bash
+install s3fs-fuse from git!
+install awscli
+# sync
+aws --endpoint-url https://s3.hidrive.strato.com sync . s3://bitwaves-cloud
+#delete
+aws --endpoint-url https://s3.hidrive.strato.com s3 rm s3://bitwaves-cloud --recursive
+# cors
+aws s3api --endpoint-url https://s3.hidrive.strato.com put-bucket-cors --bucket peertube --cors-configuration file://cors.json
+<<CONTENT
+CONTENT
+```
 ## docker-ufw
 ```
 sudo wget -O /usr/local/bin/ufw-docker \

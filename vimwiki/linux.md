@@ -93,4 +93,25 @@ CONTENT
 sudo systemctl daemon-reload
 sudo systemctl enable homebridge
 sudo systemctl start homebridge
+
+# systemd run-once
+#Your myfirst.service file should look like this:
+#Place it in /etc/systemd/system folder with say a name of myfirst.service
+<<CONTENT
+[Unit]
+Description=Spark service
+
+[Service]
+User=root
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/path/to/spark/sbin/start-all.sh
+ExecStop=/root/control/hidrive/hidrive-umount
+
+[Install]
+WantedBy=multi-user.target
+CONTENT
+sudo systemctl start myfirst
+sudo systemctl enable myfirst
+sudo systemctl stop myfirst
 ```
