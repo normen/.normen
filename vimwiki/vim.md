@@ -199,6 +199,10 @@ N - prev found
 :set ic - ignore case
 :set noic - no ignore case
 :set hls is - highlight + increment search
+
+# paste text without indents
+:set paste
+:set nopaste
 ```
 #### CoC
 ```
