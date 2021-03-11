@@ -203,6 +203,7 @@ N - prev found
 # paste text without indents
 :set paste
 :set nopaste
+:set spell spelllang=de_DE
 ```
 #### CoC
 ```
