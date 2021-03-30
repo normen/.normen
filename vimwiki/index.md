@@ -15,6 +15,7 @@
 * [macos](macos.md)
 * [windows](windows.md)
 * [hardware](hardware.md)
+* [media](media.md)
 ## Random
 * [brew](brew.md)
 * [docker](docker.md)
