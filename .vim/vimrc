@@ -130,6 +130,9 @@ nnoremap <Right> o<Esc>k
 "imap <C-Space> <C-x><C-o>
 imap <C-@> <C-Space>
 
+" ctrl-zoom
+nmap <silent> <C-W>z <C-W>\|<C-W>_
+
 " fix Ctrl-Arrows
 map <ESC>[1;5D <C-Left>
 map <ESC>[1;5C <C-Right>
