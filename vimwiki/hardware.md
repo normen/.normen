@@ -4,6 +4,7 @@
 * [hardware/LinkItSmart7688](hardware/LinkItSmart7688.md)
 * [hardware/Roomba](hardware/Roomba.md)
 * [hardware/solar](hardware/solar.md)
+* [hardware/h264encoder](hardware/h264encoder.md)
 
 ## Home Device Infos
 ```bash
