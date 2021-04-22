@@ -10,5 +10,5 @@
 ### FFMPEG Recorder (http)
 #### Commands
 ```bash
-ffmpeg -i http://192.168.2.19:8000/main2 -analyzeduration 100 -vcodec copy main2.mp4
+ffmpeg -probesize 10000k -analyzeduration 10000k -i http://192.168.2.19:8000/main2 -vcodec copy main2.mp4
 ```
