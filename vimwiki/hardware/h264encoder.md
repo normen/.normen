@@ -1,7 +1,8 @@
 ## H264 Encoder
 ### Settings
 #### Quality
-- vbr 
+- vbr, 12000 bitrate
+- 200 GOP (keyframe, avoids breakups)
 - minqp = 1
 - maxqp defines bitrate
   - 40 = 10MBit
