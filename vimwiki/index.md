@@ -33,4 +33,5 @@
 * [nethack](nethack.md)
 * [bitwaves](bitwaves.md)
 * [weechat](weechat.md)
+* [obs](obs.md)
 
