@@ -1,5 +1,7 @@
 " custom commands
 :command W w
+" ai
+vnoremap <Leader>ix :!~/.normen/bin/gptj-universal<CR>
 
 :command -nargs=* Search :vim /<args>/g %<bar>cw
 :command -nargs=* SearchFiles :vim /<args>/g **/*<bar>cw
