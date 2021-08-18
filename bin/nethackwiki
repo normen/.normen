@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+  read -r -p "Search:"
+  SRCH=$REPLY
+else
+  SRCH=$1
+fi
+while [ ! SRCH == "" ]
+do
+  ~/.normen/bin/wped -f $SRCH | less -R
+  read -r -p "Search:"
+  SRCH=$REPLY
+done
