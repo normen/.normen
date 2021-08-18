@@ -11,4 +11,4 @@ temperature = 0.09 #0.09
 top_probability = 1.0
 query = SimpleCompletion(prompt, length=max_length, t=temperature, top=top_probability)
 Query = query.simple_completion()
-print(Query)
+# print(Query)

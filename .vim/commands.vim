@@ -2,6 +2,7 @@
 :command W w
 " ai
 vnoremap <Leader>ix :!~/.normen/bin/gptj-universal<CR>
+vnoremap <Leader>ip :!~/.normen/bin/gptj-python<CR>
 
 :command -nargs=* Search :vim /<args>/g %<bar>cw
 :command -nargs=* SearchFiles :vim /<args>/g **/*<bar>cw
