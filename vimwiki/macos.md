@@ -20,6 +20,9 @@ cd ~/Library/Application\ Support
 sudo rm -rf CloudDocs
 sudo reboot
 
+# allow non-apps (plugins etc)
+sudo xattr -rd com.apple.quarantine obs-gstreamer.so;sudo xattr -rd com.apple.macl obs-gstreamer.so
+
 
 # brew -> see brew doc
 
