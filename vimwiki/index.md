@@ -18,6 +18,7 @@
 * [media](media.md)
 ## Random
 * [brew](brew.md)
+* [gstreamer](gstreamer.md)
 * [docker](docker.md)
 * [platformio](platformio.md)
 * [plesk](plesk.md)
