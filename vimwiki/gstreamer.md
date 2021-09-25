@@ -11,6 +11,8 @@ cl main.c /I "c:\gstreamer\1.0\mingw_x86_64\include\gstreamer-1.0" /I "c:\gstrea
 # compile gst-ndi
 # install rust
 # add lib/pkgconfig to PKG_CONFIG_PATH
+# install NDI SDK
 # add ndi dlls to path
+# add ndi lib to build folder (or PKG_CONFIG_PATH?)
 cargo build --release
 ```
