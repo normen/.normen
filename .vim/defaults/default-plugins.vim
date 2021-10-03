@@ -22,7 +22,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'wellle/tmux-complete.vim'
 " coc
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
 " maptool ft
 Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 " openscad ft
