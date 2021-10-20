@@ -6,6 +6,8 @@ sed -i -e 's|^\(apache_status_linux_debian\)|_\1|g' /opt/psa/admin/sbin/pleskrc
 
 #### GIT
 ```bash
+#Repair if plesk repair fails:
+/usr/local/psa/admin/sbin/autoinstaller --select-release-current --reinstall-patch --upgrade-installed-components
 #Add a new user:
 PSA_PASSWORD=example_password plesk sbin pdmng --add-user --vhost-name=example.com --directory=git@plesk-git --user-name=exampleuser
 #Modify already existing user:
