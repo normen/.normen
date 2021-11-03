@@ -222,4 +222,4 @@ source ~/.normen/.vim/plugins.vim
 source ~/.normen/.vim/commands.vim
 let g:gruvbox_transparent_bg=1
 colorscheme gruvbox
-hi Normal guibg=NONE ctermbg=NONE
+autocmd VimEnter * hi Normal guibg=NONE ctermbg=NONE
