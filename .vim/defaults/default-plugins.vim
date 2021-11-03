@@ -32,6 +32,7 @@ call plug#end()
 source ~/.normen/.vim/coc.vim
 "let g:airline_powerline_fonts = 1
 set laststatus=2 " to fix lightline
+set noshowmode " don't show mode with lightline enabled
 let g:lightline = { 
 \ 'colorscheme': 'gruvbox', 
 \ 'active': {
