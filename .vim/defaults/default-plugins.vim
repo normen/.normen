@@ -36,7 +36,10 @@ let g:lightline = {
 \ 'colorscheme': 'gruvbox', 
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+\   'right': [ [ 'lineinfo' ],
+\              [ 'percent' ],
+\              [ 'spell', 'fileformat', 'fileencoding', 'filetype' ] ]
 \ },
 \ 'component_function': {
 \   'gitbranch': 'FugitiveHead'
