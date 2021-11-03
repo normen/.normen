@@ -1,7 +1,8 @@
 call plug#begin('~/.normen/.vim/plugged')
 " visuals
 Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 Plug 'edkolev/tmuxline.vim'
 " core
 Plug 'tpope/vim-surround'
@@ -29,7 +30,17 @@ Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 call plug#end()
 source ~/.normen/.vim/coc.vim
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
+let g:lightline = { 
+\ 'colorscheme': 'gruvbox', 
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+\ },
+\ 'component_function': {
+\   'gitbranch': 'FugitiveHead'
+\ },
+\ }
 "let g:tmuxline_powerline_separators = 0
 "let g:tmuxline_separators = {
     "\ 'left' : '',
