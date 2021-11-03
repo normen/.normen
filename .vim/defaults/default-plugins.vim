@@ -31,6 +31,7 @@ Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 call plug#end()
 source ~/.normen/.vim/coc.vim
 "let g:airline_powerline_fonts = 1
+set laststatus=2 " to fix lightline
 let g:lightline = { 
 \ 'colorscheme': 'gruvbox', 
 \ 'active': {
