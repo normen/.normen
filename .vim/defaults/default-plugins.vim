@@ -74,8 +74,6 @@ let g:lightline = {
     "\ 'right' : '',
     "\ 'right_alt' : '',
     "\ 'space' : ' '}
-" hexmode
-let g:hexmode_xxd_options = '-g 1'
 augroup normensplugins
   autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 augroup END
