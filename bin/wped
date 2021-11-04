@@ -84,7 +84,7 @@ $elinks = trim(`which elinks`);
 if (!$elinks) die("Could not find elinks (is it installed?)\n");
 
 $descs = array(array('pipe', 'r'),array('pipe', 'w'),array('file', 'php://stderr', 'a'));
-$opts = ' -force-html -localhost 1 -no-connect 1 -no-numbering -no-references -dump';
+$opts = ' -dump-width 60 -force-html -localhost 1 -no-connect 1 -no-numbering -no-references -dump';
 $proc = proc_open($elinks.$opts, $descs, $fp);
 
 if (!is_resource($proc)) die("Could not start elinks\n");
