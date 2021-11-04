@@ -49,6 +49,7 @@ let g:vimwiki_global_ext = 0
 " signify
 nnoremap <Leader>hu :SignifyHunkUndo<CR>
 nnoremap <Leader>hd :SignifyHunkDiff<CR>
+let g:signify_sign_change='~'
 " lightline
 set laststatus=2 " to fix lightline
 set noshowmode " don't show mode with lightline enabled
