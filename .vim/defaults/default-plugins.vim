@@ -37,9 +37,13 @@ Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 " hex mode
 Plug 'fidian/hexmode'
 call plug#end()
-source ~/.normen/.vim/coc.vim
 
 " SETTINGS
+" coc
+source ~/.normen/.vim/coc.vim
+augroup normensplugins
+  autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+augroup END
 " vifm
 let g:vifm_embed_term=1
 " vimwiki
@@ -56,14 +60,24 @@ set noshowmode " don't show mode with lightline enabled
 let g:lightline = { 
   \ 'colorscheme': 'gruvbox', 
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-  \   'right': [ [ 'lineinfo' ],
+  \   'left': [
+  \             [ 'mode', 'paste' ],
+  \             [ 'gitstatus' ],
+  \             [ 'readonly', 'relativepath', 'modified' ],
+  \           ],
+  \   'right': [ 
   \              [ 'percent' ],
-  \              [ 'spell', 'fileformat', 'fileencoding', 'filetype' ] ]
+  \              [ 'filetype' ],
+  \              [ 'lineinfo' ],
+  \              [ 'fileencoding' ],
+  \              [ 'fileformat' ],
+  \              [ 'spell' ],
+  \              [ 'cocstatus' ],
+  \           ],
   \ },
   \ 'component_function': {
-  \   'gitbranch': 'FugitiveHead'
+  \   'gitstatus': 'FugitiveHead',
+  \   'cocstatus': 'coc#status',
   \ },
 \ }
 " tmuxline
@@ -74,7 +88,3 @@ let g:lightline = {
     "\ 'right' : '',
     "\ 'right_alt' : '',
     "\ 'space' : ' '}
-augroup normensplugins
-  autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-augroup END
-
