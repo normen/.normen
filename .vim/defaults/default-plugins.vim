@@ -11,7 +11,12 @@ Plug 'tpope/vim-repeat'
 Plug 'preservim/nerdcommenter'
 " git
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
+else
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
 " tools
 Plug 'tpope/vim-dispatch'
 Plug 'vifm/vifm.vim'
@@ -41,6 +46,9 @@ let g:vifm_embed_term=1
 let g:vimwiki_list = [{'path': '~/.normen/vimwiki/', 'syntax': 'markdown', 'ext': '.md', "nested_syntaxes": {'javascript':'javascript','bash':'bash','sh':'sh','c++':'cpp','python':'python','go':'go'}}]
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
+" signify
+nnoremap <Leader>hu :SignifyHunkUndo<CR>
+nnoremap <Leader>hd :SignifyHunkDiff<CR>
 " lightline
 set laststatus=2 " to fix lightline
 set noshowmode " don't show mode with lightline enabled
