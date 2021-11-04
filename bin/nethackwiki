@@ -7,7 +7,7 @@ else
 fi
 while [ ! SRCH == "" ]
 do
-  ~/.normen/bin/wped -f $SRCH | less -R
+  ~/.normen/bin/wped -u 'https://nethackwiki.com/w/api.php' -f $SRCH | less -R
   read -r -p "Search:"
   SRCH=$REPLY
 done
