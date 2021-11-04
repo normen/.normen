@@ -1,3 +1,4 @@
+" PLUGINS
 call plug#begin('~/.normen/.vim/plugged')
 " visuals
 Plug 'morhetz/gruvbox'
@@ -28,24 +29,35 @@ Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
 Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 " openscad ft
 Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
+" hex mode
+Plug 'fidian/hexmode'
 call plug#end()
 source ~/.normen/.vim/coc.vim
-"let g:airline_powerline_fonts = 1
+
+" SETTINGS
+" vifm
+let g:vifm_embed_term=1
+" vimwiki
+let g:vimwiki_list = [{'path': '~/.normen/vimwiki/', 'syntax': 'markdown', 'ext': '.md', "nested_syntaxes": {'javascript':'javascript','bash':'bash','sh':'sh','c++':'cpp','python':'python','go':'go'}}]
+let g:vimwiki_markdown_link_ext = 1
+let g:vimwiki_global_ext = 0
+" lightline
 set laststatus=2 " to fix lightline
 set noshowmode " don't show mode with lightline enabled
 let g:lightline = { 
-\ 'colorscheme': 'gruvbox', 
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-\   'right': [ [ 'lineinfo' ],
-\              [ 'percent' ],
-\              [ 'spell', 'fileformat', 'fileencoding', 'filetype' ] ]
-\ },
-\ 'component_function': {
-\   'gitbranch': 'FugitiveHead'
-\ },
+  \ 'colorscheme': 'gruvbox', 
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+  \   'right': [ [ 'lineinfo' ],
+  \              [ 'percent' ],
+  \              [ 'spell', 'fileformat', 'fileencoding', 'filetype' ] ]
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'FugitiveHead'
+  \ },
 \ }
+" tmuxline
 "let g:tmuxline_powerline_separators = 0
 "let g:tmuxline_separators = {
     "\ 'left' : '',
@@ -53,6 +65,8 @@ let g:lightline = {
     "\ 'right' : '',
     "\ 'right_alt' : '',
     "\ 'space' : ' '}
+" hexmode
+let g:hexmode_xxd_options = '-g 1'
 augroup normensplugins
   autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 augroup END

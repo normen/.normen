@@ -58,8 +58,6 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 " vertical split
 let g:netrw_preview = 1
-" for vifm
-let g:vifm_embed_term=1
 
 " nicer vsplit character
 set fillchars+=vert:\┃
@@ -87,11 +85,6 @@ endif
 "set title
 "set titlestring=%{\"file://\".hostname().expand(\"%:p\")}
 "auto BufEnter * let &titlestring = "file://" . substitute(hostname().expand("%:p"), " ", "+", "")
-
-" set vimwiki path and syntax
-let g:vimwiki_list = [{'path': '~/.normen/vimwiki/', 'syntax': 'markdown', 'ext': '.md', "nested_syntaxes": {'javascript':'javascript','bash':'bash','sh':'sh','c++':'cpp','python':'python','go':'go'}}]
-let g:vimwiki_markdown_link_ext = 1
-let g:vimwiki_global_ext = 0
 
 " session vim content
 set sessionoptions=globals,localoptions,buffers,curdir,tabpages,winsize
