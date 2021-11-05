@@ -66,13 +66,22 @@ let g:lightline = {
   \             [ 'readonly', 'relativepath', 'modified' ],
   \           ],
   \   'right': [ 
-  \              [ 'percent' ],
   \              [ 'filetype' ],
+  \              [ 'percent' ],
   \              [ 'lineinfo' ],
   \              [ 'fileencoding' ],
   \              [ 'fileformat' ],
   \              [ 'spell' ],
   \              [ 'cocstatus' ],
+  \           ],
+  \ },
+  \ 'inactive': {
+  \   'left': [
+  \             [ 'filename' ],
+  \           ],
+  \   'right': [ 
+  \              [ 'filetype' ],
+  \              [ 'percent' ],
   \           ],
   \ },
   \ 'component_function': {
