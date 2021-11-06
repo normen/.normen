@@ -54,7 +54,7 @@ OPTIONS=menucolors
 #########
 # B/U/C #
 #########
-MENUCOLOR="!(B|U|C)($| )|tested"=&bold
+MENUCOLOR="!(B|U|C)($| )|tested"=white&bold
 #
 MENUCOLOR="blessed| B($| )"=lightblue
 MENUCOLOR="uncursed| U($| )"=brown
@@ -213,7 +213,7 @@ MENUCOLOR="Candelabrum of Invocation|candelabrum"=lightmagenta
 MENUCOLOR="Book of the Dead|papyrus spellbook"=lightmagenta
 # raison d'etre
 MENUCOLOR="Amulet of Yendor named"=lightmagenta&underline
-MENUCOLOR="cheap plastic imitation of the Amulet of Yendor"=none
+MENUCOLOR="cheap plastic imitation of the Amulet of Yendor"=gray
 
 ##################
 # CURSED GOODIES #
@@ -243,7 +243,7 @@ MENUCOLOR="bag .* tricks"=blue&underline
 MENUCOLOR="gold piece"=yellow
 MENUCOLOR="valuable"=yellow
 # touchstone|unicorn but not engrave tested
-MENUCOLOR="gems? .* soft\?"=&bold
+MENUCOLOR="gems? .* soft\?"=white&bold
 # engrave but not touchstone|unicorn tested
 MENUCOLOR="gems? .* soft($| )"=red
 # engrave and touchstone|unicorn tested
@@ -321,20 +321,20 @@ MENUCOLOR="\{d\}"=lightmagenta
 MENUCOLOR="\{e\}"=lightcyan
 MENUCOLOR="\{f\}"=white
 #
-MENUCOLOR="\{00\}"=&none
-MENUCOLOR="\{01\}"=&bold
-MENUCOLOR="\{02\}"=&dim       
+MENUCOLOR="\{00\}"=white
+MENUCOLOR="\{01\}"=white&bold
+MENUCOLOR="\{02\}"=white&dim       
 # dim doesn't work
-MENUCOLOR="\{04\}"=&underline
-MENUCOLOR="\{05\}"=&blink     
+MENUCOLOR="\{04\}"=white&underline
+MENUCOLOR="\{05\}"=white&blink     
 # blink doesn't work
-MENUCOLOR="\{07\}"=&inverse
+MENUCOLOR="\{07\}"=white&inverse
 
 ######################
 # FIX ORDINARY MENUS #
 ######################
 # container menu ((a)pply, #loot)
 # "bag .* holding"
-MENUCOLOR="is empty. Do what?"=none
-MENUCOLOR="Put something into .*"=none
-MENUCOLOR="Take something out of .*"=none
+MENUCOLOR="is empty. Do what?"=gray
+MENUCOLOR="Put something into .*"=gray
+MENUCOLOR="Take something out of .*"=gray
