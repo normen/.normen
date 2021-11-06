@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+tmux popup -w 62 -E "TERM=xterm-256color;tmux save-buffer - | xargs -I{} ~/.normen/bin/wped -u 'https://nethackwiki.com/w/api.php' -f {} | less -R"
