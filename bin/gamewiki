@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+case "$1" in
+"nethack")
+    URL='https://nethackwiki.com/w/api.php'
+    ;;
+"cataclysm")
+    URL='http://cddawiki.chezzo.com/cdda_wiki/api.php'
+    ;;
+*)
+    URL='http://en.wikipedia.org/w/api.php'
+    ;;
+esac
+
+read_input(){
+  clear
+  echo "## WIKI SEARCH ##"
+  echo ""
+  echo $URL
+  echo ""
+  read -r -p "Search term:"
+  SRCH=$REPLY
+}
+
+read_input
+while [ ! SRCH == "" ]
+do
+  ~/.normen/bin/wped -u $URL -f $SRCH | less -R
+  read_input
+done
+
