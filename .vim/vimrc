@@ -187,6 +187,7 @@ nmap ü ]
 nmap ä [
 "nnoremap [ä [[
 nmap ö :
+vmap ö :
 
 "section: stuff that doesn't start with blank and ends with {
 "^=start [^\s\t ]=anything but \s, \t or space $=end
