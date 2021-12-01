@@ -1,2 +1,12 @@
 #!/bin/bash
-tmux save-buffer -|ssh -x normenhansen@Normens-MacBook.local -i ~/.ssh/id_rsa -C 'pbcopy'
+#tmux save-buffer -|ssh -x normenhansen@Normens-MacBook.local -i ~/.ssh/id_rsa -C 'pbcopy'
+set -eu
+buf=$( tmux save-buffer - )
+buflen=$( printf %s "$buf" | wc -c )
+maxlen=74994
+if [ "$buflen" -gt "$maxlen" ]; then
+  printf "input is %d bytes too long" "$(( buflen - maxlen ))" >&2
+fi
+esc="\033]52;c;$( printf %s "$buf" | head -c $maxlen | base64 | tr -d '\r\n' )\a"
+pane_active_tty=$(tmux list-panes -F "#{pane_active} #{pane_tty}" | awk '$1=="1" { print $2 }')
+printf "$esc" > "$pane_active_tty"
