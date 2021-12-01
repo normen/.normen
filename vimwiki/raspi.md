@@ -5,6 +5,7 @@
 * [raspi/friesenrack](raspi/friesenrack.md)
 * [raspi/cncjs](raspi/cncjs.md)
 * [raspi/analyzer](raspi/analyzer.md)
+* [raspi/ipad](raspi/ipad.md)
 
 ## General Raspi Info
 ```bash
