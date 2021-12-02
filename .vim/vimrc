@@ -212,8 +212,8 @@ nnoremap dam va{Vd
 nnoremap yam va{Vy
 nnoremap cam va{Vc
 
-source ~/.normen/.vim/plugins.vim
-source ~/.normen/.vim/commands.vim
+source $HOME/.normen/.vim/plugins.vim
+source $HOME/.normen/.vim/commands.vim
 let g:gruvbox_transparent_bg=1
 colorscheme gruvbox
 hi! Normal guibg=NONE ctermbg=NONE

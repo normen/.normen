@@ -1,5 +1,5 @@
 " PLUGINS
-call plug#begin('~/.normen/.vim/plugged')
+call plug#begin('$HOME/.normen/.vim/plugged')
 " visuals
 Plug 'morhetz/gruvbox'
 "Plug 'vim-airline/vim-airline'
@@ -29,25 +29,31 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'wellle/tmux-complete.vim'
 " coc
-Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
+if executable('node')
+  Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
+endif
 " maptool ft
 Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 " openscad ft
 Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 " hex mode
 Plug 'fidian/hexmode'
+" openai codex
+" Plug 'tom-doerr/vim_codex'
 call plug#end()
 
 " SETTINGS
 " coc
-source ~/.normen/.vim/coc.vim
-augroup normensplugins
-  autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-augroup END
+if executable('node')
+  source $HOME/.normen/.vim/coc.vim
+  augroup normensplugins
+    autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+  augroup END
+endif
 " vifm
 let g:vifm_embed_term=1
 " vimwiki
-let g:vimwiki_list = [{'path': '~/.normen/vimwiki/', 'syntax': 'markdown', 'ext': '.md', "nested_syntaxes": {'javascript':'javascript','bash':'bash','sh':'sh','c++':'cpp','python':'python','go':'go'}}]
+let g:vimwiki_list = [{'path': '$HOME/.normen/vimwiki/', 'syntax': 'markdown', 'ext': '.md', "nested_syntaxes": {'javascript':'javascript','bash':'bash','sh':'sh','c++':'cpp','python':'python','go':'go'}}]
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
 " signify
