@@ -1,4 +1,5 @@
 #!/bin/bash
+# sudo apt install php-cli php-curl php-xml elinks
 set -e
 case "$1" in
 "nethack")
