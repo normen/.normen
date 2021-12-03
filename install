@@ -3,7 +3,7 @@ set -e
 
 echo "**************************************************************"
 echo ""
-echo "🏠 install base apps (git,zsh,vim,ctags,vifm,mosh,tmux)?"
+echo "🏠 install base apps (git,zsh,vim,vifm,mosh,tmux)?"
 echo ""
 select yn in "No" "Debian" "MacOS (install brew)" "MacOS (brew installed)";
 do
@@ -17,7 +17,7 @@ do
       break;;
     "Debian" )
       sudo apt update
-      sudo apt install git zsh vim ctags vifm mosh tmux
+      sudo apt install git zsh vim vifm mosh tmux
       chsh -s $(which zsh)
       sudo chsh -s $(which zsh) || true
       break;;
