@@ -39,6 +39,9 @@ hdmi_group=2
 hdmi_mode=87
 CONTENT
 
+#reboot button pin 5/6 (/boot/config.txt)
+dtoverlay=gpio-shutdown,gpio_pin=3
+
 #bluetooth keyboard
 sudo bluetoothctla
 agent on
