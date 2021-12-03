@@ -9,12 +9,16 @@ go clean -i -n github.com/user/app...
 #### Project
 ```bash
 ## install on raspi
-wget https://dl.google.com/go/go1.15.2.linux-armv6l.tar.gz
-sudo tar -C /usr/local -xzf go1.15.2.linux-armv6l.tar.gz
+export GOLANG="$(curl https://go.dev/dl/|grep linux-armv6l|grep -v beta|head -1|awk -F\> {'print $3'}|awk -F\< {'print $1'})"
+wget https://golang.org/dl/$GOLANG
+sudo tar -C /usr/local -xzf $GOLANG
+rm $GOLANG
+unset GOLANG
 vim ~/.profile
 <<CONTENT
 PATH=$PATH:/usr/local/go/bin
 GOPATH=$HOME/go
+PATH=$PATH:$GOPATH/bin
 CONTENT
 source ~/.profile
 
