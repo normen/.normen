@@ -1,5 +1,9 @@
 ## Linux
 ```bash
+# disk mount
+sudo fdisk -l
+sudo mount /dev/sda1 /mnt/usb -o uid=pi,gid=pi
+
 # download recursively
 wget -nH --reject-regex 'Especial|Special|Ayuda|Help|action|printable|Archivo:' --recursive --page-requisites --html-extension --convert-links --restrict-file-names=windows --domains domain.com --no-parent http://domain.com/wiki
 
