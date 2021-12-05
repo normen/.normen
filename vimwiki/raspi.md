@@ -42,6 +42,11 @@ CONTENT
 #reboot button pin 5/6 (/boot/config.txt)
 dtoverlay=gpio-shutdown,gpio_pin=3
 
+# Turn OFF HDMI output
+sudo /opt/vc/bin/tvservice -o
+# Turn ON HDMI output
+sudo /opt/vc/bin/tvservice -p
+
 #bluetooth keyboard
 sudo bluetoothctla
 agent on
