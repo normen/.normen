@@ -7,6 +7,7 @@
 * [raspi/analyzer](raspi/analyzer.md)
 * [raspi/ipad](raspi/ipad.md)
 * [raspi/webpage](raspi/webpage.md)
+* [raspi/amiga](raspi/amiga.md)
 
 ## General Raspi Info
 ```bash
