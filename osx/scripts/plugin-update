@@ -1,6 +1,0 @@
-#!/bin/bash
-
-~/.normen/bin/git-recursive-update ~/.vim/pack
-~/.normen/bin/git-recursive-update ~/.tmux/plugins
-npm update -g spaceship-prompt
-
