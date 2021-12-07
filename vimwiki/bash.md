@@ -41,6 +41,13 @@ if [[ $IP =~ [:] ]];then
   echo "IP contains :"
 fi
 
+# get multiline variable
+read -d '' CONTENT <<CONTENT
+your
+content
+CONTENT
+echo $CONTENT
+
 # loop through list
 for i in \
     string1 \
