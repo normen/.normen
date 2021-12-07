@@ -55,6 +55,9 @@ sudo /opt/vc/bin/tvservice -p
 # turn off wifi/bt (/boot/config.txt)
 dtoverlay=pi3-disable-wifi
 dtoverlay=pi3-disable-bt
+#turn off leds
+dtparam=act_led_trigger=none
+dtparam=act_led_activelow=on
 
 #bluetooth keyboard
 sudo bluetoothctla
