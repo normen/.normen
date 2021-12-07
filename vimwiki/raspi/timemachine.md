@@ -1,5 +1,10 @@
 ## TimeMachine
 ```bash
+# format disk
+sudo fdisk -l
+sudo parted /dev/sda mklabel gpt
+sudo parted -a opt /dev/sda mkpart primary ext4 0% 100%
+sudo mkfs.ext4 -L datapartition /dev/sda1
 # mount on boot
 sudo mkir /mnt/timemachine
 sudo vim /etc/fstab
