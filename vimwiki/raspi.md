@@ -8,6 +8,7 @@
 * [raspi/ipad](raspi/ipad.md)
 * [raspi/webpage](raspi/webpage.md)
 * [raspi/amiga](raspi/amiga.md)
+* [raspi/autostart](raspi/autostart.md)
 
 ## General Raspi Info
 ```bash
@@ -15,9 +16,10 @@
 touch ssh
 vim wpa_supplicant.conf
 <<CONTENT
-country=DE
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
+country=DE
+
 network={
     ssid="wifi_ssid"
     psk="wifi_password"
