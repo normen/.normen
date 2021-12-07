@@ -15,6 +15,8 @@ echo "if [ -f '/boot/autorun.sh' ]; then" >> /home/pi/.bashrc
 echo "  cp /boot/autorun.sh ~/" >> /home/pi/.bashrc
 echo "  sudo rm /boot/autorun.sh ~/" >> /home/pi/.bashrc
 echo "  chmod a+x ~/autorun.sh" >> /home/pi/.bashrc
+echo "fi" >> /home/pi/.bashrc
+echo "if [ -f '/home/pi/autorun.sh' ]; then" >> /home/pi/.bashrc
 echo "  ~/autorun.sh" >> /home/pi/.bashrc
 echo "fi" >> /home/pi/.bashrc
  
@@ -34,6 +36,7 @@ CONTENT
 # set wifi country to assure wifi connection..
 sudo raspi-config nonint do_wifi_country DE
 sudo systemctl restart wpa_supplicant
+bash <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install)
 # remove script when successful!
 rm ~/autorun.sh
 CONTENT
