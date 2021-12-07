@@ -7,6 +7,7 @@
 * [raspi/analyzer](raspi/analyzer.md)
 * [raspi/ipad](raspi/ipad.md)
 * [raspi/webpage](raspi/webpage.md)
+* [raspi/timemachine](raspi/timemachine.md)
 * [raspi/amiga](raspi/amiga.md)
 * [raspi/autostart](raspi/autostart.md)
 
@@ -189,47 +190,4 @@ rsync -azr --delete /Users/normenhansen/Documents/NodeCode/homebridge/npm-code p
 #from server
 rsync -azr --delete pi@homebridge.local:/home/pi/npm-code /Users/normenhansen/Documents/NodeCode/homebridge
 
-# Time Machine
-# needs Raspbian buster
-sudo apt install samba
-sudo mkdir -m 1777 /data
-sudo smbpasswd -a pi
-sudo vim /etc/samba/smb.conf
-<<CONTENT
-[timemachine]
-  comment = Time Machine
-  path = /data
-  browseable = yes
-  writeable = yes
-  create mask = 0600
-  directory mask = 0700
-; spotlight = yes
-  vfs objects = catia fruit streams_xattr
-  fruit:aapl = yes
-  fruit:time machine = yes
-CONTENT
-# add icon for macos
-sudo vim /etc/avahi/services/samba.service
-<<CONTENT
-<?xml version="1.0" standalone='no'?><!--*-nxml-*-->
-<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
-<service-group>
-  <name replace-wildcards="yes">%h</name>
-  <service>
-    <type>_smb._tcp</type>
-    <port>445</port>
-  </service>
-  <service>
-    <type>_device-info._tcp</type>
-    <port>9</port>
-    <txt-record>model=TimeCapsule8,119</txt-record>
-  </service>
-  <service>
-    <type>_adisk._tcp</type>
-    <port>9</port>
-    <txt-record>dk0=adVN=timemachine,adVF=0x82</txt-record>
-    <txt-record>sys=adVF=0x100</txt-record>
-  </service>
-</service-group>
-CONTENT
 ```
