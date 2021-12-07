@@ -44,10 +44,17 @@ CONTENT
 #reboot button pin 5/6 (/boot/config.txt)
 dtoverlay=gpio-shutdown,gpio_pin=3
 
+# turn off USB+ethernet
+echo '1-1'|sudo tee /sys/bus/usb/drivers/usb/unbind
+# turn on
+echo '1-1'|sudo tee /sys/bus/usb/drivers/usb/bind
 # Turn OFF HDMI output
 sudo /opt/vc/bin/tvservice -o
 # Turn ON HDMI output
 sudo /opt/vc/bin/tvservice -p
+# turn off wifi/bt (/boot/config.txt)
+dtoverlay=pi3-disable-wifi
+dtoverlay=pi3-disable-bt
 
 #bluetooth keyboard
 sudo bluetoothctla
