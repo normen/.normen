@@ -33,9 +33,10 @@ CONTENT
 # add /boot/autorun.sh to run on bash login
 <<CONTENT
 #!/bin/bash
-# set wifi country to assure wifi connection..
-sudo raspi-config nonint do_wifi_country DE
-sudo systemctl restart wpa_supplicant
+set -e
+# base update
+sudo apt update
+sudo apt upgrade
 bash <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install)
 # remove script when successful!
 rm ~/autorun.sh
