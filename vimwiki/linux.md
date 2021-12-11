@@ -20,6 +20,13 @@ sudo parted /dev/sda mklabel gpt
 sudo parted -a opt /dev/sda mkpart primary ext4 0% 100%
 sudo mkfs.ext4 -L datapartition /dev/sda1
 
+#mount fstab
+sudo blkid
+sudo vim /etc/fstab
+PARTUUID=5378e341-1f27-4b8d-8045-f5ceed7128f8  /mnt/mystuffs  ext4  defaults,nofail  0  2
+/dev/sda1  /mnt/timemachine  ext4  defaults,nofail  0  2
+PARTUUID=5378e341-1f27-4b8d-8045-f5ceed7128f8  /mnt/timemachine  ext4  defaults,nofail  0  2
+
 #hard problem fix
 sudo mke2fs -n /dev/sda
 #adapt sizes below from above output (4k / superblock pos)
