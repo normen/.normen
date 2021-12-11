@@ -33,4 +33,9 @@ vim ~/.vim/coc-settings.json
   }
 }
 CONTENT
+
+# install ccls debian
+sudo apt install snapd
+sudo snap install core
+sudo snap install ccls --classic
 ```
