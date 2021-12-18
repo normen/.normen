@@ -1,5 +1,5 @@
 " PLUGINS
-call plug#begin('$NORMEN/.vim/plugged')
+silent! call plug#begin('$NORMEN/.vim/plugged')
 " visuals
 Plug 'morhetz/gruvbox'
 "Plug 'vim-airline/vim-airline'
