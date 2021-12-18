@@ -1,8 +1,8 @@
 " custom commands
 :command W w
 " ai
-vnoremap <Leader>ix :!~/.normen/bin/gptj-universal<CR>
-vnoremap <Leader>ip :!~/.normen/bin/gptj-python<CR>
+vnoremap <Leader>ix :!$NORMEN/bin/gptj-universal<CR>
+vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 
 :command -nargs=* Search :vim /<args>/g %<bar>cw
 :command -nargs=* SearchFiles :vim /<args>/g **/*<bar>cw
@@ -26,15 +26,15 @@ vnoremap <Leader>ip :!~/.normen/bin/gptj-python<CR>
 
 :command WebAppUp !set -e;cd client;npm run build;cd ..;git add -A;git commit -m 'update';git push -u -f origin master
 
-:command PIOCreateMakefile !cp ~/.normen/.vim/templates/PlatformIO-Makefile ./Makefile
+:command PIOCreateMakefile !cp $NORMEN/.vim/templates/PlatformIO-Makefile ./Makefile
 :command -nargs=1 PIOInit !platformio project init --ide vim --board <args>
 ";sed -i '' '1s/.*/clang/' .ccls
 :command PIORefresh !platformio project init --ide vim
 ";sed -i '' '1s/.*/clang/' .ccls
 
-:command GoCreateMakefile !cp ~/.normen/.vim/templates/Go-Makefile ./Makefile
+:command GoCreateMakefile !cp $NORMEN/.vim/templates/Go-Makefile ./Makefile
 
-:command JSCompletionEnable !cp ~/.vim/templates/jsconfig.json ./
+:command JSCompletionEnable !cp $NORMEN/.vim/templates/jsconfig.json ./
 
 :command SCADOpen !openscad %&
 :command SCADExport Start openscad -o %:r.stl %
