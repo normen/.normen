@@ -94,6 +94,9 @@ let g:lightline = {
   \   'gitstatus': 'FugitiveHead',
   \   'cocstatus': 'coc#status',
   \ },
+  \ 'component': {
+\   'lineinfo': '%3l:%-2v%<',
+\ },
 \ }
 " tmuxline
 "let g:tmuxline_powerline_separators = 0
