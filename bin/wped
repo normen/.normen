@@ -9,7 +9,7 @@ $arg0 = substr($argv[0],strrpos($argv[0],'/')+1);
 $full = false;
 $width = 60;
 $site = $arg0;
-$lang = `locale | grep LANGUAGE | cut -d= -f2 | cut -d_ -f1`;
+$lang = `locale | grep LANG | cut -d= -f2 | cut -d_ -f1 | sed 's/\"//g'`;
 $lang = strlen($lang)==2?$lang:'en';
 $url = 'https://{lang}.{domain}/w/api.php';
 
