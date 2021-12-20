@@ -6,6 +6,7 @@
 * [node](node.md)
 * [javascript](javascript.md)
 * [c](c.md)
+* [perl](perl.md)
 * [bash](bash.md)
 * [swift](swift.md)
 * [go](go.md)
