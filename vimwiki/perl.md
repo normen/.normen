@@ -149,6 +149,11 @@ while(my $info = <$file>){
   say chomp($info);
 }
 close $file or die "Could't close File";
+
+## check arch
+use Config;
+print "$Config{osname}\n";
+print "$Config{archname}\n";
 ```
 ### packages
 ```perl
