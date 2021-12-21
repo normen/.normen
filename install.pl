@@ -7,6 +7,7 @@ use Config;
 
 my $hpath = h_path();
 my $npath = n_path();
+my $git = git_cmd();
 show_menu();
 
 # show the main menu
@@ -104,7 +105,7 @@ sub install_links {
 # set up tmux & tpm
 sub configure_tmux {
   unless(-d "$npath/.tmux/plugins/tpm") {
-    return if system("git clone https://github.com/tmux-plugins/tpm ~/.normen/.tmux/plugins/tpm || true");
+    return if system("$git clone https://github.com/tmux-plugins/tpm ~/.normen/.tmux/plugins/tpm");
   } else{
     say "$npath/.tmux/plugins/tpm exists already";
   }
@@ -124,7 +125,7 @@ sub configure_vifm {
   if(!-f "$vifm_path/colors/gruvbox.vifm"){
     say "Installing vifm colors";
     system("rm -rf $vifm_path/colors");
-    system("git clone https://github.com/vifm/vifm-colors $vifm_path/colors");
+    system("$git clone https://github.com/vifm/vifm-colors $vifm_path/colors");
   }
   my $f = "$vifm_path/vifmrc";
   add_config_lines($f,
@@ -154,11 +155,13 @@ sub update_plugins {
 # get a copy of the .normen repo
 sub checkout_normen {
   unless(-d $npath) {
-    die if system("git clone https://github.com/normen/.normen $npath");
+    die if system("$git clone https://github.com/normen/.normen $npath");
   } else{
     say "$npath exists already";
   }
 }
+
+## TOOLS
 
 # get the path for .normen ($NORMEN env var or home/.normen)
 sub n_path {
@@ -177,6 +180,14 @@ sub h_path {
     $hpath = "$hpath/Documents";
   }
   return $hpath;
+}
+
+# gets a suitable git command (a-shell etc)
+sub git_cmd {
+  if($ENV{TERM_PROGRAM} eq "a-Shell"){
+    return "lg2";
+  }
+  return "git";
 }
 
 # adds lines of text to a file
