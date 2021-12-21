@@ -110,7 +110,7 @@ sub install_links {
 # set up tmux & tpm
 sub configure_tmux {
   unless(-d "$npath/.tmux/plugins/tpm") {
-    return if system("$git clone https://github.com/tmux-plugins/tpm ~/.normen/.tmux/plugins/tpm");
+    return if system("$git clone https://github.com/tmux-plugins/tpm $npath/.tmux/plugins/tpm");
   } else{
     say "$npath/.tmux/plugins/tpm exists already";
   }
