@@ -150,6 +150,10 @@ sub update_plugins {
   system("zsh -c 'source $npath/.zshrc;antigen update'");
   system("vim +PlugUpdate +qa");
   system("vim +CocUpdateSync +ls +qa");
+  my $local_update = "$npath/plugin-update.local";
+  if(-x $local_update){
+    system($local_update);
+  }
 }
 
 # get a copy of the .normen repo
