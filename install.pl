@@ -20,7 +20,8 @@ sub show_menu {
     say "2) Set default configuration";
     say "3) Configure tmux";
     say "4) Install node";
-    say "8) Link dot files to $hpath";
+    say "5) Link dot files to $hpath";
+    say "8) Update .normen";
     say "9) Update plugins";
     say "0) Exit";
     my $input = <>;
@@ -43,9 +44,13 @@ sub show_menu {
         say "\nInstalling node..";
         install_node();
       }
-      when(8){
+      when(5){
         say "\nInstalling links..";
         install_links();
+      }
+      when(8){
+        system("cd $npath");
+        system("$git pull");
       }
       when(9){
         say "\nUpdating plugins..";
