@@ -176,7 +176,7 @@ sub h_path {
   unless(-w $hpath) {
     $hpath = "$hpath/Documents";
   }
-  return $npath;
+  return $hpath;
 }
 
 # adds lines of text to a file
