@@ -186,11 +186,11 @@ sub add_config_lines {
   my($file_name, @new_lines) = @_;
   for(@new_lines){
     my $new_line = $_;
-    open my $fh, '<', $file_name or return "Can't open $!";
+    open my $fh, '<', $file_name or die "Can't open $!";
     my $file_content = do { local $/; <$fh> };
     close $fh;
     unless($file_content =~ m/$new_line/){
-      open $fh, '>>', $file_name or return "Can't open $!";
+      open $fh, '>>', $file_name or die "Can't open $!";
       print $fh "$new_line\n";
       close $fh;
       say "Added $new_line to $file_name";
@@ -202,9 +202,9 @@ sub add_config_lines {
 sub link_in {
   my($src, $dest) = @_;
   if(-e $dest){
-    return "Can't delete $dest" if system("rm -rf $dest");
+    die "Can't delete $dest" if system("rm -rf $dest");
   }
-  return "Can't link $src" if system("ln -s $src $dest");
+  die "Can't link $src" if system("ln -s $src $dest");
   say "Linked in $dest";
 }
 
