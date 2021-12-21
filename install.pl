@@ -49,7 +49,7 @@ sub show_menu {
         install_links();
       }
       when(8){
-        system("cd $npath");
+        chdir($npath);
         system("$git pull");
       }
       when(9){
