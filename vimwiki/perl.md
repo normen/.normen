@@ -10,6 +10,8 @@ use feature "switch";
 
 # simple get output from command
 my $dirlist = `ls`;
+# remove newline
+my $command_path = chomp(`which ls`);
 # pipe from command
 open(my $PS, 'ps -ef |');
 while (<$PS>) { print $_ }
