@@ -8,6 +8,19 @@ use warnings;
 use feature "say";
 use feature "switch";
 
+# simple get output from command
+my $dirlist = `ls`;
+# pipe from command
+open(my $PS, 'ps -ef |');
+while (<$PS>) { print $_ }
+close($PS);
+# pipe to command
+open(my $OUT, '| less');
+print $OUT "Hello";
+print $OUT "to less";
+print $OUT "from PERL";
+close $OUT;
+
 my $name = "Normen";
 if(rand 2 > 1){
   $name="Else";
