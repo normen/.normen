@@ -150,7 +150,7 @@ sub configure_vifm {
   add_config_lines($f,
     "colorscheme gruvbox",
     "nnoremap <C-e> :q<CR>",
-    "nmap ö :") if -d $f;
+    "nmap ö :") if -f $f;
   say "Configured vifm";
 }
 
@@ -283,7 +283,7 @@ sub install_go {
     say ".go/bin already in PATH!";
   } else{
     my $pro_file = "$hpath/.profile";
-    if(file_contains($pro_file,"GOPATH|GOROOT")){
+    if(file_regex($pro_file,"GOPATH|GOROOT")){
       say "Already a GOPATH in $pro_file";
       if(!file_contains($pro_file,"$go_bin")){
         say "Path to .go/bin not found in .profile! Edit by hand!";
@@ -318,8 +318,8 @@ sub checkout_normen {
   }
   # add $NORMEN to profile if not in default location
   my $pro_file = "$hpath/.profile";
-  if($npath ne glob "~/.normen"){
-    if(file_contains($pro_file,"NORMEN=")){
+  if($npath ne glob "~" . "/.normen"){
+    if(file_regex($pro_file,"NORMEN")){
       say "Already a NORMEN in $pro_file";
     } else{
       add_config_lines($pro_file, "NORMEN=$npath");
@@ -371,7 +371,7 @@ sub add_config_lines {
   my($file_name, @new_lines) = @_;
   for(@new_lines){
     my $new_line = $_;
-    unless(file_contains($new_line)){
+    unless(file_contains($file_name, $new_line)){
       open my $fh, '>>', $file_name or die "Can't open $!";
       print $fh "$new_line\n";
       close $fh;
@@ -381,12 +381,21 @@ sub add_config_lines {
 }
 
 # checks if a file exists and contains a string
-sub file_contains {
+sub file_regex {
   my($file_name, $content) = @_;
   open my $fh, '<', $file_name or return 0;
   my $file_content = do { local $/; <$fh> };
   close $fh;
   return $file_content =~ m/$content/;
+}
+
+# checks if a file exists and contains a string
+sub file_contains {
+  my($file_name, $content) = @_;
+  open my $fh, '<', $file_name or return 0;
+  my $file_content = do { local $/; <$fh> };
+  close $fh;
+  return index($file_content, $content) >= 0;
 }
 
 # links a file to another location, removes existing files
@@ -404,7 +413,8 @@ sub link_in {
 sub install_apps {
   foreach(@_){
     my $app_name = $_;
-    my $app_exe = qx{which $app_name};
+    my $app_exe = $app_name;
+    $app_exe = qx{which $app_name} unless $Config{osname} eq "MSWin32";
     chomp $app_exe;
     unless(-x $app_exe){
       given($Config{osname}){
