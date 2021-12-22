@@ -81,7 +81,7 @@ sub install_base_apps {
       die if system("chsh -s $zsh_exe");
     }
     when("MSWin32"){
-      install_apps("vim", "git");
+      install_apps("vim.vim", "Git.Git");
     }
     when("darwin"){
       install_apps("ctags", "vim", "vifm", "mosh", "tmux");
@@ -313,7 +313,7 @@ sub checkout_normen {
   }
   # add $NORMEN to profile if not in default location
   my $pro_file = "$hpath/.profile";
-  if($npath ne "$ENV{HOME}/.normen"){
+  if($npath ne glob "~/.normen"){
     if(file_contains($pro_file,"NORMEN=")){
       say "Already a NORMEN in $pro_file";
     } else{
@@ -407,7 +407,7 @@ sub install_apps {
           die if system("sudo apt install $app_name");
         }
         when("MSWin32"){
-          die if system("winget install $app_name");
+          die if system("winget install -h $app_name");
         }
         when("darwin"){
           if($Config{archname}=~m/thread-multi/){
