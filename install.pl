@@ -4,6 +4,9 @@ use warnings;
 use feature "say";
 use experimental "switch";
 use Config;
+use File::Copy; #move/copy
+use File::Path; #rmtree
+use File::Temp qw/ tempfile tempdir /; #tempdir
 
 my $hpath = h_path();
 my $npath = n_path();
@@ -20,32 +23,31 @@ sub show_menu {
     say "2) Set default configuration";
     say "3) Configure tmux";
     say "4) Install node";
-    say "5) Link dot files to $hpath";
+    say "5) Install golang to ~/.go";
+    say "7) Link dot files to $hpath";
     say "8) Update .normen";
     say "9) Update plugins";
     say "0) Exit";
     my $input = <>;
     given($input){
       when(1){
-        say "\nInstalling base..";
         install_base_apps();
         checkout_normen();
       }
       when(2){
-        say "\nSetting defaults..";
         install_plugin_defaults();
         configure_vifm();
       }
       when(3){
-        say "\nConfiguring tmux..";
         configure_tmux();
       }
       when(4){
-        say "\nInstalling node..";
         install_node();
       }
       when(5){
-        say "\nInstalling links..";
+        install_go();
+      }
+      when(7){
         install_links();
       }
       when(8){
@@ -53,7 +55,6 @@ sub show_menu {
         system("$git pull");
       }
       when(9){
-        say "\nUpdating plugins..";
         update_plugins();
       }
       when(0){
@@ -84,7 +85,12 @@ sub install_base_apps {
   }
 }
 
+# TODO
 sub install_for_root {
+}
+
+# TODO
+sub install_eslint_semistandard {
 }
 
 # link in the defaults
@@ -143,10 +149,142 @@ sub configure_vifm {
 # install node.js
 sub install_node {
   #curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
-  #TODO: can't even
+  # TODO: can't even
   #my $n = `curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n`;
   #system(qq{bash -c $n bash 17});
+  say "Installing node via package manager";
   install_apps("node");
+}
+
+# install go for current platform
+sub install_go {
+  # TODO: curl uname tar
+  my $dl_url = "https://go.dev/dl/";
+  # GOROOT install location
+  my $go_root = "$hpath/.go";
+  # GOPATH folder in root
+  my $go_path = "$hpath/go";
+  # OS/ARCH
+  my $osname = $Config{osname};
+  #my $osname = `uname -s`;
+  #chomp $osname;
+  my $archname = `uname -m`;
+  chomp $archname;
+  # regex as variable needs "qr"..
+  my $ver_regex=qr/go([0-9]*\.[0-9]*\.[0-9a-z]*)/;
+  # find os and arch
+  my $os="-";
+  my $arch="-";
+  my $suffix="tar.gz";
+  given($osname){
+    when(/linux/i){
+      $os="linux";
+      given($archname){
+        when(/armv7|armv6/i){
+          $arch="armv6l";
+        }
+        when(/arm64|armv8/i){
+          $arch="armv64";
+        }
+        when(/x86_64/i){
+          $arch="amd64";
+        }
+        when(/386/i){
+          $arch="386";
+        }
+      }
+    }
+    when(/darwin/i){
+      $os="darwin";
+      given($archname){
+        when(/x86_64/i){
+          $arch="amd64";
+        }
+        when(/arm/i){
+          $arch="arm64";
+        }
+      }
+    }
+  }
+  # check if we found a platform
+  if($arch eq "-" || $os eq "-"){
+    say "Could not find os/arch for $osname/$archname ($os/$arch)";
+    return;
+  }
+  # check for latest version (L=redirects s=silent)
+  my $dl_page = `curl -Ls $dl_url`;
+  my($version) = $dl_page =~ $ver_regex;
+  if(!$version){
+    say "Can't get latest go version from $dl_url";
+    return;
+  }
+  say "Latest go version: $version";
+  # check installed version
+  my $cur_ver = "go0.0.0";
+  my $go_exe = "$go_root/bin/go";
+  if(-x $go_exe){
+    $cur_ver = qx{$go_exe version};
+    chomp $cur_ver;
+  }
+  my($installed_version) = $cur_ver =~ $ver_regex;
+  $installed_version="0.0.0" if !$installed_version;
+  say "Installed go version: $installed_version";
+  if( $installed_version eq $version ){
+    say "You have the latest go version.";
+    return;
+  }
+  # ask user confirmation
+  say "Install go $version to $go_root? (y/n)";
+  my $user_input = <>;
+  chomp $user_input;
+  return unless $user_input eq "y";
+  # download and install
+  my $file_name = "go$version.$os-$arch.$suffix";
+  my $dl_url = "https://go.dev/dl/$file_name";
+  my $temp_folder = tempdir( CLEANUP => 1 );
+  my $temp_file = "$temp_folder/$file_name";
+  if(!-d $temp_folder){
+    die "Can't create temp folder";
+  }
+  say "Downloading $file_name";
+  die if system("curl -L -o $temp_file $dl_url");
+  say "Unpacking $file_name";
+  die if system("tar -C $temp_folder -xzf $temp_file");
+  die "Can't delete $temp_file" unless unlink $temp_file;
+  # remove old GOROOT
+  if(-d $go_root){
+    say "Removing old GOROOT at $go_root";
+    die unless rmtree $go_root;
+  }
+  # move in new GOROOT
+  die "Can't move go to $go_root" unless move("$temp_folder/go", "$go_root");
+  say "Installed go to $go_root";
+  # check if GOPATH exists
+  if(!-d $go_path){
+    say "Creating GOPATH at $go_path";
+    mkdir($go_path) or die "Can't create $go_path";
+  } else{
+    say "GOPATH folder exists at $go_path";
+  }
+  # update .profile
+  # TODO: check PATH
+  my $go_bin = "$go_root/bin";
+  if($ENV{PATH}=~/$go_bin/){
+    say ".go/bin already in PATH!";
+  } else{
+    my $pro_file = "$hpath/.profile";
+    if(file_contains($pro_file,"GOPATH|GOROOT")){
+      say "Already a GOPATH in $pro_file";
+      if(!file_contains($pro_file,"$go_bin")){
+        say "Path to .go/bin not found in .profile! Edit by hand!";
+      }
+    } else{
+      add_config_lines($pro_file,
+        "GOPATH=$go_path",
+        "PATH=\$PATH:$go_bin:\$GOPATH/bin"
+      );
+    }
+  }
 }
 
 # update all plugins, silent fail
@@ -206,16 +344,22 @@ sub add_config_lines {
   my($file_name, @new_lines) = @_;
   for(@new_lines){
     my $new_line = $_;
-    open my $fh, '<', $file_name or die "Can't open $!";
-    my $file_content = do { local $/; <$fh> };
-    close $fh;
-    unless($file_content =~ m/$new_line/){
-      open $fh, '>>', $file_name or die "Can't open $!";
+    unless(file_contains($new_line)){
+      open my $fh, '>>', $file_name or die "Can't open $!";
       print $fh "$new_line\n";
       close $fh;
       say "Added $new_line to $file_name";
     }
   }
+}
+
+# checks if a file exists and contains a string
+sub file_contains {
+  my($file_name, $content) = @_;
+  open my $fh, '<', $file_name or return 0;
+  my $file_content = do { local $/; <$fh> };
+  close $fh;
+  return $file_content =~ m/$content/;
 }
 
 # links a file to another location, removes existing files
