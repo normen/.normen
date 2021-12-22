@@ -10,6 +10,8 @@ use feature "switch";
 
 # simple get output from command
 my $dirlist = `ls`;
+# same:
+my $dirlist = qx{ls};
 # remove newline
 my $command_path = chomp(`which ls`);
 # pipe from command
