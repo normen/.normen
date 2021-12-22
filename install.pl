@@ -18,7 +18,11 @@ show_menu();
 sub show_menu {
   my $out=0;
   do {
-    system("clear");
+    if($Config{osname} eq "MsWin32"){
+      system("cls");
+    } else {
+      system("clear");
+    }
     say "** Normen Install **";
     say "1) Install base to $npath";
     say "2) Set default configuration";
@@ -76,7 +80,7 @@ sub install_base_apps {
   given($Config{osname}){
     when("linux"){
       install_apps("git", "zsh", "vim", "vifm", "mosh", "tmux");
-      my $zsh_exe=`which zsh`;
+      my $zsh_exe=qx{which zsh};
       chomp $zsh_exe;
       die if system("chsh -s $zsh_exe");
     }
@@ -139,7 +143,7 @@ sub configure_vifm {
   }
   if(!-f "$vifm_path/colors/gruvbox.vifm"){
     say "Installing vifm colors";
-    system("rm -rf $vifm_path/colors");
+    rmtree("$vifm_path/colors");
     system("$git clone https://github.com/vifm/vifm-colors $vifm_path/colors");
   }
   my $f = "$vifm_path/vifmrc";
@@ -154,23 +158,24 @@ sub configure_vifm {
 sub install_node {
   #curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
   # TODO: can't even
-  #my $n = `curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n`;
+  #my $n = qx{curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n};
   #system(qq{bash -c $n bash 17});
   say "Installing node via package manager";
   install_apps("node");
 }
 
 # install go for current platform
+# uses curl and tar which are also on windows 10+
 sub install_go {
   (my $osname, my $nodename, my $releasename, my $versionname, my $archname) = POSIX::uname();
-  # TODO: curl tar
-  my $dl_url = "https://go.dev/dl/";
+  # go download page
+  my $go_dl_url = "https://go.dev/dl/";
   # GOROOT install location
   my $go_root = "$hpath/.go";
   # GOPATH folder in root
   my $go_path = "$hpath/go";
   # regex as variable needs "qr"..
-  my $ver_regex=qr/go([0-9]*\.[0-9]*\.[0-9a-z]*)/;
+  my $go_ver_regex=qr/go([0-9]*\.[0-9]*\.[0-9a-z]*)/;
   # find os and arch
   my $os="-";
   my $arch="-";
@@ -217,10 +222,10 @@ sub install_go {
     return;
   }
   # check for latest version (L=redirects s=silent)
-  my $dl_page = `curl -Ls $dl_url`;
-  my($version) = $dl_page =~ $ver_regex;
+  my $dl_page = qx{curl -Ls $go_dl_url};
+  my($version) = $dl_page =~ $go_ver_regex;
   if(!$version){
-    say "Can't get latest go version from $dl_url";
+    say "Can't get latest go version from $go_dl_url";
     return;
   }
   say "Latest go version: $version";
@@ -232,7 +237,7 @@ sub install_go {
     $cur_ver = qx{$go_exe version};
     chomp $cur_ver;
   }
-  my($installed_version) = $cur_ver =~ $ver_regex;
+  my($installed_version) = $cur_ver =~ $go_ver_regex;
   $installed_version="0.0.0" if !$installed_version;
   say "Installed go version: $installed_version";
   if( $installed_version eq $version ){
@@ -388,9 +393,9 @@ sub file_contains {
 sub link_in {
   my($src, $dest) = @_;
   if(-e $dest){
-    die "Can't delete $dest" if system("rm -rf $dest");
+    die "Can't delete $dest" unless unlink $dest;
   }
-  die "Can't link $src" if system("ln -s $src $dest");
+  die "Can't link $src" unless symlink $src, $dest;
   say "Linked in $dest";
 }
 
@@ -399,7 +404,7 @@ sub link_in {
 sub install_apps {
   foreach(@_){
     my $app_name = $_;
-    my $app_exe = `which $app_name`;
+    my $app_exe = qx{which $app_name};
     chomp $app_exe;
     unless(-x $app_exe){
       given($Config{osname}){
@@ -411,7 +416,7 @@ sub install_apps {
         }
         when("darwin"){
           if($Config{archname}=~m/thread-multi/){
-            my $brew_exe = `which brew`;
+            my $brew_exe = qx{which brew};
             chomp $brew_exe;
             unless(-x $brew_exe){
               say "No homebrew found, installing...";
