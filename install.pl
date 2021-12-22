@@ -227,6 +227,7 @@ sub install_go {
   # check installed version
   my $cur_ver = "go0.0.0";
   my $go_exe = "$go_root/bin/go";
+  $go_exe = $go_exe . ".exe" if $os eq "windows";
   if(-x $go_exe){
     $cur_ver = qx{$go_exe version};
     chomp $cur_ver;
