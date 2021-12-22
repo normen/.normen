@@ -266,8 +266,7 @@ sub install_go {
   } else{
     say "GOPATH folder exists at $go_path";
   }
-  # update .profile
-  # TODO: check PATH
+  # update PATH in .profile
   my $go_bin = "$go_root/bin";
   if($ENV{PATH}=~/$go_bin/){
     say ".go/bin already in PATH!";
@@ -306,6 +305,17 @@ sub checkout_normen {
   } else{
     say "$npath exists already";
   }
+  # add $NORMEN to profile if not in default location
+  my $pro_file = "$hpath/.profile";
+  if($npath ne "$ENV{HOME}/.normen"){
+    if(file_contains($pro_file,"NORMEN=")){
+      say "Already a NORMEN in $pro_file";
+    } else{
+      add_config_lines($pro_file, "NORMEN=$npath");
+    }
+  } else {
+    say "Standard .normen location, won't modify .profile";
+  }
 }
 
 ## TOOLS
@@ -322,8 +332,8 @@ sub n_path {
 # get a suitable home path
 sub h_path {
   my $hpath = $ENV{HOME};
-  # TODO: this only works for a-shell
-  unless(-w $hpath) {
+  # a-Shell
+  if($ENV{TERM_PROGRAM} eq "a-Shell"){
     $hpath = "$hpath/Documents";
   }
   return $hpath;
