@@ -49,6 +49,8 @@ if executable('node')
   augroup normensplugins
     autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
   augroup END
+else
+  source $NORMEN/.vim/nococ.vim
 endif
 " vifm
 let g:vifm_embed_term=1
