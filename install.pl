@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use feature "say";
 use experimental "switch";
+use POSIX;
 use Config;
 use File::Copy; #move/copy
 use File::Path; #rmtree
@@ -78,6 +79,9 @@ sub install_base_apps {
       my $zsh_exe=`which zsh`;
       chomp $zsh_exe;
       die if system("chsh -s $zsh_exe");
+    }
+    when("MSWin32"){
+      install_apps("vim", "git");
     }
     when("darwin"){
       install_apps("ctags", "vim", "vifm", "mosh", "tmux");
@@ -158,52 +162,53 @@ sub install_node {
 
 # install go for current platform
 sub install_go {
-  # TODO: curl uname tar
+  (my $osname, my $nodename, my $releasename, my $versionname, my $archname) = POSIX::uname();
+  # TODO: curl tar
   my $dl_url = "https://go.dev/dl/";
   # GOROOT install location
   my $go_root = "$hpath/.go";
   # GOPATH folder in root
   my $go_path = "$hpath/go";
-  # OS/ARCH
-  my $osname = $Config{osname};
-  #my $osname = `uname -s`;
-  #chomp $osname;
-  my $archname = `uname -m`;
-  chomp $archname;
   # regex as variable needs "qr"..
   my $ver_regex=qr/go([0-9]*\.[0-9]*\.[0-9a-z]*)/;
   # find os and arch
   my $os="-";
   my $arch="-";
   my $suffix="tar.gz";
+  given($archname){
+    when(/armv7|armv6/i){
+      $arch="armv6l";
+    }
+    when(/arm64|armv8/i){
+      $arch="arm64";
+    }
+    when(/x64/i){
+      $arch="amd64";
+    }
+    when(/x86_64/i){
+      $arch="amd64";
+    }
+    when(/amd64/i){
+      $arch="amd64";
+    }
+    when(/386/i){
+      $arch="386";
+    }
+  }
   given($osname){
     when(/linux/i){
       $os="linux";
-      given($archname){
-        when(/armv7|armv6/i){
-          $arch="armv6l";
-        }
-        when(/arm64|armv8/i){
-          $arch="armv64";
-        }
-        when(/x86_64/i){
-          $arch="amd64";
-        }
-        when(/386/i){
-          $arch="386";
-        }
-      }
     }
     when(/darwin/i){
       $os="darwin";
-      given($archname){
-        when(/x86_64/i){
-          $arch="amd64";
-        }
-        when(/arm/i){
-          $arch="arm64";
-        }
-      }
+    }
+    when(/windows/i){
+      $os="windows";
+      $suffix="zip";
+    }
+    when(/MSWin32/i){
+      $os="windows";
+      $suffix="zip";
     }
   }
   # check if we found a platform
@@ -240,14 +245,14 @@ sub install_go {
   return unless $user_input eq "y";
   # download and install
   my $file_name = "go$version.$os-$arch.$suffix";
-  my $dl_url = "https://go.dev/dl/$file_name";
+  my $pack_url = "https://go.dev/dl/$file_name";
   my $temp_folder = tempdir( CLEANUP => 1 );
   my $temp_file = "$temp_folder/$file_name";
   if(!-d $temp_folder){
     die "Can't create temp folder";
   }
   say "Downloading $file_name";
-  die if system("curl -L -o $temp_file $dl_url");
+  die if system("curl -L -o $temp_file $pack_url");
   say "Unpacking $file_name";
   die if system("tar -C $temp_folder -xzf $temp_file");
   die "Can't delete $temp_file" unless unlink $temp_file;
@@ -268,7 +273,7 @@ sub install_go {
   }
   # update PATH in .profile
   my $go_bin = "$go_root/bin";
-  if($ENV{PATH}=~/$go_bin/){
+  if($ENV{PATH}=~m{$go_bin}){
     say ".go/bin already in PATH!";
   } else{
     my $pro_file = "$hpath/.profile";
@@ -332,8 +337,13 @@ sub n_path {
 # get a suitable home path
 sub h_path {
   my $hpath = $ENV{HOME};
+  if(!$hpath){
+    # windows
+    $hpath = glob '~';
+  }
   # a-Shell
-  if($ENV{TERM_PROGRAM} eq "a-Shell"){
+  my $term_prog = $ENV{TERM_PROGRAM};
+  if($term_prog && $term_prog eq "a-Shell"){
     $hpath = "$hpath/Documents";
   }
   return $hpath;
@@ -341,7 +351,8 @@ sub h_path {
 
 # gets a suitable git command (a-shell etc)
 sub git_cmd {
-  if($ENV{TERM_PROGRAM} eq "a-Shell"){
+  my $term_prog = $ENV{TERM_PROGRAM};
+  if($term_prog && $term_prog eq "a-Shell"){
     return "lg2";
   }
   return "git";
@@ -393,6 +404,9 @@ sub install_apps {
       given($Config{osname}){
         when("linux"){
           die if system("sudo apt install $app_name");
+        }
+        when("MSWin32"){
+          die if system("winget install $app_name");
         }
         when("darwin"){
           if($Config{archname}=~m/thread-multi/){
