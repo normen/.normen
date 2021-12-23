@@ -187,13 +187,7 @@ sub install_go {
     when(/arm64|armv8/i){
       $arch="arm64";
     }
-    when(/x64/i){
-      $arch="amd64";
-    }
-    when(/x86_64/i){
-      $arch="amd64";
-    }
-    when(/amd64/i){
+    when(/x64|x86_64|amd64/i){
       $arch="amd64";
     }
     when(/386/i){
@@ -207,11 +201,7 @@ sub install_go {
     when(/darwin/i){
       $os="darwin";
     }
-    when(/windows/i){
-      $os="windows";
-      $suffix="zip";
-    }
-    when(/MSWin32/i){
+    when(/windows|MSWin32/i){
       $os="windows";
       $suffix="zip";
     }
