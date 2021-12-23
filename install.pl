@@ -40,7 +40,7 @@ sub show_menu {
         checkout_normen();
       }
       when(2){
-        install_plugin_defaults();
+        install_vim_defaults();
         configure_vifm();
       }
       when(3){
@@ -97,12 +97,18 @@ sub install_base_apps {
 sub install_for_root {
 }
 
-# TODO
-sub install_eslint_semistandard {
+# get a copy of the .normen repo
+sub checkout_normen {
+  unless(-d $npath) {
+    die if system("$git clone https://github.com/normen/.normen $npath");
+    install_vim_defaults();
+  } else{
+    say "$npath exists already";
+  }
 }
 
 # link in the defaults
-sub install_plugin_defaults {
+sub install_vim_defaults {
   link_in("$npath/.vim/defaults/default-plugins.vim", "$npath/.vim/plugins.vim");
   link_in("$npath/.vim/defaults/default-coc-settings.json", "$npath/.vim/coc-settings.json");
 }
@@ -123,6 +129,16 @@ sub install_links {
   link_in("$npath/.inputrc", "$root/.inputrc");
   link_in("$npath/.ctags", "$root/.ctags");
   link_in("$npath/.nethackrc", "$root/.nethackrc");
+
+  # add $NORMEN to profile if not in default location
+  my $pro_file = "$hpath/.profile";
+  if($npath ne glob "~" . "/.normen"){
+    if(file_regex($pro_file,"NORMEN")){
+      say "Already a NORMEN in $pro_file";
+    } else{
+      add_config_lines($pro_file, "export NORMEN=$npath");
+    }
+  }
 }
 
 # set up tmux & tpm
@@ -166,6 +182,10 @@ sub install_node {
   #system(qq{bash -c $n bash 17});
   say "Installing node via package manager";
   install_apps("node");
+}
+
+# TODO
+sub install_eslint_semistandard {
 }
 
 # install go for current platform
@@ -343,26 +363,6 @@ sub update_plugins {
   my $local_update = "$npath/plugin-update.local";
   if(-x $local_update){
     system($local_update);
-  }
-}
-
-# get a copy of the .normen repo
-sub checkout_normen {
-  unless(-d $npath) {
-    die if system("$git clone https://github.com/normen/.normen $npath");
-  } else{
-    say "$npath exists already";
-  }
-  # add $NORMEN to profile if not in default location
-  my $pro_file = "$hpath/.profile";
-  if($npath ne glob "~" . "/.normen"){
-    if(file_regex($pro_file,"NORMEN")){
-      say "Already a NORMEN in $pro_file";
-    } else{
-      add_config_lines($pro_file, "NORMEN=$npath");
-    }
-  } else {
-    say "Standard .normen location, won't modify .profile";
   }
 }
 
