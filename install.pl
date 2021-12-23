@@ -287,8 +287,42 @@ sub install_go {
   }
 }
 
+# installs or updates vim plugins manually from plugins.vim (a-Shell)
+sub update_vim_plugins {
+  my $file_name = "$npath/.vim/plugins.vim";
+  open my $fh, '<', $file_name or return 0;
+  my $file_content = do { local $/; <$fh> };
+  close $fh;
+  my @plugin_list = $file_content =~ m/^Plug '([^']*)'/gm;
+  my $plug_path = "$npath/.vim/plugged";
+  if(!-d $plug_path){
+    mkdir($plug_path) or die "Can't created plugin path";
+  }
+  foreach(@plugin_list){
+    my $plug_name = $_;
+    my ($plug_short) = $plug_name =~ m{.*/(.*)};
+    if(-d "$plug_path/$plug_short"){
+      chdir("$plug_path/$plug_short");
+      system("$git pull");
+      say "$plug_short updated";
+    } else {
+      chdir($plug_path);
+      if($plug_name =~ /^http.*/m){
+        system("$git $plug_name");
+      } else {
+        system("$git https://github.com/$plug_name");
+      }
+      say "$plug_short installed";
+    }
+  }
+}
+
 # update all plugins, silent fail
 sub update_plugins {
+  if($git eq "lg2"){
+    update_vim_plugins();
+    return;
+  }
   system("$npath/.tmux/plugins/tpm/bin/update_plugins all");
   system("zsh -c 'source $npath/.zshrc;antigen update'");
   system("vim +PlugUpdate +qa");
