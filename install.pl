@@ -88,7 +88,7 @@ sub install_base_apps {
       install_apps("vim.vim", "Git.Git");
     }
     when("darwin"){
-      install_apps("ctags", "vim", "vifm", "mosh", "tmux");
+      install_apps("git", "ctags", "vim", "vifm", "mosh", "tmux");
     }
   }
 }
