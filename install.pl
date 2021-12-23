@@ -298,8 +298,7 @@ sub update_vim_plugins {
   if(!-d $plug_path){
     mkdir($plug_path) or die "Can't created plugin path";
   }
-  foreach(@plugin_list){
-    my $plug_name = $_;
+  foreach my $plug_name (@plugin_list){
     my ($plug_short) = $plug_name =~ m{.*/(.*)};
     if(-d "$plug_path/$plug_short"){
       chdir("$plug_path/$plug_short");
@@ -393,8 +392,7 @@ sub git_cmd {
 # other params = lines to add (if they don't exist)
 sub add_config_lines {
   my($file_name, @new_lines) = @_;
-  for(@new_lines){
-    my $new_line = $_;
+  foreach my $new_line (@new_lines){
     unless(file_contains($file_name, $new_line)){
       open my $fh, '>>', $file_name or die "Can't open $!";
       print $fh "$new_line\n";
@@ -435,8 +433,7 @@ sub link_in {
 # install a list of commands if they don't exist (per platform)
 # params are command / package names (no support for differing names)
 sub install_apps {
-  foreach(@_){
-    my $app_name = $_;
+  foreach my $app_name(@_){
     my $app_exe = $app_name;
     $app_exe = qx{which $app_name} unless $Config{osname} eq "MSWin32";
     chomp $app_exe;
