@@ -18,7 +18,7 @@ show_menu();
 sub show_menu {
   my $out=0;
   do {
-    if($Config{osname} eq "MsWin32"){
+    if($Config{osname} eq "MSWin32"){
       system("cls");
     } else {
       system("clear");
