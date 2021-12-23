@@ -308,9 +308,9 @@ sub update_vim_plugins {
     } else {
       chdir($plug_path);
       if($plug_name =~ /^http.*/m){
-        system("$git $plug_name");
+        system("$git clone $plug_name");
       } else {
-        system("$git https://github.com/$plug_name");
+        system("$git clone https://github.com/$plug_name");
       }
       say "$plug_short installed";
     }
