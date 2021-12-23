@@ -112,6 +112,10 @@ sub install_links {
   if(!defined $root){
     $root = $hpath;
   }
+  if($Config{osname} eq "MSWin32"){
+    link_in("$npath/.vim", "$root/vimfiles");
+    return;
+  }
   link_in("$npath/.vim", "$root/.vim");
   link_in("$npath/.zshrc", "$root/.zshrc");
   link_in("$npath/.tmux", "$root/.tmux");
@@ -266,6 +270,16 @@ sub install_go {
     mkdir($go_path) or die "Can't create $go_path";
   } else{
     say "GOPATH folder exists at $go_path";
+  }
+  # ENV for windows
+  if($Config{osname} eq "MSWin32"){
+    system("setx GOPATH $hpath\\go");
+    my $curpath = $ENV{Path};
+    unless($curpath=~/\.go/){
+      #TODO: add to PATH on windows
+      #system("setx PATH_GO \"$curpath;$go_root\\bin\"");
+    }
+    return;
   }
   # update PATH in .profile
   my $go_bin = "$go_root/bin";
@@ -424,10 +438,43 @@ sub file_contains {
 sub link_in {
   my($src, $dest) = @_;
   if(-e $dest){
-    die "Can't delete $dest" unless unlink $dest;
+    if(!unlink $dest){
+      die "Can't delete $dest" unless rmtree($dest);
+    }
   }
-  die "Can't link $src" unless symlink $src, $dest;
-  say "Linked in $dest";
+  if($Config{osname} eq "MSWin32"){
+    if(-d $src){
+			dircopy($src, $dest)or die "Can't copy $dest";
+		} else{
+			copy($src, $dest)or die "Can't copy $dest";
+		}
+		say "Copied $dest";
+  } else {
+    die "Can't link $dest" unless symlink $src, $dest;
+		say "Linked $dest";
+  }
+}
+
+# recursive copy - doesn't exist in perl
+sub dircopy {
+	my @dirlist=($_[0]);
+	my @dircopy=($_[1]);
+	until (scalar(@dirlist)==0) {
+		mkdir "$dircopy[0]";
+		opendir my($dh),$dirlist[0];
+		my @filelist=grep {!/^\.\.?$/} readdir $dh;
+		for my $i (0..scalar(@filelist)-1) {
+			if ( -f "$dirlist[0]/$filelist[$i]" ) {
+				copy("$dirlist[0]/$filelist[$i]","$dircopy[0]/$filelist[$i]");
+			}
+			if ( -d "$dirlist[0]/$filelist[$i]" ) {
+				push @dirlist,"$dirlist[0]/$filelist[$i]";
+				push @dircopy,"$dircopy[0]/$filelist[$i]";
+			}
+		}
+		closedir $dh;
+		shift @dirlist;shift @dircopy;
+	}
 }
 
 # install a list of commands if they don't exist (per platform)
