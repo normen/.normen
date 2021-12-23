@@ -199,3 +199,10 @@ sub write_file {
     return;
 }
 ```
+### Executables
+```bash
+cpan install pp
+pp -o myprog script.pl
+# MacOS:
+/usr/local/opt/Perl/bin/pp -o myprog script.pl
+```
