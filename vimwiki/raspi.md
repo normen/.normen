@@ -8,6 +8,7 @@
 * [raspi/ipad](raspi/ipad.md)
 * [raspi/webpage](raspi/webpage.md)
 * [raspi/timemachine](raspi/timemachine.md)
+* [raspi/printserver](raspi/printserver.md)
 * [raspi/amiga](raspi/amiga.md)
 * [raspi/autostart](raspi/autostart.md)
 
