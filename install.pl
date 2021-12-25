@@ -295,9 +295,12 @@ sub install_go {
   if($Config{osname} eq "MSWin32"){
     system("setx GOPATH $hpath\\go");
     my $curpath = $ENV{Path};
-    unless($curpath=~/\.go/){
-      #TODO: add to PATH on windows
-      #system("setx PATH_GO \"$curpath;$go_root\\bin\"");
+    unless($curpath=~/\.go\\bin/){
+      unless(length($curpath.";$go_root\\bin")>1024){
+        system("setx PATH \"%PATH%;$go_root\\bin\"");
+      }else{
+        say "PATH would be longer than 1024 characters, add home/.go/bin to path manually.";
+      }
     }
     return;
   }
