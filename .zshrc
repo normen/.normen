@@ -28,6 +28,9 @@ setopt histignorealldups #sharehistory
 # use paths as cd command
 setopt -S autocd
 
+# allow comments in shell
+set -k
+
 # Use vi keybindings
 bindkey -v
 
@@ -146,3 +149,25 @@ antigen apply
 
 # fix mode indicator
 eval spaceship_vi_mode_enable
+
+# ai completion..
+create_ai_completion() {
+  text=${BUFFER}
+  if [[ $text = \#* ]] ; then
+    secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
+    promp="# This converts text to single line shell commands.\n\n# list all files in current directory\nls -p | grep -v\n# new tmux session named hurz\ntmux new -s hurz\n# unpack myfile.tar.gz\ntar -xvzf myfile.tar.gz\n# list all docker containers\ndocker ps -a\n# initialize git repository and add all files\ngit init && git add -a\n${BUFFER}\n"
+    completion=$(curl -s https://api.openai.com/v1/engines/davinci-codex/completions \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer ${secret_key}" \
+      -d "{ \"prompt\": \"${promp}\", \"stop\": [\"#\"], \"max_tokens\": 100 }" \
+      | sed -n -e 's/.*"text": *"\([^"]*\)".*/\1/p' \
+      | sed 's/\\n/\n/g'
+    )
+    secret_key=""
+    BUFFER="${text}
+${completion}"
+    CURSOR=${#BUFFER}
+  fi
+}
+zle -N create_ai_completion
+bindkey '^X' create_ai_completion
