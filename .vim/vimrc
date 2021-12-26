@@ -94,9 +94,8 @@ let mapleader = " "
 nmap , ;
 
 " session / project setup
-nnoremap <F1> :!~/.normen/update<CR><CR>
+nnoremap <F1> :vert lefta call term_start("perl ".$NORMEN."/install.pl",{'term_finish':'close'})<CR>
 nnoremap <F2> :silent mksession! session.vim<CR>
-nnoremap <F3> :!~/.normen/push<CR><CR>
 
 " build/generate commands
 nnoremap <F4> :silent set ft=homebridge\|make\|set ft=javascript<CR>
