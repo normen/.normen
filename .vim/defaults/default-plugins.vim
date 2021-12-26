@@ -38,6 +38,8 @@ Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 " hex mode
 Plug 'fidian/hexmode'
+" presentation
+Plug 'sotte/presenting.vim'
 " openai codex
 " Plug 'tom-doerr/vim_codex'
 call plug#end()
