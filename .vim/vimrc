@@ -211,6 +211,9 @@ nnoremap dam va{Vd
 nnoremap yam va{Vy
 nnoremap cam va{Vc
 
+" execute current line on shell
+nnoremap gs :.w !bash<CR>
+
 if getenv('NORMEN') == v:null
   let $NORMEN = $HOME . '/.normen'
 endif
