@@ -14,6 +14,14 @@ brctl log -wtl 6 //no debug
 chown -R normenhansen:staff ~/Library/Mobile\ Documents/
 chmod -R 755 ~/Library/Mobile\ Documents/
 
+# quicklook
+brew install qlcommonmark qlstephen
+xattr -cr ~/Library/QuickLook/QLStephen.qlgenerator
+xattr -cr ~/Library/QuickLook/QLCommonMark.qlgenerator
+qlmanage -r
+qlmanage -r cache
+# restart finder.. (option-click)
+
 # hard fix icloud sync loop
 killall bird
 cd ~/Library/Application\ Support
