@@ -57,7 +57,7 @@ endif
 " vifm
 let g:vifm_embed_term=1
 " vimwiki
-let g:vimwiki_list = [{'path': '$NORMEN/vimwiki/', 'syntax': 'markdown', 'ext': '.md', "nested_syntaxes": {'javascript':'javascript','bash':'bash','sh':'sh','c++':'cpp','python':'python','go':'go'}}]
+let g:vimwiki_list = [{'path': '$NORMEN/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }]
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
 " signify
