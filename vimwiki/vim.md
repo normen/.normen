@@ -56,6 +56,7 @@ C-w o - only this window
 :set wfw - set window fix width
 
 :!command - shell command
+:.w !bash - run current line as shell
 
 :bufdo - do for all buffers
 :tabdo bd - close all buffers in tabs
