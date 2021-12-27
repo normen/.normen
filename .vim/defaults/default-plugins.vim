@@ -19,7 +19,6 @@ endif
 Plug 'tpope/vim-dispatch'
 Plug 'vifm/vifm.vim'
 Plug 'vimwiki/vimwiki'
-Plug 'vim-utils/vim-man'
 " tmux
 if executable('tmux')
   Plug 'tpope/vim-tbone'
@@ -40,9 +39,14 @@ Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 Plug 'fidian/hexmode'
 " presentation
 Plug 'sotte/presenting.vim'
+" ASCII drawing
+Plug 'joshzcold/DrawIt'
 " openai codex
 " Plug 'tom-doerr/vim_codex'
 call plug#end()
+
+" vim-man (built-in)
+:runtime ftplugin/man.vim
 
 " SETTINGS
 " coc
@@ -64,6 +68,9 @@ let g:vimwiki_global_ext = 0
 nnoremap <Leader>hu :SignifyHunkUndo<CR>
 nnoremap <Leader>hd :SignifyHunkDiff<CR>
 let g:signify_sign_change='~'
+" drawit
+nnoremap <Leader>dl :DIsngl<CR>
+nnoremap <Leader>df :DIdbl<CR>
 " lightline
 set laststatus=2 " to fix lightline
 set noshowmode " don't show mode with lightline enabled
