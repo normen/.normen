@@ -85,7 +85,7 @@ function Diagram(args) range
   call writefile(getline(a:firstline, a:lastline), tempname)
   bo new
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  execute 'silent $read !diagram -C ' . a:args . ' < ' . shellescape(tempname)
+  execute 'silent $read !diagram -x 80 -C ' . a:args . ' < ' . shellescape(tempname)
   execute 'silent :%s/\e\[[0-9;]*[Km]//g'
   execute 'silent :%s///g'
   setlocal nomodifiable
