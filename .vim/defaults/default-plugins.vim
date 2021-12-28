@@ -69,8 +69,7 @@ nnoremap <Leader>hu :SignifyHunkUndo<CR>
 nnoremap <Leader>hd :SignifyHunkDiff<CR>
 let g:signify_sign_change='~'
 " drawit
-nnoremap <Leader>dl :DIsngl<CR>
-nnoremap <Leader>df :DIdbl<CR>
+let g:drawit_mode='S'
 " lightline
 set laststatus=2 " to fix lightline
 set noshowmode " don't show mode with lightline enabled
