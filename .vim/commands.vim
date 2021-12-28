@@ -44,6 +44,8 @@ command! -nargs=+ Image2Ascii  call s:RunShellCommand('image2ascii -r=0.1 -f ' .
 command! -nargs=+ Figlet  call s:RunShellCommand('figlet -w 10000 ' . <q-args>)
 command! -nargs=* GraphEasyPreview  call s:RunShellCommand('graph-easy --as boxart ' . expand('%') . ' ' . <q-args>)
 
+com -range=% -nargs=* Diagram :<line1>,<line2>call Diagram(<q-args>)
+
 command! -nargs=+ GH  call s:OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
 command! -nargs=+ NPM  call s:OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
 command! -nargs=+ GO  call s:OpenTermOnce('go ' . <q-args>, "GO Tool")
@@ -75,6 +77,19 @@ function! s:RunShellCommand(cmdline)
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
   execute 'silent $read !'. expanded_cmdline
   setlocal nomodifiable
+  1
+endfunction
+
+function Diagram(args) range
+  let tempname = tempname()
+  call writefile(getline(a:firstline, a:lastline), tempname)
+  bo new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  execute 'silent $read !diagram -C ' . a:args . ' < ' . shellescape(tempname)
+  execute 'silent :%s/\e\[[0-9;]*[Km]//g'
+  execute 'silent :%s///g'
+  setlocal nomodifiable
+  call delete(tempname)
   1
 endfunction
 

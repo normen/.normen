@@ -8,6 +8,7 @@
 ```
 ```
 brew install figlet
+pip install diagram
 go get github.com/qeesung/image2ascii
 cpan install Graph::Easy
 
