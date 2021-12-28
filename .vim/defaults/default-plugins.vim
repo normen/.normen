@@ -41,6 +41,8 @@ Plug 'fidian/hexmode'
 Plug 'sotte/presenting.vim'
 " ASCII drawing
 Plug 'normen/DrawIt'
+" Tables
+Plug 'dhruvasagar/vim-table-mode'
 " openai codex
 " Plug 'tom-doerr/vim_codex'
 call plug#end()
@@ -70,6 +72,8 @@ nnoremap <Leader>hd :SignifyHunkDiff<CR>
 let g:signify_sign_change='~'
 " drawit
 let g:drawit_mode='S'
+" table-mode
+let g:table_mode_corner='|' " markdown
 " lightline
 set laststatus=2 " to fix lightline
 set noshowmode " don't show mode with lightline enabled
