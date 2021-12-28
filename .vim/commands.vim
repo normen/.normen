@@ -40,6 +40,10 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command SCADExport Start openscad -o %:r.stl %
 :command SCADPrint Start openscad -o %:r.stl %;open %:r.stl
 
+command! -nargs=+ Image2Ascii  call s:RunShellCommand('image2ascii -r=0.1 -f ' . <q-args> . ' -c=false')
+command! -nargs=+ Figlet  call s:RunShellCommand('figlet -w 10000 ' . <q-args>)
+command! -nargs=* GraphEasyPreview  call s:RunShellCommand('graph-easy --as boxart ' . expand('%') . <q-args>)
+
 command! -nargs=+ GH  call s:OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
 command! -nargs=+ NPM  call s:OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
 command! -nargs=+ GO  call s:OpenTermOnce('go ' . <q-args>, "GO Tool")
@@ -69,9 +73,9 @@ function! s:RunShellCommand(cmdline)
   endfor
   bo new
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  execute '$read !'. expanded_cmdline
+  execute 'silent $read !'. expanded_cmdline
   setlocal nomodifiable
-  "1
+  1
 endfunction
 
 " allow toggling quick fix window
