@@ -40,7 +40,7 @@ Plug 'fidian/hexmode'
 " presentation
 Plug 'sotte/presenting.vim'
 " ASCII drawing
-Plug 'joshzcold/DrawIt'
+Plug 'normen/DrawIt'
 " openai codex
 " Plug 'tom-doerr/vim_codex'
 call plug#end()

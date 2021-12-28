@@ -20,6 +20,7 @@
 ## Random
 * [brew](brew.md)
 * [gstreamer](gstreamer.md)
+* [ascii](ascii.md)
 * [wasm](wasm.md)
 * [docker](docker.md)
 * [platformio](platformio.md)
