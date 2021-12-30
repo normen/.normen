@@ -43,6 +43,8 @@ Plug 'sotte/presenting.vim'
 Plug 'normen/DrawIt'
 " Tables
 Plug 'dhruvasagar/vim-table-mode'
+" Visual Increment
+Plug 'vim-scripts/visual-increment'
 " openai codex
 " Plug 'tom-doerr/vim_codex'
 call plug#end()
