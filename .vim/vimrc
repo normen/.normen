@@ -217,7 +217,7 @@ nnoremap cam va{Vc
 " execute current line on shell
 nnoremap gs :.w !bash<CR>
 
-if getenv('NORMEN') == v:null
+if !$NORMEN
   let $NORMEN = $HOME . '/.normen'
 endif
 source $NORMEN/.vim/plugins.vim
