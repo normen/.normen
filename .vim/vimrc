@@ -206,11 +206,15 @@ nnoremap cam va{Vc
 " execute current line on shell
 nnoremap gs :.w !bash<CR>
 
+" Function to source only if file exists
 if empty($NORMEN)
   let $NORMEN = $HOME . '/.normen'
 endif
-source $NORMEN/.vim/plugins.vim
-source $NORMEN/.vim/commands.vim
-let g:gruvbox_transparent_bg=1
-colorscheme gruvbox
+function! SourceIfExists(file)
+  if filereadable(expand(a:file))
+    exe 'source' a:file
+  endif
+endfunction
+call SourceIfExists("$NORMEN/.vim/plugins.vim")
+call SourceIfExists("$NORMEN/.vim/commands.vim")
 hi! Normal guibg=NONE ctermbg=NONE
