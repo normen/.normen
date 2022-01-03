@@ -40,11 +40,12 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command SCADExport Start openscad -o %:r.stl %
 :command SCADPrint Start openscad -o %:r.stl %;open %:r.stl
 
-command! -nargs=+ Image2Ascii  call s:RunShellCommand('image2ascii -r=0.1 -f ' . <q-args> . ' -c=false')
+command! -nargs=+ -complete=file Image2Ascii  call s:RunShellCommand('image2ascii -r=0.1 -f ' . <q-args> . ' -c=false')
 command! -nargs=+ Figlet  call s:RunShellCommand('figlet -w 10000 ' . <q-args>)
 
 com -range=% -nargs=* Diagram :<line1>,<line2>call Diagram(<q-args>)
 com -range=% -nargs=* GraphEasy :<line1>,<line2>call GraphEasy(<q-args>)
+com -range=% -nargs=* Markdown2 :<line1>,<line2>call Markdown2(<q-args>)
 
 command! -nargs=+ GH  call s:OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
 command! -nargs=+ NPM  call s:OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
@@ -103,6 +104,26 @@ function Diagram(args) range
   execute 'silent :%s/\e\[[0-9;]*[Km]//g'
   execute 'silent :%s///g'
   setlocal nomodifiable
+  call delete(tempname)
+  1
+endfunction
+
+" get html from markdown
+function Markdown2(args) range
+  let tempname = tempname()
+  call writefile(getline(a:firstline, a:lastline), tempname)
+  let newname = expand('%:r').'.html'
+  let bufnr = bufwinnr(newname)
+  if(bufnr>0)
+    execute bufnr.'wincmd w'
+    execute '%d'
+    noh
+  else
+    bo new
+    execute 'file '.newname
+    setlocal filetype=html nowrap
+  endif
+  execute 'silent $read !markdown2 --extras fenced-code-blocks ' . a:args . ' < ' . shellescape(tempname)
   call delete(tempname)
   1
 endfunction
