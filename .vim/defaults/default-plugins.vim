@@ -39,6 +39,8 @@ Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 Plug 'fidian/hexmode'
 " presentation
 Plug 'sotte/presenting.vim'
+" no-distraction mode
+"Plug 'junegunn/goyo.vim'
 " ASCII drawing
 Plug 'normen/DrawIt'
 " Tables
@@ -83,7 +85,7 @@ let g:lightline = {
   \ 'colorscheme': 'gruvbox', 
   \ 'active': {
   \   'left': [
-  \             [ 'mode', 'paste' ],
+  \             [ 'mode', 'paste', 'drawit_mode'],
   \             [ 'gitstatus' ],
   \             [ 'readonly', 'relativepath', 'modified' ],
   \           ],
@@ -109,11 +111,20 @@ let g:lightline = {
   \ 'component_function': {
   \   'gitstatus': 'FugitiveHead',
   \   'cocstatus': 'coc#status',
+  \   'drawit_mode': 'DrawItMode',
   \ },
   \ 'component': {
 \   'lineinfo': '%3l:%-2v%<',
 \ },
 \ }
+" get drawit mode
+function DrawItMode()
+  if exists("b:dodrawit") && b:dodrawit == 1
+    return "DrawIt"
+  else
+    return ""
+  endif
+endfunction
 " tmuxline
 "let g:tmuxline_powerline_separators = 0
 "let g:tmuxline_separators = {
