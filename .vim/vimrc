@@ -166,22 +166,8 @@ nnoremap <Leader>P "*P
 nnoremap <Leader>n :noh<CR>
 nnoremap <Leader>. @w
 
-" wiki split
-nmap <Leader>wv :50vsplit<CR><Leader>ww
-nmap <Leader>w<Leader>v :50vsplit<CR><Leader>w<Leader>w
-
-" quick write to tmux pane
-nnoremap <Leader>tt :Twrite top<CR>
-nnoremap <Leader>tb :Twrite bottom<CR>
-nnoremap <Leader>tl :Twrite left<CR>
-nnoremap <Leader>tr :Twrite right<CR>
-vnoremap <Leader>tt :Twrite top<CR>
-vnoremap <Leader>tb :Twrite bottom<CR>
-vnoremap <Leader>tl :Twrite left<CR>
-vnoremap <Leader>tr :Twrite right<CR>
-
 " opening/closing brackets
-" inoremap {<CR> {<CR>}<ESC>O
+inoremap {<CR> {<CR>}<ESC>O
 
 " german keys
 nmap ü ]
@@ -190,6 +176,9 @@ nmap ä [
 "nnoremap [ä [[
 nmap ö :
 vmap ö :
+
+" toggle paste mode
+set pastetoggle=<C-p>
 
 "section: stuff that doesn't start with blank and ends with {
 "^=start [^\s\t ]=anything but \s, \t or space $=end

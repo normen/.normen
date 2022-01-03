@@ -80,6 +80,7 @@ function! s:RunShellCommand(cmdline)
   1
 endfunction
 
+" get graph (dot) from selection
 function GraphEasy(args) range
   let tempname = tempname()
   call writefile(getline(a:firstline, a:lastline), tempname)
@@ -92,6 +93,7 @@ function GraphEasy(args) range
   1
 endfunction
 
+" get diagram from selection
 function Diagram(args) range
   let tempname = tempname()
   call writefile(getline(a:firstline, a:lastline), tempname)
@@ -117,3 +119,19 @@ function! QuickFix_toggle()
   copen
 endfunction
 
+" get drawit mode
+function DrawItMode()
+  if exists("b:dodrawit") && b:dodrawit == 1
+    return "DRAW"
+  else
+    return ""
+  endif
+endfunction
+
+" get table mode
+function TableMode()
+  if exists("*tablemode#IsActive") && tablemode#IsActive()
+    return "TABLE"
+  endif
+  return ""
+endfunction
