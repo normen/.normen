@@ -128,6 +128,10 @@ nnoremap <Up> :m -2<CR>
 nnoremap <Left> O<Esc>j
 nnoremap <Right> o<Esc>k
 
+" move normally in wrapped lines
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
+
 " ctrl-space
 "imap <C-Space> <C-x><C-o>
 imap <C-@> <C-Space>
