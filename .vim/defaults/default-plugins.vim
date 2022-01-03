@@ -73,7 +73,7 @@ let g:lightline = {
   \           ],
   \   'right': [ 
   \              [ 'filetype' ],
-  \              [ 'percent' ],
+  \              [ 'percentwin' ],
   \              [ 'lineinfo' ],
   \              [ 'fileencoding' ],
   \              [ 'fileformat' ],
@@ -87,7 +87,7 @@ let g:lightline = {
   \           ],
   \   'right': [ 
   \              [ 'filetype' ],
-  \              [ 'percent' ],
+  \              [ 'percentwin' ],
   \           ],
   \ },
   \ 'component_function': {
