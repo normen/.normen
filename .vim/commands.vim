@@ -27,7 +27,7 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command WebAppUp !set -e;cd client;npm run build;cd ..;git add -A;git commit -m 'update';git push -u -f origin master
 
 :command PIOCreateMakefile !cp $NORMEN/.vim/templates/PlatformIO-Makefile ./Makefile
-:command -nargs=1 PIOInit !platformio project init --ide vim --board <args>
+:command -nargs=1 -complete=custom,PIOBoardList PIOInit !platformio project init --ide vim --board <args>
 ";sed -i '' '1s/.*/clang/' .ccls
 :command PIORefresh !platformio project init --ide vim
 ";sed -i '' '1s/.*/clang/' .ccls
@@ -56,6 +56,11 @@ command! -nargs=+ PIO  call s:OpenTermOnce('platformio ' . <q-args>, "Platform I
 command! GHNewIssue :terminal gh issue create
 command! GHIssueList call s:RunShellCommand('gh issue list')
 ":let mycmd = input("Enter a command: ", "", "command")
+
+" get a list of PlatformIO boards
+function PIOBoardList(A,L,P)
+  return system("pio boards ".a:A."|grep Hz|awk '{print $1;}'")
+endfunction
 
 function! s:OpenTermOnce(command, buffername)
   let bufnr = bufwinnr(a:buffername)
