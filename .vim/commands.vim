@@ -44,17 +44,17 @@ com -range=% -nargs=* Markdown2 :<line1>,<line2>call Markdown2(<q-args>)
 command! -nargs=+ GH  call s:OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
 command! -nargs=+ NPM  call s:OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
 command! -nargs=+ GO  call s:OpenTermOnce('go ' . <q-args>, "GO Tool")
-command! -nargs=+ PIO  call s:OpenTermOnce('platformio ' . <q-args>, "Platform IO")
 command! GHNewIssue :terminal gh issue create
 command! GHIssueList call s:RunShellCommand('gh issue list')
 
 
-:command PIOCreateMakefile !cp $NORMEN/.vim/templates/PlatformIO-Makefile ./Makefile
-:command PIORefresh !platformio project init --ide vim
-:command -nargs=* PIONew call <SID>PIOBoardSelection(<q-args>)
-:command -nargs=+ PIOLibrary call <SID>PIOLibrarySelection(<q-args>)
-:command -nargs=1 -complete=custom,<SID>PIOBoardList PIOInit !platformio project init --ide vim --board <args>
-:command -nargs=1 -complete=custom,<SID>PIOLibraryList PIOInstall !platformio lib install '<args>'
+command! -nargs=+ PIO  call s:OpenTermOnce('platformio ' . <q-args>, "Platform IO")
+command! PIOCreateMakefile !cp $NORMEN/.vim/templates/PlatformIO-Makefile ./Makefile
+command! PIORefresh !platformio project init --ide vim
+command! -nargs=* PIONew call <SID>PIOBoardSelection(<q-args>)
+command! -nargs=+ PIOLibrary call <SID>PIOLibrarySelection(<q-args>)
+command! -nargs=1 -complete=custom,<SID>PIOBoardList PIOInit !platformio project init --ide vim --board <args>
+command! -nargs=1 -complete=custom,<SID>PIOLibraryList PIOInstall !platformio lib install '<args>'
 
 " get a list of PlatformIO boards
 function s:PIOBoardList(args,L,P)
@@ -100,7 +100,7 @@ function! s:PIOLibrarySelection(args)
   else
     bo new
     file 'PIO Libraries'
-    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile wrap
     setlocal filetype=piolibraries
     nnoremap <buffer> <CR> :exec '!pio lib install "'.getline('.').'"'<CR>
   endif
