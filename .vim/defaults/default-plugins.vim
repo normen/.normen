@@ -40,6 +40,7 @@ endif
 Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 Plug 'fidian/hexmode'
+Plug 'normen/vim-pio'
 call plug#end()
 
 " SETTINGS
