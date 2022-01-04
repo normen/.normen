@@ -30,7 +30,7 @@ set wildmenu
 set wildignore=*.o,*.obj,*-
 set wildignore+=*node_modules*
 set wildignore+=*DS_Store*
-set wildignore+=*.png,*.jpg*,*.gif
+"set wildignore+=*.png,*.jpg*,*.gif
 " let backspace delete eol, before insert etc.
 set backspace=2
 
