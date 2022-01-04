@@ -60,7 +60,7 @@ command! GHIssueList call s:RunShellCommand('gh issue list')
 function! s:OpenTermOnce(command, buffername)
   let bufnr = bufwinnr(a:buffername)
   if(bufnr>0)
-    execute 'bd '.bufnr
+    execute bufnr.'wincmd c'
   endif
   call term_start(a:command,{'term_name':a:buffername})
 endfunction
