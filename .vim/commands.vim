@@ -51,17 +51,15 @@ command! -nargs=+ GH  call s:OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
 command! -nargs=+ NPM  call s:OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
 command! -nargs=+ GO  call s:OpenTermOnce('go ' . <q-args>, "GO Tool")
 command! -nargs=+ PIO  call s:OpenTermOnce('platformio ' . <q-args>, "Platform IO")
-"command! -nargs=+ GH execute 'terminal gh '.<q-args>
-"command! -nargs=+ GH call s:RunShellCommand('gh ' . <q-args>)
 command! GHNewIssue :terminal gh issue create
 command! GHIssueList call s:RunShellCommand('gh issue list')
-":let mycmd = input("Enter a command: ", "", "command")
 
 " get a list of PlatformIO boards
 function PIOBoardList(A,L,P)
   return system("pio boards ".a:A."|grep Hz|awk '{print $1;}'")
 endfunction
 
+" Open a named Term window only once (command tools)
 function! s:OpenTermOnce(command, buffername)
   let bufnr = bufwinnr(a:buffername)
   if(bufnr>0)
@@ -70,6 +68,7 @@ function! s:OpenTermOnce(command, buffername)
   call term_start(a:command,{'term_name':a:buffername})
 endfunction
 
+" Run a command and show the output in a scratch window
 function! s:RunShellCommand(cmdline)
   echo a:cmdline
   let expanded_cmdline = a:cmdline
@@ -145,7 +144,7 @@ function! QuickFix_toggle()
   copen
 endfunction
 
-" get drawit mode
+" get drawit mode (Lightline)
 function DrawItMode()
   if exists("b:dodrawit") && b:dodrawit == 1
     return "DRAW"
@@ -154,7 +153,7 @@ function DrawItMode()
   endif
 endfunction
 
-" get table mode
+" get table mode (Lightline)
 function TableMode()
   if exists("*tablemode#IsActive") && tablemode#IsActive()
     return "TABLE"
