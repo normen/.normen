@@ -152,8 +152,10 @@ function! s:goyo_leave()
   Limelight!
   hi! Normal guibg=NONE ctermbg=NONE
 endfunction
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
+augroup goyoplugin
+  autocmd! User GoyoEnter nested call <SID>goyo_enter()
+  autocmd! User GoyoLeave nested call <SID>goyo_leave()
+augroup END
 " coc
 if executable('node')
   source $NORMEN/.vim/coc.vim
