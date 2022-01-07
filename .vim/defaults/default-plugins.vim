@@ -74,6 +74,12 @@ let g:tmuxline_theme = 'lightline'
 " asyncomplete
 let g:asyncomplete_auto_popup = 0
 let g:asyncomplete_auto_completeopt = 0
+" vim-lsp
+let g:lsp_format_sync_timeout = 1000
+let g:lsp_diagnostics_signs_enabled = 0
+let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_work_done_progress_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
 
 " lightline
 set laststatus=2 " to fix lightline
@@ -162,11 +168,6 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> [x <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]x <plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
-    let g:lsp_format_sync_timeout = 1000
-    let g:lsp_diagnostics_signs_enabled = 0
-    let g:lsp_document_code_action_signs_enabled = 0
-    let g:lsp_work_done_progress_enabled = 1
-    let g:lsp_diagnostics_echo_cursor = 1
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
 function! s:check_back_space() abort
@@ -177,6 +178,8 @@ augroup lsp_install
     au!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+" ccls
 if executable('ccls')
   let g:lsp_settings = {
 		\  'clangd': {'disabled': v:true}
