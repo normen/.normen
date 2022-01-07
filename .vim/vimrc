@@ -41,6 +41,9 @@ set shortmess+=c
 
 " always show sign column
 set signcolumn=yes
+" no backup files -> issues with lsp
+set nobackup
+set nowritebackup
 
 " indentation by syntax
 set autoread

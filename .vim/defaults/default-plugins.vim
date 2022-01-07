@@ -167,13 +167,16 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 if executable('ccls')
-au User lsp_setup call lsp#register_server({
-	\ 'name': 'ccls',
-	\ 'cmd': {server_info->['ccls']},
-	\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.ccls'))},
-	\ 'initialization_options': {'cache': {'directory': expand('/tmp/ccls') }},
-	\ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-	\ })
+  let g:lsp_settings = {
+		\  'clangd': {'disabled': v:true}
+		\}
+	au User lsp_setup call lsp#register_server({
+		\ 'name': 'ccls',
+		\ 'cmd': {server_info->['ccls']},
+		\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.ccls'))},
+		\ 'initialization_options': {'cache': {'directory': expand('/tmp/ccls') }},
+		\ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+		\ })
 endif
 
 " OTHER
