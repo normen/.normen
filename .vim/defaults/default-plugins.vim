@@ -7,6 +7,8 @@ silent! call plug#begin('$NORMEN/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
 Plug 'edkolev/tmuxline.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 " core
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -22,8 +24,6 @@ Plug 'vimwiki/vimwiki'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'sotte/presenting.vim'
 Plug 'normen/DrawIt'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 " tmux
 if executable('tmux')
   Plug 'tpope/vim-tbone'
@@ -32,11 +32,13 @@ if executable('tmux')
   Plug 'roxma/vim-tmux-clipboard'
   Plug 'wellle/tmux-complete.vim'
 endif
-" coc
-"if executable('node')
-  "Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
-"endif
-" language server / completion
+" build systems
+Plug 'normen/vim-pio'
+" filetypes (no lsp)
+Plug 'normen/mtgvim', { 'for': 'mtmacro' }
+Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
+Plug 'fidian/hexmode'
+" lsp / completion
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'micchy326/lightline-lsp-progress'
@@ -44,11 +46,6 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-" filetypes (no-coc)
-Plug 'normen/mtgvim', { 'for': 'mtmacro' }
-Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
-Plug 'fidian/hexmode'
-Plug 'normen/vim-pio'
 call plug#end()
 
 " SETTINGS
@@ -112,17 +109,9 @@ let g:lightline = {
   \   'table_mode': 'TableMode',
   \ },
   \ 'component': {
-\   'lineinfo': '%3l:%-2v%<',
-\ },
+  \   'lineinfo': '%3l:%-2v%<',
+  \ },
 \ }
-" tmuxline
-"let g:tmuxline_powerline_separators = 0
-"let g:tmuxline_separators = {
-    "\ 'left' : '',
-    "\ 'left_alt': '',
-    "\ 'right' : '',
-    "\ 'right_alt' : '',
-    "\ 'space' : ' '}
 
 " MAPPINGS
 " signify
@@ -155,6 +144,7 @@ inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
 imap <c-space> <Plug>(asyncomplete_force_refresh)
+
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -197,6 +187,7 @@ if executable('ccls')
 		\ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
 		\ })
 endif
+
 " goyo
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
