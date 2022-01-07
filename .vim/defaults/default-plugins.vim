@@ -138,10 +138,11 @@ vnoremap <Leader>tb :Twrite bottom<CR>
 vnoremap <Leader>tl :Twrite left<CR>
 vnoremap <Leader>tr :Twrite right<CR>
 " asyncomplete
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
@@ -160,7 +161,12 @@ function! s:on_lsp_buffer_enabled() abort
     let g:lsp_format_sync_timeout = 1000
     let g:lsp_diagnostics_signs_enabled = 0
     let g:lsp_document_code_action_signs_enabled = 0
+    let g:asyncomplete_auto_popup = 0
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+endfunction
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 augroup lsp_install
     au!
