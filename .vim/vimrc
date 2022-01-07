@@ -39,6 +39,9 @@ set complete+=kspell
 set completeopt=menuone,longest
 set shortmess+=c
 
+" always show sign column
+set signcolumn=yes
+
 " indentation by syntax
 set autoread
 set autoindent
