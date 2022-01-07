@@ -17,13 +17,19 @@ show_menu();
 # show the main menu
 sub show_menu {
   my $out=0;
+  my $header=<<'EOF';
+    _     _   _  _                        
+ __| |___| |_| \| |___ _ _ _ __  ___ _ _  
+/ _` / _ \  _| .` / _ \ '_| '  \/ -_) ' \ 
+\__,_\___/\__|_|\_\___/_| |_|_|_\___|_||_|
+EOF
   do {
     if($Config{osname} eq "MSWin32"){
       system("cls");
     } else {
       system("clear");
     }
-    say "** Normen Install **";
+    say $header;
     say "1) Install base to $npath";
     say "2) Set default configuration";
     say "3) Configure tmux";
