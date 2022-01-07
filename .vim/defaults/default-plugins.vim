@@ -33,9 +33,14 @@ if executable('tmux')
   Plug 'wellle/tmux-complete.vim'
 endif
 " coc
-if executable('node')
-  Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
-endif
+"if executable('node')
+  "Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
+"endif
+" language server / completion
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " filetypes (no-coc)
 Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
@@ -132,6 +137,44 @@ vnoremap <Leader>tt :Twrite top<CR>
 vnoremap <Leader>tb :Twrite bottom<CR>
 vnoremap <Leader>tl :Twrite left<CR>
 vnoremap <Leader>tr :Twrite right<CR>
+" asyncomplete
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+" vim-lsp
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [x <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]x <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    let g:lsp_format_sync_timeout = 1000
+    let g:lsp_diagnostics_signs_enabled = 0
+    let g:lsp_document_code_action_signs_enabled = 0
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+endfunction
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+if executable('ccls')
+au User lsp_setup call lsp#register_server({
+	\ 'name': 'ccls',
+	\ 'cmd': {server_info->['ccls']},
+	\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.ccls'))},
+	\ 'initialization_options': {'cache': {'directory': expand('/tmp/ccls') }},
+	\ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+	\ })
+endif
 
 " OTHER
 " goyo
@@ -157,11 +200,12 @@ augroup goyoplugin
   autocmd! User GoyoLeave nested call <SID>goyo_leave()
 augroup END
 " coc
-if executable('node')
-  source $NORMEN/.vim/coc.vim
-  augroup normensplugins
-    autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-  augroup END
-else
-  source $NORMEN/.vim/nococ.vim
-endif
+"if executable('node')
+  "source $NORMEN/.vim/coc.vim
+  "augroup normensplugins
+    "autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+  "augroup END
+"else
+  "source $NORMEN/.vim/nococ.vim
+"endif
+
