@@ -14,10 +14,6 @@ echo ""
 echo "⚡️*** vim plugins ***"
 vim +PlugUpdate +qa
 
-echo ""
-echo "⚡️*** coc plugins ***"
-vim +CocUpdateSync +ls +qa
-
 if [ -f ~/.normen/plugin-update.local ]; then
   ~/.normen/plugin-update.local
 fi

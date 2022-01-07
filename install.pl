@@ -116,7 +116,7 @@ sub checkout_normen {
 # link in the defaults
 sub install_vim_defaults {
   link_in("$npath/.vim/defaults/default-plugins.vim", "$npath/.vim/plugins.vim");
-  link_in("$npath/.vim/defaults/default-coc-settings.json", "$npath/.vim/coc-settings.json");
+  #link_in("$npath/.vim/defaults/default-coc-settings.json", "$npath/.vim/coc-settings.json");
 }
 
 sub install_links {
@@ -368,7 +368,6 @@ sub update_plugins {
   system("$npath/.tmux/plugins/tpm/bin/update_plugins all");
   system("zsh -c 'source $npath/.zshrc;antigen update'");
   system("vim +PlugUpdate +qa");
-  system("vim +CocUpdateSync +ls +qa");
   my $local_update = "$npath/plugin-update.local";
   if(-x $local_update){
     system($local_update);

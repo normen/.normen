@@ -140,7 +140,7 @@ vnoremap <Leader>tt :Twrite top<CR>
 vnoremap <Leader>tb :Twrite bottom<CR>
 vnoremap <Leader>tl :Twrite left<CR>
 vnoremap <Leader>tr :Twrite right<CR>
-" asyncomplete
+" asyncomplete / vsnip
 imap <silent><expr> <TAB>
   \ vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' :
   \ pumvisible() ? "\<C-n>" :
@@ -154,7 +154,6 @@ imap <silent><expr> <S-TAB>
 inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
@@ -198,8 +197,6 @@ if executable('ccls')
 		\ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
 		\ })
 endif
-
-" OTHER
 " goyo
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
@@ -222,13 +219,3 @@ augroup goyoplugin
   autocmd! User GoyoEnter nested call <SID>goyo_enter()
   autocmd! User GoyoLeave nested call <SID>goyo_leave()
 augroup END
-" coc
-"if executable('node')
-  "source $NORMEN/.vim/coc.vim
-  "augroup normensplugins
-    "autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-  "augroup END
-"else
-  "source $NORMEN/.vim/nococ.vim
-"endif
-
