@@ -71,6 +71,9 @@ let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
 " tmuxline
 let g:tmuxline_theme = 'lightline'
+" asyncomplete
+let g:asyncomplete_auto_popup = 0
+let g:asyncomplete_auto_completeopt = 0
 
 " lightline
 set laststatus=2 " to fix lightline
@@ -164,7 +167,6 @@ function! s:on_lsp_buffer_enabled() abort
     let g:lsp_document_code_action_signs_enabled = 0
     let g:lsp_work_done_progress_enabled = 1
     let g:lsp_diagnostics_echo_cursor = 1
-    let g:asyncomplete_auto_popup = 0
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
 function! s:check_back_space() abort

@@ -36,7 +36,7 @@ set backspace=2
 
 " better completion
 set complete+=kspell
-set completeopt=menuone,longest
+set completeopt=menuone,longest,noinsert,noselect
 set shortmess+=c
 
 " always show sign column
@@ -188,7 +188,7 @@ nmap ö :
 vmap ö :
 
 " toggle paste mode
-set pastetoggle=<C-p>
+nmap <C-p> :set invpaste<CR>
 
 "section: stuff that doesn't start with blank and ends with {
 "^=start [^\s\t ]=anything but \s, \t or space $=end
