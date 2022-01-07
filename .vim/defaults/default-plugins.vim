@@ -39,8 +39,11 @@ endif
 " language server / completion
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+Plug 'micchy326/lightline-lsp-progress'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 " filetypes (no-coc)
 Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
@@ -90,7 +93,7 @@ let g:lightline = {
   \              [ 'fileencoding' ],
   \              [ 'fileformat' ],
   \              [ 'spell' ],
-  \              [ 'cocstatus' ],
+  \              [ 'lspstatus' ],
   \           ],
   \ },
   \ 'inactive': {
@@ -104,7 +107,7 @@ let g:lightline = {
   \ },
   \ 'component_function': {
   \   'gitstatus': 'FugitiveHead',
-  \   'cocstatus': 'coc#status',
+  \   'lspstatus': 'lightline_lsp_progress#progress',
   \   'drawit_mode': 'DrawItMode',
   \   'table_mode': 'TableMode',
   \ },
@@ -138,11 +141,20 @@ vnoremap <Leader>tb :Twrite bottom<CR>
 vnoremap <Leader>tl :Twrite left<CR>
 vnoremap <Leader>tr :Twrite right<CR>
 " asyncomplete
-inoremap <silent><expr> <TAB>
+imap <silent><expr> <TAB>
+  \ vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' :
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
   \ asyncomplete#force_refresh()
+imap <silent><expr> <S-TAB>
+  \ vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' :
+  \ pumvisible() ? "\<C-p>" :
+  \ <SID>check_back_space() ? "\<S-TAB>" :
+  \ asyncomplete#force_refresh()
 inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
@@ -161,6 +173,8 @@ function! s:on_lsp_buffer_enabled() abort
     let g:lsp_format_sync_timeout = 1000
     let g:lsp_diagnostics_signs_enabled = 0
     let g:lsp_document_code_action_signs_enabled = 0
+    let g:lsp_work_done_progress_enabled = 1
+    let g:lsp_diagnostics_echo_cursor = 1
     let g:asyncomplete_auto_popup = 0
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
