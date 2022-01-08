@@ -205,4 +205,6 @@ cpan install pp
 pp -o myprog script.pl
 # MacOS:
 /usr/local/opt/Perl/bin/pp -o myprog script.pl
+# language server
+cpan install Perl::LanguageServer
 ```
