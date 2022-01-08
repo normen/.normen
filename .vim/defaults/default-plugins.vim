@@ -169,10 +169,6 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> K <plug>(lsp-hover)
   autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 augroup lsp_install
   au!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
@@ -216,3 +212,41 @@ augroup goyoplugin
   autocmd! User GoyoEnter nested call <SID>goyo_enter()
   autocmd! User GoyoLeave nested call <SID>goyo_leave()
 augroup END
+
+" get drawit mode (Lightline)
+function DrawItMode()
+  if exists("b:dodrawit") && b:dodrawit == 1
+    return "DRAW"
+  else
+    return ""
+  endif
+endfunction
+
+" get table mode (Lightline)
+function TableMode()
+  if exists("*tablemode#IsActive") && tablemode#IsActive()
+    return "TABLE"
+  endif
+  return ""
+endfunction
+
+" get lsp progress
+function! MyLspProgress() abort
+  if !exists("*lsp#get_progress")
+    return ''
+  endif
+  let l:progress = lsp#get_progress()
+  if empty(l:progress) | return '' | endif
+  let l:progress = l:progress[len(l:progress) - 1]
+  return l:progress['server'] . ': ' . l:progress['message']
+endfunction
+augroup my_lightline_lsp
+  autocmd!
+  autocmd User lsp_progress_updated call lightline#update()
+augroup END
+
+" check if last char is a space (Tab-complete)
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction

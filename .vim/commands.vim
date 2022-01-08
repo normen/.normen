@@ -133,31 +133,3 @@ function! QuickFix_toggle()
   copen
 endfunction
 
-" get drawit mode (Lightline)
-function DrawItMode()
-  if exists("b:dodrawit") && b:dodrawit == 1
-    return "DRAW"
-  else
-    return ""
-  endif
-endfunction
-
-" get table mode (Lightline)
-function TableMode()
-  if exists("*tablemode#IsActive") && tablemode#IsActive()
-    return "TABLE"
-  endif
-  return ""
-endfunction
-
-function! MyLspProgress() abort
-  let l:progress = lsp#get_progress()
-  if empty(l:progress) | return 'idle' | endif
-  let l:progress = l:progress[len(l:progress) - 1]
-  return l:progress['server'] . ': ' . l:progress['message']
-endfunction
-
-augroup my_lightline_lsp
-  autocmd!
-  autocmd User lsp_progress_updated call lightline#update()
-augroup END
