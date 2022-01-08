@@ -149,3 +149,15 @@ function TableMode()
   endif
   return ""
 endfunction
+
+function! MyLspProgress() abort
+  let l:progress = lsp#get_progress()
+  if empty(l:progress) | return 'idle' | endif
+  let l:progress = l:progress[len(l:progress) - 1]
+  return l:progress['server'] . ': ' . l:progress['message']
+endfunction
+
+augroup my_lightline_lsp
+  autocmd!
+  autocmd User lsp_progress_updated call lightline#update()
+augroup END

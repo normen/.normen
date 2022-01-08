@@ -41,7 +41,6 @@ Plug 'fidian/hexmode'
 " lsp / completion
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'micchy326/lightline-lsp-progress'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
@@ -113,7 +112,7 @@ let g:lightline = {
   \ },
   \ 'component_function': {
   \   'gitstatus': 'FugitiveHead',
-  \   'lspstatus': 'lightline_lsp_progress#progress',
+  \   'lspstatus': 'MyLspProgress',
   \   'drawit_mode': 'DrawItMode',
   \   'table_mode': 'TableMode',
   \ },
