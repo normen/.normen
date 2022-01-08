@@ -242,35 +242,25 @@ augroup END
 " HELPERS
 " get drawit mode (Lightline)
 function DrawItMode()
-  if exists("b:dodrawit") && b:dodrawit == 1
-    return "DRAW"
-  else
-    return ""
-  endif
+  return exists("b:dodrawit") && b:dodrawit == 1 ? "DRAW" : ""
 endfunction
 
 " get table mode (Lightline)
 function TableMode()
-  if exists("*tablemode#IsActive") && tablemode#IsActive()
-    return "TABLE"
-  endif
-  return ""
+  return exists("*tablemode#IsActive") && tablemode#IsActive() ? "TABLE" : ""
 endfunction
 
 " get lsp status (Lightline)
 function! MyLspProgress() abort
-  if !exists("*lsp#get_progress")
-    return ''
-  endif
+  if !exists("*lsp#get_progress") | return '' | endif
   let l:progress = lsp#get_progress()
   if empty(l:progress) | return '' | endif
-  let l:progress = l:progress[len(l:progress) - 1]
-  return l:progress['server'] . ': ' . l:progress['message']
+  let l:idx = len(l:progress) - 1
+  let l:myprog = l:progress[idx]
+  return '[' . get(l:myprog,'server') . '] ' . get(l:myprog,'title') . ' ' . get(l:myprog,'message') . ' (' . get(l:myprog,'percentage') . '%)'
 endfunction
 function! MyLspDiags() abort
-  if !exists("*lsp#get_buffer_diagnostics_counts")
-    return ''
-  endif
+  if !exists("*lsp#get_buffer_diagnostics_counts") | return '' | endif
   let ret = ''
   let l:diags = lsp#get_buffer_diagnostics_counts()
   let errnum = get(l:diags,"error")
