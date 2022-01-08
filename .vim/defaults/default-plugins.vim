@@ -102,7 +102,7 @@ let g:lightline = {
   \              [ 'fileencoding' ],
   \              [ 'fileformat' ],
   \              [ 'spell' ],
-  \              [ 'lspstatus' ],
+  \              [ 'lspstatus', 'lspdiags' ],
   \           ],
   \ },
   \ 'inactive': {
@@ -119,6 +119,12 @@ let g:lightline = {
   \   'lspstatus': 'MyLspProgress',
   \   'drawit_mode': 'DrawItMode',
   \   'table_mode': 'TableMode',
+  \ },
+  \ 'component_expand': {
+  \   'lspdiags': 'MyLspDiags',
+  \ },
+  \ 'component_type': {
+  \   'lspdiags': 'error',
   \ },
   \ 'component': {
   \   'lineinfo': '%3l:%-2v%<',
@@ -251,7 +257,7 @@ function TableMode()
   return ""
 endfunction
 
-" get lsp progress
+" get lsp status (Lightline)
 function! MyLspProgress() abort
   if !exists("*lsp#get_progress")
     return ''
@@ -261,9 +267,20 @@ function! MyLspProgress() abort
   let l:progress = l:progress[len(l:progress) - 1]
   return l:progress['server'] . ': ' . l:progress['message']
 endfunction
+function! MyLspDiags() abort
+  if !exists("*lsp#get_buffer_diagnostics_counts")
+    return ''
+  endif
+  let ret = ''
+  let l:diags = lsp#get_buffer_diagnostics_counts()
+  let errnum = get(l:diags,"error")
+  if errnum > 0 | let ret .= errnum . '!' | endif
+  return ret
+endfunction
 augroup my_lightline_lsp
   autocmd!
   autocmd User lsp_progress_updated call lightline#update()
+  autocmd User lsp_diagnostics_updated call lightline#update()
 augroup END
 
 " check if last char is a space (Tab-complete)
