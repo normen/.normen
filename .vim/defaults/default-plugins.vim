@@ -235,6 +235,7 @@ function! s:goyo_leave()
   hi! Normal guibg=NONE ctermbg=NONE
 endfunction
 augroup goyoplugin
+  au!
   autocmd! User GoyoEnter nested call <SID>goyo_enter()
   autocmd! User GoyoLeave nested call <SID>goyo_leave()
 augroup END
