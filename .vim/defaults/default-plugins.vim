@@ -155,27 +155,27 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gs <plug>(lsp-document-symbol-search)
-    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
-    nmap <buffer> [x <plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]x <plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+  setlocal omnifunc=lsp#complete
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [x <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]x <plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 augroup lsp_install
-    au!
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
 " ccls
@@ -197,6 +197,7 @@ function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
     silent !tmux set status off
     silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+    set scrolloff=999
   endif
   set noshowcmd
   Limelight
@@ -205,6 +206,7 @@ function! s:goyo_leave()
   if executable('tmux') && strlen($TMUX)
     silent !tmux set status on
     silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+    set scrolloff=5
   endif
   set showcmd
   Limelight!
