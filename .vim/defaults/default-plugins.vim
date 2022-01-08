@@ -156,20 +156,6 @@ inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
 imap <c-space> <Plug>(asyncomplete_force_refresh)
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'allowlist': ['*'],
-    \ 'blocklist': ['go'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ 'config': { 'max_buffer_size': 5000000, },
-    \ }))
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'allowlist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
-
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
@@ -186,24 +172,41 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> K <plug>(lsp-hover)
   autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
+
+" AUTOCOMMANDS
+" lsp
 augroup lsp_install
   au!
+  " vim-lsp keys
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  " asyncomplete plugins
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+        \ 'name': 'buffer',
+        \ 'allowlist': ['*'],
+        \ 'blocklist': ['go'],
+        \ 'completor': function('asyncomplete#sources#buffer#completor'),
+        \ 'config': { 'max_buffer_size': 5000000, },
+        \ }))
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+        \ 'name': 'file',
+        \ 'allowlist': ['*'],
+        \ 'priority': 10,
+        \ 'completor': function('asyncomplete#sources#file#completor')
+        \ }))
+  " ccls for vim-lsp
+  if executable('ccls')
+    let g:lsp_settings = {
+          \  'clangd': {'disabled': v:true}
+          \}
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'ccls',
+          \ 'cmd': {server_info->['ccls']},
+          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.ccls'))},
+          \ 'initialization_options': {'cache': {'directory': expand('/tmp/ccls') }},
+          \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+          \ })
+  endif
 augroup END
-
-" ccls
-if executable('ccls')
-  let g:lsp_settings = {
-		\  'clangd': {'disabled': v:true}
-		\}
-	au User lsp_setup call lsp#register_server({
-		\ 'name': 'ccls',
-		\ 'cmd': {server_info->['ccls']},
-		\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.ccls'))},
-		\ 'initialization_options': {'cache': {'directory': expand('/tmp/ccls') }},
-		\ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-		\ })
-endif
 
 " goyo
 function! s:goyo_enter()
@@ -230,6 +233,7 @@ augroup goyoplugin
   autocmd! User GoyoLeave nested call <SID>goyo_leave()
 augroup END
 
+" HELPERS
 " get drawit mode (Lightline)
 function DrawItMode()
   if exists("b:dodrawit") && b:dodrawit == 1
