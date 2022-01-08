@@ -127,12 +127,12 @@ endif
 " move text around in visual mode with arrows
 vnoremap <Down> :m '>+1<CR>gv=gv
 vnoremap <Up> :m '<-2<CR>gv=gv
-nnoremap <Down> :m +1<CR>
-nnoremap <Up> :m -2<CR>
+"nnoremap <Down> :m +1<CR>
+"nnoremap <Up> :m -2<CR>
 
-" create space with left/right
-nnoremap <Left> O<Esc>j
-nnoremap <Right> o<Esc>k
+" create space with -/+
+nnoremap - O<Esc>j
+nnoremap + o<Esc>k
 
 " move normally in wrapped lines
 nnoremap <expr> j v:count ? 'j' : 'gj'
