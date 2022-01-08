@@ -211,30 +211,15 @@ sub install_go {
   my $arch="-";
   my $suffix="tar.gz";
   given($archname){
-    when(/armv7|armv6/i){
-      $arch="armv6l";
-    }
-    when(/arm64|armv8/i){
-      $arch="arm64";
-    }
-    when(/x64|x86_64|amd64/i){
-      $arch="amd64";
-    }
-    when(/386/i){
-      $arch="386";
-    }
+    when(/armv7|armv6/i){ $arch="armv6l"; }
+    when(/arm64|armv8/i){ $arch="arm64"; }
+    when(/x64|x86_64|amd64/i){ $arch="amd64"; }
+    when(/386/i){ $arch="386"; }
   }
   given($osname){
-    when(/linux/i){
-      $os="linux";
-    }
-    when(/darwin/i){
-      $os="darwin";
-    }
-    when(/windows|MSWin32/i){
-      $os="windows";
-      $suffix="zip";
-    }
+    when(/linux/i){ $os="linux"; }
+    when(/darwin/i){ $os="darwin"; }
+    when(/windows|MSWin32/i){ $os="windows"; $suffix="zip"; }
   }
   # check if we found a platform
   if($arch eq "-" || $os eq "-"){
