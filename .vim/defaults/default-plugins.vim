@@ -175,7 +175,7 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <leader>rn <plug>(lsp-rename)
   nmap <buffer> [x <plug>(lsp-previous-diagnostic)
   nmap <buffer> ]x <plug>(lsp-next-diagnostic)
-  nmap <buffer> K <plug>(lsp-hover)
+  nmap <buffer> K :silent call <SID>MyDocK()<CR>
   autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
 
@@ -287,4 +287,19 @@ augroup END
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" what happens when "K" is pressed
+function! s:MyDocK()
+	if (index(['vim','help'], &filetype) >= 0)
+		silent execute 'h '.expand('<cword>')
+  "elseif (index(['perl'], &filetype) >= 0)
+    "execute 'term++close ' . &keywordprg . " " . expand('<cword>')
+	elseif (index(['sh'], &filetype) >= 0)
+		silent execute "Man " . expand('<cword>')
+	elseif strlen(&keywordprg) && &keywordprg != "man -s"
+		silent execute 'term++close ' . &keywordprg . " " . expand('<cword>')
+	elseif exists(":LspHover")
+		silent exec "LspHover"
+	endif
 endfunction
