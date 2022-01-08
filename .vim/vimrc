@@ -124,6 +124,9 @@ else
   map <silent> <C-W><C-E> :VsplitVifm<CR>
 endif
 
+" Special K
+nmap <silent><buffer> K :silent call <SID>SpecialK()<CR>
+
 " move text around in visual mode with arrows
 vnoremap <Down> :m '>+1<CR>gv=gv
 vnoremap <Up> :m '<-2<CR>gv=gv
@@ -215,6 +218,21 @@ nnoremap cam va{Vc
 
 " execute current line on shell
 nnoremap gs :.w !bash<CR>
+
+" what happens when "K" is pressed
+function! s:SpecialK()
+	if (index(['vim','help'], &filetype) >= 0)
+		silent! execute 'h '.expand('<cword>')
+	elseif (index(['sh'], &filetype) >= 0)
+		silent! execute "Man " . expand('<cword>')
+	elseif strlen(&keywordprg) && &keywordprg != "man -s"
+		silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
+	elseif exists(":LspHover")
+		silent! exec "LspHover"
+	else
+		silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
+	endif
+endfunction
 
 " Function to source only if file exists
 if empty($NORMEN)
