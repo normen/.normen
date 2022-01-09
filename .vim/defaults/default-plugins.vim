@@ -257,8 +257,7 @@ function! MyLspProgress() abort
   if !exists("*lsp#get_progress") | return '' | endif
   let progress = lsp#get_progress()
   if empty(progress) | return '' | endif
-  let idx = len(progress) - 1
-  let myprog = progress[idx]
+  let myprog = progress[0]
   return '[' . get(myprog,'server') . '] ' . get(myprog,'title') . ' ' . get(myprog,'message') . ' (' . get(myprog,'percentage') . '%)'
 endfunction
 function! MyLspDiags() abort
