@@ -1,4 +1,14 @@
 ## C
+#### .ccls file
+Use `-I` for own imports, `-isystem` for system imports
+```
+clang
+-std=c++17
+-stdlib=libc++
+-I/home/pi/src/stuff
+-isystem/usr/local/include
+```
+#### code stuffs
 ```
 //to define variables in a nice manner (instead of header)
 header:
