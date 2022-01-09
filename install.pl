@@ -333,7 +333,7 @@ sub update_vim_plugins {
       system("$git pull");
       say "$plug_short updated";
       if(-d "$plug_path/$plug_short/doc"){
-        system("vim +'helptags doc' +qa");
+        system("vim -c 'helptags doc' +qa");
       }
     } else {
       chdir($plug_path);
