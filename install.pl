@@ -12,8 +12,7 @@ use File::Temp qw/ tempfile tempdir /; #tempdir
 my $hpath = h_path();
 my $npath = n_path();
 my $git = git_cmd();
-#show_menu();
-update_vim_plugins();
+show_menu();
 
 # show the main menu
 sub show_menu {
