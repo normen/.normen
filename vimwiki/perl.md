@@ -207,4 +207,6 @@ pp -o myprog script.pl
 /usr/local/opt/Perl/bin/pp -o myprog script.pl
 # language server
 cpan install Perl::LanguageServer
+# if fails:
+apt install libio-aio-perl
 ```
