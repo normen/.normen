@@ -125,7 +125,7 @@ else
 endif
 
 " Special K
-nmap <silent><buffer> K :silent call <SID>SpecialK()<CR>
+nmap <silent> K :silent call <SID>SpecialK()<CR>
 
 " move text around in visual mode with arrows
 vnoremap <Down> :m '>+1<CR>gv=gv
