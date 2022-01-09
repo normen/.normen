@@ -24,23 +24,23 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command SCADPrint Start openscad -o %:r.stl %;open %:r.stl
 
 " NPM
-command! -nargs=+ NPM  call s:OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
+command! -nargs=+ NPM  call <SID>OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
 :command JSCompletionEnable !cp $NORMEN/.vim/templates/jsconfig.json ./
 
 " go
-command! -nargs=+ GO  call s:OpenTermOnce('go ' . <q-args>, "GO Tool")
+command! -nargs=+ GO  call <SID>OpenTermOnce('go ' . <q-args>, "GO Tool")
 :command GoCreateMakefile !cp $NORMEN/.vim/templates/Go-Makefile ./Makefile
 
 " GH
-command! -nargs=+ GH  call s:OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
+command! -nargs=+ GH  call <SID>OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
 command! GHNewIssue :terminal gh issue create
-command! GHIssueList call s:RunShellCommand('gh issue list')
+command! GHIssueList call <SID>RunShellCommand('gh issue list')
 
-" ascii tools
-command! -nargs=+ -complete=file Image2Ascii  call s:RunShellCommand('image2ascii -r=0.1 -f ' . <q-args> . ' -c=false')
-command! -nargs=+ -complete=custom,<SID>FigletFontList Figlet  call s:RunShellCommand('figlet -w 10000 ' . <q-args>)
+" image2ascii (go version)
+command! -nargs=+ -complete=file Image2Ascii exec 'read !image2ascii -r=0.1 -f ' . <q-args> . ' -c=false'
 
-" get a list of figlet font names
+" get figlet with font name completion
+command! -nargs=+ -complete=custom,<SID>FigletFontList Figlet exec 'read !figlet -w 10000 ' . <q-args>
 function! s:FigletFontList(args,L,P)
   echo a:args
   if a:L =~ ' -f '
