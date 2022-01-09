@@ -321,7 +321,7 @@ sub update_vim_plugins {
   open my $fh, '<', $file_name or return 0;
   my $file_content = do { local $/; <$fh> };
   close $fh;
-  my @plugin_list = $file_content =~ m/^\s*Plug\s*['"]([^'"]*)'/gm;
+  my @plugin_list = $file_content =~ m/^\s*(?:Plug|Plugin)\s*['"]([^'"]*)'/gm;
   my $plug_path = "$npath/.vim/plugged";
   if(!-d $plug_path){
     mkdir($plug_path) or die "Can't created plugin path";
