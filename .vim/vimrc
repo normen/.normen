@@ -220,6 +220,8 @@ nnoremap cam va{Vc
 nnoremap gs :.w !bash<CR>
 
 " what happens when "K" is pressed
+" built-in Man
+:runtime ftplugin/man.vim
 function! s:SpecialK()
 	if (index(['vim','help'], &filetype) >= 0)
 		silent! execute 'h '.expand('<cword>')

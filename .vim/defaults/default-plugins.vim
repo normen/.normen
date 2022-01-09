@@ -1,6 +1,4 @@
 " PLUGINS
-" built-in
-:runtime ftplugin/man.vim
 " Plug
 silent! call plug#begin('$NORMEN/.vim/plugged')
 " visuals
