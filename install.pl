@@ -12,7 +12,8 @@ use File::Temp qw/ tempfile tempdir /; #tempdir
 my $hpath = h_path();
 my $npath = n_path();
 my $git = git_cmd();
-show_menu();
+#show_menu();
+update_vim_plugins();
 
 # show the main menu
 sub show_menu {
@@ -321,7 +322,7 @@ sub update_vim_plugins {
   open my $fh, '<', $file_name or return 0;
   my $file_content = do { local $/; <$fh> };
   close $fh;
-  my @plugin_list = $file_content =~ m/^\s*Plug '([^']*)'/gm;
+  my @plugin_list = $file_content =~ m/^\s*Plug\s*['"]([^'"]*)'/gm;
   my $plug_path = "$npath/.vim/plugged";
   if(!-d $plug_path){
     mkdir($plug_path) or die "Can't created plugin path";
@@ -331,10 +332,10 @@ sub update_vim_plugins {
     if(-d "$plug_path/$plug_short"){
       chdir("$plug_path/$plug_short");
       system("$git pull");
-      say "$plug_short updated";
       if(-d "$plug_path/$plug_short/doc"){
         system("vim -c 'helptags doc' +qa");
       }
+      say "$plug_short updated";
     } else {
       chdir($plug_path);
       if($plug_name =~ /^http.*/m){
