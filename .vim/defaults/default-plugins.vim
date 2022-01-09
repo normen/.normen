@@ -251,17 +251,17 @@ endfunction
 " get lsp status (Lightline)
 function! MyLspProgress() abort
   if !exists("*lsp#get_progress") | return '' | endif
-  let l:progress = lsp#get_progress()
-  if empty(l:progress) | return '' | endif
-  let l:idx = len(l:progress) - 1
-  let l:myprog = l:progress[idx]
-  return '[' . get(l:myprog,'server') . '] ' . get(l:myprog,'title') . ' ' . get(l:myprog,'message') . ' (' . get(l:myprog,'percentage') . '%)'
+  let progress = lsp#get_progress()
+  if empty(progress) | return '' | endif
+  let idx = len(progress) - 1
+  let myprog = progress[idx]
+  return '[' . get(myprog,'server') . '] ' . get(myprog,'title') . ' ' . get(myprog,'message') . ' (' . get(myprog,'percentage') . '%)'
 endfunction
 function! MyLspDiags() abort
   if !exists("*lsp#get_buffer_diagnostics_counts") | return '' | endif
   let ret = ''
-  let l:diags = lsp#get_buffer_diagnostics_counts()
-  let errnum = get(l:diags,"error")
+  let diags = lsp#get_buffer_diagnostics_counts()
+  let errnum = get(diags,"error")
   if errnum > 0 | let ret .= errnum . '!' | endif
   return ret
 endfunction
