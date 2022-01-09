@@ -332,6 +332,9 @@ sub update_vim_plugins {
       chdir("$plug_path/$plug_short");
       system("$git pull");
       say "$plug_short updated";
+      if(-d "$plug_path/$plug_short/doc"){
+        system("vim +'helptags doc' +qa");
+      }
     } else {
       chdir($plug_path);
       if($plug_name =~ /^http.*/m){
