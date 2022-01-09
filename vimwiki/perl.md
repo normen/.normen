@@ -199,8 +199,86 @@ sub write_file {
     return;
 }
 ```
-### Executables
+### RegEx
+##### Character Classes
+Regex Character Classes and Special Character classes.
+
+- `[bgh.]`      One of the characters listed in the character class b,g,h or . in this case.
+- `[b-h]`       The same as [bcdefgh].
+- `[a-z]`       Lower case Latin letters.
+- `[bc-]`       The characters b, c or - (dash).
+- `[^bx]`       Complementary character class. Anything except b or x.
+- `\w`          Word characters: [a-zA-Z0-9_].
+- `\d`          Digits: [0-9]
+- `\s`          [\f\t\n\r ] form-feed, tab, newline, carriage return and SPACE
+- `\W`          The complementary of \w: [^\w]
+- `\D`          [^\d]
+- `\S`          [^\s]
+- `[:class:]`   POSIX character classes (alpha, alnum...)
+- `\p{...}`     Unicode definitions (IsAlpha, IsLower, IsHebrew, ...)
+- `\P{...}`     Complementary Unicode character classes.
+
+##### Quantifiers
+Regex Quantifiers
+
+- `a?`          0-1         'a' characters
+- `a+`          1-infinite  'a' characters
+- `a*`          0-infinite  'a' characters
+- `a{n,m}`      n-m         'a' characters
+- `a{n,}`       n-infinite  'a' characters
+- `a{n}`        n           'a' characters
+
+##### "Quantifier-modifier" aka. Minimal Matching
+- `a+?`
+- `a*?`
+- `a{n,m}?`
+- `a{n,}?`
+- `a??`
+- `a{n}?`
+
+##### Other
+- `|`           Alternation
+
+##### Grouping and capturing
+- `(...)`                Grouping and capturing
+- `\1,\2,\3,\4...`   Capture buffers during regex matching
+- `$1,$2,$3,$4...`   Capture variables after successful matching
+- `(?:...)`              Group without capturing (don't set \1 nor $1)
+
+##### Anchors
+- `^`           Beginning of string (or beginning of line if /m enabled)
+- `$`           End of string (or end of line if /m enabled)
+- `\A`          Beginning of string
+- `\Z`          End of string (or before new-line)
+- `\z`          End of string
+- `\b`          Word boundary (start-of-word or end-of-word)
+- `\G`          Match only at pos():  at the end-of-match position of prior m//g
+
+##### Modifiers
+- `/m`           Change ^ and $ to match beginning and end of line respectively
+- `/s`           Change . to match new-line as well
+- `/i`           Case insensitive pattern matching
+- `/x`           Extended pattern (disregard white-space, allow comments starting with #)
+
+##### Extended
+- `(?#text)`             Embedded comment
+- `(?adlupimsx-imsx)`    One or more embedded pattern-match modifiers, to be turned on or off.
+- `(?:pattern)`          Non-capturing group.
+- `(?|pattern)`          Branch test.
+- `(?=pattern)`          A zero-width positive look-ahead assertion.
+- `(?!pattern)`          A zero-width negative look-ahead assertion.
+- `(?<=pattern)`         A zero-width positive look-behind assertion.
+- `(?<!pattern)`         A zero-width negative look-behind assertion.
+- `(?'NAME'pattern)`
+- `(?<NAME>pattern)`     A named capture group.
+- `\k<NAME>`
+- `\k'NAME'`             Named backreference.
+- `(?{ code })`          Zero-width assertion with code execution.
+- `(??{ code })`         A "postponed" regular subexpression with code execution.
+
+### Tools
 ```bash
+# create executable
 cpan install pp
 pp -o myprog script.pl
 # MacOS:
