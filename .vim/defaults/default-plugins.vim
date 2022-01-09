@@ -46,6 +46,7 @@ Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
 " SETTINGS
@@ -81,6 +82,8 @@ let g:lsp_document_code_action_signs_enabled = 0
 let g:lsp_work_done_progress_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_settings_enable_suggestions = 0
+" vsnip
+let g:vsnip_snippet_dir = '$NORMEN/.vim/templates/snippets'
 
 " lightline
 set laststatus=2 " to fix lightline
