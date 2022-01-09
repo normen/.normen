@@ -38,7 +38,17 @@ command! GHIssueList call s:RunShellCommand('gh issue list')
 
 " ascii tools
 command! -nargs=+ -complete=file Image2Ascii  call s:RunShellCommand('image2ascii -r=0.1 -f ' . <q-args> . ' -c=false')
-command! -nargs=+ Figlet  call s:RunShellCommand('figlet -w 10000 ' . <q-args>)
+command! -nargs=+ -complete=custom,<SID>FigletFontList Figlet  call s:RunShellCommand('figlet -w 10000 ' . <q-args>)
+
+" get a list of figlet font names
+function! s:FigletFontList(args,L,P)
+  echo a:args
+  if a:L =~ ' -f '
+    let mylist=systemlist("figlist")
+    return join(mylist[3:],"\n")
+  endif
+  return ''
+endfunction
 
 " get graph (dot) from selection
 com -range=% -nargs=* GraphEasy :<line1>,<line2>call GraphEasy(<q-args>)
