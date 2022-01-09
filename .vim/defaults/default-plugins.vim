@@ -243,7 +243,8 @@ augroup END
 " HELPERS
 " get drawit mode (Lightline)
 function DrawItMode()
-  return exists("b:dodrawit") && b:dodrawit == 1 ? "DRAW" : ""
+  if !exists("b:dodrawit") | return '' | endif
+  return b:dodrawit && b:di_erase ? "ERASE" : b:dodrawit ? "DRAW" : ""
 endfunction
 
 " get table mode (Lightline)
