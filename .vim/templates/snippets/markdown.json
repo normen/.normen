@@ -1,0 +1,11 @@
+{
+  "graph": {
+    "prefix": ["graph"],
+    "body": [
+      "graph {flow:east;}",
+      "[A]->[B]->[C]{flow:south;}->[D]",
+      "[E]->[D]",
+      "[E]->[C]"
+    ]
+  }
+}
