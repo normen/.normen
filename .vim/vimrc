@@ -148,6 +148,16 @@ imap <C-@> <C-Space>
 " ctrl-zoom
 nmap <silent> <C-W>z <C-W>\|<C-W>_
 
+" shift-stuff (Ctrl-V + combo)
+map [1;2A <s-up>
+map [1;2B <s-down>
+map [1;2D <s-left>
+map [1;2C <s-right>
+"map [M I= <leftmouse>
+"map [M$A; <s-leftmouse>
+"map [M(<= <c-leftmouse>
+
+	nmap <Esc>[161q	<s-up>
 " fix Ctrl-Arrows
 map <ESC>[1;5D <C-Left>
 map <ESC>[1;5C <C-Right>
