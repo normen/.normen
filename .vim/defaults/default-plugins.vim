@@ -133,6 +133,8 @@ let g:lightline = {
 \ }
 
 " MAPPINGS
+" Goyo
+nnoremap <C-g> :Goyo<CR>
 " signify
 nnoremap <Leader>hu :SignifyHunkUndo<CR>
 nnoremap <Leader>hd :SignifyHunkDiff<CR>
