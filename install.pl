@@ -435,7 +435,11 @@ sub link_in {
   my($src, $dest) = @_;
   if(-e $dest){
     if(!unlink $dest){
-      die "Can't delete $dest" unless rmtree($dest);
+      unless(rmtree($dest)){
+        if(system("rm $dest") != 0){
+          die "Can't delete $dest";
+        }
+      }
     }
   }
   if($Config{osname} eq "MSWin32"){
