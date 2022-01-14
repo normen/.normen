@@ -22,6 +22,7 @@
 * [gstreamer](gstreamer.md)
 * [ascii](ascii.md)
 * [wasm](wasm.md)
+* [qemu](qemu.md)
 * [docker](docker.md)
 * [platformio](platformio.md)
 * [plesk](plesk.md)
