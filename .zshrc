@@ -107,7 +107,7 @@ fi
 # add own bin directory to path
 case "$OSTYPE" in
   darwin*)
-    export PATH=$PATH:$HOME/.normen/osx/scripts
+    export PATH=$PATH:$HOME/.normen/bin/macos
   ;;
   linux*)
     export PATH=$PATH:$HOME/.normen/bin/raspi

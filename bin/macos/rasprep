@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+set -e
+read -p "Create wifi and ssh config in current folder? (y/n) " -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
+cd /Volumes/boot
+# enable ssh
+echo Enabling SSH
+touch ssh
+# enable wifi
+echo Enabling WiFi
+read -d '' CONTENT <<CONTENT
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=DE
+
+network={
+    ssid="WLAN-VMMVFF"
+    psk="1648860746810840"
+}
+CONTENT
+echo "$CONTENT" > wpa_supplicant.conf
+read -p "Add script to run on first login? (y/n) " -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
+# first bash login script
+read -d '' CONTENT <<CONTENT
+#!/bin/bash
+# initial config
+set -e
+sudo raspi-config
+sudo apt update
+sudo apt upgrade
+bash <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install)
+# remove script when successful!
+rm ~/autorun.sh
+CONTENT
+echo "$CONTENT" > autorun.sh
+# firstboot script
+read -d '' CONTENT <<CONTENT
+#!/bin/sh
+# mounting
+mount -t tmpfs tmp /run
+mkdir -p /run/systemd
+mount / -o remount,rw
+
+# change .bashrc
+echo "if [ -f '/boot/autorun.sh' ]; then" >> /home/pi/.bashrc
+echo "  cp /boot/autorun.sh ~/" >> /home/pi/.bashrc
+echo "  sudo rm /boot/autorun.sh ~/" >> /home/pi/.bashrc
+echo "  chmod a+x ~/autorun.sh" >> /home/pi/.bashrc
+echo "fi" >> /home/pi/.bashrc
+echo "if [ -f '/home/pi/autorun.sh' ]; then" >> /home/pi/.bashrc
+echo "  ~/autorun.sh" >> /home/pi/.bashrc
+echo "fi" >> /home/pi/.bashrc
+ 
+# set init_resize script and reboot
+sed -i 's| init=.*| init=/usr/lib/raspi-config/init_resize\.sh|' /boot/cmdline.txt
+sync
+umount /boot
+mount / -o remount,ro
+sync
+echo 1 > /proc/sys/kernel/sysrq
+echo b > /proc/sysrq-trigger
+sleep 5
+CONTENT
+
+echo "$CONTENT" > autorun
+# set cmdline.txt
+sed -i.bak 's| init=.*| init=/bin/bash -c "mount -t proc proc /proc; mount -t sysfs sys /sys; mount /boot; source /boot/autorun"|' cmdline.txt
+rm cmdline.txt.bak
+vim autorun.sh
