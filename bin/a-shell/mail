@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+my $input_name = $ARGV[0];
+if(index($input_name, ".md") == length($input_name)-3){
+  my $temp_file = "$ENV{HOME}/tmp/email.html";
+  my $html_text = `markdown2 --extras fenced-code-blocks $input_name`;
+  open(my $fh, ">", $temp_file) or die("Can't open temp file at $temp_file");
+  print $fh  $html_text;
+  close $fh;
+  system("open $temp_file");
+} else{
+  system("open $input_name");
+}

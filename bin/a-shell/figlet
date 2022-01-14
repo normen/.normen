@@ -1,0 +1,7 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+my $args=join(" ", @ARGV);
+chomp $args;
+exit system("pyfiglet $args");
+
