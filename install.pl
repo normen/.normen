@@ -433,7 +433,7 @@ sub file_contains {
 # links a file to another location, removes existing files
 sub link_in {
   my($src, $dest) = @_;
-  if(-e $dest){
+  if(-l $dest || -e $dest){
     if(!unlink $dest){
       unless(rmtree($dest)){
         if(system("rm $dest") != 0){
