@@ -105,6 +105,7 @@ if [ -n "$TMUX" ]; then
 fi
 
 # add own bin directory to path
+export PATH=$PATH:$HOME/.normen/bin/all
 case "$OSTYPE" in
   darwin*)
     export PATH=$PATH:$HOME/.normen/bin/macos
