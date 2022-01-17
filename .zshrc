@@ -135,7 +135,7 @@ bindkey '^ ' expand-or-complete
 
 # antigen plugins settings
 ADOTDIR=$HOME/.normen/.antigen
-SPACESHIP_ROOT=$HOME/.normen/.antigen/bundles/denysdovhan/spaceship-prompt
+SPACESHIP_ROOT=$HOME/.normen/.antigen/bundles/spaceship-prompt/spaceship-prompt
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_PROMPT_SEPARATE_LINE=true
 ZSH_AUTOSUGGEST_USE_ASYNC=true
@@ -145,7 +145,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 source $HOME/.normen/antigen.zsh
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen theme denysdovhan/spaceship-prompt
+antigen theme spaceship-prompt/spaceship-prompt
 antigen apply
 
 # fix mode indicator
