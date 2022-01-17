@@ -24,11 +24,7 @@ sub show_menu {
 \__,_\___/\__|_|\_\___/_| |_|_|_\___|_||_|
 EOF
   do {
-    if($Config{osname} eq "MSWin32"){
-      system("cls");
-    } else {
-      system("clear");
-    }
+    system($^O eq 'MSWin32'?'cls':'clear');
     say $header;
     say "1) Install base to $npath";
     say "2) Set default configuration";
@@ -97,10 +93,6 @@ sub install_base_apps {
       install_apps("git", "ctags", "vim", "vifm", "mosh", "tmux");
     }
   }
-}
-
-# TODO
-sub install_for_root {
 }
 
 # get a copy of the .normen repo
