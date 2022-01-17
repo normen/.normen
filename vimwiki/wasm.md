@@ -1,5 +1,19 @@
 ## WASM
 ```bash
+# A-Shell wasi SDK:
+git clone --recurse-submodules https://github.com/holzschu/wasi-sdk.git
+cd wasi-sdk
+# To compile, first edit src/llvm-project/clang/CMakeLists.txt
+# and comment lines 296 to 316 (the 20 lines after set(CUDA_ARCH_FLAGS "sm_35"), then type:
+vim src/llvm-project/clang/CMakeLists.txt
+env PREFIX=/opt/ make
+
+# to use the compiler:
+export WASI_SDK_PATH=`pwd`/wasi-sdk-${WASI_VERSION_FULL}
+CC="${WASI_SDK_PATH}/bin/clang --sysroot=${WASI_SDK_PATH}/share/wasi-sysroot"
+$CC foo.c -o foo.wasm
+
+
 # C/C++ - emscripten
 brew install emscripten
 emconfigure ./configure --prefix=`pwd`/build
