@@ -7,6 +7,6 @@ Included configurations
 - `tmux`
 
 ### Install
-`bash <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install)`
+`perl <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install.pl)`
 
 
