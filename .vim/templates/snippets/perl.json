@@ -28,8 +28,7 @@
       "#!/usr/bin/env perl",
       "use strict;",
       "use warnings;",
-      "use feature \"say\";",
-      "use experimental \"switch\";"
+      "use v5.12;"
     ]
   },
   "readfile": {
