@@ -1,4 +1,10 @@
 {
+  "clear": {
+    "prefix": ["clear"],
+    "body": [
+      "system(\\$^O eq 'MSWin32'?'cls':'clear');"
+    ]
+  },
   "use": {
     "prefix": ["use"],
     "body": [
@@ -11,9 +17,9 @@
   "readfile": {
     "prefix": ["open"],
     "body": [
-      "  open my \\$fh, '<', \\$file_name or return 0;",
-      "  my \\$file_content = do { local \\$/; <\\$fh> };",
-      "  close \\$fh;"
+      "open my \\$fh, '<', \\$file_name or return 0;",
+      "my \\$file_content = do { local \\$/; <\\$fh> };",
+      "close \\$fh;"
     ]
   },
   "dircopy": {
