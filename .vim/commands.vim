@@ -22,8 +22,8 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 " cpan App::Music::ChordPro
 :command ChordConvert :%!chordpro --a2crd %
 :command ChordPrint :!chordpro %|lp
-:command ChordExport :!chordpro % > %:r.ps
-:command ChordExportPDF :!chordpro % | ps2pdf - > %:r.pdf
+:command ChordExport :!chordpro % > %:r.pdf
+":command ChordExportPDF :!chordpro % | ps2pdf - > %:r.pdf
 
 " OpenSCAD
 :command SCADOpen !openscad %&
