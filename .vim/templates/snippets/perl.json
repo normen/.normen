@@ -1,0 +1,44 @@
+{
+  "use": {
+    "prefix": ["use"],
+    "body": [
+      "use strict;",
+      "use warnings;",
+      "use feature \"say\";",
+      "use experimental \"switch\";"
+    ]
+  },
+  "readfile": {
+    "prefix": ["open"],
+    "body": [
+      "  open my \\$fh, '<', \\$file_name or return 0;",
+      "  my \\$file_content = do { local \\$/; <\\$fh> };",
+      "  close \\$fh;"
+    ]
+  },
+  "dircopy": {
+    "prefix": ["dircopy"],
+    "body": [
+      "sub dircopy {",
+      "\tmy @dirlist=(\\$_[0]);",
+      "\tmy @dircopy=(\\$_[1]);",
+      "\tuntil (scalar(@dirlist)==0) {",
+      "\t\tmkdir \"\\$dircopy[0]\";",
+      "\t\topendir my(\\$dh),\\$dirlist[0];",
+      "\t\tmy @filelist=grep {!/^\\.\\.?\\$/} readdir \\$dh;",
+      "\t\tfor my \\$i (0..scalar(@filelist)-1) {",
+      "\t\t\tif ( -f \"\\$dirlist[0]/\\$filelist[\\$i]\" ) {",
+      "\t\t\t\tcopy(\"\\$dirlist[0]/\\$filelist[\\$i]\",\"\\$dircopy[0]/\\$filelist[\\$i]\");",
+      "\t\t\t}",
+      "\t\t\tif ( -d \"\\$dirlist[0]/\\$filelist[\\$i]\" ) {",
+      "\t\t\t\tpush @dirlist,\"\\$dirlist[0]/\\$filelist[\\$i]\";",
+      "\t\t\t\tpush @dircopy,\"\\$dircopy[0]/\\$filelist[\\$i]\";",
+      "\t\t\t}",
+      "\t\t}",
+      "\t\tclosedir \\$dh;",
+      "\t\tshift @dirlist;shift @dircopy;",
+      "\t}",
+      "}"
+    ]
+  }
+}
