@@ -1,13 +1,31 @@
 {
+  "args": {
+    "prefix": ["args"],
+    "body": [
+      "if(@ARGV>0){",
+      "  while(my \\$arg = shift(@ARGV)){",
+      "    given(\\$arg){",
+      "      when(\"-p\"){",
+      "        my \\$path = shift(@ARGV);",
+      "        say \"\\$path\"",
+      "      }",
+      "    }",
+      "  }",
+      "} else {",
+      "  say \"Usage: -p [path]\";",
+      "}"
+    ]
+  },
   "clear": {
     "prefix": ["clear"],
     "body": [
       "system(\\$^O eq 'MSWin32'?'cls':'clear');"
     ]
   },
-  "use": {
-    "prefix": ["use"],
+  "perl": {
+    "prefix": ["perl"],
     "body": [
+      "#!/usr/bin/env perl",
       "use strict;",
       "use warnings;",
       "use feature \"say\";",
