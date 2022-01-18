@@ -18,6 +18,11 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command RestoreDevDry !rsync -n -azrv --delete normen@normenhansen.de:~/backup/MacBook/Dev ~/
 :command WebAppUp !set -e;cd client;npm run build;cd ..;git add -A;git commit -m 'update';git push -u -f origin master
 
+" ChordPro
+" cpan App::Music::ChordPro
+:command ChordConvert :%!chordpro --a2crd %
+:command ChordPrint :!chordpro %|lp
+
 " OpenSCAD
 :command SCADOpen !openscad %&
 :command SCADExport Start openscad -o %:r.stl %
@@ -37,9 +42,11 @@ command! GHNewIssue :terminal gh issue create
 command! GHIssueList call <SID>RunShellCommand('gh issue list')
 
 " image2ascii (go version)
+" go get github.com/qeesung/image2ascii
 command! -nargs=+ -complete=file Image2Ascii exec 'read !image2ascii -r=0.1 -f ' . <q-args> . ' -c=false'
 
 " get figlet with font name completion
+" brew install figlet
 command! -nargs=+ -complete=custom,<SID>FigletFontList Figlet exec 'read !figlet -w 10000 ' . <q-args>
 function! s:FigletFontList(args,L,P)
   echo a:args
@@ -51,6 +58,7 @@ function! s:FigletFontList(args,L,P)
 endfunction
 
 " get graph (dot) from selection
+" cpan Graph::Easy
 com -range=% -nargs=* GraphEasy :<line1>,<line2>call GraphEasy(<q-args>)
 function GraphEasy(args) range
   let tempname = tempname()
@@ -65,6 +73,7 @@ function GraphEasy(args) range
 endfunction
 
 " get diagram from selection
+" pip install diagram
 com -range=% -nargs=* Diagram :<line1>,<line2>call Diagram(<q-args>)
 function Diagram(args) range
   let tempname = tempname()
@@ -80,6 +89,7 @@ function Diagram(args) range
 endfunction
 
 " get html from markdown
+" pip install markdown2
 com -range=% -nargs=* Markdown2 :<line1>,<line2>call Markdown2(<q-args>)
 function Markdown2(args) range
   let tempname = tempname()
