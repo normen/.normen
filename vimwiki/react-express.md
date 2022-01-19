@@ -13,6 +13,7 @@ npx create-react-app client
 cd client
 vim package.json
 # "proxy": "http://localhost:3001"
+# scripts/"start": "PORT=3000 react-scripts start"
 
 ```
 ### Libs
