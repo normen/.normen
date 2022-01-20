@@ -20,6 +20,7 @@
 ## Random
 * [brew](brew.md)
 * [gstreamer](gstreamer.md)
+* [jack](jack.md)
 * [ascii](ascii.md)
 * [wasm](wasm.md)
 * [qemu](qemu.md)
