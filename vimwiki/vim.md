@@ -272,11 +272,11 @@ shift-i - insert block
 nnoremap ,mytemp :-lread $HOME/.vim/.mytemplate.js<CR>
 
 #### BUILDING VIM
-sudo apt install ncurses-dev python3-dev
+sudo apt install ncurses-dev python3-dev libperl-dev liblua5.4-dev
 git clone https://github.com/vim/vim.git vim-master
 cd vim-master
 cd src
-./configure --prefix=/usr/local --enable-python3interp
+./configure --prefix=/usr/local --enable-python3interp=dynamic --enable-perlinterp=dynamic --enable-luainterp=dynamic
 make -j 4
 sudo make install
 
