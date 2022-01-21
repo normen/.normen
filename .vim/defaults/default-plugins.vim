@@ -35,6 +35,8 @@ Plug 'normen/vim-pio'
 " filetypes (no lsp)
 Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
+Plug 'luisjure/csound-vim', { 'for': 'csound' }
+Plug 'kunstmusik/csound-repl', { 'for': 'csound' }
 Plug 'fidian/hexmode'
 " lsp / completion
 Plug 'prabirshrestha/vim-lsp'
