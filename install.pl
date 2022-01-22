@@ -413,7 +413,7 @@ $git pull
 cd src
 make clean
 make -j4
-make install
+sudo make install
 END
     }
     when("vifm"){
@@ -427,7 +427,7 @@ aclocal
 ./configure --prefix=/usr/local
 make clean
 make -j4
-make install
+sudo make install
 END
     }
     when("tmux"){
@@ -441,7 +441,7 @@ aclocal
 ./configure --prefix=/usr/local
 make clean
 make -j4
-make install
+sudo make install
 END
     }
     when("test"){
