@@ -22,6 +22,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'sotte/presenting.vim'
 Plug 'normen/DrawIt'
+Plug 'ojroques/vim-oscyank'
 " tmux
 if executable('tmux')
   Plug 'tpope/vim-tbone'
