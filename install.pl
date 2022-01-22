@@ -1,8 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use feature "say";
-use experimental "switch";
+use v5.12;
 use POSIX;
 use Config;
 use File::Copy; #move/copy
@@ -12,7 +11,29 @@ use File::Temp qw/ tempfile tempdir /; #tempdir
 my $hpath = h_path();
 my $npath = n_path();
 my $git = git_cmd();
-show_menu();
+
+if(@ARGV > 0){
+  parse_args();
+} else {
+  show_menu();
+}
+
+# parse args
+sub parse_args {
+  while(my $arg = shift(@ARGV)){
+    given($arg){
+      when("-u"){
+        chdir($npath);
+        system("$git pull");
+        update_plugins();
+      }
+      when("-h"){
+        my $path = shift(@ARGV);
+        say "$path"
+      }
+    }
+  }
+}
 
 # show the main menu
 sub show_menu {
@@ -31,6 +52,7 @@ EOF
     say "3) Configure tmux";
     say "4) Install node";
     say "5) Install golang to ~/.go";
+    say "6) Build/update app in ~/src";
     say "7) Link dot files to $hpath";
     say "8) Update .normen";
     say "9) Update plugins";
@@ -53,6 +75,12 @@ EOF
       }
       when(5){
         install_go();
+      }
+      when(6){
+        print("Name (mosh, tmux, vim, vifm): ");
+        my $app_to_build = <>;
+        chomp $app_to_build;
+        build_app($app_to_build);
       }
       when(7){
         install_links();
@@ -351,6 +379,78 @@ sub update_plugins {
   my $local_update = "$npath/plugin-update.local";
   if(-x $local_update){
     system($local_update);
+  }
+}
+
+# build base apps locally
+sub build_app {
+  my ($name) = @_;
+  if(!$name){return;}
+  my $command = "";
+  given($name){
+    when("mosh"){
+      $command = <<END;
+$git clone https://github.com/mobile-shell/mosh ~/src/mosh
+set -e
+cd ~/src/mosh
+$git stash
+$git pull
+./autogen.sh
+./configure --prefix=/usr/local
+make clean
+make -j4
+sudo make install
+END
+    }
+    when("vim"){
+      $command = <<END;
+$git clone https://github.com/vim/vim ~/src/vim
+set -e
+cd ~/src/vim
+$git stash
+$git pull
+./configure --prefix=/usr/local --enable-python3interp=dynamic --enable-perlinterp=dynamic --enable-luainterp=dynamic
+cd src
+make clean
+make -j4
+make install
+END
+    }
+    when("vifm"){
+      $command = <<END;
+$git clone https://github.com/vifm/vifm ~/src/vifm
+set -e
+cd ~/src/vifm
+$git stash
+$git pull
+aclocal
+./configure --prefix=/usr/local
+make clean
+make -j4
+make install
+END
+    }
+    when("tmux"){
+      $command = <<END;
+$git clone https://github.com/tmux/tmux ~/src/tmux
+set -e
+cd ~/src/vifm
+$git stash
+$git pull
+aclocal
+./configure --prefix=/usr/local
+make clean
+make -j4
+make install
+END
+    }
+    when("test"){
+      $command = <<END;
+END
+    }
+  }
+	unless($command eq "") {
+    system($command);
   }
 }
 
