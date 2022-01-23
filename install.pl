@@ -47,9 +47,9 @@ EOF
   do {
     system($^O eq 'MSWin32'?'cls':'clear');
     say $header;
-    say "1) Install base to $npath";
-    say "2) Set default configuration";
-    say "3) Configure tmux";
+    say "1) Install base applications";
+    say "2) Checkout .normen to $npath";
+    say "3) Set default app configurations";
     say "4) Install node";
     say "5) Install golang to ~/.go";
     say "6) Build/update app in ~/src";
@@ -61,13 +61,13 @@ EOF
     given($input){
       when(1){
         install_base_apps();
-        checkout_normen();
       }
       when(2){
-        install_vim_defaults();
-        configure_vifm();
+        checkout_normen();
       }
       when(3){
+        install_vim_defaults();
+        configure_vifm();
         configure_tmux();
       }
       when(4){
@@ -208,10 +208,6 @@ sub install_node {
   #system(qq{bash -c $n bash 17});
   say "Installing node via package manager";
   install_apps("node");
-}
-
-# TODO
-sub install_eslint_semistandard {
 }
 
 # install go for current platform
