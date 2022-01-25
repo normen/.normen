@@ -20,8 +20,9 @@ vim package.json
 ```bash
 cd client
 # chakra UI
-npm install --save @chakra-ui/core
-npm install --save @chakra-ui/react
+npm i @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^5
+#npm install --save @chakra-ui/core
+#npm install --save @chakra-ui/react
 # fetch
 npm install --save whatwg-fetch
 ```
