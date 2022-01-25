@@ -7,7 +7,7 @@ use Config;
 use File::Copy; #move/copy
 use File::Path; #rmtree
 use File::Temp qw/ tempfile tempdir /; #tempdir
-use experimental 'switch';
+no warnings 'experimental';
 
 my $hpath = h_path();
 my $npath = n_path();
