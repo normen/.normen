@@ -22,7 +22,7 @@ cd client
 # chakra UI
 npm install --save @chakra-ui/core
 # fetch
-npm install whatwg-fetch
+npm install --save whatwg-fetch
 ```
 ```javascript
 // using fetch API
