@@ -21,6 +21,7 @@ vim package.json
 cd client
 # chakra UI
 npm install --save @chakra-ui/core
+npm install --save @chakra-ui/react
 # fetch
 npm install --save whatwg-fetch
 ```
