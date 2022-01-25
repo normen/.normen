@@ -287,4 +287,8 @@ pp -o myprog script.pl
 cpan install Perl::LanguageServer
 # if fails:
 apt install libio-aio-perl
+# check if package is in core
+corelist Term::ReadLine
+# perltidy
+:%!perltidy -i=2 -l=1000 -utf8 -fbl -fnl
 ```
