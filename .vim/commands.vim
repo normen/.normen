@@ -47,6 +47,8 @@ command! GHIssueList call <SID>RunShellCommand('gh issue list')
 " go get github.com/qeesung/image2ascii
 command! -nargs=+ -complete=file Image2Ascii exec 'read !image2ascii -r=0.1 -f ' . <q-args> . ' -c=false'
 
+command! PerlTidy exec '%!perltidy -i=2 -l=1000 -utf8 -fbl -fnl'
+
 " get figlet with font name completion
 " brew install figlet
 command! -nargs=+ -complete=custom,<SID>FigletFontList Figlet exec 'read !figlet -w 10000 ' . <q-args>
