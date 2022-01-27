@@ -39,4 +39,13 @@ return response.json()
 
 });
 
+{variable == true ?
+  <React/>
+:
+  <OtherReact/>
+}
+{appointments.map((appointment, idx) =>
+  <React>{appointment}</React>
+)}
+
 ```
