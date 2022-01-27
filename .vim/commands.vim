@@ -12,6 +12,7 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command FixAdditionalLineEndings :%s///g
 :command FixTrailingWhitespace :%s/\s\+$//e
 :command FormatJSON :%!python -m json.tool
+:command FormatOnSave :autocmd BufWritePre <buffer> LspDocumentFormatSync
 
 " local
 :command BackupDev !rsync -azrv --delete ~/Dev normen@normenhansen.de:~/backup/MacBook
