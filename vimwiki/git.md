@@ -48,6 +48,9 @@ git commit -m "Merged WIP"
 git checkout dev
 git reset --hard master
 
+# reset last commit if pull fails:
+git reset --soft HEAD^
+
 # rebase dev branch to master
 git checkout dev
 git rebase master
