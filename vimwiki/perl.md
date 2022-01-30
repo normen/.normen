@@ -199,6 +199,23 @@ sub write_file {
     return;
 }
 ```
+#### process management
+```perl
+# fork process without running new perl interpreter
+#!/usr/bin/env perl
+my $pid=fork();
+if(!$pid){
+  # runs separately, pid in pid file
+  exec("ping localhost&\
+      echo \$!>pid");
+}
+sleep(1); # wait for process to start
+open my $fh, "<", "pid"; #read pid
+my $subpid = <$fh>;
+close $fh;
+system("kill $subpid"); # kill sub
+}
+```
 ### RegEx
 ##### Character Classes
 Regex Character Classes and Special Character classes.
