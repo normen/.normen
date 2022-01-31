@@ -431,7 +431,7 @@ END
       $command = <<END;
 $git clone https://github.com/tmux/tmux ~/src/tmux
 set -e
-cd ~/src/vifm
+cd ~/src/tmux
 $git stash
 $git pull
 aclocal
