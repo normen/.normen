@@ -434,6 +434,7 @@ set -e
 cd ~/src/tmux
 $git stash
 $git pull
+./autogen.sh
 ./configure --prefix=/usr/local
 make clean
 make -j4
