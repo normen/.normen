@@ -434,7 +434,6 @@ set -e
 cd ~/src/tmux
 $git stash
 $git pull
-aclocal
 ./configure --prefix=/usr/local
 make clean
 make -j4
