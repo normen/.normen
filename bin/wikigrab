@@ -1,0 +1,41 @@
+#!/usr/bin/env perl
+# needs
+# brew install openssl
+# sudo apt install libssl-dev
+# cpan MediaWiki:API LWP::Protocol::https HTML::FormatText::WithLinks::AndTables
+use strict;
+use warnings;
+use v5.12;
+use MediaWiki::API;
+use HTML::FormatText::WithLinks::AndTables;
+no warnings "experimental";
+
+binmode STDOUT, ':utf8';
+
+my $url = "https://en.wikipedia.org";
+my $search = "test";
+my $width = 50;
+
+# parse arguments
+while(my $arg = shift(@ARGV)){
+  given($arg){
+    when("-u"){ $url = shift(@ARGV); }
+    when("-w"){ $width = shift(@ARGV); }
+    when("-f"){ $search = shift(@ARGV); }
+  }
+}
+
+my $mw = MediaWiki::API->new( { api_url => "$url/w/api.php" }  );
+my $page = $mw->api( {
+		action => 'parse',
+		page => "$search",
+	} )
+|| die $mw->{error}->{code} . ': ' . $mw->{error}->{details};
+my $htmldata = $page->{parse}->{text}->{'*'};
+my $conf = { # same as HTML::FormatText excepting below
+		leftmargin => 0,
+		rightmargin => $width,
+		no_rowspacing => 1,  # bool, suppress vertical space between table rows
+	};
+print HTML::FormatText::WithLinks::AndTables->convert($htmldata, $conf);
+
