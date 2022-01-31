@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-tmux popup -w 62 -E "TERM=xterm-256color;tmux save-buffer - | xargs -I{} ~/.normen/bin/wped -u 'http://cddawiki.chezzo.com/cdda_wiki/api.php' -f {} | less -R"
+tmux popup -w 62 -E "TERM=xterm-256color;tmux save-buffer - | xargs -I{} ~/.normen/bin/wikigrab -u 'http://cddawiki.chezzo.com/cdda_wiki' -f {} | less -R"
+#poison

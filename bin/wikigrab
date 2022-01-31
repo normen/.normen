@@ -33,9 +33,14 @@ my $page = $mw->api( {
 || die $mw->{error}->{code} . ': ' . $mw->{error}->{details};
 my $htmldata = $page->{parse}->{text}->{'*'};
 my $conf = { # same as HTML::FormatText excepting below
-		leftmargin => 0,
-		rightmargin => $width,
-		no_rowspacing => 1,  # bool, suppress vertical space between table rows
-	};
+  before_link => '',
+  after_link => '',
+  footnote => '',
+  anchor_links => 1,
+  unique_links => 1,
+  leftmargin => 0,
+  rightmargin => $width,
+  no_rowspacing => 1,  # bool, suppress vertical space between table rows
+};
 print HTML::FormatText::WithLinks::AndTables->convert($htmldata, $conf);
 
