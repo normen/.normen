@@ -5,7 +5,7 @@ my $args=join(" ", @ARGV);
 my $key;
 my $host;
 if(@ARGV > 1 && $ARGV[0] eq "clone") {
-  $host = $ARGV[1];
+  ($host) = $ARGV[1] =~ m/[^\s:]*:\/\/([^\s\/\$]*)/gm;
 } elsif (open my $fh, '<', glob '.git/config') {
   my $content = do {local $/;<$fh>};
   close $fh;
