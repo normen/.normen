@@ -23,13 +23,13 @@ while(my $arg = shift(@ARGV)){
 }
 my $raw = qx{curl -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" -sL '$url/w/api.php?action=parse&format=json&page=$search'};
 my $page = j $raw;
-print $raw unless $page;
+#print $raw unless $page;
 die "No JSON" unless $page;
 my $htmldata = $page->{parse}->{text}->{"*"};
-print $page unless $htmldata;
+#print $page unless $htmldata;
 die "No data in JSON" unless $htmldata;
 my ($fh, $filename) = tempfile( CLEANUP => 1 );
-#binmode( $fh, ":utf8" );
+binmode( $fh, ":utf8" );
 print $fh $htmldata;
 close $fh;
 my $plain = qx{pandoc --columns $width -f html -t plain $filename};
