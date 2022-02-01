@@ -1,16 +1,13 @@
 #!/usr/bin/env perl
-# needs
-# brew install openssl
-# sudo apt install libssl-dev
-# cpan MediaWiki:API LWP::Protocol::https HTML::FormatText::WithLinks::AndTables
 use strict;
 use warnings;
 use v5.12;
-use MediaWiki::API;
-use HTML::FormatText::WithLinks::AndTables;
+use utf8;
+use File::Temp qw/ tempfile tempdir /;
+# external
+use Mojo::JSON qw(j);
 no warnings "experimental";
-
-binmode STDOUT, ':utf8';
+#binmode STDOUT, ':utf8';
 
 my $url = "https://en.wikipedia.org";
 my $search = "test";
@@ -21,26 +18,28 @@ while(my $arg = shift(@ARGV)){
   given($arg){
     when("-u"){ $url = shift(@ARGV); }
     when("-w"){ $width = shift(@ARGV); }
-    when("-f"){ $search = shift(@ARGV); }
+    when("-f"){ $search = urlize(shift(@ARGV)); }
   }
 }
+my $raw = qx{curl -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" -sL '$url/w/api.php?action=parse&format=json&page=$search'};
+my $page = j $raw;
+print $raw unless $page;
+die "No JSON" unless $page;
+my $htmldata = $page->{parse}->{text}->{"*"};
+print $page unless $htmldata;
+die "No data in JSON" unless $htmldata;
+my ($fh, $filename) = tempfile( CLEANUP => 1 );
+#binmode( $fh, ":utf8" );
+print $fh $htmldata;
+close $fh;
+my $plain = qx{pandoc --columns $width -f html -t plain $filename};
+unlink($filename);
+#utf8::decode($plain);
+say $plain;
 
-my $mw = MediaWiki::API->new( { api_url => "$url/w/api.php" }  );
-my $page = $mw->api( {
-		action => 'parse',
-		page => "$search",
-	} )
-|| die $mw->{error}->{code} . ': ' . $mw->{error}->{details};
-my $htmldata = $page->{parse}->{text}->{'*'};
-my $conf = { # same as HTML::FormatText excepting below
-  before_link => '',
-  after_link => '',
-  footnote => '',
-  anchor_links => 1,
-  unique_links => 1,
-  leftmargin => 0,
-  rightmargin => $width,
-  no_rowspacing => 1,  # bool, suppress vertical space between table rows
-};
-print HTML::FormatText::WithLinks::AndTables->convert($htmldata, $conf);
+sub urlize {
+  my ($rv) = @_;
+  $rv =~ s/([^A-Za-z0-9])/sprintf("%%%2.2X", ord($1))/ge;
+  return $rv;
+}
 
