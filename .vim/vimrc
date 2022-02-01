@@ -64,6 +64,17 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 " vertical split
 let g:netrw_preview = 1
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
+function! NetrwMapping()
+  nmap <buffer> <C-h> <C-w>h
+  nmap <buffer> <C-l> <C-w>l
+  nmap <buffer> cw R
+  nmap <buffer> dd D
+  nmap <buffer> mk d
+endfunction
 
 " nicer vsplit character
 set fillchars+=vert:\┃
