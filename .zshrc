@@ -11,7 +11,7 @@ alias l='ls -CF'
 alias mv='mv -i'
 alias rm='rm -i'
 alias wiki='vim -c VimwikiIndex'
-alias vifm='vifm .'
+alias bc=bc -l
 
 # Make <Esc> quicker
 export KEYTIMEOUT=1
