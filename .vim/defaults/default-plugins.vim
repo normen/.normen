@@ -11,6 +11,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-vinegar'
 Plug 'preservim/nerdcommenter'
 Plug 'vim-scripts/visual-increment'
 " git
