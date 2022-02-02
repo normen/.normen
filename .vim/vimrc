@@ -70,6 +70,8 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 " vertical split
 let g:netrw_preview = 1
+" don't (re)store clipboard
+let g:netrw_clipboard = 0
 augroup netrw_mapping
   autocmd!
   autocmd filetype netrw call NetrwMapping()
