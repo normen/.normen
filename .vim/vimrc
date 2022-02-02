@@ -235,17 +235,17 @@ nnoremap gs :.w !bash<CR>
 " built-in Man
 :runtime ftplugin/man.vim
 function! s:SpecialK()
-	if (index(['vim','help','csound'], &filetype) >= 0)
-		silent! execute 'h '.expand('<cword>')
-	elseif (index(['sh'], &filetype) >= 0)
-		silent! execute "Man " . expand('<cword>')
-	elseif strlen(&keywordprg) && &keywordprg != "man -s"
-		silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
-	elseif exists(":LspHover") && &omnifunc == 'lsp#complete'
-		silent! exec "LspHover"
-	else
-		silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
-	endif
+  if (index(['vim','help','csound'], &filetype) >= 0)
+    silent! execute 'h '.expand('<cword>')
+  elseif (index(['sh'], &filetype) >= 0)
+    silent! execute "Man " . expand('<cword>')
+  elseif strlen(&keywordprg) && &keywordprg != "man -s"
+    silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
+  elseif exists(":LspHover") && &omnifunc == 'lsp#complete'
+    silent! exec "LspHover"
+  else
+    silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
+  endif
 endfunction
 
 " Function to source only if file exists
