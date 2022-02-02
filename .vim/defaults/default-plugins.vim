@@ -227,7 +227,7 @@ function! s:goyo_leave()
     silent !tmux set status on
     silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
   endif
-  set scrolloff=5
+  set scrolloff=0
   set showcmd
   Limelight!
   hi! Normal guibg=NONE ctermbg=NONE
