@@ -32,7 +32,7 @@ function Header (elem)
   return elem
 end
 
-function BlockQuote (m)
+function BlockQuote (elem)
   local cont = stringify(elem.content)
   elem.content="\x1b[3m" .. cont .. "\x1b[0m"
   return elem

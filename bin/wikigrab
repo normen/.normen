@@ -11,9 +11,20 @@ my $url = "https://en.wikipedia.org";
 my $api_path = "w/api.php";
 my $search = "";
 my $width = 0;
+if(@ARGV == 0){
+  print "Usage: wikigrab [options] search terms\n";
+  print "\n";
+  print "Options:\n";
+  print "-l  Language (en)\n";
+  print "-u  MediaWiki URL (https://en.wikipedia.org)\n";
+  print "-a  MediaWiki API path (w/api.php)\n";
+  print "-w  Render Width (term_width or 80)\n";
+  exit 0;
+}
 while(my $arg = shift(@ARGV)){
   given($arg){
     when("-u"){ $url = shift(@ARGV); }
+    when("-l"){ my $val = shift(@ARGV); $url =~ s/en/$val/g }
     when("-a"){ $api_path = shift(@ARGV); }
     when("-w"){ $width = shift(@ARGV); }
     when("-f"){ $search = shift(@ARGV); }
