@@ -14,26 +14,22 @@ function Code (elem)
   return elem
 end
 
-function Link (elem)
+function XLink (elem) -- TODO: messes up formatting due to invisible characters
   local cont = stringify(elem.content)
-  if cont == "edit" then
-    elem.content=""
-  else
-    elem.content="\x1b[36m" .. cont .. "\x1b[0m"
-  end
+  elem.content=pandoc.RawInline('plain', "\x1b[36m" .. cont .. "\x1b[0m")
   return elem
 end
 
 function Header (elem)
+  local cont = stringify(elem.content)
   if header_ansi[elem.level] then
-    local cont = stringify(elem.content):gsub("[[]]","")
-    elem.content = header_ansi[elem.level] .. cont .. "\x1b[0m"
+    elem.content = pandoc.RawInline('plain', header_ansi[elem.level] .. cont .. "\x1b[0m")
   end
   return elem
 end
 
 function BlockQuote (elem)
   local cont = stringify(elem.content)
-  elem.content="\x1b[3m" .. cont .. "\x1b[0m"
+  elem.content=pandoc.RawInline('plain', "\x1b[3m" .. cont .. "\x1b[0m")
   return elem
 end
