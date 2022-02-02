@@ -43,7 +43,6 @@ set listchars=tab:<->,trail:~,extends:>
 set list
 " folds
 set foldmethod=indent
-set nofoldenable
 set foldlevelstart=99
 " interactive search
 set hls is
