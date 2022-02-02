@@ -2,23 +2,31 @@
 use strict;
 use warnings;
 use v5.12;
-use utf8;
 use File::Temp qw/ tempfile tempdir /;
 # external
 use Mojo::JSON qw(j);
+use Term::ReadKey;
 no warnings "experimental";
 my $url = "https://en.wikipedia.org";
-my $search = "test";
-my $width = 50;
+my $api_path = "w/api.php";
+my $search = "";
+my $width = 0;
 while(my $arg = shift(@ARGV)){
   given($arg){
     when("-u"){ $url = shift(@ARGV); }
+    when("-a"){ $api_path = shift(@ARGV); }
     when("-w"){ $width = shift(@ARGV); }
     when("-f"){ $search = shift(@ARGV); }
+    default { $search .= $arg; }
   }
 }
+if(!$width){
+  ( $width ) = GetTerminalSize();
+  $width = 80 if !$width;
+  $width--;
+}
 $search =~ s/([^A-Za-z0-9])/sprintf("%%%2.2X", ord($1))/ge;
-my $raw = qx{curl -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" -sL '$url/w/api.php?action=parse&format=json&page=$search'};
+my $raw = qx{curl -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" -sL '$url/$api_path?action=parse&format=json&page=$search'};
 my $json = j $raw;
 die "No JSON response" unless $json;
 my $htmldata = $json->{parse}->{text}->{"*"};
@@ -26,7 +34,7 @@ if(!$htmldata){
   print "-- No results --\n";
   exit 0;
 }
-open (my $ah, "|pandoc --columns $width -f html -t plain") or die "pandoc fail";
+open (my $ah, "|pandoc --lua-filter ~/.normen/bin/ansifilter.lua --columns $width -f html -t plain") or die "pandoc fail";
 binmode $ah, ':utf8';
 print $ah $htmldata;
 close $ah;

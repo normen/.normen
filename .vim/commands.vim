@@ -13,6 +13,9 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command FixTrailingWhitespace :%s/\s\+$//e
 :command FormatJSON :%!python -m json.tool
 :command FormatOnSave :autocmd BufWritePre <buffer> LspDocumentFormatSync
+:command! -nargs=+ Wiki call <SID>OpenTermOnce(expand('~/.normen/bin/wikigrab') . ' ' . <q-args>, "Wikipedia Search")
+:command! -nargs=+ WikiNethack call <SID>OpenTermOnce(expand('~/.normen/bin/wikigrab') . ' -u https://nethackwiki.com ' . <q-args>, "NetHack Search")
+:command! -nargs=+ WikiCataclysm call <SID>OpenTermOnce(expand('~/.normen/bin/wikigrab') . ' -u http://cddawiki.chezzo.com -a cdda_wiki/api.php ' . <q-args>, "Cataclysm Search")
 
 " local
 :command BackupDev !rsync -azrv --delete ~/Dev normen@normenhansen.de:~/backup/MacBook

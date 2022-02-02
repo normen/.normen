@@ -3,21 +3,21 @@
 set -e
 case "$1" in
 "nethack")
-    URL='https://nethackwiki.com/w/api.php'
+    ADD='-u https://nethackwiki.com'
     ;;
 "cataclysm")
-    URL='http://cddawiki.chezzo.com/cdda_wiki/api.php'
+    ADD='-u http://cddawiki.chezzo.com -a cdda_wiki/api.php'
     ;;
 *)
-    URL='http://en.wikipedia.org/w/api.php'
+    ADD='-u http://en.wikipedia.org'
     ;;
 esac
+WIKI=$1
 
 read_input(){
   clear
   echo "## WIKI SEARCH ##"
-  echo ""
-  echo $URL
+  echo $WIKI
   echo ""
   read -r -p "Search term:"
   SRCH=$REPLY
@@ -26,7 +26,7 @@ read_input(){
 read_input
 while [ ! SRCH == "" ]
 do
-  ~/.normen/bin/wikigrab -u $URL -f $SRCH | less -R
+  ~/.normen/bin/wikigrab $ADD $SRCH | less -R
   read_input
 done
 

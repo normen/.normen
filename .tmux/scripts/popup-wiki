@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+case "$1" in
+"nethack")
+    ADD='-u https://nethackwiki.com'
+    ;;
+"cataclysm")
+    ADD='-u http://cddawiki.chezzo.com -a cdda_wiki/api.php'
+    ;;
+*)
+    ;;
+esac
+tmux popup -w 63 -E "TERM=xterm-256color;tmux save-buffer - | xargs -I{} ~/.normen/bin/wikigrab -w 60 $ADD {} | less -R"
