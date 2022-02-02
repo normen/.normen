@@ -17,44 +17,50 @@ set expandtab
 set nowrap
 set linebreak
 set cursorline
-" avoid adding line breaks while typing
-set textwidth=0
 set noerrorbells
-"set display=truncate
 set updatetime=500
 set mouse=a
 set ttymouse=xterm2
-"set clipboard=unnamed
+" avoid adding line breaks while typing
+set textwidth=0
+" let backspace delete eol, before insert etc.
+set backspace=2
+" better completion
+set complete+=kspell
+set completeopt=menuone,longest
+set shortmess+=c
+" always show sign column
+set signcolumn=yes
+" no backup files -> issues with lsp
+set nobackup
+set nowritebackup
+" indentation by syntax
+set autoread
+set autoindent
+set smartindent
+" show tabs, trailing whitespace
+set listchars=tab:<->,trail:~,extends:>
+set list
+" folds
+set foldmethod=indent
+set nofoldenable
+" interactive search
+set hls is
+" ignore case
+set ic
+" nicer vsplit character
+set fillchars+=vert:\┃
+" auto-complete / netrw
 set path+=**
 set wildmenu
 set wildignore=*.o,*.obj,*-
 set wildignore+=*node_modules*
 set wildignore+=*DS_Store*
 "set wildignore+=*.png,*.jpg*,*.gif
-" let backspace delete eol, before insert etc.
-set backspace=2
-
-" better completion
-set complete+=kspell
-set completeopt=menuone,longest
-set shortmess+=c
-
-" always show sign column
-set signcolumn=yes
-" no backup files -> issues with lsp
-set nobackup
-set nowritebackup
-
-" indentation by syntax
-set autoread
-set autoindent
-set smartindent
-
-" interactive search
-set hls is
-" ignore case
-set ic
-
+" session.vim content
+set sessionoptions=globals,localoptions,buffers,curdir,tabpages,winsize
+" markdown syntax highlights
+let g:markdown_fenced_languages = ['go','perl','sh', 'python', 'cpp', 'c', 'javascript', 'vim']
 " Lexplore NerdierTree
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -75,10 +81,6 @@ function! NetrwMapping()
   nmap <buffer> dd D
   nmap <buffer> mk d
 endfunction
-
-" nicer vsplit character
-set fillchars+=vert:\┃
-
 " avoid issues with tmux and color schemes
 set t_Co=256
 " disable Background Color Erase (BCE) so that color schemes
@@ -87,6 +89,7 @@ set t_Co=256
 if &term =~ '256color'
   set t_ut=
 endif
+
 "if has("termguicolors")
   " fix true color not work under tmux
   "let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -94,20 +97,6 @@ endif
   " enable true color
   "set termguicolors
 "endif
-
-" MacOS Terminal path in title
-" use Ctrl-V Esc and Ctrl-V Ctrl-G to insert
-"set t_ts=]6;
-"set t_fs=
-"set title
-"set titlestring=%{\"file://\".hostname().expand(\"%:p\")}
-"auto BufEnter * let &titlestring = "file://" . substitute(hostname().expand("%:p"), " ", "+", "")
-
-" markdown syntax
-let g:markdown_fenced_languages = ['go','perl','sh', 'python', 'cpp', 'c', 'javascript', 'vim']
-
-" session vim content
-set sessionoptions=globals,localoptions,buffers,curdir,tabpages,winsize
 
 " ** Mappings & Commands **
 let mapleader = " "
@@ -118,9 +107,9 @@ nnoremap <F1> :vert lefta call term_start("perl ".$NORMEN."/install.pl",{'term_f
 nnoremap <F2> :silent mksession! session.vim<CR>
 
 " build/generate commands
-nnoremap <F4> :silent set ft=homebridge\|make\|set ft=javascript<CR>
-nnoremap <F5> :silent make<CR>:cw<CR><C-L>
-nnoremap <F6> :silent !semistandard % --fix<CR><C-L>
+"nnoremap <F4> :silent set ft=homebridge\|make\|set ft=javascript<CR>
+"nnoremap <F5> :silent make<CR>:cw<CR><C-L>
+"nnoremap <F6> :silent !semistandard % --fix<CR><C-L>
 nnoremap <F7> :silent !ctags -R .<CR><C-L>
 
 nnoremap <F8> :silent call QuickFix_toggle()<CR>
