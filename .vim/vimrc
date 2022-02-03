@@ -44,6 +44,7 @@ set list
 " folds
 set foldmethod=indent
 set foldlevelstart=99
+set foldnestmax=1
 " interactive search
 set hls is
 " ignore case
