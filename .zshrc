@@ -111,7 +111,7 @@ case "$OSTYPE" in
     export PATH=$PATH:$HOME/.normen/bin/macos
   ;;
   linux*)
-    export PATH=$PATH:$HOME/.normen/bin/raspi
+    export PATH=$PATH:$HOME/.normen/bin/linux
   ;;
   dragonfly*|freebsd*|netbsd*|openbsd*)
   ;;
