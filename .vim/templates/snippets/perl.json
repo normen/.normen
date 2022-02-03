@@ -32,17 +32,26 @@
     ]
   },
   "readfile": {
-    "prefix": ["open"],
+    "prefix": ["readfile"],
     "body": [
-      "open my \\$fh, '<', ${1:file_name} or return 0;",
+      "open my \\$fh, '<', ${1:file_name} or die 'read fail';",
       "my ${2:file_content} = do { local \\$/; <\\$fh> };",
       "close \\$fh;"
     ]
   },
-  "writeapp": {
-    "prefix": ["open"],
+  "writefile": {
+    "prefix": ["writefile"],
     "body": [
-      "open (my \\$ah, \"|${1:command}\") or die \"app fail\";",
+      "open my \\$fh, '>', ${1:file_name} or die 'read fail';",
+      "binmode \\$fh, ':utf8';",
+      "print \\$fh ${2:data};",
+      "close \\$fh;"
+    ]
+  },
+  "writeapp": {
+    "prefix": ["writeapp"],
+    "body": [
+      "open (my \\$ah, \"|${1:command}\") or die 'app fail';",
       "binmode \\$ah, ':utf8';",
       "print \\$ah ${2:data};",
       "close \\$ah;"
