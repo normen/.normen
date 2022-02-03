@@ -231,9 +231,10 @@ nnoremap cam va{Vc
 " execute current line on shell
 nnoremap gs :.w !bash<CR>
 
-" what happens when "K" is pressed
-" built-in Man
+" built-in Man plugin
 :runtime ftplugin/man.vim
+
+" what happens when "K" is pressed
 function! s:SpecialK()
   if (index(['vim','help','csound'], &filetype) >= 0)
     silent! execute 'h '.expand('<cword>')
