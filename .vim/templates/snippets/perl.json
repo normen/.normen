@@ -5,14 +5,14 @@
       "if(@ARGV>0){",
       "  while(my \\$arg = shift(@ARGV)){",
       "    given(\\$arg){",
-      "      when(\"-p\"){",
-      "        my \\$path = shift(@ARGV);",
-      "        say \"\\$path\"",
+      "      when(${1:EXPR}){",
+      "        my \\$param = shift(@ARGV);",
+      "        ${2:BLOCK}",
       "      }",
       "    }",
       "  }",
       "} else {",
-      "  say \"Usage: -p [path]\";",
+      "  say \"Usage: app [options] file\";",
       "}"
     ]
   },
@@ -34,9 +34,18 @@
   "readfile": {
     "prefix": ["open"],
     "body": [
-      "open my \\$fh, '<', \\$file_name or return 0;",
-      "my \\$file_content = do { local \\$/; <\\$fh> };",
+      "open my \\$fh, '<', ${1:file_name} or return 0;",
+      "my ${2:file_content} = do { local \\$/; <\\$fh> };",
       "close \\$fh;"
+    ]
+  },
+  "writeapp": {
+    "prefix": ["open"],
+    "body": [
+      "open (my \\$ah, \"|${1:command}\") or die \"app fail\";",
+      "binmode \\$ah, ':utf8';",
+      "print \\$ah ${2:data};",
+      "close \\$ah;"
     ]
   },
   "dircopy": {
@@ -63,5 +72,199 @@
       "\t}",
       "}"
     ]
+  },
+  "init": {
+    "body": [
+      "#!/usr/bin/env perl",
+      "use 5.028;",
+      "use utf8;",
+      "use warnings;",
+
+      "",
+      "package ${TM_FILENAME_BASE:Main} 0.001 {",
+        "\tuse Carp 'croak';",
+        "\tsay 'Hello world' or croak;",
+        "}",
+        ""
+    ],
+    "prefix": "init",
+    "description": "Code snippet for a new Perl file."
+  },
+  "if": {
+    "body": [
+      "if (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}"
+    ],
+    "prefix": "if",
+    "description": "Code snippet for an if statement."
+  },
+  "if/else": {
+    "body": [
+      "if (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}",
+        "else {",
+          "\t${3:BLOCK}",
+          "}"
+    ],
+    "prefix": "if/else",
+    "description": "Code snippet for an if statement with else."
+  },
+  "unless": {
+    "body": [
+      "unless (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}"
+    ],
+    "prefix": "unless",
+    "description": "Code snippet for an unless statement."
+  },
+  "unless/else": {
+    "body": [
+      "unless (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}",
+        "else {",
+          "\t${3:BLOCK}",
+          "}"
+    ],
+    "prefix": "unless/else",
+    "description": "Code snippet for an unless statement with else."
+  },
+  "else": {
+    "body": [
+      "else (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}"
+    ],
+    "prefix": "else",
+    "description": "Code snippet for an else statement."
+  },
+  "elsif": {
+    "body": [
+      "elsif (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}"
+    ],
+    "prefix": "elsif",
+    "description": "Code snippet for an elsif statement."
+  },
+  "given": {
+    "body": [
+      "given (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}"
+    ],
+    "prefix": "given",
+    "description": "Code snippet for a given statement."
+  },
+  "while": {
+    "body": [
+      "while (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}"
+    ],
+    "prefix": "while",
+    "description": "Code snippet for a while loop."
+  },
+  "while/continue": {
+    "body": [
+      "while (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}",
+        "continue {",
+          "\t${3:BLOCK}",
+          "}"
+    ],
+    "prefix": "while/continue",
+    "description": "Code snippet for a while loop with continue."
+  },
+  "until": {
+    "body": [
+      "until (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}"
+    ],
+    "prefix": "until",
+    "description": "Code snippet for an until loop."
+  },
+  "until/continue": {
+    "body": [
+      "until (${1:EXPR}) {",
+        "\t${2:BLOCK}",
+        "}",
+        "continue {",
+          "\t${3:BLOCK}",
+          "}"
+    ],
+    "prefix": "until/continue",
+    "description": "Code snippet for a until loop with continue."
+  },
+  "continue": {
+    "body": [
+      "continue {",
+        "\t${1:BLOCK}",
+        "}"
+    ],
+    "prefix": "continue",
+    "description": "Code snippet for a continue statement with block."
+  },
+  "for": {
+    "body": [
+      "for (${1:EXPR}; ${2:EXPR}; ${3:EXPR}) {",
+        "\t${4:BLOCK}",
+        "}"
+    ],
+    "prefix": "for",
+    "description": "Code snippet for a for loop."
+  },
+  "foreach": {
+    "body": [
+      "for ${1:VAR} (${2:LIST}) {",
+        "\t${3:BLOCK}",
+        "}"
+    ],
+    "prefix": "foreach",
+    "description": "Code snippet for a foreach loop."
+  },
+  "foreach/continue": {
+    "body": [
+      "for ${1:VAR} (${2:LIST}) {",
+        "\t${3:BLOCK}",
+        "}",
+        "continue {",
+          "\t${4:BLOCK}",
+          "}"
+    ],
+    "prefix": "foreach/continue",
+    "description": "Code snippet for a foreach loop with continue."
+  },
+  "do/while": {
+    "body": [
+      "do {",
+        "\t${1:BLOCK}",
+        "} while ${2:EXPR};"
+    ],
+    "prefix": "do/while",
+    "description": "Code snippet for a do/while loop."
+  },
+  "do/until": {
+    "body": [
+      "do {",
+        "\t${1:BLOCK}",
+        "} until ${2:EXPR};"
+    ],
+    "prefix": "do/until",
+    "description": "Code snippet for a do/until loop."
+  },
+  "sub": {
+    "body": [
+      "sub ${1:NAME} {",
+        "\t${2:BLOCK}",
+        "}"
+    ],
+    "prefix": "sub",
+    "description": "Code snippet for a subroutine definition."
   }
 }
