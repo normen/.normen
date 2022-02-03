@@ -429,6 +429,7 @@ END
     }
     when ("tmux") {
       $command = <<END;
+#sudo apt install libevent-dev bison
 $git clone https://github.com/tmux/tmux ~/src/tmux
 set -e
 cd ~/src/tmux
