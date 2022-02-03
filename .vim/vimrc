@@ -200,7 +200,7 @@ nmap , ;
 " german keys
 nmap ü ]
 " for jumping on a-shell
-nmap Ü ]
+nmap Ü <C-]>
 "nnoremap ]ü ]]
 nmap ä [
 "nnoremap [ä [[
