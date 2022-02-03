@@ -127,6 +127,9 @@ else
   map <silent> <C-W><C-E> :VsplitVifm<CR>
 endif
 
+" toggle paste mode
+nmap <C-p> :set invpaste<CR>
+
 " Special K
 nmap <silent> K :silent call <SID>SpecialK()<CR>
 
@@ -196,14 +199,13 @@ nmap , ;
 
 " german keys
 nmap ü ]
+" for jumping on a-shell
+nmap Ü ]
 "nnoremap ]ü ]]
 nmap ä [
 "nnoremap [ä [[
 nmap ö :
 vmap ö :
-
-" toggle paste mode
-nmap <C-p> :set invpaste<CR>
 
 "section: stuff that doesn't start with blank and ends with {
 "^=start [^\s\t ]=anything but \s, \t or space $=end
