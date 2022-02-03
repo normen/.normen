@@ -3,5 +3,5 @@ use strict;
 use warnings;
 my $args=join(" ", @ARGV);
 chomp $args;
-exit system("pyfiglet $args");
+exit exec("pyfiglet $args");
 

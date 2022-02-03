@@ -8,7 +8,7 @@ if(index($input_name, ".md") == length($input_name)-3){
   open(my $fh, ">", $temp_file) or die("Can't open temp file at $temp_file");
   print $fh  $html_text;
   close $fh;
-  system("open $temp_file");
+  exec("open $temp_file");
 } else{
-  system("open $input_name");
+  exec("open $input_name");
 }
