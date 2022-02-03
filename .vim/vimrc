@@ -72,17 +72,6 @@ let g:netrw_winsize = 25
 let g:netrw_preview = 1
 " don't (re)store clipboard
 let g:netrw_clipboard = 0
-augroup netrw_mapping
-  autocmd!
-  autocmd filetype netrw call NetrwMapping()
-augroup END
-function! NetrwMapping()
-  nmap <buffer> <C-h> <C-w>h
-  nmap <buffer> <C-l> <C-w>l
-  nmap <buffer> cw R
-  nmap <buffer> dd D
-  nmap <buffer> mk d
-endfunction
 " avoid issues with tmux and color schemes
 set t_Co=256
 " disable Background Color Erase (BCE) so that color schemes
@@ -102,7 +91,6 @@ endif
 
 " ** Mappings & Commands **
 let mapleader = " "
-nmap , ;
 
 " session / project setup
 nnoremap <F1> :vert lefta call term_start("perl ".$NORMEN."/install.pl",{'term_finish':'close'})<CR>
@@ -117,6 +105,19 @@ nnoremap <F7> :silent !ctags -R .<CR><C-L>
 nnoremap <F8> :silent call QuickFix_toggle()<CR>
 nnoremap <F9> :cp<CR>
 nnoremap <F10> :cn<CR>
+
+" Netrw mappings (uses autocmd for local buffer)
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
+function! NetrwMapping()
+  nmap <buffer> <C-h> <C-w>h
+  nmap <buffer> <C-l> <C-w>l
+  nmap <buffer> cw R
+  nmap <buffer> dd D
+  nmap <buffer> mk d
+endfunction
 
 " Toggle Lexplore or vifm with Ctrl-E
 if !executable('vifm')
@@ -155,11 +156,7 @@ map [1;2A <s-up>
 map [1;2B <s-down>
 map [1;2D <s-left>
 map [1;2C <s-right>
-"map [M I= <leftmouse>
-"map [M$A; <s-leftmouse>
-"map [M(<= <c-leftmouse>
 
-	nmap <Esc>[161q	<s-up>
 " fix Ctrl-Arrows
 map <ESC>[1;5D <C-Left>
 map <ESC>[1;5C <C-Right>
@@ -193,6 +190,9 @@ nnoremap <Leader>. @w
 
 " opening/closing brackets
 inoremap {<CR> {<CR>}<ESC>O
+
+" search with comma
+nmap , ;
 
 " german keys
 nmap ü ]
@@ -248,6 +248,16 @@ function! s:SpecialK()
   endif
 endfunction
 
+" Function to source only if file exists
+if empty($NORMEN)
+  let $NORMEN = $HOME . '/.normen'
+endif
+function! SourceIfExists(file)
+  if filereadable(expand(a:file))
+    exe 'source' a:file
+  endif
+endfunction
+
 " set transparent background when colorscheme loads
 augroup transparent_bg
   autocmd!
@@ -259,14 +269,6 @@ augroup transparent_bg
   autocmd Colorscheme * hi! SignColumn guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 augroup END
 
-" Function to source only if file exists
-if empty($NORMEN)
-  let $NORMEN = $HOME . '/.normen'
-endif
-function! SourceIfExists(file)
-  if filereadable(expand(a:file))
-    exe 'source' a:file
-  endif
-endfunction
+" load optional/local files
 call SourceIfExists("$NORMEN/.vim/plugins.vim")
 call SourceIfExists("$NORMEN/.vim/commands.vim")
