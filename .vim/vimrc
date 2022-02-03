@@ -32,7 +32,7 @@ set complete-=i
 set completeopt=menuone,longest
 set shortmess+=c
 " always show sign column
-set signcolumn=yes
+"set signcolumn=yes
 " no backup files -> issues with lsp
 set nobackup
 set nowritebackup
@@ -245,6 +245,13 @@ function! s:SpecialK()
     silent! execute 'h '.expand('<cword>')
   elseif (index(['sh'], &filetype) >= 0)
     silent! execute "Man " . expand('<cword>')
+  elseif (index(['perl'], &filetype) >= 0)
+    let myWord=expand('<cword>')
+    if (myWord=~'[^\s:]*::[^\s:]*')
+      silent! execute 'term++close perldoc ' . myWord
+    else
+      silent! execute 'term++close perldoc -f ' . myWord
+    end
   elseif strlen(&keywordprg) && &keywordprg != "man -s"
     silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
   elseif exists(":LspHover") && &omnifunc == 'lsp#complete'
