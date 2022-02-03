@@ -248,6 +248,17 @@ function! s:SpecialK()
   endif
 endfunction
 
+" set transparent background when colorscheme loads
+augroup transparent_bg
+  autocmd!
+  autocmd Colorscheme * hi! SignifySignAdd    ctermfg=green  guifg=#00ff00 cterm=NONE gui=NONE
+  autocmd Colorscheme * hi! SignifySignDelete ctermfg=red    guifg=#ff0000 cterm=NONE gui=NONE
+  autocmd Colorscheme * hi! SignifySignChange ctermfg=yellow guifg=#ffff00 cterm=NONE gui=NONE
+  autocmd Colorscheme * hi! Normal guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+  autocmd Colorscheme * hi! FoldColumn guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+  autocmd Colorscheme * hi! SignColumn guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+augroup END
+
 " Function to source only if file exists
 if empty($NORMEN)
   let $NORMEN = $HOME . '/.normen'
@@ -259,4 +270,3 @@ function! SourceIfExists(file)
 endfunction
 call SourceIfExists("$NORMEN/.vim/plugins.vim")
 call SourceIfExists("$NORMEN/.vim/commands.vim")
-hi! Normal guibg=NONE ctermbg=NONE
