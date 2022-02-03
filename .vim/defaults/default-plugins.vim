@@ -46,9 +46,6 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/asyncomplete-tags.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
@@ -78,8 +75,8 @@ let g:limelight_conceal_guifg = '#777777'
 " tmuxline
 let g:tmuxline_theme = 'lightline'
 " asyncomplete
-"let g:asyncomplete_auto_popup = 0
-"let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_auto_popup = 0
+let g:asyncomplete_auto_completeopt = 0
 " vim-lsp
 let g:lsp_format_sync_timeout = 1000
 let g:lsp_diagnostics_signs_enabled = 0
@@ -192,30 +189,6 @@ augroup lsp_install
   au!
   " vim-lsp keys
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-  " asyncomplete plugins
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-        \ 'name': 'file',
-        \ 'allowlist': ['*'],
-        \ 'priority': 10,
-        \ 'completor': function('asyncomplete#sources#file#completor')
-        \ }))
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
-        \ 'name': 'tags',
-        \ 'allowlist': ['perl'],
-        \ 'completor': function('asyncomplete#sources#tags#completor'),
-        \ 'config': {
-        \    'max_file_size': 50000000,
-        \  },
-        \ }))
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \ 'name': 'buffer',
-        \ 'allowlist': ['*'],
-        \ 'blocklist': ['go'],
-        \ 'completor': function('asyncomplete#sources#buffer#completor'),
-        \ 'config': {
-        \    'max_buffer_size': 5000000,
-        \  },
-        \ }))
   " ccls for vim-lsp
   if executable('ccls')
     let g:lsp_settings = {
