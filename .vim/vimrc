@@ -41,7 +41,7 @@ set autoread
 set autoindent
 set smartindent
 " show tabs, trailing whitespace
-set listchars=tab:<->,trail:~,extends:>
+set listchars=tab:.-.,trail:~,extends:>
 set list
 " folds
 set foldmethod=indent
