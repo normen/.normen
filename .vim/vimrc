@@ -27,6 +27,8 @@ set textwidth=0
 set backspace=2
 " better completion
 set complete+=kspell
+" don't search included (perl)
+set complete-=i
 set completeopt=menuone,longest
 set shortmess+=c
 " always show sign column
