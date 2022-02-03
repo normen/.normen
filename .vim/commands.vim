@@ -19,6 +19,10 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command! -nargs=+ WikiNethack call <SID>OpenTermOnce(expand('~/.normen/bin/wikigrab') . ' -u https://nethackwiki.com ' . <q-args>, "NetHack Search")
 :command! -nargs=+ WikiCataclysm call <SID>OpenTermOnce(expand('~/.normen/bin/wikigrab') . ' -u http://cddawiki.chezzo.com -a cdda_wiki/api.php ' . <q-args>, "Cataclysm Search")
 
+" perl stuff
+:command! PerlCtags :!ctags % -R /usr/local/lib/perl5 -R ~/perl5/lib -R .perl/lib -R ./lib
+:command! -nargs=+ PerlFAQ :silent! execute 'term perldoc -q "' . <q-args> . '"'
+
 " local
 :command BackupDev !rsync -azrv --delete ~/Dev normen@normenhansen.de:~/backup/MacBook
 :command RestoreDevDry !rsync -n -azrv --delete normen@normenhansen.de:~/backup/MacBook/Dev ~/
