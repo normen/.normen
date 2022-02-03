@@ -125,6 +125,30 @@ function Markdown2(args) range
   1
 endfunction
 
+" Special K
+" what happens when "K" is pressed
+nmap <silent> K :silent call <SID>SpecialK()<CR>
+function! s:SpecialK()
+  if (index(['vim','help','csound'], &filetype) >= 0)
+    silent! execute 'h '.expand('<cword>')
+  elseif (index(['sh'], &filetype) >= 0)
+    silent! execute "Man " . expand('<cword>')
+  elseif (index(['perl'], &filetype) >= 0)
+    let myWord=expand('<cword>')
+    if (myWord=~'[^\s:]*::[^\s:]*')
+      silent! execute 'term++close perldoc ' . myWord
+    else
+      silent! execute 'term++close perldoc -f ' . myWord
+    end
+  elseif strlen(&keywordprg) && &keywordprg != "man -s"
+    silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
+  elseif exists(":LspHover") && &omnifunc == 'lsp#complete'
+    silent! exec "LspHover"
+  else
+    silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
 " Open a named Term window only once (command tools)
 function! s:OpenTermOnce(command, buffername)
   let winnr = bufwinnr(a:buffername)
