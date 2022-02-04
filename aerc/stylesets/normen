@@ -7,7 +7,7 @@
 # modifying or creating a styleset.
 
 *.default = true
-*.selected.bg = green
+*.selected.bg = #949494
 *.selected.fg = black
 
 title.reverse = true
@@ -19,18 +19,18 @@ warning.fg = yellow
 success.fg = green
 
 statusline*.default = true
-statusline_default.bg = silver
-statusline_default.fg = black
+statusline_default.bg = #3a3a3a
+statusline_default.fg = #949494
 statusline_error.fg = orange
 statusline_error.reverse = true
 
 dirlist_default.fg = gray
-dirlist_default.selected.bg = navy
+dirlist_default.selected.bg = #949494
 
 msglist_unread.bold = true
 msglist_unread.selected.bold = false
 msglist_unread.selected.fg = black
-msglist_unread.selected.bg = lime
+msglist_unread.selected.bg = #b2b2b2
 msglist_deleted.fg = gray
 msglist_flagged.fg = orange
 msglist_marked.fg = blue
@@ -40,11 +40,17 @@ completion_pill.bg  =  gray
 
 spinner.fg = gray
 
-tab.bg = silver
-tab.fg = black
-tab.selected.bg = navy
+#235 #262626
+#237 #3a3a3a
+#239 #4e4e4e
+#246 #949494
+#249 #b2b2b2
+tab.bg = #3a3a3a
+tab.fg = #949494
+tab.selected.bg = #4e4e4e
+tab.selected.fg = #949494
 
-border.fg = silver
+border.fg = #4e4e4e
 
 selector_focused.reverse = true
 selector_chooser.bold = true
