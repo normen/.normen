@@ -24,14 +24,22 @@ statusline_default.fg = black
 statusline_error.fg=orange
 statusline_error.reverse=true
 
+dirlist_default.fg=gray
+dirlist_default.selected.bg=navy
+
 msglist_unread.bold=true
 msglist_deleted.fg=gray
+msglist_flagged.fg=orange
+msglist_marked.fg=blue
 
 completion_pill.bg = gray
+#stack.bg=red
+
+spinner.fg=gray
 
 tab.bg = gray
 tab.fg = black
-tab.selected.bg = darkgray
+tab.selected.bg = navy
 
 border.fg = gray
 
