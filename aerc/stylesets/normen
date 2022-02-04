@@ -21,7 +21,7 @@ success.fg=green
 statusline*.default=true
 statusline_default.bg = gray
 statusline_default.fg = black
-statusline_error.fg=red
+statusline_error.fg=orange
 statusline_error.reverse=true
 
 msglist_unread.bold=true
@@ -31,8 +31,8 @@ completion_pill.bg = gray
 
 tab.bg = gray
 tab.fg = black
-tab.selected.bg = lightgray
-#border.bg = gray
+tab.selected.bg = darkgray
+
 border.fg = gray
 
 selector_focused.reverse=true
