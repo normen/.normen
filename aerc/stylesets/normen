@@ -40,8 +40,9 @@ msglist_deleted.fg = gray
 msglist_flagged.fg = yellow
 msglist_marked.fg = blue
 
-completion_pill.bg  =  gray
-#stack.bg=red
+completion_default.bg = #3a3a3a
+completion_pill.bg = #4e4e4e
+completion_gutter.bg = #262626
 
 spinner.fg = #4e4e4e
 
