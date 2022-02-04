@@ -9,15 +9,39 @@
 
 *.default = true
 *.selected.bg = #4e4e4e
-*.selected.fg = white
+
+#selector_focused.reverse = true
+selector_chooser.bold = true
 
 title.reverse = true
 header.bold = true
 
 *error.bold = true
 error.fg = red
-warning.fg = orange
+warning.fg = yellow
 success.fg = green
+
+spinner.fg = #949494
+
+border.fg = #4e4e4e
+
+tab.bg = #3a3a3a
+tab.fg = #949494
+tab.selected.bg = #4e4e4e
+tab.selected.fg = olive
+tab.selected.bold = true
+
+dirlist_default.fg = navy
+dirlist_default.selected.bg = #3a3a3a
+dirlist_default.selected.fg = blue
+dirlist_default.selected.bold = true
+
+msglist_unread.bold = true
+msglist_unread.fg = #FFFFFF
+msglist_read.fg = white
+msglist_deleted.fg = grey
+msglist_flagged.fg = yellow
+msglist_marked.fg = blue
 
 statusline*.default = true
 statusline_default.bg = #3a3a3a
@@ -26,34 +50,8 @@ statusline_error.fg = red
 statusline_error.bg = #3a3a3a
 statusline_success.fg = green
 statusline_success.bg = #3a3a3a
-#statusline_error.reverse = true
-
-dirlist_default.fg = navy
-dirlist_default.selected.bg = #3a3a3a
-dirlist_default.selected.fg = blue
-
-msglist_unread.bold = true
-msglist_unread.selected.bold = true
-msglist_unread.selected.fg = white
-msglist_unread.selected.bg = #4e4e4e
-msglist_deleted.fg = gray
-msglist_flagged.fg = yellow
-msglist_marked.fg = blue
 
 completion_default.bg = #3a3a3a
 completion_pill.bg = #4e4e4e
 completion_gutter.bg = #262626
-
-spinner.fg = #4e4e4e
-
-tab.bg = #3a3a3a
-tab.fg = #949494
-tab.selected.bg = #4e4e4e
-tab.selected.fg = #949494
-#tab.selected.fg = #b2b2b2
-
-border.fg = #4e4e4e
-
-selector_focused.reverse = true
-selector_chooser.bold = true
 
