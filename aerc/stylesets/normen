@@ -29,13 +29,13 @@ statusline_success.bg = #3a3a3a
 #statusline_error.reverse = true
 
 dirlist_default.fg = #949494
-dirlist_default.selected.bg = #4e4e4e
+dirlist_default.selected.bg = #3a3a3a
 dirlist_default.selected.fg = #b2b2b2
 
 msglist_unread.bold = true
-msglist_unread.selected.bold = false
-msglist_unread.selected.fg = black
-msglist_unread.selected.bg = #b2b2b2
+msglist_unread.selected.bold = true
+msglist_unread.selected.fg = white
+msglist_unread.selected.bg = #4e4e4e
 msglist_deleted.fg = gray
 msglist_flagged.fg = yellow
 msglist_marked.fg = blue
