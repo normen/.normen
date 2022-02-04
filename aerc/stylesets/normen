@@ -7,7 +7,7 @@
 # modifying or creating a styleset.
 
 *.default=true
-*.selected.bg = lightgray
+*.selected.bg = green
 *.selected.fg = black
 
 title.reverse=true
@@ -31,7 +31,9 @@ completion_pill.bg = gray
 
 tab.bg = gray
 tab.fg = black
-border.bg = gray
+tab.selected.bg = lightgray
+#border.bg = gray
+border.fg = gray
 
 selector_focused.reverse=true
 selector_chooser.bold=true
