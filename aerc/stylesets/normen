@@ -24,8 +24,9 @@ statusline_default.fg = #949494
 statusline_error.fg = orange
 statusline_error.reverse = true
 
-dirlist_default.fg = gray
-dirlist_default.selected.bg = #949494
+dirlist_default.fg = #949494
+dirlist_default.selected.bg = #4e4e4e
+dirlist_default.selected.fg = #b2b2b2
 
 msglist_unread.bold = true
 msglist_unread.selected.bold = false
@@ -48,7 +49,7 @@ spinner.fg = gray
 tab.bg = #3a3a3a
 tab.fg = #949494
 tab.selected.bg = #4e4e4e
-tab.selected.fg = #949494
+tab.selected.fg = #b2b2b2
 
 border.fg = #4e4e4e
 
