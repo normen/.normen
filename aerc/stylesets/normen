@@ -6,48 +6,48 @@
 # the aerc-styleset(7) manpage. Please read the manual before
 # modifying or creating a styleset.
 
-*.default=true
+*.default = true
 *.selected.bg = green
 *.selected.fg = black
 
-title.reverse=true
-header.bold=true
+title.reverse = true
+header.bold = true
 
-*error.bold=true
-error.fg=red
-warning.fg=yellow
-success.fg=green
+*error.bold = true
+error.fg = red
+warning.fg = yellow
+success.fg = green
 
-statusline*.default=true
-statusline_default.bg = gray
+statusline*.default = true
+statusline_default.bg = silver
 statusline_default.fg = black
-statusline_error.fg=orange
-statusline_error.reverse=true
+statusline_error.fg = orange
+statusline_error.reverse = true
 
-dirlist_default.fg=gray
-dirlist_default.selected.bg=navy
+dirlist_default.fg = gray
+dirlist_default.selected.bg = navy
 
-msglist_unread.bold=true
-msglist_unread.selected.bold=false
-msglist_unread.selected.fg=black
-msglist_unread.selected.bg=lime
-msglist_deleted.fg=gray
-msglist_flagged.fg=orange
-msglist_marked.fg=blue
+msglist_unread.bold = true
+msglist_unread.selected.bold = false
+msglist_unread.selected.fg = black
+msglist_unread.selected.bg = lime
+msglist_deleted.fg = gray
+msglist_flagged.fg = orange
+msglist_marked.fg = blue
 
-completion_pill.bg = gray
+completion_pill.bg  =  gray
 #stack.bg=red
 
-spinner.fg=gray
+spinner.fg = gray
 
-tab.bg = gray
+tab.bg = silver
 tab.fg = black
 tab.selected.bg = navy
 
-border.fg = gray
+border.fg = silver
 
-selector_focused.reverse=true
-selector_chooser.bold=true
+selector_focused.reverse = true
+selector_chooser.bold = true
 
 # 
 # aerc default styleset
