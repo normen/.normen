@@ -1,14 +1,15 @@
-# 
-# aerc mellow styleset
-# 
-# This styleset uses the terminal defaults as its base.
-# More information on how to configure the styleset can be found in
-# the aerc-styleset(7) manpage. Please read the manual before
-# modifying or creating a styleset.
+# aerc normen styleset
+#
+# 235 #262626
+# 237 #3a3a3a
+# 239 #4e4e4e
+# 246 #949494
+# 249 #b2b2b2
+#
 
 *.default = true
-*.selected.bg = #949494
-*.selected.fg = black
+*.selected.bg = #4e4e4e
+*.selected.fg = white
 
 title.reverse = true
 header.bold = true
@@ -22,7 +23,8 @@ statusline*.default = true
 statusline_default.bg = #3a3a3a
 statusline_default.fg = #949494
 statusline_error.fg = orange
-statusline_error.reverse = true
+statusline_error.bg = #3a3a3a
+#statusline_error.reverse = true
 
 dirlist_default.fg = #949494
 dirlist_default.selected.bg = #4e4e4e
@@ -39,54 +41,16 @@ msglist_marked.fg = blue
 completion_pill.bg  =  gray
 #stack.bg=red
 
-spinner.fg = gray
+spinner.fg = #4e4e4e
 
-#235 #262626
-#237 #3a3a3a
-#239 #4e4e4e
-#246 #949494
-#249 #b2b2b2
 tab.bg = #3a3a3a
 tab.fg = #949494
 tab.selected.bg = #4e4e4e
-tab.selected.fg = #b2b2b2
+tab.selected.fg = #949494
+#tab.selected.fg = #b2b2b2
 
 border.fg = #4e4e4e
 
 selector_focused.reverse = true
 selector_chooser.bold = true
 
-# 
-# aerc default styleset
-# 
-# This styleset uses the terminal defaults as its base.
-# More information on how to configure the styleset can be found in
-# the aerc-stylesets(7) manpage. Please read the manual before
-# modifying or creating a styleset.
-
-#*.default=true
-#*.selected.reverse=toggle
-
-#title.reverse=true
-#header.bold=true
-
-#*error.bold=true
-#error.fg=red
-#warning.fg=yellow
-#success.fg=green
-
-#statusline*.default=true
-#statusline_default.reverse=true
-#statusline_error.fg=red
-#statusline_error.reverse=true
-
-#msglist_unread.bold=true
-#msglist_deleted.fg=gray
-
-#completion_pill.reverse=true
-
-#tab.reverse=true
-#border.reverse = true
-
-#selector_focused.reverse=true
-#selector_chooser.bold=true
