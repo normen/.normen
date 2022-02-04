@@ -16,14 +16,16 @@ header.bold = true
 
 *error.bold = true
 error.fg = red
-warning.fg = yellow
+warning.fg = orange
 success.fg = green
 
 statusline*.default = true
 statusline_default.bg = #3a3a3a
 statusline_default.fg = #949494
-statusline_error.fg = orange
+statusline_error.fg = red
 statusline_error.bg = #3a3a3a
+statusline_success.fg = green
+statusline_success.bg = #3a3a3a
 #statusline_error.reverse = true
 
 dirlist_default.fg = #949494
@@ -35,7 +37,7 @@ msglist_unread.selected.bold = false
 msglist_unread.selected.fg = black
 msglist_unread.selected.bg = #b2b2b2
 msglist_deleted.fg = gray
-msglist_flagged.fg = orange
+msglist_flagged.fg = yellow
 msglist_marked.fg = blue
 
 completion_pill.bg  =  gray
