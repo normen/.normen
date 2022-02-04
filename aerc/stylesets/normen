@@ -28,9 +28,9 @@ statusline_success.fg = green
 statusline_success.bg = #3a3a3a
 #statusline_error.reverse = true
 
-dirlist_default.fg = #949494
+dirlist_default.fg = navy
 dirlist_default.selected.bg = #3a3a3a
-dirlist_default.selected.fg = #b2b2b2
+dirlist_default.selected.fg = blue
 
 msglist_unread.bold = true
 msglist_unread.selected.bold = true
