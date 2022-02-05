@@ -31,6 +31,8 @@ sudo reboot
 # allow non-apps (plugins etc)
 sudo xattr -rd com.apple.quarantine obs-gstreamer.so;sudo xattr -rd com.apple.macl obs-gstreamer.so
 
+# safari debug menu
+defaults write com.apple.Safari IncludeInternalDebugMenu 1
 
 # brew -> see brew doc
 
