@@ -144,6 +144,9 @@ endif
 " toggle paste mode
 nmap <C-p> :set invpaste<CR>
 
+" next tab in normal mode
+nmap <C-n> :tabn<CR>
+
 " move text around in visual mode with arrows
 vnoremap <Down> :m '>+1<CR>gv=gv
 vnoremap <Up> :m '<-2<CR>gv=gv
