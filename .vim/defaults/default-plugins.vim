@@ -225,6 +225,8 @@ function! s:goyo_leave()
   endif
   let g:asyncomplete_auto_popup = g:bak_asyncomplete_popup
   let g:asyncomplete_auto_completeopt = g:bak_asyncomplete_opt
+  unlet g:bak_asyncomplete_popup
+  unlet g:bak_asyncomplete_opt
   set scrolloff=0
   set showcmd
   Limelight!
