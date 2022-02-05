@@ -18,6 +18,7 @@
 * [hardware](hardware.md)
 * [media](media.md)
 ## Random
+* [tools](tools.md)
 * [brew](brew.md)
 * [gstreamer](gstreamer.md)
 * [jack](jack.md)

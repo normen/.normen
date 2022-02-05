@@ -120,7 +120,8 @@ git send-email --to 'normenweb@mac.com' HEAD^
 # apply mail patch (pipe in)
 git am
 # configure send-email
-sudo -H cpan Net::SMTP::SSL IO::Socket::SSL
+cpan Net::SMTP::SSL IO::Socket::SSL
+cpan Authen::SASL MIME::Base64 Net::SMTP::SSL
 vim ~/.gitconfig
 <<CONTENT
 [sendemail]
