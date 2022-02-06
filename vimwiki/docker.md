@@ -1,5 +1,16 @@
 ## docker
 ```bash
+# install macos:
+brew install docker docker-machine virtualbox
+brew install docker-machine
+docker-machine create --driver virtualbox --virtualbox-hostonly-cidr "192.168.56.1/24" default
+docker-machine restart
+# This might throw an TSI connection error. In that case run docker-machine regenerate-certs default
+eval "$(docker-machine env default)" 
+# maybe needed
+docker-machine restart
+docker run hello-world
+
 # restart
 docker container restart mycontainer
 # stat display ("top")
