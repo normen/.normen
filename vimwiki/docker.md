@@ -1,6 +1,12 @@
 ## docker
 ```bash
 # install macos:
+brew install docker colima
+colima start
+docker context use colima
+docker run hello-world
+
+# install macos (old):
 brew install docker docker-machine virtualbox
 brew install docker-machine
 docker-machine create --driver virtualbox --virtualbox-hostonly-cidr "192.168.56.1/24" default
