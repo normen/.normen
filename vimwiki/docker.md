@@ -4,6 +4,7 @@
 brew install docker colima
 colima start
 docker context use colima
+export DOCKER_HOST=unix:///Users/normenhansen/.colima/docker.sock
 docker run hello-world
 
 # install macos (old):
