@@ -28,7 +28,9 @@ Plug 'ojroques/vim-oscyank'
 if executable('tmux')
   Plug 'tpope/vim-tbone'
   Plug 'christoomey/vim-tmux-navigator'
-  Plug 'tmux-plugins/vim-tmux-focus-events'
+  if v:versionlong < 8022345
+    Plug 'tmux-plugins/vim-tmux-focus-events'
+  endif
   Plug 'roxma/vim-tmux-clipboard'
   Plug 'wellle/tmux-complete.vim'
 endif
@@ -50,6 +52,14 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 call plug#end()
+
+" fix focus events
+if v:versionlong >= 8022345
+  let &t_fe = "\<Esc>[?1004h"
+  let &t_fd = "\<Esc>[?1004l"
+  execute "set <FocusGained>=\<Esc>[I"
+  execute "set <FocusLost>=\<Esc>[O"
+endif
 
 " SETTINGS
 colorscheme gruvbox
@@ -93,29 +103,21 @@ set noshowmode " don't show mode with lightline enabled
 let g:lightline = { 
   \ 'colorscheme': 'gruvbox', 
   \ 'active': {
-  \   'left': [
-  \             [ 'mode', 'paste', 'drawit_mode', 'table_mode'],
+  \   'left': [ [ 'mode', 'paste', 'drawit_mode', 'table_mode'],
   \             [ 'gitstatus', 'readonly' ],
-  \             [ 'relativepath', 'modified' ],
-  \           ],
-  \   'right': [ 
-  \              [ 'filetype' ],
+  \             [ 'relativepath', 'modified' ], ],
+  \   'right': [ [ 'filetype' ],
   \              [ 'percentwin' ],
   \              [ 'lineinfo' ],
   \              [ 'fileencoding' ],
   \              [ 'fileformat' ],
   \              [ 'spell' ],
-  \              [ 'lspstatus', 'lspdiags' ],
-  \           ],
+  \              [ 'lspstatus', 'lspdiags' ], ],
   \ },
   \ 'inactive': {
-  \   'left': [
-  \             [ 'filename' ],
-  \           ],
-  \   'right': [ 
-  \              [ 'filetype' ],
-  \              [ 'percentwin' ],
-  \           ],
+  \   'left': [ [ 'filename' ], ],
+  \   'right': [ [ 'filetype' ],
+  \              [ 'percentwin' ], ],
   \ },
   \ 'component_function': {
   \   'gitstatus': 'FugitiveHead',
