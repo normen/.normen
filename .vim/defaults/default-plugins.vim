@@ -24,16 +24,6 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'sotte/presenting.vim'
 Plug 'normen/DrawIt'
 Plug 'ojroques/vim-oscyank'
-" tmux
-if executable('tmux')
-  Plug 'tpope/vim-tbone'
-  Plug 'christoomey/vim-tmux-navigator'
-  if v:versionlong < 8022345
-    Plug 'tmux-plugins/vim-tmux-focus-events'
-  endif
-  Plug 'roxma/vim-tmux-clipboard'
-  Plug 'wellle/tmux-complete.vim'
-endif
 " build systems
 Plug 'normen/vim-pio'
 " filetypes (no lsp)
@@ -51,6 +41,16 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
+" tmux
+if executable('tmux')
+  Plug 'tpope/vim-tbone'
+  Plug 'christoomey/vim-tmux-navigator'
+  if v:versionlong < 8022345
+    Plug 'tmux-plugins/vim-tmux-focus-events'
+  endif
+  Plug 'roxma/vim-tmux-clipboard'
+  Plug 'wellle/tmux-complete.vim'
+endif
 call plug#end()
 
 " fix focus events
