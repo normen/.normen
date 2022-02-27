@@ -32,6 +32,9 @@ Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 Plug 'luisjure/csound-vim', { 'for': 'csound' }
 Plug 'kunstmusik/csound-repl', { 'for': 'csound' }
 Plug 'fidian/hexmode'
+if executable('openai')
+  Plug 'tom-doerr/vim_codex'
+endif
 " lsp / completion
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -154,6 +157,9 @@ vnoremap <Leader>tt :Twrite top<CR>
 vnoremap <Leader>tb :Twrite bottom<CR>
 vnoremap <Leader>tl :Twrite left<CR>
 vnoremap <Leader>tr :Twrite right<CR>
+" codex
+nnoremap  <C-x><C-i> :CreateCompletion<CR>
+inoremap  <C-x><C-i> <Esc>li<C-g>u<Esc>l:CreateCompletion<CR>
 " asyncomplete / vsnip
 imap <silent><expr> <TAB>
   \ vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' :
