@@ -13,4 +13,6 @@ diagram
 pip install markdown2
 # calendar
 cal
+# id3
+brew install id3lib
 ```
