@@ -14,7 +14,7 @@ cd qspectrumanalyzer
 pip3 install .
 
 # cutiepi-shell optional
-sudo mv /etc/xgd/autostart/cutiepi-shell.desktop ~/.local/share/applications/
+sudo mv /etc/xdg/autostart/cutiepi-shell.desktop ~/.local/share/applications/
 
 # autorotate & start qspectrum
 sudo ~/.local/bin/startup.sh
