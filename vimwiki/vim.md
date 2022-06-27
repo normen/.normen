@@ -160,6 +160,7 @@ vii - visual select inside indentation
 gg=G - format file
 
 :cd %:h - go to current file dir
+:w! >> newfile.txt - write selection to file
 ```
 #### Autocomplete/Special
 ```
