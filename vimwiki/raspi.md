@@ -63,6 +63,9 @@ dtoverlay=pi3-disable-bt
 dtparam=act_led_trigger=none
 dtparam=act_led_activelow=on
 
+# rpiplay
+https://github.com/FD-/RPiPlay/issues/296#issuecomment-981210609
+
 #bluetooth keyboard
 sudo bluetoothctla
 agent on
