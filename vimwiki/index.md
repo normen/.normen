@@ -18,6 +18,7 @@
 * [hardware](hardware.md)
 * [media](media.md)
 ## Random
+* [chordpro](chordpro.md)
 * [tools](tools.md)
 * [brew](brew.md)
 * [gstreamer](gstreamer.md)
