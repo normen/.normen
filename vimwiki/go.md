@@ -43,9 +43,8 @@ mkdir myapp
 cd myapp
 vim main.go
 <<CONTENT
-package myapp
-func Hello() string {
-  return "Hello, world."
+package main
+func main() {
 }
 CONTENT
 go mod init myname.com/myapp
