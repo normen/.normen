@@ -188,3 +188,6 @@ function! QuickFix_toggle()
   copen
 endfunction
 
+augroup filetype_replace
+  autocmd BufNewFile,BufRead *.pro set filetype=chordpro
+augroup END
