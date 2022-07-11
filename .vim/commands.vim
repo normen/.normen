@@ -196,11 +196,11 @@ fun! CompleteChords(findstart, base)
   else
     " find chords in buffer
     for lin in getline(1, '$')->filter({_,line -> line =~ '\[[^\]]*\]'})
-			for crd in MatchStrAll(lin, '\[[^\]]*\]')
-				call complete_add(crd)
-			endfor
+      for crd in MatchStrAll(lin, '\[[^\]]*\]')
+        call complete_add(crd)
+      endfor
     endfor
-		return []
+    return []
   endif
 endfun
 
