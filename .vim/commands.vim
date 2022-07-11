@@ -2,7 +2,7 @@
 :command W w
 
 " ai
-vnoremap <Leader>ix :!$NORMEN/bin/gptj-universal<CR>
+vnoremap <Leader>ix :!$NORMEN/bin/codex-universal<CR>
 vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 
 " tools
@@ -188,6 +188,36 @@ function! QuickFix_toggle()
   copen
 endfunction
 
+fun! CompleteChords(findstart, base)
+  if a:findstart
+    " locate the start of the word
+    let start = col('.')
+    return start
+  else
+    " find chords in buffer
+    for lin in getline(1, '$')->filter({_,line -> line =~ '\[[^\]]*\]'})
+			for crd in MatchStrAll(lin, '\[[^\]]*\]')
+				call complete_add(crd)
+			endfor
+    endfor
+		return []
+  endif
+endfun
+
+function! MatchStrAll(expr, pat, ...)
+  let start = a:0 ? a:1 : 0
+  let lst = []
+  let cnt = 1
+  let found = match(a:expr, a:pat, start, cnt)
+  while found != -1
+    call add(lst, matchstr(a:expr, a:pat, start, cnt))
+    let cnt += 1
+    let found = match(a:expr, a:pat, start, cnt)
+  endwhile
+  return lst
+endfunction
+
 augroup filetype_replace
-  autocmd BufNewFile,BufRead *.pro set filetype=chordpro
+  autocmd BufNewFile,BufRead *.pro setlocal filetype=chordpro
+  autocmd FileType chordpro setlocal omnifunc=CompleteChords
 augroup END
