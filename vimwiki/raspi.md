@@ -48,6 +48,10 @@ CONTENT
 #reboot button pin 5/6 (/boot/config.txt)
 dtoverlay=gpio-shutdown,gpio_pin=3
 
+# mount disk for pi
+sudo fdisk -l
+sudo mount /dev/sda2 /mnt/record  -o uid=pi,gid=pi
+
 # turn off USB+ethernet
 echo '1-1'|sudo tee /sys/bus/usb/drivers/usb/unbind
 # turn on
