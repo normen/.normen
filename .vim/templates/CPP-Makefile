@@ -1,0 +1,59 @@
+TARGET_EXEC ?= myapp
+
+BUILD_DIR ?= ./build
+SRC_DIRS ?= ./src ./lib
+
+INC_DIRS ?= /usr/local/include
+LIB_DIRS ?= /usr/local/lib
+#LDFLAGS = -lblkid -ludev -lwiringPi -lwiringPiDev -lpthread -li2c -lm -lcrypt -lrt -lsupc++
+CPPFLAGS = -MMD -MP
+CXXFLAGS = -Wall -Wextra -std=c++11
+
+SRCS := $(shell find $(SRC_DIRS) -name '*.cpp' -or -name '*.c' -or -name '*.s')
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
+
+SRC_DIRS := $(shell find $(SRC_DIRS) -type d)
+SRC_FLAGS := $(addprefix -I,$(SRC_DIRS))
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+
+LIB_FLAGS := $(addprefix -L,$(LIB_DIRS))
+
+COMPFLAGS = $(SRC_FLAGS) $(INC_FLAGS)
+
+$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS) $(LIB_FLAGS)
+
+# assembly
+$(BUILD_DIR)/%.s.o: %.s
+	$(MKDIR_P) $(dir $@)
+	$(AS) $(ASFLAGS) -c $< -o $@
+
+# c source
+$(BUILD_DIR)/%.c.o: %.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(COMPFLAGS) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+# c++ source
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	$(MKDIR_P) $(dir $@)
+	$(CXX) $(COMPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+
+.PHONY: build
+
+build: $(BUILD_DIR)/$(TARGET_EXEC)
+
+.PHONY: run
+
+run: build
+	$(BUILD_DIR)/$(TARGET_EXEC)
+
+.PHONY: clean
+
+clean:
+	$(RM) -r $(BUILD_DIR)
+
+-include $(DEPS)
+
+MKDIR_P ?= mkdir -p
