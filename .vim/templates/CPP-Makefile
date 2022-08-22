@@ -5,9 +5,10 @@ SRC_DIRS ?= ./src ./lib
 INC_DIRS ?= /usr/local/include
 LIB_DIRS ?= /usr/local/lib
 
-# LDFLAGS = -lwiringPiDev -lpthread -li2c -lm -lcrypt -lrt -lsupc++
-CPPFLAGS = -MMD -MP
-CXXFLAGS = -Wall -Wextra -std=c++11
+#LDFLAGS ?= -lwiringPiDev -lpthread -li2c -lm -lcrypt -lrt -lsupc++
+#CFLAGS ?= 
+CXXFLAGS ?= -std=c++11
+CPPFLAGS ?= -MMD -MP -Wall -Wextra
 
 BUILD_DIR ?= ./build
 
