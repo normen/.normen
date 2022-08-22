@@ -5,7 +5,7 @@ SRC_DIRS ?= ./src ./lib
 INC_DIRS ?= /usr/local/include
 LIB_DIRS ?= /usr/local/lib
 
-LDFLAGS = -lblkid -ludev -lwiringPi -lwiringPiDev -lpthread -li2c -lm -lcrypt -lrt -lsupc++
+# LDFLAGS = -lwiringPiDev -lpthread -li2c -lm -lcrypt -lrt -lsupc++
 CPPFLAGS = -MMD -MP
 CXXFLAGS = -Wall -Wextra -std=c++11
 
