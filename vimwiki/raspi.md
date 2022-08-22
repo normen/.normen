@@ -11,6 +11,7 @@
 * [raspi/printserver](raspi/printserver.md)
 * [raspi/amiga](raspi/amiga.md)
 * [raspi/autostart](raspi/autostart.md)
+* [raspi/audiorec](raspi/audiorec.md)
 
 ## General Raspi Info
 ```bash
