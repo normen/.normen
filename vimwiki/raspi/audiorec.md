@@ -26,3 +26,64 @@ make
 
 
 ```
+
+#### 32bit kernel
+```diff
+diff --git a/Dockerfile b/Dockerfile
+index a1461d7..4d65d3c 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -8,7 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ 
+ RUN apt-get update
+ RUN apt-get install -y git make gcc bison flex libssl-dev bc ncurses-dev kmod
+-RUN apt-get install -y crossbuild-essential-arm64
++RUN apt-get install -y crossbuild-essential-armhf
+ RUN apt-get install -y wget zip unzip fdisk nano curl xz-utils
+ 
+ WORKDIR /rpi-kernel
+@@ -20,8 +20,8 @@ RUN export PATCH=$(curl -s https://mirrors.edge.kernel.org/pub/linux/kernel/proj
+     gzip -cd /rpi-kernel/linux/${PATCH}.patch.gz | patch -p1 --verbose
+ 
+ ENV KERNEL=kernel8
+-ENV ARCH=arm64
+-ENV CROSS_COMPILE=aarch64-linux-gnu-
++ENV ARCH=arm
++ENV CROSS_COMPILE=arm-linux-gnueabihf-
+ 
+ RUN make bcm2711_defconfig
+ RUN ./scripts/config --disable CONFIG_VIRTUALIZATION
+@@ -34,10 +34,10 @@ RUN make Image modules dtbs
+ 
+ WORKDIR /raspios
+ RUN apt -y install
+-RUN export DATE=$(curl -s https://downloads.raspberrypi.org/raspios_lite_arm64/images/ | sed -n 's:.*raspios_lite_arm64-\(.*\)/</a>.*:\1:p' | tail -1) && \
+-    export RASPIOS=$(curl -s https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-${DATE}/ | sed -n 's:.*<a href="\(.*\).xz">.*:\1:p' | tail -1) && \
++RUN export DATE=$(curl -s https://downloads.raspberrypi.org/raspios_lite_armhf/images/ | sed -n 's:.*raspios_lite_armhf-\(.*\)/</a>.*:\1:p' | tail -1) && \
++    export RASPIOS=$(curl -s https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-${DATE}/ | sed -n 's:.*<a href="\(.*\).xz">.*:\1:p' | tail -1) && \
+     echo "Downloading ${RASPIOS}.xz" && \
+-    curl https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-${DATE}/${RASPIOS}.xz --output ${RASPIOS}.xz && \
++    curl https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-${DATE}/${RASPIOS}.xz --output ${RASPIOS}.xz && \
+     xz -d ${RASPIOS}.xz
+ 
+ RUN mkdir /raspios/mnt && mkdir /raspios/mnt/disk && mkdir /raspios/mnt/boot
+diff --git a/build.sh b/build.sh
+index 0195a02..20592ef 100755
+--- a/build.sh
++++ b/build.sh
+@@ -10,10 +10,10 @@ make INSTALL_MOD_PATH=/raspios/mnt/disk modules_install
+ make INSTALL_DTBS_PATH=/raspios/mnt/boot dtbs_install
+ cd -
+ 
+-cp /rpi-kernel/linux/arch/arm64/boot/Image /raspios/mnt/boot/$KERNEL\_rt.img
+-cp /rpi-kernel/linux/arch/arm64/boot/dts/broadcom/*.dtb /raspios/mnt/boot/
+-cp /rpi-kernel/linux/arch/arm64/boot/dts/overlays/*.dtb* /raspios/mnt/boot/overlays/
+-cp /rpi-kernel/linux/arch/arm64/boot/dts/overlays/README /raspios/mnt/boot/overlays/
++cp /rpi-kernel/linux/arch/armhf/boot/Image /raspios/mnt/boot/$KERNEL\_rt.img
++cp /rpi-kernel/linux/arch/armhf/boot/dts/broadcom/*.dtb /raspios/mnt/boot/
++cp /rpi-kernel/linux/arch/armhf/boot/dts/overlays/*.dtb* /raspios/mnt/boot/overlays/
++cp /rpi-kernel/linux/arch/armhf/boot/dts/overlays/README /raspios/mnt/boot/overlays/
+ 
+ cp /raspios/config.txt /raspios/mnt/boot/
+ touch /raspios/mnt/boot/ssh
+ ```
