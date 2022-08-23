@@ -30,7 +30,7 @@ make
 #### 32bit kernel
 ```diff
 diff --git a/Dockerfile b/Dockerfile
-index a1461d7..4d65d3c 100644
+index a1461d7..d4b233f 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -8,7 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -42,17 +42,22 @@ index a1461d7..4d65d3c 100644
  RUN apt-get install -y wget zip unzip fdisk nano curl xz-utils
  
  WORKDIR /rpi-kernel
-@@ -20,8 +20,8 @@ RUN export PATCH=$(curl -s https://mirrors.edge.kernel.org/pub/linux/kernel/proj
+@@ -19,11 +19,11 @@ RUN export PATCH=$(curl -s https://mirrors.edge.kernel.org/pub/linux/kernel/proj
+     curl https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/${LINUX_KERNEL_VERSION}/${PATCH}.patch.gz --output ${PATCH}.patch.gz && \
      gzip -cd /rpi-kernel/linux/${PATCH}.patch.gz | patch -p1 --verbose
  
- ENV KERNEL=kernel8
+-ENV KERNEL=kernel8
 -ENV ARCH=arm64
 -ENV CROSS_COMPILE=aarch64-linux-gnu-
++ENV KERNEL=kernel
 +ENV ARCH=arm
 +ENV CROSS_COMPILE=arm-linux-gnueabihf-
  
- RUN make bcm2711_defconfig
+-RUN make bcm2711_defconfig
++RUN make bcmrpi_defconfig
  RUN ./scripts/config --disable CONFIG_VIRTUALIZATION
+ RUN ./scripts/config --enable CONFIG_PREEMPT_RT
+ RUN ./scripts/config --disable CONFIG_RCU_EXPERT
 @@ -34,10 +34,10 @@ RUN make Image modules dtbs
  
  WORKDIR /raspios
