@@ -84,10 +84,10 @@ index 0195a02..20592ef 100755
 -cp /rpi-kernel/linux/arch/arm64/boot/dts/broadcom/*.dtb /raspios/mnt/boot/
 -cp /rpi-kernel/linux/arch/arm64/boot/dts/overlays/*.dtb* /raspios/mnt/boot/overlays/
 -cp /rpi-kernel/linux/arch/arm64/boot/dts/overlays/README /raspios/mnt/boot/overlays/
-+cp /rpi-kernel/linux/arch/armhf/boot/Image /raspios/mnt/boot/$KERNEL\_rt.img
-+cp /rpi-kernel/linux/arch/armhf/boot/dts/broadcom/*.dtb /raspios/mnt/boot/
-+cp /rpi-kernel/linux/arch/armhf/boot/dts/overlays/*.dtb* /raspios/mnt/boot/overlays/
-+cp /rpi-kernel/linux/arch/armhf/boot/dts/overlays/README /raspios/mnt/boot/overlays/
++cp /rpi-kernel/linux/arch/arm/boot/Image /raspios/mnt/boot/$KERNEL\_rt.img
++cp /rpi-kernel/linux/arch/arm/boot/dts/broadcom/*.dtb /raspios/mnt/boot/
++cp /rpi-kernel/linux/arch/arm/boot/dts/overlays/*.dtb* /raspios/mnt/boot/overlays/
++cp /rpi-kernel/linux/arch/arm/boot/dts/overlays/README /raspios/mnt/boot/overlays/
  
  cp /raspios/config.txt /raspios/mnt/boot/
  touch /raspios/mnt/boot/ssh
