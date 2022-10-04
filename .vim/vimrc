@@ -95,12 +95,12 @@ endif
 " set transparent background when colorscheme loads
 augroup transparent_bg
   autocmd!
-  autocmd Colorscheme * hi! Normal guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-  autocmd Colorscheme * hi! FoldColumn guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-  autocmd Colorscheme * hi! SignColumn guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-  autocmd Colorscheme * hi! SignifySignAdd    ctermfg=green  guifg=#00ff00 cterm=NONE gui=NONE
-  autocmd Colorscheme * hi! SignifySignDelete ctermfg=red    guifg=#ff0000 cterm=NONE gui=NONE
-  autocmd Colorscheme * hi! SignifySignChange ctermfg=yellow guifg=#ffff00 cterm=NONE gui=NONE
+  autocmd Colorscheme * hi! Normal ctermbg=NONE cterm=NONE
+  autocmd Colorscheme * hi! FoldColumn ctermbg=NONE cterm=NONE
+  autocmd Colorscheme * hi! SignColumn ctermbg=NONE cterm=NONE
+  autocmd Colorscheme * hi! SignifySignAdd    ctermfg=green  guifg=#00ff00 cterm=NONE
+  autocmd Colorscheme * hi! SignifySignDelete ctermfg=red    guifg=#ff0000 cterm=NONE
+  autocmd Colorscheme * hi! SignifySignChange ctermfg=yellow guifg=#ffff00 cterm=NONE
 augroup END
 
 " ** Mappings & Commands **
