@@ -26,6 +26,8 @@ cl main.c /I "c:\gstreamer\1.0\mingw_x86_64\include\gstreamer-1.0" /I "c:\gstrea
 
 # compile gst-ndi
 # install rust
+# on Pi:
+curl https://sh.rustup.rs -sSf | sh
 # add lib/pkgconfig to PKG_CONFIG_PATH
 # install NDI SDK
 # add ndi dlls to path
