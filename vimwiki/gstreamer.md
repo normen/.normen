@@ -32,5 +32,16 @@ curl https://sh.rustup.rs -sSf | sh
 # install NDI SDK
 # add ndi dlls to path
 # add ndi lib to build folder (or PKG_CONFIG_PATH?)
+# Windows:
+# Add NDI runtime to PATH
+# Set GST_PLUGIN_PATH and put plugin there
+# copy Processing.NDI.Lib.x64.lib from NDI SDK to project folder
+# MacOS:
+# Add to build.rs main():
+#    println!("cargo:rustc-link-lib=dylib=ndi");
+#    println!("cargo:rustc-link-search=native=/Library/NDI SDK for Apple/lib/macOS");
 cargo build --release
+
+# Windows:
+# add gstreamer/bin to PATH!
 ```
