@@ -44,4 +44,13 @@ cargo build --release
 
 # Windows:
 # add gstreamer/bin to PATH!
+
+# obs-gstreamer on mac:
+# add paths to meson.build:
+# -obs_dep = dependency('libobs', required : false)
+# +#obs_dep = dependency('libobs', required : false)
+# +obs_dep = declare_dependency(
+# +  link_args : ['-L' + '/Users/normenhansen/Dev/gstreamer/obs-studio/build/libobs/', '-l' + 'obs'],
+# +  include_directories : include_directories('/Users/normenhansen/Dev/gstreamer/obs-studio/')
+# +  )
 ```
