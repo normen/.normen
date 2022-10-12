@@ -145,10 +145,12 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 source $HOME/.normen/antigen.zsh
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle spaceship-prompt/spaceship-vi-mode@main
 antigen theme spaceship-prompt/spaceship-prompt
 antigen apply
 
 # fix mode indicator
+spaceship add --before char vi_mode
 eval spaceship_vi_mode_enable
 
 # ai completion..
