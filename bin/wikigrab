@@ -32,8 +32,12 @@ while(my $arg = shift(@ARGV)){
   }
 }
 if(!$width){
-  #( $width ) = GetTerminalSize();
-  $width = 80 if !$width;
+  if(defined $ENV{'TMUX'}){
+    $width = qx{tmux display-message -p "#{pane_width}"}
+  } else {
+    #( $width ) = GetTerminalSize();
+    $width = 80;
+  }
   $width--;
 }
 $search =~ s/([^A-Za-z0-9])/sprintf("%%%2.2X", ord($1))/ge;
