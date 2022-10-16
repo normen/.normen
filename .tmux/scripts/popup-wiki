@@ -10,4 +10,4 @@ case "$1" in
 *)
     ;;
 esac
-tmux popup -w 63 -E "TERM=xterm-256color;tmux save-buffer - | xargs -I{} ~/.normen/bin/wikigrab -w 60 $ADD {} | less -R"
+tmux popup -w 83 -E "TERM=xterm-256color;tmux save-buffer - | xargs -I{} ~/.normen/bin/wikigrab -w 80 $ADD {} | less -R"
