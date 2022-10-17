@@ -53,4 +53,20 @@ cargo build --release
 # +  link_args : ['-L' + '/Users/normenhansen/Dev/gstreamer/obs-studio/build/libobs/', '-l' + 'obs'],
 # +  include_directories : include_directories('/Users/normenhansen/Dev/gstreamer/obs-studio/')
 # +  )
+
+# gst-list
+alias gst-list="gst-inspect-1.0 |fzf|awk '{print substr(\$2, 1, length(\$2)-1)}' | xargs gst-inspect-1.0"
+
+# macos install / remove (do once for dependencies)
+brew install gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav
+brew remove gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav libnice
+
+# compile on macos
+# needed for rust plugins (-Drs=enabled)
+brew install cargo-c
+meson --buildtype=release -Dgpl=enabled -Dintrospection=disabled -Dorc=enabled -Dtests=disabled -Dexamples=disabled -Dgst-examples=disabled -Dgst-plugins-bad:openexr=disabled -Dgst-plugins-bad:rsvg=disabled -Dgst-plugins-bad:fluidsynth=disabled build
+ninja -C build
+sudo ninja install -c build
+# uninstall
+sudo ninja uninstall -c build
 ```
