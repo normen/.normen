@@ -66,7 +66,7 @@ brew remove gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plug
 brew install cargo-c
 meson --buildtype=release -Dgpl=enabled -Dintrospection=disabled -Dorc=enabled -Dtests=disabled -Dexamples=disabled -Dgst-examples=disabled -Dgst-plugins-bad:openexr=disabled -Dgst-plugins-bad:rsvg=disabled -Dgst-plugins-bad:fluidsynth=disabled build
 ninja -C build
-sudo ninja install -c build
+sudo ninja install -C build
 # uninstall
-sudo ninja uninstall -c build
+sudo ninja uninstall -C build
 ```
