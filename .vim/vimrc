@@ -29,7 +29,7 @@ set backspace=2
 set complete+=kspell
 " don't search included (perl)
 set complete-=i
-set completeopt=menuone,longest
+set completeopt=menuone,noinsert
 set shortmess+=c
 " always show sign column
 "set signcolumn=yes
