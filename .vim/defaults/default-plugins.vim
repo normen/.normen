@@ -24,6 +24,7 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'sotte/presenting.vim'
 Plug 'normen/DrawIt'
 Plug 'ojroques/vim-oscyank'
+Plug 'dbeniamine/cheat.sh-vim'
 " build systems
 Plug 'normen/vim-pio'
 " filetypes (no lsp)
@@ -74,6 +75,8 @@ let g:vifm_embed_term=1
 let g:vimwiki_list = [{'path': '$NORMEN/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }]
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
+" cheat.sh
+let g:CheatSheetDoNotMap=1
 " signify
 let g:signify_sign_change='~'
 " drawit
@@ -148,6 +151,11 @@ nnoremap <Leader>hd :SignifyHunkDiff<CR>
 " vimwiki
 nmap <Leader>wv :50vsplit<CR><Leader>ww
 nmap <Leader>w<Leader>v :50vsplit<CR><Leader>w<Leader>w
+" cheat.sh
+nnoremap <script> <silent> <leader>KK
+      \ :call cheat#cheat("", getcurpos()[1], getcurpos()[1], 0, 0, '!')<CR>
+vnoremap <script> <silent> <leader>KK
+      \ :call cheat#cheat("", -1, -1, 2, 0, '!')<CR>
 " t-bone
 nnoremap <Leader>tt :Twrite top<CR>
 nnoremap <Leader>tb :Twrite bottom<CR>

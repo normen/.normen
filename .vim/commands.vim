@@ -152,6 +152,12 @@ function! s:SpecialK()
   endif
 endfunction
 
+" Other K's
+nmap <silent> <leader>KG :silent call <SID>SpecialKApp('gst-inspect-1.0')<CR>
+function! s:SpecialKApp(app)
+    silent! execute 'term++close ' . a:app . " " . expand('<cword>')
+endfunction
+
 " Open a named Term window only once (command tools)
 function! s:OpenTermOnce(command, buffername)
   let winnr = bufwinnr(a:buffername)
