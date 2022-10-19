@@ -1,0 +1,2 @@
+#!/bin/bash
+OPENAI_API_KEY=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p') ~/.normen/bin/codex-universal.py $*
