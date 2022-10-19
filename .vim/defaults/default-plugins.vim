@@ -245,6 +245,7 @@ function! s:goyo_leave()
   unlet g:bak_asyncomplete_opt
   set scrolloff=0
   set showcmd
+  SignifyEnable
   Limelight!
   hi! Normal guibg=NONE ctermbg=NONE
 endfunction
