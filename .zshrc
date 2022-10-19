@@ -12,6 +12,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias wiki='vim -c VimwikiIndex'
 alias bc=bc -l
+alias gst-list="gst-inspect-1.0 |fzf|awk '{print substr(\$2, 1, length(\$2)-1)}' | xargs gst-inspect-1.0"
 
 # Make <Esc> quicker
 export KEYTIMEOUT=1
