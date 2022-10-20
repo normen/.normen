@@ -1,4 +1,5 @@
 " PLUGINS
+let g:min_lsp_ver=9000000
 " Plug
 silent! call plug#begin('$NORMEN/.vim/plugged')
 " visuals
@@ -37,11 +38,16 @@ if executable('openai')
   Plug 'tom-doerr/vim_codex'
 endif
 " lsp / completion
+if v:versionlong < g:min_lsp_ver
 Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+else
+Plug 'yegappan/lsp'
+endif
+Plug 'mattn/vim-lsp-settings'
+" snip
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
@@ -169,21 +175,34 @@ vnoremap <Leader>tr :Twrite right<CR>
 " codex
 nnoremap  <C-x><C-i> :CreateCompletion<CR>
 inoremap  <C-x><C-i> <Esc>li<C-g>u<Esc>l:CreateCompletion<CR>
-" asyncomplete / vsnip
+" completion / vsnip
 imap <silent><expr> <TAB>
   \ vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' :
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
-  \ asyncomplete#force_refresh()
+  \ "\<C-x><C-o>"
 imap <silent><expr> <S-TAB>
   \ vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' :
   \ pumvisible() ? "\<C-p>" :
   \ <SID>check_back_space() ? "\<S-TAB>" :
-  \ asyncomplete#force_refresh()
-inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+  \ "\<C-x><C-o>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-imap <c-space> <Plug>(asyncomplete_force_refresh)
+imap <c-space> <C-x><C-o>
+" lsp (vim9)
+function! s:on_lsp_enabled() abort
+  setlocal omnifunc=LspOmniFunc
+  nnoremap <buffer> gd <Cmd>LspGotoDefinition<CR>
+  nnoremap <buffer> gs <Cmd>LspSymbolSearch<CR>
+  nnoremap <buffer> gr <Cmd>LspShowReferences<CR>
+  nnoremap <buffer> gi <Cmd>LspGotoImpl<CR>
+  nnoremap <buffer> gt <Cmd>LspGotoTypeDef<CR>
+  nnoremap <buffer> <Leader>rn <Cmd>LspRename<CR>
+  nnoremap <buffer> [x <Cmd>LspDiagPrev<CR>
+  nnoremap <buffer> ]x <Cmd>LspDiagNext<CR>
+  autocmd! BufWritePre *.rs,*.go call execute('LspFormat')
+endfunction
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
@@ -204,6 +223,7 @@ endfunction
 " lsp
 augroup lsp_install
   au!
+  if v:versionlong < g:min_lsp_ver
   " vim-lsp keys
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
   " ccls for vim-lsp
@@ -218,6 +238,26 @@ augroup lsp_install
           \ 'initialization_options': {'cache': {'directory': expand('/tmp/ccls') }},
           \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
           \ })
+  endif
+  else
+  " vim9 lsp
+  autocmd User LspAttached call s:on_lsp_enabled()
+  if executable('ccls')
+    let lspServers = [
+          \     #{
+          \  filetype: ['c', 'cpp'],
+          \  path: 'ccls',
+          \      }
+          \   ]
+    call lsp#lsp#AddServer(lspServers)
+  endif
+  call lsp#options#OptionsSet({'showDiagOnStatusLine': v:true})
+  call lsp#options#OptionsSet({'autoHighlightDiags': v:false})
+  call lsp#options#OptionsSet({'ignoreMissingServer': v:true})
+  call lsp#options#OptionsSet({'noNewlineInCompletion': v:true})
+  " TODO: has to be set to false for omni to work?
+  call lsp#options#OptionsSet({'autoComplete': v:false})
+  call SourceIfExists("$NORMEN/.vim/lsp.vim")
   endif
 augroup END
 
@@ -284,11 +324,13 @@ function! MyLspDiags() abort
   if errnum > 0 | let ret .= errnum . '!' | endif
   return ret
 endfunction
+if v:versionlong < g:min_lsp_ver
 augroup my_lightline_lsp
   autocmd!
   autocmd User lsp_progress_updated call lightline#update()
   autocmd User lsp_diagnostics_updated call lightline#update()
 augroup END
+endif
 
 " check if last char is a space (Tab-complete)
 function! s:check_back_space() abort
