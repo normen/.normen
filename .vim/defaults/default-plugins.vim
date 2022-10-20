@@ -77,6 +77,7 @@ let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
 " cheat.sh
 let g:CheatSheetDoNotMap=1
+let g:CheatDoNotReplaceKeywordPrg=1
 " signify
 let g:signify_sign_change='~'
 " drawit
