@@ -145,7 +145,7 @@ function! s:SpecialK()
     end
   elseif strlen(&keywordprg) && &keywordprg != "man -s"
     silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
-  elseif exists(":LspHover") && &omnifunc == 'lsp#complete'
+  elseif exists(":LspHover") && &omnifunc != ''
     silent! exec "LspHover"
   else
     silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
