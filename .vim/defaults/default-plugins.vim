@@ -202,7 +202,10 @@ function! s:on_lsp_enabled() abort
   nnoremap <buffer> <Leader>rn <Cmd>LspRename<CR>
   nnoremap <buffer> [x <Cmd>LspDiagPrev<CR>
   nnoremap <buffer> ]x <Cmd>LspDiagNext<CR>
-  autocmd! BufWritePre *.rs,*.go call execute('LspFormat')
+  augroup format_on_save
+    au!
+    autocmd! BufWritePre *.rs,*.go call execute('LspFormat')
+  augroup END
 endfunction
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
@@ -217,7 +220,10 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <leader>rn <plug>(lsp-rename)
   nmap <buffer> [x <plug>(lsp-previous-diagnostic)
   nmap <buffer> ]x <plug>(lsp-next-diagnostic)
-  autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+  augroup format_on_save
+    au!
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+  augroup END
 endfunction
 
 " AUTOCOMMANDS
