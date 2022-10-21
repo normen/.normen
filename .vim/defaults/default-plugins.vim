@@ -45,6 +45,7 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 else
 Plug 'yegappan/lsp'
+Plug 'normen/vim-lsp-settings-adapter'
 endif
 Plug 'mattn/vim-lsp-settings'
 " snip
@@ -257,7 +258,6 @@ augroup lsp_install
   autocmd VimEnter * call LspOptionsSet({'noNewlineInCompletion': v:true})
   " TODO: has to be set to false for omni to work?
   autocmd VimEnter * call LspOptionsSet({'autoComplete': v:false})
-  call SourceIfExists("$NORMEN/.vim/lsp.vim")
   endif
 augroup END
 
