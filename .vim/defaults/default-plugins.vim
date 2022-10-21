@@ -249,14 +249,14 @@ augroup lsp_install
           \  path: 'ccls',
           \      }
           \   ]
-    call lsp#lsp#AddServer(lspServers)
+    autocmd VimEnter * call LspAddServer(lspServers)
   endif
-  call lsp#options#OptionsSet({'showDiagOnStatusLine': v:true})
-  call lsp#options#OptionsSet({'autoHighlightDiags': v:false})
-  call lsp#options#OptionsSet({'ignoreMissingServer': v:true})
-  call lsp#options#OptionsSet({'noNewlineInCompletion': v:true})
+  autocmd VimEnter * call LspOptionsSet({'showDiagOnStatusLine': v:true})
+  autocmd VimEnter * call LspOptionsSet({'autoHighlightDiags': v:false})
+  autocmd VimEnter * call LspOptionsSet({'ignoreMissingServer': v:true})
+  autocmd VimEnter * call LspOptionsSet({'noNewlineInCompletion': v:true})
   " TODO: has to be set to false for omni to work?
-  call lsp#options#OptionsSet({'autoComplete': v:false})
+  autocmd VimEnter * call LspOptionsSet({'autoComplete': v:false})
   call SourceIfExists("$NORMEN/.vim/lsp.vim")
   endif
 augroup END
