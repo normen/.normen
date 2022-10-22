@@ -1,0 +1,44 @@
+{
+  "title": {
+    "prefix": ["ti"],
+    "body": [
+      "{title:$1}"
+    ]
+  },
+  "comment": {
+    "prefix": ["co"],
+    "body": [
+      "{comment:$1}"
+    ]
+  },
+  "start_tab": {
+    "prefix": ["sot"],
+    "body": [
+      "{start_of_tab}"
+    ]
+  },
+  "end_tab": {
+    "prefix": ["eot"],
+    "body": [
+      "{end_of_tab}"
+    ]
+  },
+  "start_chorus": {
+    "prefix": ["soc"],
+    "body": [
+      "{start_of_chorus}"
+    ]
+  },
+  "end_chorus": {
+    "prefix": ["eoc"],
+    "body": [
+      "{end_of_chorus}"
+    ]
+  },
+  "chord":{
+    "prefix": ["c"],
+    "body": [
+      "[$1]"
+    ]
+  }
+}
