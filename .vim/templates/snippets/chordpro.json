@@ -1,14 +1,92 @@
 {
   "title": {
-    "prefix": ["ti"],
+    "prefix": ["t"],
     "body": [
       "{title:$1}"
     ]
   },
+  "subtitle": {
+    "prefix": ["st"],
+    "body": [
+      "{subtitle:$1}"
+    ]
+  },
   "comment": {
-    "prefix": ["co"],
+    "prefix": ["c"],
     "body": [
       "{comment:$1}"
+    ]
+  },
+  "comment_italic": {
+    "prefix": ["ci"],
+    "body": [
+      "{comment_italic:$1}"
+    ]
+  },
+  "comment_box": {
+    "prefix": ["cb"],
+    "body": [
+      "{comment_box:$1}"
+    ]
+  },
+  "textsize": {
+    "prefix": ["ts"],
+    "body": [
+      "{textsize:$1}"
+    ]
+  },
+  "textfont": {
+    "prefix": ["tf"],
+    "body": [
+      "{textfont:$1}"
+    ]
+  },
+  "chordsize": {
+    "prefix": ["cs"],
+    "body": [
+      "{chordsize:$1}"
+    ]
+  },
+  "chordfont": {
+    "prefix": ["cf"],
+    "body": [
+      "{chordfont:$1}"
+    ]
+  },
+  "columns": {
+    "prefix": ["col"],
+    "body": [
+      "{columns:$1}"
+    ]
+  },
+  "colb": {
+    "prefix": ["colb"],
+    "body": [
+      "{column_break}"
+    ]
+  },
+  "grid": {
+    "prefix": ["g"],
+    "body": [
+      "{grid}"
+    ]
+  },
+  "no_grid": {
+    "prefix": ["ng"],
+    "body": [
+      "{no_grid}"
+    ]
+  },
+  "new_page": {
+    "prefix": ["np"],
+    "body": [
+      "{new_page}"
+    ]
+  },
+  "new_physical_page": {
+    "prefix": ["npp"],
+    "body": [
+      "{new_physical_page}"
     ]
   },
   "start_tab": {
@@ -33,12 +111,6 @@
     "prefix": ["eoc"],
     "body": [
       "{end_of_chorus}"
-    ]
-  },
-  "chord":{
-    "prefix": ["c"],
-    "body": [
-      "[$1]"
     ]
   }
 }
