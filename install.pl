@@ -7,6 +7,7 @@ use Config;
 use File::Copy;                           #move/copy
 use File::Path;                           #rmtree
 use File::Temp qw/ tempfile tempdir /;    #tempdir
+use Term::ANSIColor;
 no warnings 'experimental';
 
 my $hpath = h_path();
@@ -47,7 +48,11 @@ sub show_menu {
 EOF
   do {
     system( $^O eq 'MSWin32' ? 'cls' : 'clear' );
+    print color("green");
     say $header;
+    print color("blue");
+    say ">----------------------------------------<";
+    print color("reset");
     say "1) Install base applications";
     say "2) Checkout .normen to $npath";
     say "3) Set default app configurations";
@@ -58,6 +63,9 @@ EOF
     say "8) Update .normen";
     say "9) Update plugins";
     say "0) Exit";
+    print color("blue");
+    say ">----------------------------------------<";
+    print color("reset");
     my $input = <>;
     given ($input) {
       when (1) {
