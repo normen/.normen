@@ -176,7 +176,10 @@ vnoremap <Leader>tr :Twrite right<CR>
 " codex
 nnoremap  <C-x><C-i> :CreateCompletion<CR>
 inoremap  <C-x><C-i> <Esc>li<C-g>u<Esc>l:CreateCompletion<CR>
-" completion / vsnip
+" vsnip
+nmap <C-s> :VsnipShowShortcuts<CR>
+imap <C-s> <C-o>:VsnipShowShortcuts<CR>
+" supertab
 imap <silent><expr> <TAB>
   \ vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' :
   \ pumvisible() ? "\<C-n>" :
@@ -301,6 +304,22 @@ augroup goyoplugin
   autocmd! User GoyoEnter nested call <SID>goyo_enter()
   autocmd! User GoyoLeave nested call <SID>goyo_leave()
 augroup END
+
+" show vsnip shortcut list
+:command! VsnipShowShortcuts call <SID>ShowVsnipShortcuts()
+function! s:ShowVsnipShortcuts()
+  let l:sources = vsnip#source#find(bufnr('%')) 
+  let l:prefixes = []
+  " Search prefix
+  for l:source in l:sources
+    for l:snippet in l:source
+      for l:prefix in l:snippet.prefix
+        call add(l:prefixes, l:prefix . ' - ' . l:snippet.label)
+      endfor
+    endfor
+  endfor
+  call popup_atcursor(l:prefixes,{})
+endfunction
 
 " HELPERS
 " get drawit mode (Lightline)
