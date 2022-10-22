@@ -178,12 +178,12 @@ nnoremap  <C-x><C-i> :CreateCompletion<CR>
 inoremap  <C-x><C-i> <Esc>li<C-g>u<Esc>l:CreateCompletion<CR>
 " completion / vsnip
 imap <silent><expr> <TAB>
-  \ vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' :
+  \ vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' :
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
   \ "\<C-x><C-o>"
 imap <silent><expr> <S-TAB>
-  \ vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' :
+  \ vsnip#available(-1) ? '<Plug>(vsnip-expand-or-jump)' :
   \ pumvisible() ? "\<C-p>" :
   \ <SID>check_back_space() ? "\<S-TAB>" :
   \ "\<C-x><C-o>"
@@ -263,7 +263,7 @@ augroup lsp_install
   autocmd VimEnter * call LspOptionsSet({'ignoreMissingServer': v:true})
   autocmd VimEnter * call LspOptionsSet({'noNewlineInCompletion': v:true})
   " TODO: has to be set to false for omni to work?
-  autocmd VimEnter * call LspOptionsSet({'autoComplete': v:false})
+  "autocmd VimEnter * call LspOptionsSet({'autoComplete': v:false})
   endif
 augroup END
 
