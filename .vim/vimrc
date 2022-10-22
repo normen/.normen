@@ -139,6 +139,7 @@ if !executable('vifm')
 else
   map <silent> <C-E> :Vifm<CR>
   map <silent> <C-W><C-E> :VsplitVifm<CR>
+  map <silent> <C-T><C-E> :TabVifm<CR>
 endif
 
 " toggle paste mode
