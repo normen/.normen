@@ -18,7 +18,7 @@ if ($host && open my $fh, '<', glob '~/Documents/.git-credentials') {
 }
 if ($key) {
   say "Found key in .git-credential";
-  exit system("echo $key | lg2 $args");
+  exec("echo $key | lg2 $args");
 } else {
-  exit system("lg2 $args");
+  exec("lg2 $args");
 }
