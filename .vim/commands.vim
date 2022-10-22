@@ -201,6 +201,12 @@ fun! CompleteChords(findstart, base)
   if a:findstart
     " locate the start of the word
     let start = col('.')
+    let line = getline('.')
+    while start > 0 && line[start - 1] !~ '\['
+      let start -= 1
+    endwhile
+    let start -= 1
+    echom "Returned: " . start
     return start
   else
     " find chords in buffer
