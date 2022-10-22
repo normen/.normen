@@ -1,4 +1,10 @@
 {
+  "define": {
+    "prefix": ["def"],
+    "body": [
+      "{define: ${1:name} ${2:base_fret} ${3:string_1} ${4:string_2} ${5:string_3} ${6:string_4} ${7:string_5} ${8:string_6}}"
+    ]
+  },
   "title": {
     "prefix": ["t"],
     "body": [
@@ -27,6 +33,12 @@
     "prefix": ["cb"],
     "body": [
       "{comment_box:$1}"
+    ]
+  },
+  "key": {
+    "prefix": ["key"],
+    "body": [
+      "{key:$1}"
     ]
   },
   "textsize": {
