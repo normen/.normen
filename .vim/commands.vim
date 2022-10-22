@@ -43,14 +43,14 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 
 " NPM
 command! -nargs=+ NPM  call <SID>OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
-:command JSCompletionEnable !cp $NORMEN/.vim/templates/jsconfig.json ./
+:command JSCompletionEnable !cp "$NORMEN/.vim/templates/jsconfig.json" ./
 
 " go
 command! -nargs=+ GO  call <SID>OpenTermOnce('go ' . <q-args>, "GO Tool")
-:command GoCreateMakefile !cp $NORMEN/.vim/templates/Go-Makefile ./Makefile
+:command GoCreateMakefile !cp "$NORMEN/.vim/templates/Go-Makefile" ./Makefile
 
 " cpp
-:command CppCreateMakefile !cp $NORMEN/.vim/templates/CPP-Makefile ./Makefile;cp $NORMEN/.vim/templates/CPP-ccls ./.ccls
+:command CppCreateMakefile !cp "$NORMEN/.vim/templates/CPP-Makefile" ./Makefile;cp "$NORMEN/.vim/templates/CPP-ccls" ./.ccls;cp "$NORMEN/.vim/templates/CPP-clangd" ./compile_flags.txt
 
 " GH
 command! -nargs=+ GH  call <SID>OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
