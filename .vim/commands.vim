@@ -203,6 +203,9 @@ fun! CompleteChords(findstart, base)
     let start = col('.')
     let line = getline('.')
     while start > 0 && line[start - 1] !~ '\['
+      if  line[start -1] =~ '\]'
+        return col('.')
+      endif
       let start -= 1
     endwhile
     let start -= 1
