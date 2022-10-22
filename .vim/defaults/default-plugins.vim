@@ -1,4 +1,5 @@
-" PLUGINS
+" create versionlong variable for older versions without v:verisonlong
+let g:my_versionlong=get(v:, 'versionlong', v:version*10000)
 let g:min_lsp_ver=9000000
 " Plug
 silent! call plug#begin('$NORMEN/.vim/plugged')
@@ -38,7 +39,7 @@ if executable('openai')
   Plug 'tom-doerr/vim_codex'
 endif
 " lsp / completion
-if v:versionlong < g:min_lsp_ver
+if g:my_versionlong < g:min_lsp_ver
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -56,7 +57,7 @@ Plug 'rafamadriz/friendly-snippets'
 if executable('tmux')
   Plug 'tpope/vim-tbone'
   Plug 'christoomey/vim-tmux-navigator'
-  if v:versionlong < 8022345
+  if g:my_versionlong < 8022345
     Plug 'tmux-plugins/vim-tmux-focus-events'
   endif
   Plug 'roxma/vim-tmux-clipboard'
@@ -65,7 +66,7 @@ endif
 call plug#end()
 
 " fix focus events
-if v:versionlong >= 8022345
+if g:my_versionlong >= 8022345
   let &t_fe = "\<Esc>[?1004h"
   let &t_fd = "\<Esc>[?1004l"
   execute "set <FocusGained>=\<Esc>[I"
@@ -233,7 +234,7 @@ endfunction
 " lsp
 augroup lsp_install
   au!
-  if v:versionlong < g:min_lsp_ver
+  if g:my_versionlong < g:min_lsp_ver
   " vim-lsp keys
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
   " ccls for vim-lsp
@@ -349,7 +350,7 @@ function! MyLspDiags() abort
   if errnum > 0 | let ret .= errnum . '!' | endif
   return ret
 endfunction
-if v:versionlong < g:min_lsp_ver
+if g:my_versionlong < g:min_lsp_ver
 augroup my_lightline_lsp
   autocmd!
   autocmd User lsp_progress_updated call lightline#update()
