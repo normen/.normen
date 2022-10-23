@@ -77,8 +77,8 @@ endfunction
 
 " get graph (dot) from selection
 " cpan Graph::Easy
-com -range=% -nargs=* GraphEasy :<line1>,<line2>call GraphEasy(<q-args>)
-function GraphEasy(args) range
+com -range=% -nargs=* GraphEasy :<line1>,<line2>call <sid>GraphEasy(<q-args>)
+function s:GraphEasy(args) range
   let tempname = tempname()
   call writefile(getline(a:firstline, a:lastline), tempname)
   bo new
@@ -92,8 +92,8 @@ endfunction
 
 " get diagram from selection
 " pip install diagram
-com -range=% -nargs=* Diagram :<line1>,<line2>call Diagram(<q-args>)
-function Diagram(args) range
+com -range=% -nargs=* Diagram :<line1>,<line2>call <sid>Diagram(<q-args>)
+function s:Diagram(args) range
   let tempname = tempname()
   call writefile(getline(a:firstline, a:lastline), tempname)
   bo new
@@ -108,8 +108,8 @@ endfunction
 
 " get html from markdown
 " pip install markdown2
-com -range=% -nargs=* Markdown2 :<line1>,<line2>call Markdown2(<q-args>)
-function Markdown2(args) range
+com -range=% -nargs=* Markdown2 :<line1>,<line2>call <sid>Markdown2(<q-args>)
+function s:Markdown2(args) range
   let tempname = tempname()
   call writefile(getline(a:firstline, a:lastline), tempname)
   let newname = expand('%:r').'.html'
@@ -197,7 +197,7 @@ function! QuickFix_toggle()
   copen
 endfunction
 
-fun! CompleteChords(findstart, base)
+fun! commands#CompleteChords(findstart, base)
   if a:findstart
     " locate the start of the word
     let start = col('.')
@@ -214,7 +214,7 @@ fun! CompleteChords(findstart, base)
   else
     " find chords in buffer
     for lin in getline(1, '$')->filter({_,line -> line =~ '\[[^\]]*\]'})
-      for crd in MatchStrAll(lin, '\[[^\]]*\]')
+      for crd in <sid>MatchStrAll(lin, '\[[^\]]*\]')
         call complete_add(crd)
       endfor
     endfor
@@ -222,7 +222,7 @@ fun! CompleteChords(findstart, base)
   endif
 endfun
 
-function! MatchStrAll(expr, pat, ...)
+function! s:MatchStrAll(expr, pat, ...)
   let start = a:0 ? a:1 : 0
   let lst = []
   let cnt = 1
@@ -237,5 +237,5 @@ endfunction
 
 augroup filetype_replace
   autocmd BufNewFile,BufRead *.pro setlocal filetype=chordpro
-  autocmd FileType chordpro setlocal omnifunc=CompleteChords
+  autocmd FileType chordpro setlocal omnifunc=commands#CompleteChords
 augroup END
