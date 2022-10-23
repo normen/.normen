@@ -30,16 +30,16 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 
 " ChordPro
 " cpan App::Music::ChordPro
-:command -nargs=* ChordConvert :%!chordpro --a2crd <args> %
-:command -nargs=+ ChordTranspose :!chordpro --transpose <args> % > %:r-trans.pdf
-:command -nargs=* ChordPrint :!chordpro <args> %|lp
-:command -nargs=* ChordExport :!chordpro <args> % > %:r.pdf
+:command -nargs=* ChordConvert :%!chordpro --a2crd <args> "%"
+:command -nargs=+ ChordTranspose :!chordpro --transpose <args> "%" > "%:r-trans.pdf"
+:command -nargs=* ChordPrint :!chordpro <args> "%"|lp
+:command -nargs=* ChordExport :!chordpro <args> "%" > "%:r.pdf"
 ":command ChordExportPDF :!chordpro % | ps2pdf - > %:r.pdf
 
 " OpenSCAD
-:command SCADOpen !openscad %&
-:command SCADExport Start openscad -o %:r.stl %
-:command SCADPrint Start openscad -o %:r.stl %;open %:r.stl
+:command SCADOpen !openscad "%"&
+:command SCADExport Start openscad -o "%:r.stl" "%"
+:command SCADPrint Start openscad -o "%:r.stl" "%";open "%:r.stl"
 
 " NPM
 command! -nargs=+ NPM  call <SID>OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
