@@ -69,29 +69,25 @@ export EDITOR=$(which vim)
 
 # copy-paste to tmux
 function tmux-clip-wrap-widgets() {
-    # NB: Assume we are the first wrapper and that we only wrap native widgets
-    # See zsh-autosuggestions.zsh for a more generic and more robust wrapper
-    local copy_or_paste=$1
-    shift
-    for widget in $@; do
-        # Ugh, zsh doesn't have closures
-        if [[ $copy_or_paste == "copy" ]]; then
-            eval "
-            function _tmux-clip-wrapped-$widget() {
-                zle .$widget
-                tmux load-buffer - <<<\$CUTBUFFER
-            }
-            "
-        else
-            eval "
-            function _tmux-clip-wrapped-$widget() {
-                CUTBUFFER=\$(tmux save-buffer -)
-                zle .$widget
-            }
-            "
-        fi
-        zle -N $widget _tmux-clip-wrapped-$widget
-    done
+  # NB: Assume we are the first wrapper and that we only wrap native widgets
+  # See zsh-autosuggestions.zsh for a more generic and more robust wrapper
+  local copy_or_paste=$1
+  shift
+  for widget in $@; do
+    # Ugh, zsh doesn't have closures
+    if [[ $copy_or_paste == "copy" ]]; then
+      eval "function _tmux-clip-wrapped-$widget() {
+        zle .$widget
+        tmux load-buffer - <<<\$CUTBUFFER
+      }"
+    else
+      eval "function _tmux-clip-wrapped-$widget() {
+        CUTBUFFER=\$(tmux save-buffer -)
+        zle .$widget
+      }"
+    fi
+    zle -N $widget _tmux-clip-wrapped-$widget
+  done
 }
 local copy_widgets=(
     vi-yank vi-yank-eol vi-delete vi-backward-kill-word vi-change-whole-line
