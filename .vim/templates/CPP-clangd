@@ -1,0 +1,5 @@
+-I./include
+-I./lib
+-I./src
+-isystem/usr/local/include
+-isystem/usr/include

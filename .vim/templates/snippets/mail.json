@@ -1,0 +1,16 @@
+{
+  "mfg": {
+    "prefix": ["mfg"],
+    "body": [
+      "Mit freundlichen Grüßen,",
+      "Normen Hansen"
+    ]
+  },
+  "lg": {
+    "prefix": ["lg"],
+    "body": [
+      "LG,",
+      "Normen"
+    ]
+  }
+}
