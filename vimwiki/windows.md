@@ -46,6 +46,9 @@ Set-Service -Name ssh-agent -StartupType 'Automatic'
 Start-Service ssh-agent
 Start-Service sshd
 
+# set linux as login shell
+New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\WINDOWS\System32\wsl.exe" -PropertyType String -Force
+
 # for admin accounts copy authorized_keys to:
 $acl = Get-Acl C:\ProgramData\ssh\administrators_authorized_keys
 $acl.SetAccessRuleProtection($true, $false)
@@ -54,3 +57,4 @@ $systemRule = New-Object system.security.accesscontrol.filesystemaccessrule("SYS
 $acl.SetAccessRule($administratorsRule)
 $acl.SetAccessRule($systemRule)
 $acl | Set-Acl
+```
