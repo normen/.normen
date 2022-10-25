@@ -72,6 +72,7 @@ Followed by the command, somtimes delimited by opening square bracket (`[`), kno
 Arguments are delimeted by semi colon (`;`).
 
 For example:
+```
 
 ```sh
 \x1b[1;31m  # Set style to bold, red foreground.
@@ -395,4 +396,3 @@ The parameters for this escape sequence are defined as follows:
 | \+ (keypad)              | 43       | 43         | (0;150)   | (0;55)    |
 | 5 (keypad)               | (0;76)   | 53         | (0;143)   | \--       |
 
-```
