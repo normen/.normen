@@ -74,3 +74,8 @@ no message if no existing engraving
 - nothing
 - secret door detection (self-identifies if secrets are detected)
 - wand is cancelled (x:-1)
+
+## Run on Docker
+```sh
+alias nethack='docker run -it -v /root/.nethack:/usr/games/lib/nethackdir/save -e NETHACKOPTIONS="@/usr/games/lib/nethackdir/save/.nethackrc" matsuu/nethack:latest'
+```
