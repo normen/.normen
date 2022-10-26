@@ -7,6 +7,13 @@ sudo mount /dev/sda1 /mnt/usb -o uid=pi,gid=pi
 # download recursively
 wget -nH --reject-regex 'Especial|Special|Ayuda|Help|action|printable|Archivo:' --recursive --page-requisites --html-extension --convert-links --restrict-file-names=windows --domains domain.com --no-parent http://domain.com/wiki
 
+# get port blocking processes
+sudo lsof -t -i:8080
+
+# reverse ssh
+# makes local port 22 available on localhost:9401 at bitwaves.de
+ssh -N -R 9401:localhost:22 root@bitwaves.de
+
 #tar.gz
 tar -xvzf myfile.tar.gz
 # start process and get PID
