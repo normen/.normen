@@ -77,5 +77,6 @@ no message if no existing engraving
 
 ## Run on Docker
 ```sh
-alias nethack='docker run -it -v /root/.nethack:/usr/games/lib/nethackdir/save -e NETHACKOPTIONS="@/usr/games/lib/nethackdir/save/.nethackrc" matsuu/nethack:latest'
+docker run --name nethack -it -v /root/.nethack:/usr/games/lib/nethackdir/save -e NETHACKOPTIONS="@/usr/games/lib/nethackdir/save/.nethackrc" matsuu/nethack
+alias nethack='docker start -i nethack'
 ```
