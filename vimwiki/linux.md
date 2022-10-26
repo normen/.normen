@@ -13,6 +13,8 @@ sudo lsof -t -i:8080
 # reverse ssh
 # makes local port 22 available on localhost:9401 at bitwaves.de
 ssh -N -R 9401:localhost:22 root@bitwaves.de
+# prepare local ssh with key
+ssh-keygen -t rsa -b 4096
 
 #tar.gz
 tar -xvzf myfile.tar.gz

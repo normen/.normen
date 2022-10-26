@@ -57,4 +57,12 @@ $systemRule = New-Object system.security.accesscontrol.filesystemaccessrule("SYS
 $acl.SetAccessRule($administratorsRule)
 $acl.SetAccessRule($systemRule)
 $acl | Set-Acl
+
+# Alternative:
+vim C:\ProgramData\ssh\sshd_config
+# comment out:
+# AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+# add:
+PasswordAuthentication no
+restart-service sshd
 ```
