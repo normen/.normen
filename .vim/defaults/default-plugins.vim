@@ -16,6 +16,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-vinegar'
 Plug 'preservim/nerdcommenter'
 Plug 'vim-scripts/visual-increment'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
@@ -152,6 +154,8 @@ let g:lightline = {
 \ }
 
 " MAPPINGS
+" Fzf
+nnoremap <C-f> :FZF<CR>
 " Goyo
 nnoremap <C-g> :Goyo<CR>
 " signify
