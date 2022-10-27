@@ -4,7 +4,7 @@
 docker build -t myimage .
 # create container from hub (dockeruser) or local image by running once with interactive shell -it
 # example has port forward -p, folder replacement -v and env opt -e
-docker run --name mycontainer -it -p 8080:80 -v /local/folder:/image/folder/to/replace -e ENVOPT="myenv" dockeruser/imagename:latest
+docker run --name mycontainer --restart unless-stopped -it -p 8080:80 -v /local/folder:/image/folder/to/replace -e ENVOPT="myenv" dockeruser/imagename:latest
 # run container (same settings as run)
 docker start mycontainer
 # run interactive

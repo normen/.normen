@@ -1,0 +1,6 @@
+#!/bin/bash
+colima start
+docker context use colima
+echo "For dry to work:"
+echo "export DOCKER_HOST=unix:///Users/normenhansen/.colima/docker.sock"
+
