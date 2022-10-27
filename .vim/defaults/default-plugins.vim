@@ -195,7 +195,8 @@ imap <silent><expr> <S-TAB>
   \ pumvisible() ? "\<C-p>" :
   \ <SID>check_back_space() ? "\<S-TAB>" :
   \ "\<C-x><C-o>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+" handled by lsp
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
 imap <c-space> <C-x><C-o>
