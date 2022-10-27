@@ -1,23 +1,14 @@
 ## docker
 ```bash
-# install macos:
-brew install docker colima
-colima start
-docker context use colima
-export DOCKER_HOST=unix:///Users/normenhansen/.colima/docker.sock
-docker run hello-world
-
-# install macos (old):
-brew install docker docker-machine virtualbox
-brew install docker-machine
-docker-machine create --driver virtualbox --virtualbox-hostonly-cidr "192.168.56.1/24" default
-docker-machine restart
-# This might throw an TSI connection error. In that case run docker-machine regenerate-certs default
-eval "$(docker-machine env default)" 
-# maybe needed
-docker-machine restart
-docker run hello-world
-
+# build from dockerfile (myimage:v3)
+docker build -t myimage .
+# create container from hub or local image by running once with interactive shell -it
+# example has folder replacement -v and env opt -e from hub
+docker run --name mycontainer -it -v /local/folder:/image/folder/to/replace -e ENVOPT="myenv" dockeruser/imagename:latest
+# run container (same settings as run)
+docker start mycontainer
+# run interactive
+docker start -i mycontainer
 # restart
 docker container restart mycontainer
 # stat display ("top")
@@ -36,7 +27,7 @@ docker pull my/imagename
 vim /etc/docker/daemon.json
 {"iptables":false}
 
-vim etc/default/ufw
+vim /etc/default/ufw
 DEFAULT_FORWARD_POLICY="ACCEPT"
 
 vim /etc/ufw/after.rules
@@ -44,6 +35,13 @@ vim /etc/ufw/after.rules
 :POSTROUTING ACCEPT [0:0]
 -A POSTROUTING ! -o docker0 -s 172.19.0.0/16 -j MASQUERADE
 COMMIT
+
+# install macos:
+brew install docker colima
+colima start
+docker context use colima
+export DOCKER_HOST=unix:///Users/normenhansen/.colima/docker.sock
+docker run hello-world
 ```
 ## create docker alpine
 ```bash
