@@ -210,8 +210,9 @@ function! s:on_lsp_enabled() abort
   nnoremap <buffer> gi <Cmd>LspGotoImpl<CR>
   nnoremap <buffer> gt <Cmd>LspGotoTypeDef<CR>
   nnoremap <buffer> <Leader>rn <Cmd>LspRename<CR>
-  nnoremap <buffer> [x <Cmd>LspDiagPrev<CR>
-  nnoremap <buffer> ]x <Cmd>LspDiagNext<CR>
+  nnoremap <buffer> <Leader>fx <Cmd>LspCodeAction<CR>
+  nnoremap <buffer> [x <Cmd>LspDiagPrev<CR><Cmd>LspDiagCurrent<CR>
+  nnoremap <buffer> ]x <Cmd>LspDiagNext<CR><Cmd>LspDiagCurrent<CR>
   augroup format_on_save
     au!
     autocmd! BufWritePre *.rs,*.go call execute('LspFormat')
@@ -268,10 +269,12 @@ augroup lsp_install
           \   ]
     autocmd VimEnter * call LspAddServer(lspServers)
   endif
-  autocmd VimEnter * call LspOptionsSet({'showDiagOnStatusLine': v:true})
+  "autocmd VimEnter * call LspOptionsSet({'showDiagOnStatusLine': v:true})
+  autocmd VimEnter * call LspOptionsSet({'showDiagInPopup': v:true})
   autocmd VimEnter * call LspOptionsSet({'autoHighlightDiags': v:false})
   autocmd VimEnter * call LspOptionsSet({'ignoreMissingServer': v:true})
   autocmd VimEnter * call LspOptionsSet({'noNewlineInCompletion': v:true})
+  autocmd VimEnter * call LspOptionsSet({'usePopupInCodeAction': v:true})
   " TODO: has to be set to false for omni to work?
   "autocmd VimEnter * call LspOptionsSet({'autoComplete': v:false})
   endif
