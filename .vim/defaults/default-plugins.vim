@@ -202,6 +202,7 @@ imap <c-space> <C-x><C-o>
 " lsp (vim9)
 function! s:on_lsp_enabled() abort
   setlocal omnifunc=LspOmniFunc
+	setlocal tagfunc=lsp#lsp#TagFunc
   nnoremap <buffer> gd <Cmd>LspGotoDefinition<CR>
   nnoremap <buffer> gs <Cmd>LspSymbolSearch<CR>
   nnoremap <buffer> gr <Cmd>LspShowReferences<CR>
@@ -347,20 +348,27 @@ function! MyLspProgress() abort
   return '[' . get(myprog,'server') . '] ' . get(myprog,'title') . ' ' . get(myprog,'message') . ' (' . get(myprog,'percentage') . '%)'
 endfunction
 function! MyLspDiags() abort
-  if !exists("*lsp#get_buffer_diagnostics_counts") | return '' | endif
   let ret = ''
-  let diags = lsp#get_buffer_diagnostics_counts()
-  let errnum = get(diags,"error")
+  let errnum = 0
+  if exists("*lsp#get_buffer_diagnostics_counts")
+    let diags = lsp#get_buffer_diagnostics_counts()
+    let errnum = get(diags,"error")
+  elseif exists("*lsp#lsp#ErrorCount")
+    let diags = lsp#lsp#ErrorCount()
+    let errnum = get(diags,"Error")
+  endif
   if errnum > 0 | let ret .= errnum . '!' | endif
   return ret
 endfunction
-if g:my_versionlong < g:min_lsp_ver
 augroup my_lightline_lsp
   autocmd!
+  if g:my_versionlong < g:min_lsp_ver
   autocmd User lsp_progress_updated call lightline#update()
   autocmd User lsp_diagnostics_updated call lightline#update()
+  else
+  autocmd User LspDiagsUpdated call lightline#update()
+  endif
 augroup END
-endif
 
 " check if last char is a space (Tab-complete)
 function! s:check_back_space() abort
