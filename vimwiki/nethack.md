@@ -80,3 +80,34 @@ no message if no existing engraving
 docker run --name nethack -it -v /root/.nethack:/usr/games/lib/nethackdir/save -e NETHACKOPTIONS="@/usr/games/lib/nethackdir/save/.nethackrc" matsuu/nethack
 alias nethack='docker start -i nethack'
 ```
+
+## Dockerfile NetHack on local telnet
+```
+FROM alpine
+#docker build -t nethack-docker .
+#docker rm nethack-docker
+#docker run --name nethack-docker --restart unless-stopped -it -v /root/.nethack:/usr/games/lib/nethackdir/save -e NETHACKOPTIONS="@/usr/games/lib/nethackdir/save/.nethackrc" -p 20021:23 nethack-docker
+#docker start nethack-docker
+#alias nethack='telnet localhost 20021'
+
+ARG NH_VER=3.6.6
+
+RUN \
+  apk --no-cache add byacc curl flex gcc groff linux-headers make musl-dev ncurses-dev util-linux && \
+  apk --no-cache add busybox-extras &&\
+  ln -s libncurses.so /usr/lib/libtinfo.so && \
+  curl -sL https://nethack.org/download/${NH_VER}/nethack-${NH_VER//.}-src.tgz | tar zx && \
+  ( \
+    cd NetHack-NetHack-${NH_VER}_Released && \
+    sed -i -e 's/cp -n/cp/g' -e '/^PREFIX/s:=.*:=/usr:' sys/unix/hints/linux && \
+    sh sys/unix/setup.sh sys/unix/hints/linux && \
+    make all && \
+    make install \
+  ) && \
+  rm -rf NetHack-NetHack-${NH_VER}_Released
+
+# for backup
+VOLUME /usr/games/lib/nethackdir
+
+ENTRYPOINT ["/usr/sbin/telnetd", "-F", "-l", "/usr/games/lib/nethackdir/nethack"]
+```
