@@ -2,9 +2,9 @@
 ```bash
 # build from dockerfile (myimage:v3)
 docker build -t myimage .
-# create container from hub or local image by running once with interactive shell -it
-# example has folder replacement -v and env opt -e from hub
-docker run --name mycontainer -it -v /local/folder:/image/folder/to/replace -e ENVOPT="myenv" dockeruser/imagename:latest
+# create container from hub (dockeruser) or local image by running once with interactive shell -it
+# example has port forward -p, folder replacement -v and env opt -e
+docker run --name mycontainer -it -p 8080:80 -v /local/folder:/image/folder/to/replace -e ENVOPT="myenv" dockeruser/imagename:latest
 # run container (same settings as run)
 docker start mycontainer
 # run interactive
