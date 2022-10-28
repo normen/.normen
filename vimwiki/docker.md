@@ -23,19 +23,14 @@ docker exec -it imagename bash
 #update
 docker pull my/imagename
 
+# add ufw rule to allow docker input to localhost
+ufw allow in from 172.31.0.0/16 comment nextcloud
 
 # ufw instead of iptables
-vim /etc/docker/daemon.json
-{"iptables":false}
-
-vim /etc/default/ufw
-DEFAULT_FORWARD_POLICY="ACCEPT"
-
-vim /etc/ufw/after.rules
-*nat
-:POSTROUTING ACCEPT [0:0]
--A POSTROUTING ! -o docker0 -s 172.19.0.0/16 -j MASQUERADE
-COMMIT
+sudo wget -O /usr/local/bin/ufw-docker \
+  https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker
+sudo chmod +x /usr/local/bin/ufw-docker
+ufw-docker install
 
 # options for logging
 vim /etc/docker/daemon.json
