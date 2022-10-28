@@ -4,6 +4,7 @@
 docker build -t myimage .
 # create container from hub (dockeruser) or local image by running once with interactive shell -it
 # example has port forward -p, folder replacement -v and env opt -e
+# adding --rm removes the container right away
 docker run --name mycontainer --restart unless-stopped -it -p 8080:80 -v /local/folder:/image/folder/to/replace -e ENVOPT="myenv" dockeruser/imagename:latest
 # run container (same settings as run)
 docker start mycontainer
@@ -81,4 +82,38 @@ RUN cpanm -ni Mojolicious::Lite
 COPY main.pl /usr/local/bin/
 ENTRYPOINT ["main.pl"]
 CONTENT
+
+# X11 forwarding
+<<Dockerfile
+FROM ubuntu
+RUN apt update \
+    && apt install -y firefox \
+                      openssh-server \
+                      xauth \
+    && mkdir /var/run/sshd \
+    && mkdir /root/.ssh \
+    && chmod 700 /root/.ssh \
+    && ssh-keygen -A \
+    && sed -i "s/^.*PasswordAuthentication.*$/PasswordAuthentication no/" /etc/ssh/sshd_config \
+    && sed -i "s/^.*X11Forwarding.*$/X11Forwarding yes/" /etc/ssh/sshd_config \
+    && sed -i "s/^.*X11UseLocalhost.*$/X11UseLocalhost no/" /etc/ssh/sshd_config \
+    && grep "^X11UseLocalhost" /etc/ssh/sshd_config || echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
+
+RUN echo "YOUR_PUB_KEY_HERE" >> /root/.ssh/authorized_keys
+
+ENTRYPOINT ["sh", "-c", "/usr/sbin/sshd && tail -f /dev/null"]
+Dockerfile
+docker build -t ubuntu-x11 .
+docker run --name ubuntu-x11 -it --rm -p 2150:22 ubuntu-x11
+docker start ubuntu-x11
+vim ~/.ssh/config
+<<CONTENT
+Host ubuntu-x11
+  Hostname localhost
+  Port 2150
+  user root
+  ForwardX11 yes
+  ForwardX11Trusted yes
+CONTENT
+ssh -X ubuntu-x11 firefox
 ```
