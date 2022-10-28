@@ -37,6 +37,16 @@ vim /etc/ufw/after.rules
 -A POSTROUTING ! -o docker0 -s 172.19.0.0/16 -j MASQUERADE
 COMMIT
 
+# options for logging
+vim /etc/docker/daemon.json
+<<CONTENT
+{
+  "log-driver": "journald",
+  "log-opts": {
+    "tag": "{{.ImageName}}/{{.Name}}"
+  }
+}
+CONTENT
 # install macos:
 brew install docker colima
 colima start
