@@ -219,7 +219,7 @@ function! s:on_lsp_enabled() abort
   augroup END
 endfunction
 " vim-lsp
-function! s:on_lsp_buffer_enabled() abort
+function! s:on_vim_lsp_enabled() abort
   setlocal omnifunc=lsp#complete
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
   nmap <buffer> gd <plug>(lsp-definition)
@@ -243,7 +243,7 @@ augroup plugin_autocommands
   " vim-lsp
   autocmd User lsp_progress_updated call lightline#update()
   autocmd User lsp_diagnostics_updated call lightline#update()
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  autocmd User lsp_buffer_enabled call s:on_vim_lsp_enabled()
   " lsp
   autocmd User LspDiagsUpdated call lightline#update()
   autocmd User LspAttached call s:on_lsp_enabled()
