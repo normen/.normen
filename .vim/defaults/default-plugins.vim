@@ -261,6 +261,8 @@ augroup END
 
 " add ccls to LSP
 if executable('ccls')
+augroup ccls_register
+  au!
   if g:my_versionlong < g:min_lsp_ver
     " vim-lsp
     let g:lsp_settings = {
@@ -283,6 +285,7 @@ if executable('ccls')
           \   ]
     autocmd VimEnter * call LspAddServer(lspServers)
   endif
+augroup END
 endif
 
 " goyo helpers
