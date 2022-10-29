@@ -238,14 +238,31 @@ function! s:on_lsp_buffer_enabled() abort
 endfunction
 
 " AUTOCOMMANDS
-" lsp
-augroup lsp_install
+augroup plugin_autocommands
   au!
-  if g:my_versionlong < g:min_lsp_ver
-  " vim-lsp keys
+  " vim-lsp
+  autocmd User lsp_progress_updated call lightline#update()
+  autocmd User lsp_diagnostics_updated call lightline#update()
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-  " ccls for vim-lsp
-  if executable('ccls')
+  " lsp
+  autocmd User LspDiagsUpdated call lightline#update()
+  autocmd User LspAttached call s:on_lsp_enabled()
+  "autocmd VimEnter * call LspOptionsSet({'showDiagOnStatusLine': v:true})
+  "autocmd VimEnter * call LspOptionsSet({'autoComplete': v:false})
+  autocmd VimEnter * call LspOptionsSet({'showDiagInPopup': v:true})
+  autocmd VimEnter * call LspOptionsSet({'autoHighlightDiags': v:false})
+  autocmd VimEnter * call LspOptionsSet({'ignoreMissingServer': v:true})
+  autocmd VimEnter * call LspOptionsSet({'noNewlineInCompletion': v:true})
+  autocmd VimEnter * call LspOptionsSet({'usePopupInCodeAction': v:true})
+  " goyo
+  autocmd! User GoyoEnter nested call <SID>goyo_enter()
+  autocmd! User GoyoLeave nested call <SID>goyo_leave()
+augroup END
+
+" add ccls to LSP
+if executable('ccls')
+  if g:my_versionlong < g:min_lsp_ver
+    " vim-lsp
     let g:lsp_settings = {
           \  'clangd': {'disabled': v:true}
           \}
@@ -256,11 +273,8 @@ augroup lsp_install
           \ 'initialization_options': {'cache': {'directory': expand('/tmp/ccls') }},
           \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
           \ })
-  endif
   else
-  " vim9 lsp
-  autocmd User LspAttached call s:on_lsp_enabled()
-  if executable('ccls')
+    " vim9 lsp
     let lspServers = [
           \     #{
           \  filetype: ['c', 'cpp'],
@@ -269,18 +283,9 @@ augroup lsp_install
           \   ]
     autocmd VimEnter * call LspAddServer(lspServers)
   endif
-  "autocmd VimEnter * call LspOptionsSet({'showDiagOnStatusLine': v:true})
-  autocmd VimEnter * call LspOptionsSet({'showDiagInPopup': v:true})
-  autocmd VimEnter * call LspOptionsSet({'autoHighlightDiags': v:false})
-  autocmd VimEnter * call LspOptionsSet({'ignoreMissingServer': v:true})
-  autocmd VimEnter * call LspOptionsSet({'noNewlineInCompletion': v:true})
-  autocmd VimEnter * call LspOptionsSet({'usePopupInCodeAction': v:true})
-  " TODO: has to be set to false for omni to work?
-  "autocmd VimEnter * call LspOptionsSet({'autoComplete': v:false})
-  endif
-augroup END
+endif
 
-" goyo
+" goyo helpers
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
     silent !tmux set status off
@@ -294,6 +299,7 @@ function! s:goyo_enter()
   set noshowcmd
   Limelight
 endfunction
+
 function! s:goyo_leave()
   if executable('tmux') && strlen($TMUX)
     silent !tmux set status on
@@ -309,11 +315,6 @@ function! s:goyo_leave()
   Limelight!
   hi! Normal guibg=NONE ctermbg=NONE
 endfunction
-augroup goyoplugin
-  au!
-  autocmd! User GoyoEnter nested call <SID>goyo_enter()
-  autocmd! User GoyoLeave nested call <SID>goyo_leave()
-augroup END
 
 " show vsnip shortcut list
 :command! VsnipShowShortcuts call <SID>ShowVsnipShortcuts()
@@ -351,6 +352,7 @@ function! MyLspProgress() abort
   let myprog = progress[0]
   return '[' . get(myprog,'server') . '] ' . get(myprog,'title') . ' ' . get(myprog,'message') . ' (' . get(myprog,'percentage') . '%)'
 endfunction
+
 function! MyLspDiags() abort
   let ret = ''
   let errnum = 0
@@ -364,15 +366,6 @@ function! MyLspDiags() abort
   if errnum > 0 | let ret .= errnum . '!' | endif
   return ret
 endfunction
-augroup my_lightline_lsp
-  autocmd!
-  if g:my_versionlong < g:min_lsp_ver
-  autocmd User lsp_progress_updated call lightline#update()
-  autocmd User lsp_diagnostics_updated call lightline#update()
-  else
-  autocmd User LspDiagsUpdated call lightline#update()
-  endif
-augroup END
 
 " check if last char is a space (Tab-complete)
 function! s:check_back_space() abort
