@@ -1,6 +1,6 @@
 # bitwaves.de
-## Hidrive S3
 ```bash
+# HiDrive S3
 install s3fs-fuse from git!
 install awscli
 # sync
@@ -11,17 +11,23 @@ aws --endpoint-url https://s3.hidrive.strato.com s3 rm s3://bitwaves-cloud --rec
 aws s3api --endpoint-url https://s3.hidrive.strato.com put-bucket-cors --bucket peertube --cors-configuration file://cors.json
 <<CONTENT
 CONTENT
-```
-## docker-ufw
-```
+
+# docker-ufw
 sudo wget -O /usr/local/bin/ufw-docker \
   https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker
 chmod +x /usr/local/bin/ufw-docker
 ufw-docker allow container-name 8080
+
+#allow docker mysql
+ufw allow to any port 3306 from 172.104.0.0/16 comment docker-gitea
+
+# ufw-delete
+alias ufw-delete='ufw status numbered |fzf|sed -e "s/^\[\([0-9]*\)\].*$/\1/g"| xargs -r -o ufw delete'
 ```
 ```
 # dyndns
 homebridge server runs crontab!
+
 # dendrite/matrix
 - install via docker-compose
 - monolith
