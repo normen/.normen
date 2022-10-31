@@ -1,5 +1,14 @@
 ## bash
 ```bash
+# numbers
+NUMBER="12"
+OTHER=$(($NUMBER+4))
+if [[ $(($NUMBER)) -gt 15 ]]; then
+  echo "Number above 15"
+elif [[ $(($NUMBER)) -lt 5 ]]; then
+  echo "Number above below 5"
+fi
+
 # selection
 select yn in "No" "Yes";
 do
