@@ -23,6 +23,10 @@ docker exec -it imagename bash
 #update
 docker pull my/imagename
 
+# snapshot save image
+docker commit --change "Added something" containername imagename:tag
+docker save imagename:tag > myfile.tar
+
 # add ufw rule to allow docker input to localhost
 ufw allow in from 172.31.0.0/16 comment nextcloud
 
