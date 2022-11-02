@@ -9,6 +9,18 @@ elif [[ $(($NUMBER)) -lt 5 ]]; then
   echo "Number above below 5"
 fi
 
+# regex matching
+pattern='^hello[0-9]*$'
+if [[ "$x" =~ $pattern ]]; then
+  echo "Match found"
+fi
+
+# one-key input
+read -rsn 1 k
+echo "pressed $k"
+# zsh
+read -rsk 1 k
+
 # selection
 select yn in "No" "Yes";
 do
@@ -16,7 +28,7 @@ do
     "Yes" )
       echo "Yeah!";
       break;;
-    "No" ) 
+    "No" )
       break;;
   esac
 done
@@ -30,7 +42,7 @@ fi
 if [ $# -eq 0 ]; then
   echo "No arguments supplied"
 fi
-      
+
 if [ ! -z $MYVAR ]; then
   echo "$MYVAR is not empty"
 fi
