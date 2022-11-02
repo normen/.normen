@@ -117,8 +117,8 @@ let g:vsnip_snippet_dir = '$NORMEN/.vim/templates/snippets'
 " lightline
 set laststatus=2 " to fix lightline
 set noshowmode " don't show mode with lightline enabled
-let g:lightline = { 
-  \ 'colorscheme': 'gruvbox', 
+let g:lightline = {
+  \ 'colorscheme': 'gruvbox',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste', 'drawit_mode', 'table_mode'],
   \             [ 'gitstatus', 'readonly' ],
@@ -322,7 +322,7 @@ endfunction
 " show vsnip shortcut list
 :command! VsnipShowShortcuts call <SID>ShowVsnipShortcuts()
 function! s:ShowVsnipShortcuts()
-  let l:sources = vsnip#source#find(bufnr('%')) 
+  let l:sources = vsnip#source#find(bufnr('%'))
   let l:prefixes = []
   " Search prefix
   for l:source in l:sources
