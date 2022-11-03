@@ -10,6 +10,9 @@ wget -nH --reject-regex 'Especial|Special|Ayuda|Help|action|printable|Archivo:' 
 # get port blocking processes
 sudo lsof -t -i:8080
 
+# list open ports/apps
+netstat -ntulp|fzf
+
 # reverse ssh
 # makes local port 22 available on localhost:9401 at bitwaves.de
 ssh -N -R 9401:localhost:22 root@bitwaves.de
