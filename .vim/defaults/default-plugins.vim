@@ -261,11 +261,11 @@ augroup plugin_autocommands
 augroup END
 
 " add openscad to LSP
-if executable('$HOME/.cargo/bin/openscad-lsp')
+if executable($HOME.'/.cargo/bin/openscad-lsp')
   let lspServers = [
         \     #{
         \  filetype: ['openscad'],
-        \  path: '$HOME/.cargo/bin/openscad-lsp',
+        \  path: $HOME.'/.cargo/bin/openscad-lsp',
         \  args: ['--stdio']
         \      }
         \   ]
