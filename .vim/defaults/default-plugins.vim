@@ -33,7 +33,7 @@ Plug 'dbeniamine/cheat.sh-vim'
 Plug 'normen/vim-pio'
 " filetypes (no lsp)
 Plug 'normen/mtgvim', { 'for': 'mtmacro' }
-Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
+"Plug 'Lattay/vim-openscad', { 'for': 'openscad' }
 Plug 'luisjure/csound-vim', { 'for': 'csound' }
 Plug 'kunstmusik/csound-repl', { 'for': 'csound' }
 Plug 'fidian/hexmode'
@@ -250,14 +250,28 @@ augroup plugin_autocommands
   "autocmd VimEnter * call LspOptionsSet({'showDiagOnStatusLine': v:true})
   "autocmd VimEnter * call LspOptionsSet({'autoComplete': v:false})
   autocmd VimEnter * call LspOptionsSet({'showDiagInPopup': v:true})
-  autocmd VimEnter * call LspOptionsSet({'autoHighlightDiags': v:false})
+  "autocmd VimEnter * call LspOptionsSet({'autoHighlightDiags': v:false})
   autocmd VimEnter * call LspOptionsSet({'ignoreMissingServer': v:true})
   autocmd VimEnter * call LspOptionsSet({'noNewlineInCompletion': v:true})
   autocmd VimEnter * call LspOptionsSet({'usePopupInCodeAction': v:true})
+  autocmd VimEnter * call LspOptionsSet({'snippetSupport': v:true})
   " goyo
   autocmd! User GoyoEnter nested call <SID>goyo_enter()
   autocmd! User GoyoLeave nested call <SID>goyo_leave()
 augroup END
+
+" add openscad to LSP
+if executable('$HOME/.cargo/bin/openscad.lsp')
+  let lspServers = [
+        \     #{
+        \  filetype: ['openscad'],
+        \  path: '$HOME/.cargo/bin/openscad-lsp',
+        \  args: ['--stdio']
+        \      }
+        \   ]
+  "autocmd VimEnter * call LspAddServer(lspServers)
+  call lsp#lsp#AddServer(lspServers)
+endif
 
 " add ccls to LSP
 if executable('ccls')
@@ -283,7 +297,8 @@ augroup ccls_register
           \  path: 'ccls',
           \      }
           \   ]
-    autocmd VimEnter * call LspAddServer(lspServers)
+    "autocmd VimEnter * call LspAddServer(lspServers)
+    call lsp#lsp#AddServer(lspServers)
   endif
 augroup END
 endif
