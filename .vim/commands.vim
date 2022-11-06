@@ -37,7 +37,8 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 ":command ChordExportPDF :!chordpro % | ps2pdf - > %:r.pdf
 
 " OpenSCAD
-:command SCADOpen !openscad "%"&
+:command SCADInstallLSP !cargo install openscad-lsp
+:command SCADOpen !open "%";
 :command SCADExport Start openscad -o "%:r.stl" "%"
 :command SCADPrint Start openscad -o "%:r.stl" "%";open "%:r.stl"
 
