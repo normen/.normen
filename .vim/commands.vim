@@ -38,7 +38,8 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 
 " OpenSCAD
 :command SCADInstallLSP !cargo install openscad-lsp
-:command SCADOpen !open "%";
+:command SCADOpen !openscad "%"&
+:command SCADOpenTab !open "%";
 :command SCADExport Start openscad -o "%:r.stl" "%"
 :command SCADPrint Start openscad -o "%:r.stl" "%";open "%:r.stl"
 
