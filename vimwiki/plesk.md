@@ -16,4 +16,6 @@ PSA_PASSWORD=new_password plesk sbin pdmng --update-user --vhost-name=example.co
 plesk sbin pdmng --remove-user --vhost-name=example.com --directory=git@plesk-git --user-name=exampleuser
 # List existing users:
 cat /var/www/vhosts/system/example.com/pd/d..git@plesk-git
+# if web is slow / websocket errors
+service plesk-web-socket restart
 ```
