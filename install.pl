@@ -26,7 +26,7 @@ sub parse_args {
     given ($arg) {
       when ("-u") {
         chdir($npath);
-        system("$git pull");
+        say `$git pull`;
         update_plugins();
       }
       when ("-h") {
@@ -355,7 +355,7 @@ sub update_vim_plugins {
     my ($plug_short) = $plug_name =~ m{.*/(.*)};
     if ( -d "$plug_path/$plug_short" ) {
       chdir("$plug_path/$plug_short");
-      system("$git pull");
+      say `git pull`;
       if ( -d "$plug_path/$plug_short/doc" ) {
         system("vim -c 'helptags doc' +qa");
       }
@@ -363,9 +363,9 @@ sub update_vim_plugins {
     } else {
       chdir($plug_path);
       if ( $plug_name =~ /^http.*/m ) {
-        system("$git clone $plug_name");
+        say `git clone $plug_name`;
       } else {
-        system("$git clone https://github.com/$plug_name");
+        say `git clone https://github.com/$plug_name`;
       }
       say "$plug_short installed";
     }
