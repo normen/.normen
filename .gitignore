@@ -18,6 +18,7 @@ vimwiki/diary/**
 .weechat/sec.conf
 .weechat/weechat_fifo
 build/**
+bin/all/starship
 session.vim
 plugin-update.local
 update.local
