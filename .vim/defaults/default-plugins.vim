@@ -245,6 +245,7 @@ augroup plugin_autocommands
   autocmd User lsp_diagnostics_updated call lightline#update()
   autocmd User lsp_buffer_enabled call s:on_vim_lsp_enabled()
   " lsp
+  if g:my_versionlong > g:min_lsp_ver
   autocmd User LspDiagsUpdated call lightline#update()
   autocmd User LspAttached call s:on_lsp_enabled()
   "autocmd VimEnter * call LspOptionsSet({'showDiagOnStatusLine': v:true})
@@ -255,6 +256,7 @@ augroup plugin_autocommands
   autocmd VimEnter * call LspOptionsSet({'noNewlineInCompletion': v:true})
   autocmd VimEnter * call LspOptionsSet({'usePopupInCodeAction': v:true})
   autocmd VimEnter * call LspOptionsSet({'snippetSupport': v:true})
+  endif
   " goyo
   autocmd! User GoyoEnter nested call <SID>goyo_enter()
   autocmd! User GoyoLeave nested call <SID>goyo_leave()
