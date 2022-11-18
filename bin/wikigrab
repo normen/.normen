@@ -33,10 +33,9 @@ while(my $arg = shift(@ARGV)){
 }
 if(!$width){
   if(defined $ENV{'TMUX'}){
-    $width = qx{tmux display-message -p "#{pane_width}"}
+    $width = qx{tmux display-message -p "#{pane_width}"};
   } else {
-    #( $width ) = GetTerminalSize();
-    $width = 80;
+    $width = qx{tput cols};
   }
   $width--;
 }
