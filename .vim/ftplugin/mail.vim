@@ -10,3 +10,5 @@ setlocal nofoldenable
 setlocal showmode
 "nmap gx :!open -a qutebrowser "<cWORD>"<CR><CR>
 "vmap gx y:!open -a qutebrowser "<C-r>""<CR><CR>
+nmap gm :!aerc mailto:<cWORD><CR><CR>
+vmap gm y:!aerc mailto:<C-r>"<CR><CR>
