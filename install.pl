@@ -56,10 +56,10 @@ EOF
     say "1) Install base applications";
     say "2) Checkout .normen to $npath";
     say "3) Set default app configurations";
-    say "4) Install node";
-    say "5) Install golang to ~/.go";
-    say "6) Build/update app in ~/src";
-    say "7) Link dot files to $hpath";
+    say "4) Link dot files to $hpath";
+    say "5) Install node";
+    say "6) Install golang to ~/.go";
+    say "7) Build/update app in ~/src";
     say "8) Update .normen";
     say "9) Update plugins";
     say "0) Exit";
@@ -80,19 +80,19 @@ EOF
         configure_tmux();
       }
       when (4) {
-        install_node();
+        install_links();
       }
       when (5) {
-        install_go();
+        install_node();
       }
       when (6) {
+        install_go();
+      }
+      when (7) {
         print("Name (mosh, tmux, vim, vifm): ");
         my $app_to_build = <>;
         chomp $app_to_build;
         build_app($app_to_build);
-      }
-      when (7) {
-        install_links();
       }
       when (8) {
         chdir($npath);
