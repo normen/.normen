@@ -315,7 +315,9 @@ function! s:goyo_enter()
   let g:bak_asyncomplete_opt = g:asyncomplete_auto_completeopt
   let g:asyncomplete_auto_popup = 0
   let g:asyncomplete_auto_completeopt = 0
-  call LspOptionsSet({'autoComplete': v:false})
+  if g:my_versionlong > g:min_lsp_ver
+    call LspOptionsSet({'autoComplete': v:false})
+  endif
   "call LspOptionsSet({'autoHighlightDiags': v:false})
   set scrolloff=999
   set noshowcmd
@@ -333,7 +335,9 @@ function! s:goyo_leave()
   unlet g:bak_asyncomplete_opt
   set scrolloff=0
   set showcmd
-  call LspOptionsSet({'autoComplete': v:true})
+  if g:my_versionlong > g:min_lsp_ver
+    call LspOptionsSet({'autoComplete': v:true})
+  endif
   "call LspOptionsSet({'autoHighlightDiags': v:true})
   SignifyEnable
   Limelight!
