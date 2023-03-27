@@ -161,7 +161,7 @@ create_ai_completion() {
   if [[ $text = \#* ]] ; then
     secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
     promp="# This converts text to single line shell commands.\n\n# list all files in current directory\nls -p | grep -v\n# new tmux session named hurz\ntmux new -s hurz\n# unpack myfile.tar.gz\ntar -xvzf myfile.tar.gz\n# list all docker containers\ndocker ps -a\n# initialize git repository and add all files\ngit init && git add -a\n${BUFFER}\n"
-    completion=$(curl -s https://api.openai.com/v1/engines/davinci-codex/completions \
+    completion=$(curl -s https://api.openai.com/v1/engines/text-davinci-003/completions \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer ${secret_key}" \
       -d "{ \"prompt\": \"${promp}\", \"stop\": [\"#\"], \"max_tokens\": 100 }" \
