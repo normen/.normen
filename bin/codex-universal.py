@@ -10,7 +10,7 @@ for line in sys.stdin:
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 response = openai.Completion.create(
-  engine="code-davinci-001",
+  engine="text-davinci-003",
   prompt=prompt,
   temperature=0,
   max_tokens=2000,
