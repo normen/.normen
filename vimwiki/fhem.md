@@ -9,6 +9,7 @@ shutdown restart
 ```
 ## nanoCUL flashen
 ```bash
+sudo apt install avrdude gcc-avr avr-libc
 wget http://culfw.de/culfw-1.67.tar.gz
 tar -xf culfw-1.67.tar.gz
 cd culfw-1.67
