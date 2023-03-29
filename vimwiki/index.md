@@ -19,6 +19,7 @@
 * [media](media.md)
 ## Random
 * [chordpro](chordpro.md)
+* [fhem](fhem.md)
 * [tools](tools.md)
 * [brew](brew.md)
 * [gstreamer](gstreamer.md)
