@@ -27,6 +27,9 @@ wget https://www.nanocul.de/upload/a-culfw_nanoCUL433_1.26.06.zip
 unzip a-culfw_nanoCUL433_1.26.06.zip
 #git clone https://github.com/heliflieger/a-culfw
 avrdude -D -p atmega328p -P /dev/serial/by-path/platform-3f980000.usb-usb-0:1.4:1.0-port0 -b 115200 -c arduino    -U flash:w:a-culfw-1.26.06-nanoCUL433.hex
+# signalduino
+wget https://github.com/RFD-FHEM/SIGNALDuino/releases/download/3.5.0/SIGNALDuino_nanocc1101_3.5.0.hex
+avrdude -D -p atmega328p -P /dev/serial/by-path/platform-3f980000.usb-usb-0:1.4:1.0-port0 -b 115200 -c arduino    -U flash:w:SIGNALDuino_nanocc1101_3.5.0.hex
 ```
 ## HB Characteristics
 ```
