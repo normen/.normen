@@ -6,6 +6,7 @@ vnoremap <Leader>ix :!$NORMEN/bin/codex-universal<CR>
 vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 
 " tools
+:command SudoWrite :execute ':silent w !sudo tee % > /dev/null' | :edit!
 :command -nargs=* Search :vim /<args>/g %<bar>cw
 :command -nargs=* SearchFiles :vim /<args>/g **/*<bar>cw
 :command FixLineEndings :%s//\r/g
