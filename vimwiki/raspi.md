@@ -137,6 +137,7 @@ sudo vim /etc/fstab
 <<CONTENT
 //hausrouter/backup /backup cifs defaults,noauto,nofail,vers=2.0,credentials=/home/pi/.smblogin,x-systemd.automount,x-systemd.requires=network-online.target    0    0
 CONTENT
+# add uid=pi,file_mode=0777,dir_mode=0777 for universal access
 sudo vim /home/pi/.smblogin
 <<CONTENT
 username=backup
