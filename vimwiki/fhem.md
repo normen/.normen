@@ -30,6 +30,9 @@ avrdude -D -p atmega328p -P /dev/serial/by-path/platform-3f980000.usb-usb-0:1.4:
 # signalduino
 wget https://github.com/RFD-FHEM/SIGNALDuino/releases/download/3.5.0/SIGNALDuino_nanocc1101_3.5.0.hex
 avrdude -D -p atmega328p -P /dev/serial/by-path/platform-3f980000.usb-usb-0:1.4:1.0-port0 -b 115200 -c arduino    -U flash:w:SIGNALDuino_nanocc1101_3.5.0.hex
+# write flash esp
+pythom3 -m pip install esptool
+python3 -m esptool --port /dev/tty.usbserial-14130 -b 115200 write_flash 0x00000 SIGNALDuino_ESP8266cc1101_3.5.0.hex
 ```
 ## HB Characteristics
 ```
