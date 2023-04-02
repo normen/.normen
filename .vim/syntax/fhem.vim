@@ -34,9 +34,9 @@ syn keyword fhemCommand set get attr setuuid deletereading deleteattr setdefault
 " Set the colors for each type of syntax element
 hi def link fhemComment Comment 
 hi def link fhemDefine Keyword
-hi def link fhemDevice String
+hi def link fhemDevice Identifier
 hi def link fhemDeviceDef Special
 hi def link fhemValue String
 hi def link fhemCommand Constant
-hi def link fhemArgument Identifier
+hi def link fhemArgument String
 hi def link fhemArgumentDef PreProc
