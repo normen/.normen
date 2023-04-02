@@ -37,9 +37,6 @@ Plug 'normen/mtgvim', { 'for': 'mtmacro' }
 Plug 'luisjure/csound-vim', { 'for': 'csound' }
 Plug 'kunstmusik/csound-repl', { 'for': 'csound' }
 Plug 'fidian/hexmode'
-if executable('openai')
-  Plug 'tom-doerr/vim_codex'
-endif
 " lsp / completion
 if g:my_versionlong < g:min_lsp_ver
 Plug 'prabirshrestha/vim-lsp'
