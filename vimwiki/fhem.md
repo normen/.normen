@@ -1,6 +1,6 @@
 # FHEM
 ```
-telnet localhost 7072
+rlwrap telnet localhost 7072
 inform on
 inform log
 set CULMAX0 pairmode 60
