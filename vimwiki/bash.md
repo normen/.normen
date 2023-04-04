@@ -78,6 +78,11 @@ do
    printf '%s\n' "$i"
 done
 
+# read file line by line
+while IFS= read -r line; do
+  printf '%s\n' "$line"
+done < input_file
+
 # quit when return != 0
 set -e
 # let != 0 pass:
