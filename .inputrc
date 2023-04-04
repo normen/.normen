@@ -1,2 +1,3 @@
 set editing-mode vi
+"\C-e":   rlwrap-call-editor
 
