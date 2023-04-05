@@ -9,6 +9,10 @@ elif [[ $(($NUMBER)) -lt 5 ]]; then
   echo "Number above below 5"
 fi
 
+# error handling
+set -e
+trap 'err=$?; echo >&2 "Exiting on error $err"; exit $err' ERR
+
 # regex matching
 pattern='^hello[0-9]*$'
 if [[ "$x" =~ $pattern ]]; then
