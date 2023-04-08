@@ -6,8 +6,8 @@ tempfile=$(mktemp)
 cat>$tempfile
 cat $tempfile
 cat $tempfile | \
-  jq -sR '{ "prompt": ., "max_tokens": 2048 }'| \
-  curl -s https://api.openai.com/v1/engines/text-davinci-003/completions \
+  jq -sR '{ "model": "text-davinci-003", "prompt": ., "max_tokens": 2048 }'| \
+  curl -s https://api.openai.com/v1/completions \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer ${secret_key}" \
     -d @- |\
