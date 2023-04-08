@@ -2,7 +2,8 @@
 :command W w
 
 " ai
-vnoremap <Leader>ix :!$NORMEN/bin/codex-universal<CR>
+vnoremap <Leader>ix :!$NORMEN/bin/gpt-complete<CR>
+vnoremap <Leader>ie :!$NORMEN/bin/gpt-edit<CR>
 vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 
 " tools
