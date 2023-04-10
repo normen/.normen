@@ -4,7 +4,7 @@ secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1
 jq -sR '{
 "model": "text-davinci-edit-001",
 "input": .,
-"instruction": "Complete this skeleton code to fully functioning code with annotations.",
+"instruction": "Clean up this code and annotate it.",
 "temperature": 0
 }'| \
   curl -s https://api.openai.com/v1/edits \

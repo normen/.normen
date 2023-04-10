@@ -164,7 +164,7 @@ create_ai_completion() {
     completion=$(curl -s https://api.openai.com/v1/completions \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer ${secret_key}" \
-      -d "{ \"model\": \"text-davinci-003\", \"prompt\": \"${promp}\", \"stop\": [\"#\"], \"max_tokens\": 256 }" \
+      -d "{ \"model\": \"text-davinci-003\", \"prompt\": \"${promp}\", \"stop\": [\"#\"], \"max_tokens\": 256, \"temperature\": 0 }" \
       | sed -n -e 's/.*"text": *"\([^"]*\)".*/\1/p' \
       | sed 's/\\n/\n/g'
     )
