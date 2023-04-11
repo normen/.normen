@@ -47,17 +47,19 @@ set_config_number(){
 
 create_folders(){
   if [ ! -d "$cloud_path" ]; then
-    cloud_path=$(mktemp -d)
-    echo "Creating temp folder at $cloud_path"
-    mkdir -p "$cloud_path/conversation"
+    cloud_path="$(mktemp -d)"
+    echo "Creating: $cloud_path"
     #trap 'err=$?; echo >&2 "Exiting on error $err"; exit $err' EXIT
     trap "rm -rf $cloud_path; echo 'Deleted temp folder'" EXIT
+  fi
+  if [ ! -d "$cloud_path/conversation" ]; then
+    mkdir -p "$cloud_path/conversation"
   fi
 }
 
 create_config(){
   if [ ! -f "$cloud_path/config.json" ]; then
-    echo "Creating config.json"
+    echo "Creating: $cloud_path/config.json"
     echo '{
       "model_name":"gpt-3.5-turbo",
       "max_tokens":1024,
@@ -121,7 +123,10 @@ read_input(){
 do_loop(){
   user_input="-"
   load_config
-  echo "$current_conversation"
+  echo ""
+  echo "Path: $cloud_path"
+  echo ""
+  echo "Conversation: $current_conversation"
   read_input
   while [ ! "$user_input" == "" ]
   do
@@ -130,31 +135,44 @@ do_loop(){
   done
 }
 
-while getopts ":hxc:m:s:t:p:" option; do
+while getopts ":hxp:c:m:s:t:T:" option; do
   case $option in
     h) # display help
       echo "GPT Chat"
       echo ""
-      echo "-x: temporary storage (set before other options)"
+      echo "Communicate with GPT using the command line, conversations are kept in cloud storage (or local folder)."
+      echo ""
+      echo "-h: display this help"
+      echo "-x: temporary storage only (set before other options)"
       echo "-p <cloud_path>: set path for storage (set before other options)"
-      echo "-c <conversation>: set conversation"
-      echo "-m <model_name>: set model"
+      echo "-c <conversation>: set conversation name"
+      echo "-m <model_name>: set model name"
       echo "-t <temperature>: set temperature"
-      echo "-s <system_message>: set prompt"
+      echo "-T <max_tokens>: set max tokens returned"
+      echo "-s <system_message>: set system message (prompt)"
       echo ""
       echo "Needs jq and rlwrap"
       exit;;
-    x) cloud_path="";;
-    p) cloud_path=$OPTARG;;
-    c) set_config "current_conversation" "$OPTARG" ;;
+    x) cloud_path=""
+      create_folders
+      create_config;;
+    p) cloud_path="$OPTARG"
+      if [ ! -d "$cloud_path" ]; then
+        mkdir -p "$cloud_path"
+      fi
+      create_folders
+      create_config;;
+    c) set_config "current_conversation" "$OPTARG";;
     m) set_config "model_name" "$OPTARG";;
     s) set_config "system_message" "$OPTARG";;
-    t) set_config_number "temperature" $OPTARG ;;
+    t) set_config_number "temperature" $OPTARG;;
+    T) set_config_number "max_tokens" $OPTARG;;
     \?)
-      echo "Error: Invalid option"
+      echo "Error: Invalid option, use -h for help."
       exit;;
   esac
 done
+shift $((OPTIND-1))
 
 if [ ! -z $RLWRAP_RUNNING ]; then
   do_loop
