@@ -33,7 +33,6 @@ load_config(){
 set_config(){
   create_folders
   create_config
-  eval $1="$2"
   jq --compact-output --arg name "$1" --arg value "$2" '.[$name] = $value' \
     "$cloud_path/config.json" > "$cloud_path/config.new"
   mv "$cloud_path/config.new" "$cloud_path/config.json"
