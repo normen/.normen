@@ -68,6 +68,10 @@ create_config(){
       "current_conversation": "conversation"
     }' > "$cloud_path/config.json"
     api_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
+    if [ "$api_key" == "" ];then
+      echo "Error: no API key found at ~/.config/openapirc"
+      exit 1
+    fi
     set_config api_key "$api_key"
   fi
 }
@@ -132,6 +136,7 @@ while getopts ":hxc:m:s:t:p:" option; do
       echo "GPT Chat"
       echo ""
       echo "-x: temporary storage (set before other options)"
+      echo "-p <cloud_path>: set path for storage (set before other options)"
       echo "-c <conversation>: set conversation"
       echo "-m <model_name>: set model"
       echo "-t <temperature>: set temperature"
