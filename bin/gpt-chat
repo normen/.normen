@@ -8,6 +8,9 @@ set -e
 
 # default path to cloud storage
 cloud_path="$HOME/Library/Mobile Documents/com~apple~CloudDocs/GPT"
+if [ ! -d "$cloud_path" ]; then
+  cloud_path="$HOME/.config/gpt-chat"
+fi
 
 if ! which jq>/dev/null; then
   echo "Error: jq command not found, please install with 'sudo apt install jq'"
@@ -140,7 +143,9 @@ while getopts ":hxp:c:m:s:t:T:" option; do
     h) # display help
       echo "GPT Chat"
       echo ""
-      echo "Communicate with GPT using the command line, conversations are kept in cloud storage (or local folder)."
+      echo "Communicate with GPT using the command line, conversations are kept in cloud storage or local folder."
+      echo ""
+      echo "iCloud storage folder 'GPT' on Mac, otherwise if a folder at ~/.config/gpt-chat exists that is used, else a temp folder is created"
       echo ""
       echo "-h: display this help"
       echo "-x: temporary storage only (set before other options)"
