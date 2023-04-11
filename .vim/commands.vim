@@ -14,7 +14,8 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command FixLineEndings :%s//\r/g
 :command FixAdditionalLineEndings :%s///g
 :command FixTrailingWhitespace :%s/\s\+$//e
-:command FormatJSON :%!python -m json.tool
+:command FormatJSON :!jq
+:command CompactJSON :!jq --compact-output
 :command FormatOnSave :autocmd BufWritePre <buffer> LspDocumentFormatSync
 :command TextModeGer :set spell|:set spelllang=de_de|:set wrap
 :command TextModeUS :set spell|:set spelllang=en_us|:set wrap
