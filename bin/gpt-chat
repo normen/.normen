@@ -122,6 +122,13 @@ read_input(){
   user_input=$REPLY
 }
 
+read_stdin(){
+  echo "Pipe mode"
+  load_config
+  user_input=$(cat)
+  get_gpt_answer
+}
+
 do_loop(){
   user_input="-"
   load_config
@@ -137,7 +144,7 @@ do_loop(){
   done
 }
 
-while getopts ":hxp:c:m:s:t:T:" option; do
+while getopts ":hxPp:c:m:s:t:T:" option; do
   case $option in
     h) # display help
       echo "GPT Chat"
@@ -147,8 +154,12 @@ while getopts ":hxp:c:m:s:t:T:" option; do
       echo "iCloud storage folder 'GPT' on Mac, otherwise if a folder at ~/.config/gpt-chat exists that is used, else a temp folder is created"
       echo ""
       echo "-h: display this help"
+      echo ""
       echo "-x: temporary storage only (set before other options)"
       echo "-p <cloud_path>: set path for storage (set before other options)"
+      echo ""
+      echo "-P pipe in data to conversation (multiline text)"
+      echo ""
       echo "-c <conversation>: set conversation name"
       echo "-m <model_name>: set model name"
       echo "-t <temperature>: set temperature"
@@ -167,6 +178,8 @@ while getopts ":hxp:c:m:s:t:T:" option; do
     s) set_config "system_message" "$OPTARG";;
     t) set_config_number "temperature" $OPTARG;;
     T) set_config_number "max_tokens" $OPTARG;;
+    P) read_stdin
+      exit;;
     \?)
       echo "Error: Invalid option, use -h for help."
       exit;;
