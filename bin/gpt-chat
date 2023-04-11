@@ -9,7 +9,7 @@ set -e
 # default path to cloud storage
 cloud_path="$HOME/Library/Mobile Documents/com~apple~CloudDocs/GPT"
 
-if ! which -s jq; then
+if ! which jq>/dev/null; then
   echo "Error: jq command not found, please install with 'sudo apt install jq'"
   exit 1
 fi
@@ -155,7 +155,7 @@ if [ ! -z $RLWRAP_RUNNING ]; then
   do_loop
 else
   # start using rlwrap if available
-  if which -s rlwrap; then
+  if which rlwrap>/dev/null; then
     RLWRAP_RUNNING=1 rlwrap -pgreen -m -M .txt -r -O "Mensch:" $0 -p "$cloud_path"
   else
     echo "Warning: rlwrap not found, install with 'sudo apt install rlwrap'"
