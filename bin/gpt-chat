@@ -177,6 +177,8 @@ shift $((OPTIND-1))
 if [ ! -z $RLWRAP_RUNNING ]; then
   do_loop
 else
+  create_folders
+  create_config
   # start using rlwrap if available
   if which rlwrap>/dev/null; then
     RLWRAP_RUNNING=1 rlwrap -pgreen -m -M .txt -r -O "Mensch:" $0 -p "$cloud_path"
