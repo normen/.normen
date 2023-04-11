@@ -153,15 +153,11 @@ while getopts ":hxp:c:m:s:t:T:" option; do
       echo ""
       echo "Needs jq and rlwrap"
       exit;;
-    x) cloud_path=""
-      create_folders
-      create_config;;
+    x) cloud_path="";;
     p) cloud_path="$OPTARG"
       if [ ! -d "$cloud_path" ]; then
         mkdir -p "$cloud_path"
-      fi
-      create_folders
-      create_config;;
+      fi;;
     c) set_config "current_conversation" "$OPTARG";;
     m) set_config "model_name" "$OPTARG";;
     s) set_config "system_message" "$OPTARG";;
@@ -174,11 +170,11 @@ while getopts ":hxp:c:m:s:t:T:" option; do
 done
 shift $((OPTIND-1))
 
+create_folders
+create_config
 if [ ! -z $RLWRAP_RUNNING ]; then
   do_loop
 else
-  create_folders
-  create_config
   # start using rlwrap if available
   if which rlwrap>/dev/null; then
     RLWRAP_RUNNING=1 rlwrap -pgreen -m -M .txt -r -O "Mensch:" $0 -p "$cloud_path"
