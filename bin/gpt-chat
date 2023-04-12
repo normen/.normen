@@ -117,9 +117,30 @@ get_gpt_answer(){
   echo "$chatgpt_output"
 }
 
-read_input(){
-  read -r -p "Mensch: "
-  user_input=$REPLY
+delete_last_answer(){
+  load_config
+  if [ -f "$cloud_path/conversation/$current_conversation.json" ]; then
+    echo "Deleting last message"
+    jq --compact-output 'del(.messages[-1])' \
+      "$cloud_path/conversation/$current_conversation.json" \
+      > "$cloud_path/conversation/$current_conversation.new"
+    mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+  fi
+  exit
+}
+
+show_first_message(){
+  echo "Primer:"
+  if [ -f "$cloud_path/conversation/$current_conversation.json" ]; then
+    jq '.messages[0].content' "$cloud_path/conversation/$current_conversation.json"
+  fi
+}
+
+show_last_answer(){
+  echo "Last:"
+  if [ -f "$cloud_path/conversation/$current_conversation.json" ]; then
+    jq '.messages[-1].content' "$cloud_path/conversation/$current_conversation.json"
+  fi
 }
 
 read_stdin(){
@@ -128,13 +149,20 @@ read_stdin(){
   get_gpt_answer
 }
 
+read_input(){
+  read -r -p "Mensch: "
+  user_input=$REPLY
+}
+
 do_loop(){
   user_input="-"
   load_config
-  echo ""
+  echo "Conversation: $current_conversation"
   echo "Path: $cloud_path"
   echo ""
-  echo "Conversation: $current_conversation"
+  #show_first_message
+  #show_last_answer
+  #echo ""
   read_input
   while [ ! "$user_input" == "" ]
   do
@@ -144,7 +172,7 @@ do_loop(){
   done
 }
 
-while getopts ":hxPp:c:m:s:t:T:" option; do
+while getopts ":hxrDp:c:m:s:t:T:" option; do
   case $option in
     h) # display help
       echo "GPT Chat"
@@ -153,18 +181,17 @@ while getopts ":hxPp:c:m:s:t:T:" option; do
       echo ""
       echo "iCloud storage folder 'GPT' on Mac, otherwise if a folder at ~/.config/gpt-chat exists that is used, else a temp folder is created"
       echo ""
-      echo "-h: display this help"
-      echo ""
-      echo "-x: temporary storage only (set before other options)"
-      echo "-p <cloud_path>: set path for storage (set before other options)"
-      echo ""
-      echo "-P pipe in data to conversation (multiline text)"
-      echo ""
       echo "-c <conversation>: set conversation name"
       echo "-m <model_name>: set model name"
       echo "-t <temperature>: set temperature"
       echo "-T <max_tokens>: set max tokens returned"
       echo "-s <system_message>: set system message (prompt)"
+      echo ""
+      echo "-r read in data from stdin (multiline text)"
+      echo "-D delete last message"
+      echo ""
+      echo "-p <cloud_path>: set path for storage (set before other options)"
+      echo "-x: temporary storage only (set before other options)"
       echo ""
       echo "Needs jq and rlwrap"
       exit;;
@@ -178,7 +205,8 @@ while getopts ":hxPp:c:m:s:t:T:" option; do
     s) set_config "system_message" "$OPTARG";;
     t) set_config_number "temperature" $OPTARG;;
     T) set_config_number "max_tokens" $OPTARG;;
-    P) read_stdin
+    D) delete_last_answer;;
+    r) read_stdin
       exit;;
     \?)
       echo "Error: Invalid option, use -h for help."

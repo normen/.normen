@@ -1,14 +1,29 @@
 #!/bin/bash
 set -e
 secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
-jq -sR '{
-"model": "text-davinci-edit-001",
-"input": .,
-"instruction": "Complete this skeleton code to fully functioning code with annotations.",
-"temperature": 0
-}'| \
-  curl -s https://api.openai.com/v1/edits \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer ${secret_key}" \
-    -d @- |\
-  jq -r '.choices[0].text'
+# check for arguments
+if [ $# -eq 0 ]; then
+  jq -sR '{
+  "model": "text-davinci-edit-001",
+  "input": .,
+  "instruction": "Complete this skeleton code to fully functioning code with annotations.",
+  "temperature": 0
+  }'| \
+    curl -s https://api.openai.com/v1/edits \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer ${secret_key}" \
+      -d @- |\
+    jq -r '.choices[0].text'
+else
+  jq -sR --arg instruction "$1" '{
+  "model": "text-davinci-edit-001",
+  "input": .,
+  "instruction": $instruction,
+  "temperature": 0
+  }'| \
+    curl -s https://api.openai.com/v1/edits \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer ${secret_key}" \
+      -d @- |\
+    jq -r '.choices[0].text'
+fi

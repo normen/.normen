@@ -3,8 +3,7 @@
 
 " ai
 vnoremap <Leader>ix :!$NORMEN/bin/gpt-complete<CR>
-vnoremap <Leader>ic :!$NORMEN/bin/gpt-cleanup<CR>
-vnoremap <Leader>ie :!$NORMEN/bin/gpt-edit<CR>
+vnoremap <Leader>ic :!$NORMEN/bin/gpt-edit<CR>
 vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 
 " tools
