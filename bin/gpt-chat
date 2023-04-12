@@ -97,6 +97,44 @@ create_conversation(){
   fi
 }
 
+get_noperm_answer(){
+  set -e
+  server_response=$(jq --compact-output --arg c "$1" '.messages = .messages + [{"role": "user", "content": $c }]' \
+    "$cloud_path/conversation/$current_conversation.json" |\
+    curl -s https://api.openai.com/v1/chat/completions \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer ${api_key}" \
+      -d @-)
+  error_message=$(echo "$server_response" | jq -r '.error.message')
+  if [ "$error_message" != "null" ]; then
+    echo "Error: $error_message"
+  else
+    chatgpt_output=$(echo "$server_response" | jq -r '.choices[0].message.content')
+    echo "$chatgpt_output"
+  fi
+}
+
+compact_answers(){
+  load_config
+  instruction="Bitte fasse das Gespräch bis hier in Kurzform zusammen. Bitte mit allen wichtigen Informationen so dass es als Vorlage für eine Weiterführung des Gesprächs verwendet werden kann. Bitte verzichte dabei auf einleitende Floskeln wie \"Gerne, hier ist eine Zusammenfassung.\". Bitte schreibe die Zusammenfassung wie eine Nachricht an Dich selbst. Also z.B. \"Der Benutzer hat Dich gefragt wie weit der Mond weg ist\". Bitte schliesse nur Informationen aus Aussagen des Benutzers oder Dir ein."
+  if [ $# -eq 0 ]; then
+    if which rlwrap>/dev/null; then
+      instruction=$(rlwrap -pyellow -S "Instruction: " -C gpt-chat -m -M .md -n -z unbackspace -P "$instruction" -o cat)
+    fi
+  fi
+  printf "\e[32mSystem: \e[0m"
+  answer=$(get_noperm_answer "$instruction")
+  echo "$answer"
+  exit
+  # delete messages
+  jq --compact-output ' .messages |= map(select(.role == "system"))' \
+    "$cloud_path/conversation/$current_conversation.json" |\
+    jq --compact-output --arg c "$answer" '.messages = .messages + [{"role": "system", "content": $c }]' \
+    > "$cloud_path/conversation/$current_conversation.new"
+  mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+  echo "Done"
+}
+
 get_gpt_answer(){
   create_conversation
   jq --compact-output --arg c "$user_input" '.messages = .messages + [{"role": "user", "content": $c }]' \
@@ -183,7 +221,7 @@ do_loop(){
   done
 }
 
-while getopts ":hxriDp:c:m:s:t:T:" option; do
+while getopts ":hirxCDc:p:m:s:t:T:" option; do
   case $option in
     h) # display help
       echo "  ___ ___ _____    ___ _         _   "
@@ -207,7 +245,10 @@ while getopts ":hxriDp:c:m:s:t:T:" option; do
       echo "-l show last answer and prompt"
       echo "-p <cloud_path>: set path for storage (set before other options)"
       echo "-x: temporary storage only (set before other options)"
+      echo ""
+      echo "Commands:"
       echo "-D delete last message and exit"
+      echo "-C compact conversation by letting gpt make a summary and exit"
       echo ""
       echo "Storage folder:"
       echo "If none of these are found a temp folder is created."
@@ -233,6 +274,8 @@ while getopts ":hxriDp:c:m:s:t:T:" option; do
     t) set_config_number "temperature" $OPTARG;;
     T) set_config_number "max_tokens" $OPTARG;;
     D) delete_last_answer
+      exit;;
+    C) compact_answers
       exit;;
     r) read_stdin
       exit;;
