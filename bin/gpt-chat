@@ -135,7 +135,7 @@ delete_last_answer(){
 show_first_message(){
   echo "Primer:"
   if [ -f "$cloud_path/conversation/$current_conversation.json" ]; then
-    jq '.messages[0].content' "$cloud_path/conversation/$current_conversation.json"
+    jq -r '.messages[0].content' "$cloud_path/conversation/$current_conversation.json"
   else
     echo "$system_message"
   fi
@@ -144,7 +144,7 @@ show_first_message(){
 show_last_answer(){
   if [ -f "$cloud_path/conversation/$current_conversation.json" ]; then
     echo "Last:"
-    jq '.messages[-1].content' "$cloud_path/conversation/$current_conversation.json"
+    jq -r '.messages[-1].content' "$cloud_path/conversation/$current_conversation.json"
   fi
 }
 
