@@ -117,8 +117,8 @@ get_gpt_answer(){
     jq --compact-output --arg c "$chatgpt_output" '.messages = .messages + [{"role": "assistant", "content": $c }]' \
       "$cloud_path/conversation/$current_conversation.json" > "$cloud_path/conversation/$current_conversation.new"
     mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+    echo "$chatgpt_output"
   fi
-  echo "$chatgpt_output"
 }
 
 delete_last_answer(){
