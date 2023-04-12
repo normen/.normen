@@ -104,16 +104,20 @@ get_gpt_answer(){
     "$cloud_path/conversation/$current_conversation.json" \
     > "$cloud_path/conversation/$current_conversation.new"
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
-  chatgpt_output=$(cat "$cloud_path/conversation/$current_conversation.json" |\
+  server_response=$(cat "$cloud_path/conversation/$current_conversation.json" |\
     curl -s https://api.openai.com/v1/chat/completions \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer ${api_key}" \
-      -d @- |\
-      jq -r '.choices[0].message.content')
-  jq --compact-output --arg c "$chatgpt_output" '.messages = .messages + [{"role": "assistant", "content": $c }]' \
-    "$cloud_path/conversation/$current_conversation.json" \
-    > "$cloud_path/conversation/$current_conversation.new"
-  mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+      -d @-)
+  error_message=$(printf "$server_response" | jq -r '.error.message')
+  if [ ! -z "$error_message" ]; then
+    echo "Error: $error_message"
+  else
+    chatgpt_output=$(printf "$server_response" | jq -r '.choices[0].message.content')
+    jq --compact-output --arg c "$chatgpt_output" '.messages = .messages + [{"role": "assistant", "content": $c }]' \
+      "$cloud_path/conversation/$current_conversation.json" > "$cloud_path/conversation/$current_conversation.new"
+    mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+  fi
   echo "$chatgpt_output"
 }
 
