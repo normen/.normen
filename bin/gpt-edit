@@ -1,29 +1,40 @@
 #!/bin/bash
 set -e
 secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
+instruction="Complete this skeleton code to fully functioning code with annotations."
+temperature=1
 # check for arguments
-if [ $# -eq 0 ]; then
-  jq -sR '{
-  "model": "text-davinci-edit-001",
-  "input": .,
-  "instruction": "Complete this skeleton code to fully functioning code with annotations.",
-  "temperature": 0
+while getopts ":hi:t:" option; do
+  case $option in
+    h)
+      echo "gpt-edit"
+      echo ""
+      echo "-i <instruction>"
+      echo "-t <temperature>"
+      echo ""
+      exit;;
+    i) instruction="$OPTARG";;
+    t) temperature="$OPTARG";;
+    \?)
+      echo "Error: Invalid option, use -h for help."
+      exit;;
+  esac
+done
+
+server_response=$(jq -sR --arg instruction "$instruction" --argjson temperature $temperature '{
+    "model": "text-davinci-edit-001",
+    "input": .,
+    "instruction": $instruction,
+    "temperature": $temperature
   }'| \
-    curl -s https://api.openai.com/v1/edits \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Bearer ${secret_key}" \
-      -d @- |\
-    jq -r '.choices[0].text'
+  curl -s https://api.openai.com/v1/edits \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ${secret_key}" \
+    -d @-)
+error_message=$(echo "$server_response" | jq -r '.error.message')
+if [ "$error_message" != "null" ]; then
+  echo "Error: $error_message"
 else
-  jq -sR --arg instruction "$1" '{
-  "model": "text-davinci-edit-001",
-  "input": .,
-  "instruction": $instruction,
-  "temperature": 0
-  }'| \
-    curl -s https://api.openai.com/v1/edits \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Bearer ${secret_key}" \
-      -d @- |\
-    jq -r '.choices[0].text'
+  output=$(echo "$server_response"|jq -r '.choices[0].text')
 fi
+echo "$output"

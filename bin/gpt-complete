@@ -1,19 +1,37 @@
 #!/bin/bash
 set -e
 secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
-tempfile=$(mktemp)
-cat>$tempfile
-cat $tempfile
-cat $tempfile | \
-  jq -sR '{
+input=$(cat)
+temperature=1
+while getopts ":ht:" option; do
+  case $option in
+    h)
+      echo "gpt-edit"
+      echo ""
+      echo "-t <temperature>"
+      echo ""
+      exit;;
+    t) temperature="$OPTARG";;
+    \?)
+      echo "Error: Invalid option, use -h for help."
+      exit;;
+  esac
+done
+server_response=$(echo "$input"| jq -sR --argjson temperature $temperature '{
   "model": "text-davinci-003",
   "prompt": .,
   "max_tokens": 2048,
-  "temperature": 0
+  "temperature": $temperature
   }'| \
   curl -s https://api.openai.com/v1/completions \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer ${secret_key}" \
-    -d @- |\
-  jq -r '.choices[0].text'
-rm $tempfile
+    -d @-)
+error_message=$(echo "$server_response" | jq -r '.error.message')
+if [ "$error_message" != "null" ]; then
+  echo "$input"
+  echo "Error: $error_message"
+else
+  output=$(echo "$server_response"|jq -r '.choices[0].text')
+  echo "$input $output"
+fi
