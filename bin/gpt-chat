@@ -110,7 +110,7 @@ get_gpt_answer(){
       -H "Authorization: Bearer ${api_key}" \
       -d @-)
   error_message=$(printf "$server_response" | jq -r '.error.message')
-  if [ ! -z "$error_message" ]; then
+  if [ "$error_message" != "null" ]; then
     echo "Error: $error_message"
   else
     chatgpt_output=$(printf "$server_response" | jq -r '.choices[0].message.content')
