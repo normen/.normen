@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # GPT-Chat (c) 2023 Normen Hansen
 # - needs jq
@@ -154,8 +154,12 @@ read_stdin(){
 }
 
 read_input(){
-  read -r -p "Mensch: "
-  user_input=$REPLY
+  if which rlwrap>/dev/null; then
+    user_input=$(rlwrap -pyellow -S "Mensch: " -C gpt-chat -m -M .md -n -z unbackspace -o cat)
+  else
+    read -r -p "Mensch: "
+    user_input=$REPLY
+  fi
 }
 
 do_loop(){
@@ -221,15 +225,5 @@ shift $((OPTIND-1))
 
 create_folders
 create_config
-if [ ! -z $RLWRAP_RUNNING ]; then
-  do_loop
-else
-  # start using rlwrap if available
-  if which rlwrap>/dev/null; then
-    RLWRAP_RUNNING=1 rlwrap -pgreen -m -M .txt -r -O "Mensch:" $0 -p "$cloud_path"
-  else
-    echo "Warning: rlwrap not found, install with 'sudo apt install rlwrap'"
-    do_loop
-  fi
-fi
+do_loop
 
