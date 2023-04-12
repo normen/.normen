@@ -125,7 +125,6 @@ compact_answers(){
   printf "\e[32mSystem: \e[0m"
   answer=$(get_noperm_answer "$instruction")
   echo "$answer"
-  exit
   # delete messages
   jq --compact-output ' .messages |= map(select(.role == "system"))' \
     "$cloud_path/conversation/$current_conversation.json" |\
