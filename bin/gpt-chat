@@ -114,7 +114,7 @@ get_gpt_answer(){
     "$cloud_path/conversation/$current_conversation.json" \
     > "$cloud_path/conversation/$current_conversation.new"
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
-  echo "KI: $chatgpt_output"
+  echo "$chatgpt_output"
 }
 
 read_input(){
@@ -123,7 +123,6 @@ read_input(){
 }
 
 read_stdin(){
-  echo "Pipe mode"
   load_config
   user_input=$(cat)
   get_gpt_answer
@@ -139,6 +138,7 @@ do_loop(){
   read_input
   while [ ! "$user_input" == "" ]
   do
+    printf "KI: "
     get_gpt_answer
     read_input
   done
