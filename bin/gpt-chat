@@ -50,8 +50,7 @@ set_config_number(){
 create_folders(){
   if [ ! -d "$cloud_path" ]; then
     cloud_path="$(mktemp -d)"
-    echo "Creating: $cloud_path"
-    #trap 'err=$?; echo >&2 "Exiting on error $err"; exit $err' EXIT
+    #echo "Creating: $cloud_path"
     trap "rm -rf $cloud_path; echo 'Deleted temp folder'" EXIT
   fi
   if [ ! -d "$cloud_path/conversation" ]; then
@@ -61,7 +60,7 @@ create_folders(){
 
 create_config(){
   if [ ! -f "$cloud_path/config.json" ]; then
-    echo "Creating: $cloud_path/config.json"
+    #echo "Creating: $cloud_path/config.json"
     echo '{
       "model_name":"gpt-3.5-turbo",
       "max_tokens":1024,
@@ -73,7 +72,7 @@ create_config(){
     }' > "$cloud_path/config.json"
     api_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
     if [ "$api_key" == "" ];then
-      echo "Error: no API key found at ~/.config/openapirc"
+      echo "Error: No API key found at ~/.config/openaiapirc (secret_key=xxx)"
       exit 1
     fi
     set_config api_key "$api_key"
@@ -137,12 +136,14 @@ show_first_message(){
   echo "Primer:"
   if [ -f "$cloud_path/conversation/$current_conversation.json" ]; then
     jq '.messages[0].content' "$cloud_path/conversation/$current_conversation.json"
+  else
+    echo "$system_message"
   fi
 }
 
 show_last_answer(){
-  echo "Last:"
   if [ -f "$cloud_path/conversation/$current_conversation.json" ]; then
+    echo "Last:"
     jq '.messages[-1].content' "$cloud_path/conversation/$current_conversation.json"
   fi
 }
@@ -165,12 +166,14 @@ read_input(){
 do_loop(){
   user_input="-"
   load_config
-  echo "Conversation: $current_conversation"
-  echo "Path: $cloud_path"
+  if [ ! -z $show_info ]; then
+    echo "Conversation: $current_conversation"
+    echo "Path: $cloud_path"
+    echo ""
+    show_first_message
+    show_last_answer
+  fi
   echo ""
-  #show_first_message
-  #show_last_answer
-  #echo ""
   read_input
   while [ ! "$user_input" == "" ]
   do
@@ -180,40 +183,57 @@ do_loop(){
   done
 }
 
-while getopts ":hxrDp:c:m:s:t:T:" option; do
+while getopts ":hxriDp:c:m:s:t:T:" option; do
   case $option in
     h) # display help
-      echo "GPT Chat"
+      echo "  ___ ___ _____    ___ _         _   "
+      echo " / __| _ \\_   _|  / __| |_  __ _| |_ "
+      echo "| (_ |  _/ | |   | (__| ' \\/ _\` |  _|"
+      echo " \\___|_|   |_|    \\___|_||_\\__,_|\\__|"
+      echo "              © by Normen Hansen 2023"
       echo ""
-      echo "Communicate with GPT using the command line, conversations are kept in cloud storage or local folder."
+      echo "Communicate with GPT using the command line,"
+      echo "conversations are kept in cloud storage or local folder."
       echo ""
-      echo "iCloud storage folder 'GPT' on Mac, otherwise if a folder at ~/.config/gpt-chat exists that is used, else a temp folder is created"
-      echo ""
+      echo "These options are kept for new conversations:"
       echo "-c <conversation>: set conversation name"
-      echo "-m <model_name>: set model name"
+      echo "-s <system_message>: set system message (prompt)"
       echo "-t <temperature>: set temperature"
       echo "-T <max_tokens>: set max tokens returned"
-      echo "-s <system_message>: set system message (prompt)"
+      echo "-m <model_name>: set model name"
       echo ""
-      echo "-r read in data from stdin (multiline text)"
-      echo "-D delete last message"
-      echo ""
+      echo "Other options:"
+      echo "-r read in question from stdin, display answer and exit"
+      echo "-l show last answer and prompt"
       echo "-p <cloud_path>: set path for storage (set before other options)"
       echo "-x: temporary storage only (set before other options)"
+      echo "-D delete last message and exit"
       echo ""
-      echo "Needs jq and rlwrap"
+      echo "Storage folder:"
+      echo "If none of these are found a temp folder is created."
+      echo "- iCloud/GPT"
+      echo "- HOME/.config/gpt-chat"
+      echo ""
+      echo "API Key:"
+      echo "Key is expected at ~/.config/openaiapirc (secret_key=xxx)"
+      echo ""
+      echo "Dependencies:"
+      echo "Needs jq for JSON processing and optionally rlwrap,"
+      echo "rlwrap allows for completion, history and multiline editor input."
       exit;;
     x) cloud_path="";;
     p) cloud_path="$OPTARG"
       if [ ! -d "$cloud_path" ]; then
         mkdir -p "$cloud_path"
       fi;;
+    i) show_info=1;;
     c) set_config "current_conversation" "$OPTARG";;
     m) set_config "model_name" "$OPTARG";;
     s) set_config "system_message" "$OPTARG";;
     t) set_config_number "temperature" $OPTARG;;
     T) set_config_number "max_tokens" $OPTARG;;
-    D) delete_last_answer;;
+    D) delete_last_answer
+      exit;;
     r) read_stdin
       exit;;
     \?)
@@ -226,4 +246,3 @@ shift $((OPTIND-1))
 create_folders
 create_config
 do_loop
-
