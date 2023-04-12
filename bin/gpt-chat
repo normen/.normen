@@ -133,7 +133,7 @@ delete_last_answer(){
 }
 
 show_first_message(){
-  echo "Primer:"
+  printf "\e[32mSystem: \e[0m"
   if [ -f "$cloud_path/conversation/$current_conversation.json" ]; then
     jq -r '.messages[0].content' "$cloud_path/conversation/$current_conversation.json"
   else
@@ -143,7 +143,7 @@ show_first_message(){
 
 show_last_answer(){
   if [ -f "$cloud_path/conversation/$current_conversation.json" ]; then
-    echo "Last:"
+    printf "\e[34mLast: \e[0m"
     jq -r '.messages[-1].content' "$cloud_path/conversation/$current_conversation.json"
   fi
 }
@@ -177,7 +177,7 @@ do_loop(){
   read_input
   while [ ! "$user_input" == "" ]
   do
-    printf "KI: "
+    printf "\e[34mKI: \e[0m"
     get_gpt_answer
     read_input
   done
