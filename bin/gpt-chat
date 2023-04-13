@@ -228,7 +228,7 @@ read_input(){
 do_loop(){
   user_input="-"
   load_config
-  if [ ! -z $show_info ]; then
+  if [ -z $silent ]; then
     echo "Conversation: $current_conversation"
     echo "Path: $cloud_path"
     echo ""
@@ -280,7 +280,7 @@ do_loop(){
   done
 }
 
-while getopts ":hirxCDc:p:m:s:t:T:" option; do
+while getopts ":hqrxCDc:p:m:s:t:M:" option; do
   case $option in
     h) # display help
       echo "  ___ ___ _____    ___ _         _   "
@@ -296,11 +296,11 @@ while getopts ":hirxCDc:p:m:s:t:T:" option; do
       echo "-c <conversation>: set conversation name"
       echo "-s <system_message>: set system message (prompt)"
       echo "-t <temperature>: set temperature"
-      echo "-T <max_tokens>: set max tokens returned"
-      echo "-m <model_name>: set model name"
+      echo "-m <max_tokens>: set max tokens returned"
+      echo "-M <model_name>: set model name"
       echo ""
       echo "Other options:"
-      echo "-i show info about conversation on start"
+      echo "-q quiet, show no info about conversation on start"
       echo "-p <cloud_path>: set path for storage (set before other options)"
       echo "-x: temporary storage only (set before other options)"
       echo ""
@@ -326,12 +326,12 @@ while getopts ":hirxCDc:p:m:s:t:T:" option; do
       if [ ! -d "$cloud_path" ]; then
         mkdir -p "$cloud_path"
       fi;;
-    i) show_info=1;;
+    q) silent=1;;
     c) set_config "current_conversation" "$OPTARG";;
-    m) set_config "model_name" "$OPTARG";;
+    M) set_config "model_name" "$OPTARG";;
     s) set_config "system_message" "$OPTARG";;
     t) set_config_number "temperature" $OPTARG;;
-    T) set_config_number "max_tokens" $OPTARG;;
+    m) set_config_number "max_tokens" $OPTARG;;
     D) delete_last_answer
       exit;;
     C) compact_answers
