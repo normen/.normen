@@ -30,23 +30,6 @@ load_config(){
   intro_question=$(jq -r '.intro_question' "$cloud_path/config.json")
 }
 
-set_config(){
-  create_folders
-  create_config
-  jq --compact-output --arg name "$1" --arg value "$2" '.[$name] = $value' \
-    "$cloud_path/config.json" > "$cloud_path/config.new"
-  mv "$cloud_path/config.new" "$cloud_path/config.json"
-}
-
-set_config_number(){
-  create_folders
-  create_config
-  eval $1="$2"
-  jq --compact-output --arg name "$1" --argjson value $2 '.[$name] = $value' \
-    "$cloud_path/config.json" > "$cloud_path/config.new"
-  mv "$cloud_path/config.new" "$cloud_path/config.json"
-}
-
 create_folders(){
   if [ ! -d "$cloud_path" ]; then
     cloud_path="$(mktemp -d)"
@@ -79,6 +62,23 @@ create_config(){
   fi
 }
 
+set_config(){
+  create_folders
+  create_config
+  jq --compact-output --arg name "$1" --arg value "$2" '.[$name] = $value' \
+    "$cloud_path/config.json" > "$cloud_path/config.new"
+  mv "$cloud_path/config.new" "$cloud_path/config.json"
+}
+
+set_config_number(){
+  create_folders
+  create_config
+  eval $1="$2"
+  jq --compact-output --arg name "$1" --argjson value $2 '.[$name] = $value' \
+    "$cloud_path/config.json" > "$cloud_path/config.new"
+  mv "$cloud_path/config.new" "$cloud_path/config.json"
+}
+
 create_conversation(){
   if [ ! -f "$cloud_path/conversation/$current_conversation.json" ]; then
     jq --null-input --compact-output\
@@ -95,6 +95,23 @@ create_conversation(){
             ]
           }' > "$cloud_path/conversation/$current_conversation.json"
   fi
+}
+
+set_conversation_config(){
+  create_folders
+  create_conversation
+  jq --compact-output --arg name "$1" --arg value "$2" '.[$name] = $value' \
+    "$cloud_path/conversation/$current_conversation.json" > "$cloud_path/conversation/$current_conversation.new"
+  mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+}
+
+set_conversation_number(){
+  create_folders
+  create_conversation
+  eval $1="$2"
+  jq --compact-output --arg name "$1" --argjson value $2 '.[$name] = $value' \
+    "$cloud_path/conversation/$current_conversation.json" > "$cloud_path/conversation/$current_conversation.new"
+  mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
 }
 
 get_noperm_answer(){
@@ -131,7 +148,8 @@ compact_answers(){
   echo    # (optional) move to a new line
   if [[ ! $REPLY =~ ^[Yy]$ ]]
   then
-    exit 1
+    echo "Not writing changes"
+    return
   fi
   # delete messages
   jq --compact-output ' .messages |= map(select(.role == "system"))' \
@@ -174,7 +192,6 @@ delete_last_answer(){
       > "$cloud_path/conversation/$current_conversation.new"
     mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
   fi
-  exit
 }
 
 show_first_message(){
@@ -220,10 +237,45 @@ do_loop(){
   fi
   echo ""
   read_input
-  while [ ! "$user_input" == "" ]
-  do
-    printf "\e[34mKI: \e[0m"
-    get_gpt_answer
+  while [ ! "$user_input" == "" ]; do
+    case $user_input in
+      :temperature*)
+        value=$(echo $user_input | cut -d' ' -f 2-)
+        if [ "$value" != ":temperature" ]; then
+          set_conversation_number "temperature" $value
+        fi
+        ;;
+      :max_tokens*)
+        value=$(echo $user_input | cut -d' ' -f 2-)
+        if [ "$value" != ":max_tokens" ]; then
+          set_conversation_number "max_tokens" $value
+        fi
+        ;;
+      :deletelast*)
+        delete_last_answer
+        ;;
+      :compact*)
+        compact_answers
+        ;;
+      :last*)
+        show_last_answer
+        ;;
+      :first*)
+        show_first_message
+        ;;
+      :name*)
+        echo "$current_conversation"
+        ;;
+      :*)
+        echo "Available commands: name, temperature, max_tokens, last, first, deletelast, compact"
+        ;;
+      *)
+        if [ ! "$user_input" == "" ]; then
+          printf "\e[34mKI: \e[0m"
+          get_gpt_answer
+        fi
+        ;;
+    esac
     read_input
   done
 }
@@ -248,12 +300,12 @@ while getopts ":hirxCDc:p:m:s:t:T:" option; do
       echo "-m <model_name>: set model name"
       echo ""
       echo "Other options:"
-      echo "-r read in question from stdin, display answer and exit"
-      echo "-l show last answer and prompt"
+      echo "-i show info about conversation on start"
       echo "-p <cloud_path>: set path for storage (set before other options)"
       echo "-x: temporary storage only (set before other options)"
       echo ""
       echo "Commands:"
+      echo "-r read in question from stdin, display answer and exit"
       echo "-D delete last message and exit"
       echo "-C compact conversation by letting gpt make a summary and exit"
       echo ""
