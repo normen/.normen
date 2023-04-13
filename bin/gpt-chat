@@ -6,6 +6,8 @@
 #
 set -e
 
+# list of available commands
+command_list=":name :temperature :max_tokens :last :first :deletelast :compact"
 # default path to cloud storage
 cloud_path="$HOME/Library/Mobile Documents/com~apple~CloudDocs/GPT"
 if [ ! -d "$cloud_path" ]; then
@@ -38,6 +40,13 @@ create_folders(){
   fi
   if [ ! -d "$cloud_path/conversation" ]; then
     mkdir -p "$cloud_path/conversation"
+  fi
+  if [ ! -d "$cloud_path/cli" ]; then
+    mkdir -p "$cloud_path/cli"
+  fi
+  if [ ! -f "$cloud_path/cli/compl" ]; then
+    echo "$command_list" \
+      > "$cloud_path/cli/compl"
   fi
 }
 
@@ -136,7 +145,7 @@ compact_answers(){
   instruction="Bitte fasse das Gespräch bis hier in Kurzform zusammen. Bitte mit allen wichtigen Informationen so dass es als Vorlage für eine Weiterführung des Gesprächs verwendet werden kann. Bitte verzichte dabei auf einleitende Floskeln wie \"Gerne, hier ist eine Zusammenfassung.\". Bitte schreibe die Zusammenfassung wie eine Nachricht an Dich selbst. Also z.B. \"Der Benutzer hat Dich gefragt wie weit der Mond weg ist\". Bitte schliesse nur Informationen aus Aussagen des Benutzers oder Dir ein."
   if [ $# -eq 0 ]; then
     if which rlwrap>/dev/null; then
-      instruction=$(rlwrap -pyellow -S "Instruction: " -C gpt-chat -m -M .md -n -z unbackspace -P "$instruction" -o cat)
+      instruction=$(RLWRAP_HOME="$cloud_path/cli" rlwrap -pyellow -S "Instruction: " -C gpt-chat-instructions -m -M .md -n -z unbackspace -P "$instruction" -o cat)
     fi
   fi
   printf "\e[32mSystem: \e[0m"
@@ -218,7 +227,7 @@ read_stdin(){
 
 read_input(){
   if which rlwrap>/dev/null; then
-    user_input=$(rlwrap -pyellow -S "Mensch: " -C gpt-chat -m -M .md -n -z unbackspace -o cat)
+    user_input=$(RLWRAP_HOME="$cloud_path/cli" rlwrap -pyellow -f "$cloud_path/cli/compl" -D 1 -S "Mensch: " -C gpt-chat -m -M .md -n -z unbackspace -o cat)
   else
     read -r -p "Mensch: "
     user_input=$REPLY
@@ -241,13 +250,13 @@ do_loop(){
     case $user_input in
       :temperature*)
         value=$(echo $user_input | cut -d' ' -f 2-)
-        if [ "$value" != ":temperature" ]; then
+        if [[ ! "$value" == ':temperature' ]]; then
           set_conversation_number "temperature" $value
         fi
         ;;
       :max_tokens*)
         value=$(echo $user_input | cut -d' ' -f 2-)
-        if [ "$value" != ":max_tokens" ]; then
+        if [[ ! "$value" == ':max_tokens' ]]; then
           set_conversation_number "max_tokens" $value
         fi
         ;;
@@ -266,8 +275,12 @@ do_loop(){
       :name*)
         echo "$current_conversation"
         ;;
+      :exit*)
+        exit
+        ;;
       :*)
-        echo "Available commands: name, temperature, max_tokens, last, first, deletelast, compact"
+        echo "Available commands"
+        echo "$command_list"
         ;;
       *)
         if [ ! "$user_input" == "" ]; then
