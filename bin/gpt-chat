@@ -44,6 +44,9 @@ create_folders(){
   if [ ! -d "$cloud_path/cli" ]; then
     mkdir -p "$cloud_path/cli"
   fi
+  if [ ! -d "$cloud_path/backup" ]; then
+    mkdir -p "$cloud_path/backup"
+  fi
   if [ ! -f "$cloud_path/cli/compl" ]; then
     echo "$command_list" \
       > "$cloud_path/cli/compl"
@@ -160,6 +163,9 @@ compact_answers(){
     echo "Not writing changes"
     return
   fi
+  # backup
+  cur_date=$(date '+%Y-%m-%d %H.%M.%S')
+  cp -i "$cloud_path/conversation/$current_conversation.json" "$cloud_path/backup/$current_conversation - $cur_date.json"
   # delete messages
   jq --compact-output ' .messages |= map(select(.role == "system"))' \
     "$cloud_path/conversation/$current_conversation.json" |\
