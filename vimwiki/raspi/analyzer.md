@@ -13,6 +13,9 @@ sudo apt install python3-numpy python3-pyqt5 python3-pyqtgraph
 cd qspectrumanalyzer
 pip3 install .
 
+# gqrx
+sudo apt install gqrx-sdr
+
 # cutiepi-shell optional
 sudo mv /etc/xdg/autostart/cutiepi-shell.desktop ~/.local/share/applications/
 
@@ -20,7 +23,8 @@ sudo mv /etc/xdg/autostart/cutiepi-shell.desktop ~/.local/share/applications/
 sudo ~/.local/bin/startup.sh
 <<CONTENT
 lxterminal --command="xrandr --output DSI-1 --rotate left"
-qspectrumanalyzer
+#qspectrumanalyzer
+gqrx
 CONTENT
 
 sudo vim /etc/xdg/autostart/startup-qspectrum.desktop
