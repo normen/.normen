@@ -16,6 +16,11 @@ pip3 install .
 # gqrx
 sudo apt install gqrx-sdr
 
+# remove libhackrf0 without removing package
+# gqrx dependency is breaking hackrf_sweep
+sudo rm /usr/lib/aarch64-linux-gnu/libhackrf*
+sudo /sbin/ldconfig -v
+
 # cutiepi-shell optional
 sudo mv /etc/xdg/autostart/cutiepi-shell.desktop ~/.local/share/applications/
 

@@ -4,6 +4,9 @@
 sudo fdisk -l
 sudo mount /dev/sda1 /mnt/usb -o uid=pi,gid=pi
 
+# fix libraries
+sudo /sbin/ldconfig -v
+
 # download recursively
 wget -nH --reject-regex 'Especial|Special|Ayuda|Help|action|printable|Archivo:' --recursive --page-requisites --html-extension --convert-links --restrict-file-names=windows --domains domain.com --no-parent http://domain.com/wiki
 
