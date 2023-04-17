@@ -291,7 +291,11 @@ do_loop(){
       *)
         if [ ! "$user_input" == "" ]; then
           printf "\e[34mKI: \e[0m"
-          get_gpt_answer
+          answer=$(get_gpt_answer)
+          echo "$answer"
+          if [ ! -z $speak ]; then
+            echo "$answer" | say
+          fi
         fi
         ;;
     esac
@@ -299,7 +303,7 @@ do_loop(){
   done
 }
 
-while getopts ":hqrxCDc:p:m:s:t:M:" option; do
+while getopts ":hqrxCDSc:p:m:s:t:M:" option; do
   case $option in
     h) # display help
       echo "  ___ ___ _____    ___ _         _   "
@@ -327,6 +331,7 @@ while getopts ":hqrxCDc:p:m:s:t:M:" option; do
       echo "-r read in question from stdin, display answer and exit"
       echo "-D delete last message and exit"
       echo "-C compact conversation by letting gpt make a summary and exit"
+      echo "-S speak AI output using 'say'"
       echo ""
       echo "Storage folder:"
       echo "If none of these are found a temp folder is created."
@@ -345,6 +350,7 @@ while getopts ":hqrxCDc:p:m:s:t:M:" option; do
       if [ ! -d "$cloud_path" ]; then
         mkdir -p "$cloud_path"
       fi;;
+    S) speak=1;;
     q) silent=1;;
     c) set_config "current_conversation" "$OPTARG";;
     M) set_config "model_name" "$OPTARG";;
