@@ -5,6 +5,7 @@
 # - optionally uses rlwrap
 #
 set -e
+api_server_url="https://api.openai.com"
 
 # list of available commands
 command_list=":name :temperature :max_tokens :last :first :deletelast :compact"
@@ -130,7 +131,7 @@ get_noperm_answer(){
   set -e
   server_response=$(jq --compact-output --arg c "$1" '.messages = .messages + [{"role": "user", "content": $c }]' \
     "$cloud_path/conversation/$current_conversation.json" |\
-    curl -s https://api.openai.com/v1/chat/completions \
+    curl -s $api_server_url/v1/chat/completions \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer ${api_key}" \
       -d @-)
@@ -182,7 +183,7 @@ get_gpt_answer(){
     > "$cloud_path/conversation/$current_conversation.new"
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
   server_response=$(cat "$cloud_path/conversation/$current_conversation.json" |\
-    curl -s https://api.openai.com/v1/chat/completions \
+    curl -s $api_server_url/v1/chat/completions \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer ${api_key}" \
       -d @-)
@@ -303,7 +304,7 @@ do_loop(){
   done
 }
 
-while getopts ":hqrxCDSc:p:m:s:t:M:" option; do
+while getopts ":hqrxCDSc:p:m:s:t:H:M:" option; do
   case $option in
     h) # display help
       echo "  ___ ___ _____    ___ _         _   "
@@ -331,6 +332,7 @@ while getopts ":hqrxCDSc:p:m:s:t:M:" option; do
       echo "-r read in question from stdin, display answer and exit"
       echo "-D delete last message and exit"
       echo "-C compact conversation by letting gpt make a summary and exit"
+      echo "-H API host to use for completion (https://api.openai.com)"
       echo "-S speak AI output using 'say'"
       echo ""
       echo "Storage folder:"
@@ -351,6 +353,7 @@ while getopts ":hqrxCDSc:p:m:s:t:M:" option; do
         mkdir -p "$cloud_path"
       fi;;
     S) speak=1;;
+    H) api_server_url="$OPTARG";;
     q) silent=1;;
     c) set_config "current_conversation" "$OPTARG";;
     M) set_config "model_name" "$OPTARG";;
