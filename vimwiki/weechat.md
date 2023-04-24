@@ -4,6 +4,12 @@
 :autojoin --run
 :split 20
 
+# add discord autojoin ignore
+account discord off
+account discord set auto_join_exclude
+account discord set auto_join_exclude "new*,list*"
+account discord on
+
 #bitlbee
 account add <protocol> <username> <password>
 for slack: user@example.com%<workspace>.slack.com
