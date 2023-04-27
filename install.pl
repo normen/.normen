@@ -356,7 +356,7 @@ sub update_vim_plugins {
     my ($plug_short) = $plug_name =~ m{.*/(.*)};
     if ( -d "$plug_path/$plug_short" ) {
       chdir("$plug_path/$plug_short");
-      say `git pull`;
+      say `$git pull`;
       if ( -d "$plug_path/$plug_short/doc" ) {
         system("vim -c 'helptags doc' +qa");
       }
@@ -364,9 +364,9 @@ sub update_vim_plugins {
     } else {
       chdir($plug_path);
       if ( $plug_name =~ /^http.*/m ) {
-        say `git clone $plug_name`;
+        say `$git clone $plug_name`;
       } else {
-        say `git clone https://github.com/$plug_name`;
+        say `$git clone https://github.com/$plug_name`;
       }
       say "$plug_short installed";
     }
