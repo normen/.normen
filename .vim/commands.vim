@@ -148,7 +148,7 @@ function! s:SpecialK()
     else
       silent! execute 'term++close perldoc -f ' . myWord
     end
-  elseif strlen(&keywordprg) && &keywordprg != "man -s"
+  elseif strlen(&keywordprg) && &keywordprg !~ "^man"
     silent! execute 'term++close ' . &keywordprg . " " . expand('<cword>')
   elseif exists(":LspHover") && &omnifunc != ''
     silent! exec "LspHover"
