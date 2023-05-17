@@ -5,6 +5,9 @@
 - Enable rx/tx flow control
 - Set fixed speed 1G
 - Set full duplex
+- Disable Offload (Große, ARP)
+- Disable Interrupt Moderation
+- RSS-Queues = 1
 #### gstreamer
 ```bash
 cd /D "%~dp0"
