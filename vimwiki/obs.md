@@ -1,4 +1,10 @@
 ## OBS
+#### NDI Ethernet
+- Disable power save
+- Enable Jumbo Frame
+- Enable rx/tx flow control
+- Set fixed speed 1G
+- Set full duplex
 #### gstreamer
 ```bash
 cd /D "%~dp0"

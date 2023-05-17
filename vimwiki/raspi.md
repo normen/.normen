@@ -15,6 +15,8 @@
 
 ## General Raspi Info
 ```bash
+#
+python3 -m pip install tflite-runtime
 #first boot direct
 touch ssh
 vim wpa_supplicant.conf
