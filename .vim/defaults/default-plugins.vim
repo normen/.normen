@@ -259,19 +259,6 @@ augroup plugin_autocommands
   autocmd! User GoyoLeave nested call <SID>goyo_leave()
 augroup END
 
-" add openscad to LSP
-if executable($HOME.'/.cargo/bin/openscad-lsp')
-  let lspServers = [
-        \     #{
-        \  filetype: ['openscad'],
-        \  path: $HOME.'/.cargo/bin/openscad-lsp',
-        \  args: ['--stdio']
-        \      }
-        \   ]
-  "autocmd VimEnter * call LspAddServer(lspServers)
-  call lsp#lsp#AddServer(lspServers)
-endif
-
 " add ccls to LSP
 if executable('ccls')
 augroup ccls_register
