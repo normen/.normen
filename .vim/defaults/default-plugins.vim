@@ -110,6 +110,10 @@ let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_settings_enable_suggestions = 0
 " vsnip
 let g:vsnip_snippet_dir = '$NORMEN/.vim/templates/snippets'
+" nerd commenter
+let g:NERDCustomDelimiters = {
+  \ 'openscad': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}
+\ }
 
 " lightline
 set laststatus=2 " to fix lightline
