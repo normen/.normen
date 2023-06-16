@@ -1,5 +1,23 @@
 # bitwaves.de
+- [coturn](coturn.md)
 ```bash
+# watchdog 60s 
+sudo sysctl -w kernel.watchdog_thresh=60
+# add the following to /etc/sysctl.conf:
+kernel.watchdog_thresh=60
+
+vifmrc<<CONTENT
+" S3Mount
+filetype *.s3
+       \ {Mount with s3fs-fuse}
+       \ FUSE_MOUNT2|s3fs %PARAM %DESTINATION_DIR
+       \  -o endpoint=europe-central-1
+       \  -o url=https://s3.hidrive.strato.com
+       \  -o allow_other
+       \  -o use_path_request_style
+CONTENT
+# Gitea: add ip to docker host hosts file for DB
+# Nextcloud: add docker ips to trusted!
 # HiDrive S3
 install s3fs-fuse from git!
 install awscli

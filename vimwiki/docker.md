@@ -1,5 +1,6 @@
 ## docker
 ```bash
+# avoid file access issues: add :z to mount
 # build from dockerfile (myimage:v3)
 docker build -t myimage .
 # create container from hub (dockeruser) or local image by running once with interactive shell -it
