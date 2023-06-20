@@ -119,7 +119,7 @@ sub install_base_apps {
   given ( $Config{osname} ) {
     system("curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir $npath/bin/all");
     when ("linux") {
-      install_apps( "git", "zsh", "vim", "vifm", "mosh", "tmux" );
+      install_apps( "git", "zsh", "vim", "vifm", "mosh", "tmux", "jq", "rlwrap", "pandoc" );
       my $zsh_exe = qx{which zsh};
       chomp $zsh_exe;
       die if system("chsh -s $zsh_exe");
@@ -128,7 +128,7 @@ sub install_base_apps {
       install_apps( "vim.vim", "Git.Git" );
     }
     when ("darwin") {
-      install_apps( "git", "ctags", "vim", "vifm", "mosh", "tmux" );
+      install_apps( "git", "ctags", "vim", "vifm", "mosh", "tmux", "jq", "rlwrap", "pandoc" );
     }
   }
 }
