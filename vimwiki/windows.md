@@ -1,5 +1,8 @@
 ## windows
 ```
+# add startup task
+schtasks /create /tn PeertubeRunner /tr c:\Users\Normen\AppData\Roaming\npm\peertube-runner.cmd /sc onstart
+
 # run and close minimized shell command app
 start /min "VISCA-CONTROL" node c:\Users\Normen\Code\obs-visca-control\index.js
 taskkill /FI "WindowTitle eq VISCA-CONTROL"

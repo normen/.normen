@@ -1,6 +1,8 @@
 # bitwaves.de
 - [coturn](coturn.md)
 ```bash
+# peertube runner
+peertube-runner register --url https://tube.bitwaves.de --registration-token test --runner-name hp-windows
 # watchdog 60s 
 sudo sysctl -w kernel.watchdog_thresh=60
 # add the following to /etc/sysctl.conf:

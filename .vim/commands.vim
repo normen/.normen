@@ -29,7 +29,6 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 " local
 :command BackupDev !rsync -azrv --delete ~/Dev normen@normenhansen.de:~/backup/MacBook
 :command RestoreDevDry !rsync -n -azrv --delete normen@normenhansen.de:~/backup/MacBook/Dev ~/
-:command WebAppUp !set -e;cd client;npm run build;cd ..;git add -A;git commit -m 'update';git push -u -f origin master
 
 " ChordPro
 " cpan App::Music::ChordPro
