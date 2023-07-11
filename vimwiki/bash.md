@@ -14,8 +14,9 @@ set -e
 trap 'err=$?; echo >&2 "Exiting on error $err"; exit $err' ERR
 
 # regex matching
-pattern='^hello[0-9]*$'
+pattern='^hello([0-9]*)$'
 if [[ "$x" =~ $pattern ]]; then
+  echo "${BATCH_REMATCH[1]}"
   echo "Match found"
 fi
 
