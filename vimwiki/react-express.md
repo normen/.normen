@@ -1,4 +1,11 @@
-## express + react
+## vite -> web app only
+```bash
+npm create vite@latest
+cd project
+npm install
+npm run dev
+```
+## express + react (old)
 ### Install
 ```bash
 npx express-generator my-webapp
@@ -20,9 +27,7 @@ vim package.json
 ```bash
 cd client
 # chakra UI
-npm i @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^5
-#npm install --save @chakra-ui/core
-#npm install --save @chakra-ui/react
+npm i --save @chakra-ui/react @emotion/react @emotion/styled framer-motion
 # fetch
 npm install --save whatwg-fetch
 ```
