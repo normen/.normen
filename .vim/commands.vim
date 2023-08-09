@@ -15,7 +15,7 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command FixTrailingWhitespace :%s/\s\+$//e
 :command FormatJSON :!jq
 :command CompactJSON :!jq --compact-output
-:command FormatOnSave :autocmd BufWritePre <buffer> LspDocumentFormatSync
+:command FormatOnSave :autocmd BufWritePre <buffer> LspFormat
 :command TextModeGer :set spell|:set spelllang=de_de|:set wrap
 :command TextModeUS :set spell|:set spelllang=en_us|:set wrap
 :command! -nargs=+ Wiki call <SID>OpenTermOnce(expand('~/.normen/bin/wikigrab') . ' ' . <q-args>, "Wikipedia Search")
