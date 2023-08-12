@@ -193,6 +193,7 @@ endfunction
 " enable auto format on current file
 function! s:EnableAutoFormat()
   augroup auto_format_on_save
+    au! * <buffer>
     autocmd BufWritePre <buffer> LspFormat
   augroup END
 endfunction
