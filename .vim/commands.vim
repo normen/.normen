@@ -15,7 +15,8 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command FixTrailingWhitespace :%s/\s\+$//e
 :command FormatJSON :!jq
 :command CompactJSON :!jq --compact-output
-:command FormatOnSave :autocmd BufWritePre <buffer> LspFormat
+:command FormatOnSave call <SID>EnableAutoFormat()
+:command FormatAllOnSave :bufdo call <SID>EnableAutoFormat()
 :command TextModeGer :set spell|:set spelllang=de_de|:set wrap
 :command TextModeUS :set spell|:set spelllang=en_us|:set wrap
 :command! -nargs=+ Wiki call <SID>OpenTermOnce(expand('~/.normen/bin/wikigrab') . ' ' . <q-args>, "Wikipedia Search")
@@ -187,6 +188,13 @@ function! s:RunShellCommand(cmdline)
   execute 'silent $read !'. expanded_cmdline
   setlocal nomodifiable
   1
+endfunction
+
+" enable auto format on current file
+function! s:EnableAutoFormat()
+  augroup auto_format_on_save
+    autocmd BufWritePre <buffer> LspFormat
+  augroup END
 endfunction
 
 " allow toggling quick fix window
