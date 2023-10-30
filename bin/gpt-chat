@@ -8,7 +8,7 @@ set -e
 api_server_url="https://api.openai.com"
 
 # list of available commands
-command_list=":name :temperature :max_tokens :last :first :deletelast :compact :save"
+command_list=":name :temperature :max_tokens :enable_functions :disable_functions :last :first :deletelast :compact :save"
 # default path to cloud storage
 cloud_path="$HOME/Library/Mobile Documents/com~apple~CloudDocs/GPT"
 if [ ! -d "$cloud_path" ]; then
@@ -19,6 +19,50 @@ if ! which jq>/dev/null; then
   echo "Error: jq command not found, please install with 'sudo apt install jq'"
   exit 1
 fi
+
+wikipedia_summary(){
+  artikelname=$(echo "$1"|jq --compact-output -r '.name')
+  wikit -l de "$artikelname"
+  #url="https://de.wikipedia.org/api/rest_v1/page/summary/"
+  ## extract name and urlencode
+  #artikelname=$(echo "$1"|jq --compact-output -r '.name'|jq -Rr @uri)
+  #vollstaendige_url="${url}${artikelname}"
+  #curl -Ls "$vollstaendige_url" | jq -r '.extract'
+}
+
+add_conversation_functions(){
+  load_config
+  create_conversation
+  jq --compact-output '.functions = 
+    [
+      {
+        "name": "wikipedia_summary",
+        "description": "Holt eine Zusammenfassung für einen bestimmten Wikipedia-Artikel",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Der Name des Begriffs, muss auf Wikipedia existieren.",
+            }
+          },
+          "required": ["name"],
+        },
+      }
+    ]' \
+    "$cloud_path/conversation/$current_conversation.json" \
+    > "$cloud_path/conversation/$current_conversation.new"
+  mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+}
+
+remove_conversation_functions(){
+  load_config
+  create_conversation
+  jq --compact-output '.functions = []' \
+    "$cloud_path/conversation/$current_conversation.json" \
+    > "$cloud_path/conversation/$current_conversation.new"
+  mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+}
 
 load_config(){
   create_folders
@@ -107,6 +151,9 @@ create_conversation(){
             "content": $system_message }
             ]
           }' > "$cloud_path/conversation/$current_conversation.json"
+    if [ ! -z $use_functions ]; then
+      add_conversation_functions
+    fi
   fi
 }
 
@@ -182,14 +229,51 @@ get_gpt_answer(){
     "$cloud_path/conversation/$current_conversation.json" \
     > "$cloud_path/conversation/$current_conversation.new"
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+  gpt_api_completion
+}
+
+execute_functions(){
+  server_response="$1"
+  function_name=$(echo "$server_response" | jq -r '.choices[0].message.function_call.name')
+  function_args=$(echo "$server_response" | jq -r '.choices[0].message.function_call.arguments')
+  if [ "$function_name" != "null" ]; then
+    # add call to message list
+    jq --compact-output --arg args "$function_args" --arg name "$function_name" \
+      '.messages = .messages + [{"role": "assistant", "content": "null", "function_call": { "name": $name, "arguments": $args}}]' \
+      "$cloud_path/conversation/$current_conversation.json" \
+      > "$cloud_path/conversation/$current_conversation.new"
+    mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+    if type "$function_name" >/dev/null 2>&1; then
+      #echo "Calling $function_name"
+      function_answer=$($function_name "$function_args")
+      #echo "---"
+      #echo "$function_answer"
+      #echo "---"
+      # add answer to message list
+      jq --compact-output --arg answer "$function_answer" --arg name "$function_name" \
+        '.messages = .messages + [{"role": "function", "name": $name, "content": $answer }]' \
+        "$cloud_path/conversation/$current_conversation.json" \
+        > "$cloud_path/conversation/$current_conversation.new"
+      mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+      gpt_api_completion
+    else
+      echo "Function $function_name doesn't exist."
+    fi
+  fi
+}
+
+gpt_api_completion(){
   server_response=$(cat "$cloud_path/conversation/$current_conversation.json" |\
     curl -s $api_server_url/v1/chat/completions \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer ${api_key}" \
       -d @-)
   error_message=$(echo "$server_response" | jq -r '.error.message')
+  function_name=$(echo "$server_response" | jq -r '.choices[0].message.function_call.name')
   if [ "$error_message" != "null" ]; then
     echo "Error: $error_message"
+  elif [ "$function_name" != "null" ]; then
+    execute_functions "$server_response"
   else
     chatgpt_output=$(echo "$server_response" | jq -r '.choices[0].message.content')
     jq --compact-output --arg c "$chatgpt_output" '.messages = .messages + [{"role": "assistant", "content": $c }]' \
@@ -279,6 +363,14 @@ do_loop(){
       :first*)
         show_first_message
         ;;
+      :enable_functions*)
+        use_functions=1
+        add_conversation_functions
+        ;;
+      :disable_functions*)
+        unset use_functions
+        remove_conversation_functions
+        ;;
       :name*)
         echo "$current_conversation"
         ;;
@@ -300,8 +392,8 @@ do_loop(){
         ;;
       *)
         if [ ! "$user_input" == "" ]; then
-          printf "\e[34mKI: \e[0m"
           answer=$(get_gpt_answer)
+          printf "\e[34mKI: \e[0m"
           echo "$answer"
           if [ ! -z $speak ]; then
             echo "$answer" | say
@@ -313,7 +405,7 @@ do_loop(){
   done
 }
 
-while getopts ":hqrxCDSc:p:m:s:t:H:M:" option; do
+while getopts ":hfqrxCDSc:p:m:s:t:H:M:" option; do
   case $option in
     h) # display help
       echo "  ___ ___ _____    ___ _         _   "
@@ -334,6 +426,7 @@ while getopts ":hqrxCDSc:p:m:s:t:H:M:" option; do
       echo ""
       echo "Other options:"
       echo "-q quiet, show no info about conversation on start"
+      echo "-f use functions (wikipedia)"
       echo "-p <cloud_path>: set path for storage (set before other options)"
       echo "-x: temporary storage only (set before other options)"
       echo ""
@@ -364,6 +457,7 @@ while getopts ":hqrxCDSc:p:m:s:t:H:M:" option; do
     S) speak=1;;
     H) api_server_url="$OPTARG";;
     q) silent=1;;
+    f) use_functions=1;;
     c) set_config "current_conversation" "$OPTARG";;
     M) set_config "model_name" "$OPTARG";;
     s) set_config "system_message" "$OPTARG";;
