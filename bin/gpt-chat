@@ -34,7 +34,7 @@ wikipedia_summary(){
     --data-urlencode "redirects=1" \
     --data-urlencode "titles=$artikelname" \
     https://de.wikipedia.org/w/api.php | \
-    jq -r ".query.pages.[].extract"
+    jq -r ".query.pages[].extract"
 }
 
 add_conversation_functions(){
