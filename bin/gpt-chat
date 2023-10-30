@@ -22,12 +22,19 @@ fi
 
 wikipedia_summary(){
   artikelname=$(echo "$1"|jq --compact-output -r '.name')
-  wikit -l de "$artikelname"
-  #url="https://de.wikipedia.org/api/rest_v1/page/summary/"
-  ## extract name and urlencode
-  #artikelname=$(echo "$1"|jq --compact-output -r '.name'|jq -Rr @uri)
-  #vollstaendige_url="${url}${artikelname}"
-  #curl -Ls "$vollstaendige_url" | jq -r '.extract'
+  #wikit -l de "$artikelname"
+  echo "Searching Wikipedia.." >&2
+  curl -Ls \
+    --data-urlencode "format=json" \
+    --data-urlencode "utf8=" \
+    --data-urlencode "action=query" \
+    --data-urlencode "prop=extracts" \
+    --data-urlencode "exintro" \
+    --data-urlencode "explaintext" \
+    --data-urlencode "redirects=1" \
+    --data-urlencode "titles=$artikelname" \
+    https://de.wikipedia.org/w/api.php | \
+    jq -r ".query.pages.[].extract"
 }
 
 add_conversation_functions(){
