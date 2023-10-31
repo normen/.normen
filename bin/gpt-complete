@@ -6,7 +6,7 @@ temperature=1
 while getopts ":ht:" option; do
   case $option in
     h)
-      echo "gpt-edit"
+      echo "gpt-complete"
       echo ""
       echo "-t <temperature>"
       echo ""
@@ -18,7 +18,7 @@ while getopts ":ht:" option; do
   esac
 done
 server_response=$(echo "$input"| jq -sR --argjson temperature $temperature '{
-  "model": "text-davinci-003",
+  "model": "gpt-3.5-turbo-instruct",
   "prompt": .,
   "max_tokens": 2048,
   "temperature": $temperature
