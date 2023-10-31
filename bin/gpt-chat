@@ -8,7 +8,7 @@ set -e
 api_server_url="https://api.openai.com"
 
 # list of available commands
-command_list=":name :model :temperature :max_tokens :enable_functions :disable_functions :last :first :deletelast :compact :save"
+command_list=":name :models :model :temperature :max_tokens :enable_functions :disable_functions :last :first :deletelast :compact :save"
 # default path to cloud storage
 cloud_path="$HOME/Library/Mobile Documents/com~apple~CloudDocs/GPT"
 if [ ! -d "$cloud_path" ]; then
@@ -203,6 +203,13 @@ set_conversation_number(){
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
 }
 
+get_model_list(){
+  server_response=$(curl -s $api_server_url/v1/models \
+                  -H "Authorization: Bearer ${api_key}" |\
+                  jq -r '.data[].id | select(startswith("gpt"))')
+  echo "$server_response"
+}
+
 get_noperm_answer(){
   set -e
   server_response=$(jq --compact-output --arg c "$1" '.messages = .messages + [{"role": "user", "content": $c }]' \
@@ -381,6 +388,9 @@ do_loop(){
         if [[ ! "$value" == ':max_tokens' ]]; then
           set_conversation_number "max_tokens" $value
         fi
+        ;;
+      :models*)
+        get_model_list
         ;;
       :model*)
         value=$(echo $user_input | cut -d' ' -f 2-)
