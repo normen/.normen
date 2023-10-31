@@ -280,11 +280,10 @@ execute_functions(){
       > "$cloud_path/conversation/$current_conversation.new"
     mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
     if type "$function_name" >/dev/null 2>&1; then
-      #echo "Calling $function_name"
       function_answer=$($function_name "$function_args")
-      #echo "---"
-      #echo "$function_answer"
-      #echo "---"
+      printf "\e[2m" >&2
+      echo "$function_answer" >&2
+      printf "\e[22m" >&2
       # add answer to message list
       jq --compact-output --arg answer "$function_answer" --arg name "$function_name" \
         '.messages = .messages + [{"role": "function", "name": $name, "content": $answer }]' \
@@ -304,6 +303,8 @@ gpt_api_completion(){
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer ${api_key}" \
       -d @-)
+  tokens_used="$(echo "$server_response" | jq -r '.usage.total_tokens')"
+  printf "\e[36mTokens: \e[0m$tokens_used\n" >&2
   error_message=$(echo "$server_response" | jq -r '.error.message')
   function_name=$(echo "$server_response" | jq -r '.choices[0].message.function_call.name')
   if [ "$error_message" != "null" ]; then
@@ -317,8 +318,6 @@ gpt_api_completion(){
     mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
     echo "$chatgpt_output"
   fi
-  tokens_used="$(echo "$server_response" | jq -r '.usage.total_tokens')"
-  printf "\e[36mTokens: \e[0m$tokens_used\n" >&2
 }
 
 delete_last_answer(){
