@@ -22,7 +22,8 @@ fi
 
 command_line_command(){
   command_line=$(echo "$1"|jq --compact-output -r '.command')
-  read -p "Execute this? $command_line " -n 1 -r
+  printf "\e[34mCommand: \e[0m$command_line\n" >&2
+  read -p $'\e[31mExecute?\e[0m ' -n 1 -r
   echo >&2
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     eval $command_line 2>&1
