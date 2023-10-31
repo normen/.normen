@@ -312,6 +312,8 @@ gpt_api_completion(){
     mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
     echo "$chatgpt_output"
   fi
+  tokens_used="$(echo "$server_response" | jq -r '.usage.total_tokens')"
+  printf "\e[36mTokens: \e[0m$tokens_used\n" >&2
 }
 
 delete_last_answer(){
