@@ -8,7 +8,7 @@ set -e
 api_server_url="https://api.openai.com"
 
 # list of available commands
-command_list=":name :temperature :max_tokens :enable_functions :disable_functions :last :first :deletelast :compact :save"
+command_list=":name :model :temperature :max_tokens :enable_functions :disable_functions :last :first :deletelast :compact :save"
 # default path to cloud storage
 cloud_path="$HOME/Library/Mobile Documents/com~apple~CloudDocs/GPT"
 if [ ! -d "$cloud_path" ]; then
@@ -161,7 +161,6 @@ set_config(){
 set_config_number(){
   create_folders
   create_config
-  eval $1="$2"
   jq --compact-output --arg name "$1" --argjson value $2 '.[$name] = $value' \
     "$cloud_path/config.json" > "$cloud_path/config.new"
   mv "$cloud_path/config.new" "$cloud_path/config.json"
@@ -199,7 +198,6 @@ set_conversation_config(){
 set_conversation_number(){
   create_folders
   create_conversation
-  eval $1="$2"
   jq --compact-output --arg name "$1" --argjson value $2 '.[$name] = $value' \
     "$cloud_path/conversation/$current_conversation.json" > "$cloud_path/conversation/$current_conversation.new"
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
@@ -382,6 +380,12 @@ do_loop(){
         value=$(echo $user_input | cut -d' ' -f 2-)
         if [[ ! "$value" == ':max_tokens' ]]; then
           set_conversation_number "max_tokens" $value
+        fi
+        ;;
+      :model*)
+        value=$(echo $user_input | cut -d' ' -f 2-)
+        if [[ ! "$value" == ':model' ]]; then
+          set_conversation_config "model" "$value"
         fi
         ;;
       :deletelast*)
