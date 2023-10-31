@@ -33,7 +33,7 @@ command_line_command(){
 wikipedia_summary(){
   artikelname=$(echo "$1"|jq --compact-output -r '.name')
   #wikit -l de "$artikelname"
-  echo "Searching Wikipedia.." >&2
+  echo "Wikipedia summary for $artikelname.." >&2
   curl -Ls \
     --data-urlencode "format=json" \
     --data-urlencode "utf8=" \
