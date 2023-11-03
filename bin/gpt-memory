@@ -2,13 +2,6 @@
 # pip3 install openai chromadb click
 
 # command line tool to access a memory database based on an embeddings db
-#
-# theres a core_memory dataset with a string for "name" and "memory"
-# theres a historic_memory dataset with a string for "memory" and a field for the date and time
-# theres a archive_memory dataset with just a string for the memory
-#
-# The data should be writable, readable and searchable
-# The details of the db implementation should be left empty
 
 import sys
 import os
@@ -72,6 +65,10 @@ def cli(ctx, verbose):
         eprint("creating wikipedia_memory collection...")
         client.create_collection(
             name="wikipedia_memory", embedding_function=openai_ef)
+    if not any(obj.name == 'document_memory' for obj in collections):
+        eprint("creating document_memory collection...")
+        client.create_collection(
+            name="document_memory", embedding_function=openai_ef)
 
 
 @cli.command()
@@ -210,6 +207,87 @@ def load_wikipedia_article(collection, name):
         if line.strip():
             ids.append(f"{name} - {i}")
             metadatas.append({"line_number": i, "article_name": name})
+            lines.append(line)
+    collection.add(
+        ids=ids,
+        metadatas=metadatas,
+        documents=lines,
+    )
+
+
+@cli.command()
+@click.argument('name')
+@click.argument('search')
+@click.pass_context
+def get_document_memory(ctx, name, search):
+    """
+    Make a memory from a Document and perform a search on it
+    """
+    collection = client.get_collection(
+        name="document_memory", embedding_function=openai_ef)
+    eprint("Searching document " + name + " for '" + search + "'")
+    # TODO - better check for existence
+    result = collection.get(ids=[name + " - 0"])
+    if len(result["documents"]) > 0:
+        eprint("Found In Memory")
+    else:
+        # TODO: check if document needs update
+        load_document(collection, name)
+    query_result = collection.query(
+        query_texts=[search],
+        n_results=10,
+        where={"document_name": name},
+    )
+    result = [{"line_number": a["line_number"], "content": b}
+              for a, b in zip(*query_result["metadatas"], *query_result["documents"])]
+    print(json.dumps(result))
+
+
+@cli.command()
+@click.argument('name')
+@click.argument('line_number', type=click.INT)
+@click.argument('surrounding', type=click.INT)
+@click.pass_context
+def get_document_memory_lines(ctx, name, line_number, surrounding):
+    """
+    Search Document and return found lines as JSON.
+    If needed, makes a memory from a Document and performs a
+    search on it.
+    """
+    eprint(
+        f"Getting {surrounding} lines around {line_number} from document {name}")
+    collection = client.get_collection(
+        name="document_memory", embedding_function=openai_ef)
+    # TODO - better check for existence
+    result = collection.get(ids=[name + " - 0"])
+    if len(result["documents"]) > 0:
+        eprint("Found In Memory")
+    else:
+        # TODO: check if document needs update
+        load_document(collection, name)
+    query_result = collection.get(
+        where={
+            "$and": [
+                {"document_name": {"$eq": name}, },
+                {"line_number": {"$gte": line_number-surrounding}, },
+                {"line_number": {"$lte": line_number+surrounding}, }
+            ]
+        }
+    )
+    print('\n'.join(query_result["documents"]))
+
+
+def load_document(collection, name):
+    eprint("Loading Document to Memory")
+    result = os.popen('cat "'+name+'"').read()
+    output = result.strip()
+    ids = []
+    lines = []
+    metadatas = []
+    for i, line in enumerate(output.splitlines()):
+        if line.strip():
+            ids.append(f"{name} - {i}")
+            metadatas.append({"line_number": i, "document_name": name})
             lines.append(line)
     collection.add(
         ids=ids,

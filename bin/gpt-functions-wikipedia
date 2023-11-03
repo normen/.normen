@@ -49,7 +49,7 @@ wikipedia_functions(){
           },
           "surrounding": {
             "type": "number",
-            "description": "Die Anzahl von Zeilen vor und nach der angefragten Zeile die ausgegeben werden sollen. Leere Zeilen werden mit gezählt aber nicht mit ausgegeben, daher sollten immer ein paar Zeilen zusätzlich angefragt werden."
+            "description": "Die Anzahl von Zeilen vor und nach der angefragten Zeile die ausgegeben werden sollen. Leere Zeilen werden mit gezählt aber nicht mit ausgegeben, daher sollten immer ein paar Zeilen zusätzlich ausgegeben werden."
           }
         },
         "required": ["name", "line_number", "surrounding"]
