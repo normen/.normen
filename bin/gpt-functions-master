@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+sub_agent_wikipedia(){
+  suche=$(echo "$1"|jq --compact-output -r '.search')
+  echo "Starting Wikipedia agent for $suche">&2
+  echo "$suche" | ~/.normen/bin/gpt-chat -xq -f core -f wikipedia -M "gpt-3.5-turbo-16k" -s "Du bist ein freundlicher KI Assistent der stets mit akkuraten Informationen zur Hilfe steht. Nutze deine wikipedia funktionen intensiv und oft um korrekte Informationen zu liefern, gerne auch mehrmals in Folge. Findest Du auch nach intensiver Suche und mehreren Versuchen keine Informationen auf Wikipedia lieferst Du eine Vermutung und bezeichnest diese auch als solche. Vermeide es, Assistenten zu starten um Deine Aufgabe zu erfüllen."
+}
+
+master_functions(){
+  echo '[
+    {
+      "name": "sub_agent_wikipedia",
+      "description": "Startet einen KI Assistenten der eine Frage mittels Wikipedia beantwortet.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string",
+            "description": "Die Suchanfrage, z.B. `Wie viele Einwohner hat Deutschland?`"
+          }
+        },
+        "required": ["search"]
+      }
+    }
+  ]'
+}
+

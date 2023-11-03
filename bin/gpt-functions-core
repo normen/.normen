@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+wikipedia_summary(){
+  artikelname=$(echo "$1"|jq --compact-output -r '.name')
+  echo "Wikipedia summary for $artikelname.." >&2
+  curl -Ls \
+    --data-urlencode "format=json" \
+    --data-urlencode "utf8=" \
+    --data-urlencode "action=query" \
+    --data-urlencode "prop=extracts" \
+    --data-urlencode "exintro" \
+    --data-urlencode "explaintext" \
+    --data-urlencode "redirects=1" \
+    --data-urlencode "titles=$artikelname" \
+    https://de.wikipedia.org/w/api.php | \
+    jq -r ".query.pages[].extract"
+}
+
+command_line_command(){
+  command_line=$(echo "$1"|jq --compact-output -r '.command')
+  printf "\e[34mCommand: \e[0m$command_line\n" >&2
+  read -p $'\e[31mExecute?\e[0m ' -n 1 -r
+  echo >&2
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    eval $command_line 2>&1
+  fi
+}
+
+core_functions(){
+  echo '[
+    {
+      "name": "wikipedia_summary",
+      "description": "Holt eine Zusammenfassung für einen bestimmten Wikipedia-Artikel",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Der Name des Artikels, muss auf Wikipedia existieren. Generische Suchen wie `Deutschland` funktionieren besser als `Einwohnerzahl von Deutschland`."
+          }
+        },
+        "required": ["name"]
+      }
+    },
+    {
+      "name": "command_line_command",
+      "description": "Führt einen befehl auf der bash shell aus.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "Der Befehl inklusive der Argumente."
+          }
+        },
+        "required": ["command"]
+      }
+    }
+  ]'
+}
+

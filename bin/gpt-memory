@@ -1,0 +1,223 @@
+#!/usr/bin/env python3
+# pip3 install openai chromadb click
+
+# command line tool to access a memory database based on an embeddings db
+#
+# theres a core_memory dataset with a string for "name" and "memory"
+# theres a historic_memory dataset with a string for "memory" and a field for the date and time
+# theres a archive_memory dataset with just a string for the memory
+#
+# The data should be writable, readable and searchable
+# The details of the db implementation should be left empty
+
+import sys
+import os
+import json
+import configparser
+import click
+import chromadb
+from chromadb.config import Settings
+from chromadb.utils import embedding_functions
+
+# load api keys
+CONFIG_DIR = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
+API_KEYS_LOCATION = os.path.join(CONFIG_DIR, 'openaiapirc')
+config = configparser.ConfigParser()
+config.read(API_KEYS_LOCATION)
+api_key = config['openai']['secret_key'].strip('"').strip("'")
+chroma_key = config['chroma']['chroma_key'].strip('"').strip("'")
+
+# chroma db client
+client = chromadb.HttpClient(
+    host="memory.bitwaves.de",
+    port="443",
+    ssl=True,
+    settings=Settings(chroma_client_auth_provider="chromadb.auth.token.TokenAuthClientProvider",
+                      chroma_client_auth_credentials=chroma_key))
+
+# openai embedding client
+openai_ef = embedding_functions.OpenAIEmbeddingFunction(
+    api_key=api_key,
+    model_name="text-embedding-ada-002")
+
+
+@click.group()
+@click.option('--verbose', is_flag=True, help='Print more information.')
+@click.pass_context
+def cli(ctx, verbose):
+    ctx.ensure_object(dict)
+    ctx.obj['verbose'] = verbose
+    # eprint(client.heartbeat())
+    # eprint(client.get_version())
+    # eprint(client.list_collections())
+    # client.reset()
+    # client.delete_collection("core_memories")
+    # client.delete_collection("archival_memory")
+    # client.delete_collection("historical_memory")
+    # client.delete_collection("wikipedia_memory")
+    collections = client.list_collections()
+    if not any(obj.name == 'core_memories' for obj in collections):
+        eprint("creating core_memories collection...")
+        client.create_collection(name="core_memories",
+                                 embedding_function=openai_ef)
+    if not any(obj.name == 'archival_memory' for obj in collections):
+        eprint("creating archival_memory collection...")
+        client.create_collection(
+            name="archival_memory", embedding_function=openai_ef)
+    if not any(obj.name == 'historical_memory' for obj in collections):
+        eprint("creating historical_memory collection...")
+        client.create_collection(
+            name="historical_memory", embedding_function=openai_ef)
+    if not any(obj.name == 'wikipedia_memory' for obj in collections):
+        eprint("creating wikipedia_memory collection...")
+        client.create_collection(
+            name="wikipedia_memory", embedding_function=openai_ef)
+
+
+@cli.command()
+@click.pass_context
+def help(ctx):
+    """
+    List usage and options
+    """
+    click.echo(ctx.parent.get_help())
+
+
+@cli.command()
+@click.argument('name')
+@click.argument('memory')
+@click.pass_context
+def set_core_memory(ctx, name, memory):
+    """
+    Add a memory to the database
+    """
+    # if ctx.obj['verbose']:
+    # click.echo('Adding memory: name = {}, memory = {}'.format(name, memory))
+    collection = client.get_collection(
+        name="core_memories", embedding_function=openai_ef)
+    collection.add(documents=[memory],
+                   metadatas=[{"type": "core"}],
+                   ids=[name])
+
+
+@cli.command()
+@click.argument('name')
+@click.pass_context
+def get_core_memory(ctx, name):
+    """
+    Search memories from the database
+    """
+    collection = client.get_collection(
+        name="core_memories", embedding_function=openai_ef)
+    result = collection.get(ids=[name])
+    if len(result["documents"]) > 0:
+        print(result["documents"][0])
+
+
+@cli.command()
+@click.pass_context
+def get_core_memories(ctx):
+    """
+    Search memories from the database
+    """
+    collection = client.get_collection(
+        name="core_memories", embedding_function=openai_ef)
+    result = collection.get()
+    print(json.dumps(result))
+    # print(result["documents"])
+
+
+@cli.command()
+@click.argument('name')
+@click.argument('search')
+@click.pass_context
+def get_wikipedia_memory(ctx, name, search):
+    """
+    Make a memory from a Wikipedia Article and perform a search on it
+    """
+    collection = client.get_collection(
+        name="wikipedia_memory", embedding_function=openai_ef)
+    eprint("Searching wikipedia article " + name + " for '" + search + "'")
+    # TODO - better check for existence
+    result = collection.get(ids=[name + " - 0"])
+    if len(result["documents"]) > 0:
+        eprint("Found In Memory")
+    else:
+        # TODO: check if article needs update
+        load_wikipedia_article(collection, name)
+    query_result = collection.query(
+        query_texts=[search],
+        n_results=10,
+        where={"article_name": name},
+        # where_document={"$contains":"search_string"}
+    )
+    # result = [{"document": a["article_name"], "line_number": a["line_number"], "content": b}
+    # for a, b in zip(*query_result["metadatas"], *query_result["documents"])]
+    result = [{"line_number": a["line_number"], "content": b}
+              for a, b in zip(*query_result["metadatas"], *query_result["documents"])]
+    print(json.dumps(result))
+
+
+@cli.command()
+@click.argument('name')
+@click.argument('line_number', type=click.INT)
+@click.argument('surrounding', type=click.INT)
+@click.pass_context
+def get_wikipedia_memory_lines(ctx, name, line_number, surrounding):
+    """
+    Make a memory from a Wikipedia Article and perform a search on it
+    """
+    eprint(
+        f"Getting {surrounding} lines around {line_number} from wikipedia article {name}")
+    collection = client.get_collection(
+        name="wikipedia_memory", embedding_function=openai_ef)
+    # TODO - better check for existence
+    result = collection.get(ids=[name + " - 0"])
+    if len(result["documents"]) > 0:
+        eprint("Found In Memory")
+    else:
+        # TODO: check if article needs update
+        load_wikipedia_article(collection, name)
+    query_result = collection.get(
+        where={
+            "$and": [
+                {"article_name": {"$eq": name}, },
+                {"line_number": {"$gte": line_number-surrounding}, },
+                {"line_number": {"$lte": line_number+surrounding}, }
+            ]
+        }
+    )
+    # print(json.dumps(query_result))
+    # TODO: broken, too many values?
+    # result = [{"line_number": a["line_number"], "content": b}
+    # for a, b in zip(*query_result["metadatas"], *query_result["documents"])]
+    # print(json.dumps(result))
+    # TODO: guaranteed order?
+    print('\n'.join(query_result["documents"]))
+
+
+def load_wikipedia_article(collection, name):
+    eprint("Loading Wikipedia Article to Memory")
+    result = os.popen('wikigrab -w 10000 -l de -p "'+name+'"').read()
+    output = result.strip()
+    ids = []
+    lines = []
+    metadatas = []
+    for i, line in enumerate(output.splitlines()):
+        if line.strip():
+            ids.append(f"{name} - {i}")
+            metadatas.append({"line_number": i, "article_name": name})
+            lines.append(line)
+    collection.add(
+        ids=ids,
+        metadatas=metadatas,
+        documents=lines,
+    )
+
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+
+if __name__ == '__main__':
+    cli(obj={})

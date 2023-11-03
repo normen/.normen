@@ -14,73 +14,18 @@ cloud_path="$HOME/Library/Mobile Documents/com~apple~CloudDocs/GPT"
 if [ ! -d "$cloud_path" ]; then
   cloud_path="$HOME/.config/gpt-chat"
 fi
+# collected external function descriptions
+function_description="[]"
 
 if ! which jq>/dev/null; then
   echo "Error: jq command not found, please install with 'sudo apt install jq'"
   exit 1
 fi
 
-command_line_command(){
-  command_line=$(echo "$1"|jq --compact-output -r '.command')
-  printf "\e[34mCommand: \e[0m$command_line\n" >&2
-  read -p $'\e[31mExecute?\e[0m ' -n 1 -r
-  echo >&2
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    eval $command_line 2>&1
-  fi
-}
-
-wikipedia_summary(){
-  artikelname=$(echo "$1"|jq --compact-output -r '.name')
-  #wikit -l de "$artikelname"
-  echo "Wikipedia summary for $artikelname.." >&2
-  curl -Ls \
-    --data-urlencode "format=json" \
-    --data-urlencode "utf8=" \
-    --data-urlencode "action=query" \
-    --data-urlencode "prop=extracts" \
-    --data-urlencode "exintro" \
-    --data-urlencode "explaintext" \
-    --data-urlencode "redirects=1" \
-    --data-urlencode "titles=$artikelname" \
-    https://de.wikipedia.org/w/api.php | \
-    jq -r ".query.pages[].extract"
-}
-
 add_conversation_functions(){
   load_config
   create_conversation
-  jq --compact-output '.functions = 
-    [
-      {
-        "name": "wikipedia_summary",
-        "description": "Holt eine Zusammenfassung für einen bestimmten Wikipedia-Artikel",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "Der Name des Begriffs, muss auf Wikipedia existieren.",
-            }
-          },
-          "required": ["name"],
-        },
-      },
-      {
-        "name": "command_line_command",
-        "description": "Führt einen befehl auf der bash shell aus.",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "command": {
-              "type": "string",
-              "description": "Der Befehl inklusive der Argumente.",
-            }
-          },
-          "required": ["command"],
-        },
-      }
-    ]' \
+  jq --compact-output --argjson funcs "$function_description" '.functions = $funcs' \
     "$cloud_path/conversation/$current_conversation.json" \
     > "$cloud_path/conversation/$current_conversation.new"
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
@@ -93,6 +38,14 @@ remove_conversation_functions(){
     "$cloud_path/conversation/$current_conversation.json" \
     > "$cloud_path/conversation/$current_conversation.new"
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+}
+
+load_functions(){
+  basename="$1"
+  # TODO: check if exists
+  source ~/.normen/bin/gpt-functions-$basename
+  cur_func=$("${basename}_functions" | jq -c .)
+  function_description=$(echo "$function_description" | jq -c --argjson func "$cur_func" '. += $func')
 }
 
 load_config(){
@@ -112,7 +65,7 @@ create_folders(){
   if [ ! -d "$cloud_path" ]; then
     cloud_path="$(mktemp -d)"
     #echo "Creating: $cloud_path"
-    trap "rm -rf $cloud_path; echo 'Deleted temp folder'" EXIT
+    trap "rm -rf $cloud_path; echo 'Deleted temp folder'>&2" EXIT
   fi
   if [ ! -d "$cloud_path/conversation" ]; then
     mkdir -p "$cloud_path/conversation"
@@ -136,7 +89,7 @@ create_config(){
       "model_name":"gpt-3.5-turbo",
       "max_tokens":1024,
       "temperature":1,
-      "system_message": "Du bist eine freundliche KI die stets mit akkuraten Informationen zur Hilfe steht.",
+      "system_message": "Du bist eine freundliche KI die stets mit akkuraten Informationen zur Hilfe steht. Du bist die Master KI und startest lieber einen Assistenten anstatt Wikipedia selbst zu durchsuchen.",
       "intro_question":"Wie kann ich helfen?",
       "loop_question":"Noch etwas?",
       "current_conversation": "conversation"
@@ -204,7 +157,7 @@ set_conversation_number(){
 }
 
 get_model_list(){
-  server_response=$(curl -s $api_server_url/v1/models \
+  server_response=$(curl -v $api_server_url/v1/models \
                   -H "Authorization: Bearer ${api_key}" |\
                   jq -r '.data[].id | select(startswith("gpt"))')
   echo "$server_response"
@@ -451,7 +404,7 @@ do_loop(){
   done
 }
 
-while getopts ":hfqrxCDSc:p:m:s:t:H:M:" option; do
+while getopts ":hqrxCDSc:f:p:m:s:t:H:M:" option; do
   case $option in
     h) # display help
       echo "  ___ ___ _____    ___ _         _   "
@@ -472,9 +425,9 @@ while getopts ":hfqrxCDSc:p:m:s:t:H:M:" option; do
       echo ""
       echo "Other options:"
       echo "-q quiet, show no info about conversation on start"
-      echo "-f use functions (wikipedia)"
       echo "-p <cloud_path>: set path for storage (set before other options)"
       echo "-x: temporary storage only (set before other options)"
+      echo "-f <functionset> use functions from set (e.g. wikipedia)"
       echo ""
       echo "Commands:"
       echo "-r read in question from stdin, display answer and exit"
@@ -503,7 +456,8 @@ while getopts ":hfqrxCDSc:p:m:s:t:H:M:" option; do
     S) speak=1;;
     H) api_server_url="$OPTARG";;
     q) silent=1;;
-    f) use_functions=1;;
+    f) load_functions "$OPTARG"
+      use_functions=1;;
     c) set_config "current_conversation" "$OPTARG";;
     M) set_config "model_name" "$OPTARG";;
     s) set_config "system_message" "$OPTARG";;

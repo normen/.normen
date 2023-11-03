@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+wikipedia_article_search(){
+  artikelname=$(echo "$1"|jq --compact-output -r '.name')
+  suche=$(echo "$1"|jq --compact-output -r '.search')
+  ~/.normen/bin/gpt-memory get-wikipedia-memory "$artikelname" "$suche"
+}
+
+wikipedia_article_lines(){
+  artikelname=$(echo "$1"|jq --compact-output -r '.name')
+  line_number=$(echo "$1"|jq --compact-output -r '.line_number')
+  surrounding=$(echo "$1"|jq --compact-output -r '.surrounding')
+  ~/.normen/bin/gpt-memory get-wikipedia-memory-lines "$artikelname" "$line_number" "$surrounding"
+}
+
+wikipedia_functions(){
+  echo '[
+    {
+      "name": "wikipedia_article_search",
+      "description": "Sucht mit Embeddings in einem Wikipedia Artikel und gibt ein JSON array mit relevanten Zeilen im Artikel zurück.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Der Name des Artikels, muss auf Wikipedia existieren. Generische Suchen wie `Deutschland` funktionieren besser als `Einwohnerzahl von Deutschland`."
+          },
+          "search": {
+            "type": "string",
+            "description": "Der oder die Suchbegriffe die im Artikel per Embeddings gesucht werden soll."
+          }
+        },
+        "required": ["name", "search"]
+      }
+    },
+    {
+      "name": "wikipedia_article_lines",
+      "description": "Holt einen Teil eines Wikipedia Artikels auf Basis einer angegebenen Zeilennummer.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Der Name des Artikels, muss auf Wikipedia existieren. Generische Suchen wie `Deutschland` funktionieren besser als `Einwohnerzahl von Deutschland`."
+          },
+          "line_number": {
+            "type": "number",
+            "description": "Die angefragte Zeilennummer die vom Artikel ausgeben werden soll."
+          },
+          "surrounding": {
+            "type": "number",
+            "description": "Die Anzahl von Zeilen vor und nach der angefragten Zeile die ausgegeben werden sollen. Leere Zeilen werden mit gezählt aber nicht mit ausgegeben, daher sollten immer ein paar Zeilen zusätzlich angefragt werden."
+          }
+        },
+        "required": ["name", "line_number", "surrounding"]
+      }
+    }
+  ]'
+}
+
