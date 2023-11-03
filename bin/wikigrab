@@ -37,6 +37,17 @@ wikipedia_article(){
       $api_url/$api_path | \
       jq -r '.query.pages[].revisions[0]["*"]' | \
       pandoc --columns $width -f mediawiki -t plain
+  elif [ ! -z $raw_text ];then
+    curl -Ls \
+      --data-urlencode "format=json" \
+      --data-urlencode "utf8=" \
+      --data-urlencode "action=query" \
+      --data-urlencode "prop=revisions" \
+      --data-urlencode "rvprop=content" \
+      --data-urlencode "redirects=1" \
+      --data-urlencode "titles=$artikelname" \
+      $api_url/$api_path | \
+      jq -r '.query.pages[].revisions[0]["*"]'
   else
     curl -Ls \
       --data-urlencode "format=json" \
@@ -58,7 +69,7 @@ else
   width=$(tput cols)
 fi
 
-while getopts ":hspl:u:a:w:" option; do
+while getopts ":hsprl:u:a:w:" option; do
   case $option in
     h) # display help
       echo "Usage: wikigrab [options] search terms"
@@ -70,6 +81,7 @@ while getopts ":hspl:u:a:w:" option; do
       echo "-w  Render Width (term_width or 80)"
       echo "-s  Summary only"
       echo "-p  Plain Text (no ANSI)"
+      echo "-r  Raw Wikimedia Text"
       echo ""
       echo "Dependencies:"
       echo "Needs jq for JSON processing"
@@ -80,6 +92,7 @@ while getopts ":hspl:u:a:w:" option; do
     w) width="$OPTARG";;
     s) summary_only=1;;
     p) plain_text=1;;
+    r) raw_text=1;;
     \?)
       echo "Error: Invalid option, use -h for help."
       exit;;

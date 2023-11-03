@@ -89,7 +89,7 @@ def help(ctx):
 @click.pass_context
 def set_core_memory(ctx, name, memory):
     """
-    Add a memory to the database
+    Set a core memory by name
     """
     # if ctx.obj['verbose']:
     # click.echo('Adding memory: name = {}, memory = {}'.format(name, memory))
@@ -105,7 +105,7 @@ def set_core_memory(ctx, name, memory):
 @click.pass_context
 def get_core_memory(ctx, name):
     """
-    Search memories from the database
+    Get only the value of a core memory by name
     """
     collection = client.get_collection(
         name="core_memories", embedding_function=openai_ef)
@@ -118,13 +118,14 @@ def get_core_memory(ctx, name):
 @click.pass_context
 def get_core_memories(ctx):
     """
-    Search memories from the database
+    Get all core memories as a JSON array
     """
     collection = client.get_collection(
         name="core_memories", embedding_function=openai_ef)
     result = collection.get()
+    result = [{"name": a, "content": b}
+              for a, b in zip(result["ids"], result["documents"])]
     print(json.dumps(result))
-    # print(result["documents"])
 
 
 @cli.command()
@@ -165,7 +166,9 @@ def get_wikipedia_memory(ctx, name, search):
 @click.pass_context
 def get_wikipedia_memory_lines(ctx, name, line_number, surrounding):
     """
-    Make a memory from a Wikipedia Article and perform a search on it
+    Search Wikipedia Article and return found lines as JSON.
+    If needed, makes a memory from a Wikipedia Article and performs a
+    search on it.
     """
     eprint(
         f"Getting {surrounding} lines around {line_number} from wikipedia article {name}")

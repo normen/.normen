@@ -36,7 +36,7 @@ core_functions(){
         "properties": {
           "name": {
             "type": "string",
-            "description": "Der Name des Artikels, muss auf Wikipedia existieren. Generische Suchen wie `Deutschland` funktionieren besser als `Einwohnerzahl von Deutschland`."
+            "description": "Der Name des Artikels, muss auf Wikipedia existieren. Generische Namen wie `Deutschland` funktionieren besser als `Einwohnerzahl von Deutschland`."
           }
         },
         "required": ["name"]
