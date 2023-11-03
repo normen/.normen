@@ -57,7 +57,7 @@ core_functions(){
     },
     {
       "name": "command_line_command",
-      "description": "Führt einen befehl auf der bash shell aus.",
+      "description": "Führt einen Befehl auf der bash shell aus und gibt den gesamten output von stdout und stderr zurück.",
       "parameters": {
         "type": "object",
         "properties": {
