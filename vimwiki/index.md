@@ -35,6 +35,7 @@
 * [aerc](aerc.md)
 * [dd-wrt](dd-wrt.md)
 * [marlin](marlin.md)
+* [midi](midi.md)
 * [opencv](opencv.md)
 * [openai](openai.md)
 * [js-neuralnet](js-neuralnet.md)
