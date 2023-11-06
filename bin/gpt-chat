@@ -157,7 +157,7 @@ set_conversation_number(){
 }
 
 get_model_list(){
-  server_response=$(curl -v $api_server_url/v1/models \
+  server_response=$(curl -s $api_server_url/v1/models \
                   -H "Authorization: Bearer ${api_key}" |\
                   jq -r '.data[].id | select(startswith("gpt"))')
   echo "$server_response"
