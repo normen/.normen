@@ -23,7 +23,7 @@ wikipedia_functions(){
         "properties": {
           "name": {
             "type": "string",
-            "description": "Der Name des Artikels, muss auf Wikipedia existieren. Generische Namen wie `Deutschland` funktionieren besser als `Einwohnerzahl von Deutschland`."
+            "description": "Der Name des Artikels, der Artikel muss auf Wikipedia existieren. Namen wie `Deutschland` haben eine höhere Wahrscheinlichkeit zu existieren als Artikel wie `Einwohnerzahl von Deutschland`."
           },
           "search": {
             "type": "string",
@@ -41,7 +41,7 @@ wikipedia_functions(){
         "properties": {
           "name": {
             "type": "string",
-            "description": "Der Name des Artikels, muss auf Wikipedia existieren. Generische Namen wie `Deutschland` funktionieren besser als `Einwohnerzahl von Deutschland`."
+            "description": "Der Name des Artikels, der Artikel muss auf Wikipedia existieren. Namen wie `Deutschland` haben eine höhere Wahrscheinlichkeit zu existieren als Artikel wie `Einwohnerzahl von Deutschland`."
           },
           "line_number": {
             "type": "number",
