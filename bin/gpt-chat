@@ -25,7 +25,7 @@ fi
 add_conversation_functions(){
   load_config
   create_conversation
-  jq --compact-output --argjson funcs "$function_description" '.functions = $funcs' \
+  jq --compact-output --argjson funcs "$function_description" '.tools = $funcs' \
     "$cloud_path/conversation/$current_conversation.json" \
     > "$cloud_path/conversation/$current_conversation.new"
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
@@ -34,7 +34,7 @@ add_conversation_functions(){
 remove_conversation_functions(){
   load_config
   create_conversation
-  jq --compact-output '.functions = []' \
+  jq --compact-output '.tools = []' \
     "$cloud_path/conversation/$current_conversation.json" \
     > "$cloud_path/conversation/$current_conversation.new"
   mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
@@ -222,32 +222,38 @@ get_gpt_answer(){
 }
 
 execute_functions(){
+  set -e
   server_response="$1"
-  function_name=$(echo "$server_response" | jq -r '.choices[0].message.function_call.name')
-  function_args=$(echo "$server_response" | jq -r '.choices[0].message.function_call.arguments')
-  if [ "$function_name" != "null" ]; then
-    # add call to message list
-    jq --compact-output --arg args "$function_args" --arg name "$function_name" \
-      '.messages = .messages + [{"role": "assistant", "content": "null", "function_call": { "name": $name, "arguments": $args}}]' \
-      "$cloud_path/conversation/$current_conversation.json" \
-      > "$cloud_path/conversation/$current_conversation.new"
-    mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+  server_msg=$(echo "$server_response" | jq -c '.choices[0].message')
+  # add server message to message list
+  jq --compact-output --argjson msg "$server_msg" \
+    '.messages = .messages + [$msg]' \
+    "$cloud_path/conversation/$current_conversation.json" \
+    > "$cloud_path/conversation/$current_conversation.new"
+  mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
+  # Schleife über die Elemente des tool_call-Arrays,
+  # uses file descriptor 3 to avoid issues with read in command loop
+  exec 3< <(echo "$server_response" | jq -c '.choices[0].message.tool_calls[]')
+  while IFS=$'\n' read -r -u 3 element; do
+    tool_call_id=$(echo "$element" | jq -r '.id')
+    function_name=$(echo "$element" | jq -r '.function.name')
+    function_args=$(echo "$element" | jq -r '.function.arguments')
     if type "$function_name" >/dev/null 2>&1; then
       function_answer=$($function_name "$function_args")
       printf "\e[2m" >&2
       echo "$function_answer" >&2
       printf "\e[22m" >&2
       # add answer to message list
-      jq --compact-output --arg answer "$function_answer" --arg name "$function_name" \
-        '.messages = .messages + [{"role": "function", "name": $name, "content": $answer }]' \
+      jq --compact-output --arg tid "$tool_call_id" --arg answer "$function_answer" --arg name "$function_name" \
+        '.messages = .messages + [{"tool_call_id": $tid, "role": "tool", "name": $name, "content": $answer }]' \
         "$cloud_path/conversation/$current_conversation.json" \
         > "$cloud_path/conversation/$current_conversation.new"
       mv "$cloud_path/conversation/$current_conversation.new" "$cloud_path/conversation/$current_conversation.json"
-      gpt_api_completion
     else
       echo "Function $function_name doesn't exist."
     fi
-  fi
+  done
+  gpt_api_completion
 }
 
 gpt_api_completion(){
@@ -259,7 +265,7 @@ gpt_api_completion(){
   tokens_used="$(echo "$server_response" | jq -r '.usage.total_tokens')"
   printf "\e[36mTokens: \e[0m$tokens_used\n" >&2
   error_message=$(echo "$server_response" | jq -r '.error.message')
-  function_name=$(echo "$server_response" | jq -r '.choices[0].message.function_call.name')
+  function_name=$(echo "$server_response" | jq -r '.choices[0].message.tool_calls[0].function.name')
   if [ "$error_message" != "null" ]; then
     echo "Error: $error_message"
   elif [ "$function_name" != "null" ]; then

@@ -8,6 +8,8 @@ sub_agent_wikipedia(){
 
 master_functions(){
   echo '[
+    { "type" : "function",
+      "function" :
     {
       "name": "sub_agent_wikipedia",
       "description": "Startet einen KI Assistenten der eine Frage mittels Wikipedia beantwortet. Er hat erweiterte Funktionen und kann ganze Artikel durchsuchen. Es sind keine Rückfragen möglich also sollte die initiale Frage klar formuliert sein.",
@@ -21,7 +23,7 @@ master_functions(){
         },
         "required": ["search"]
       }
-    }
+    }}
   ]'
 }
 

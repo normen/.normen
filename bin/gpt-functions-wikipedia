@@ -15,6 +15,8 @@ wikipedia_article_lines(){
 
 wikipedia_functions(){
   echo '[
+    { "type" : "function",
+      "function" :
     {
       "name": "wikipedia_article_search",
       "description": "Sucht mit Embeddings in einem Wikipedia Artikel und gibt ein JSON array mit relevanten Zeilen im Artikel zurück.",
@@ -32,7 +34,9 @@ wikipedia_functions(){
         },
         "required": ["name", "search"]
       }
-    },
+    }},
+    { "type" : "function",
+      "function" :
     {
       "name": "wikipedia_article_lines",
       "description": "Holt einen Teil eines Wikipedia Artikels auf Basis einer angegebenen Zeilennummer.",
@@ -54,7 +58,7 @@ wikipedia_functions(){
         },
         "required": ["name", "line_number", "surrounding"]
       }
-    }
+    }}
   ]'
 }
 

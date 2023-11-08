@@ -41,6 +41,8 @@ document_lines(){
 
 core_functions(){
   echo '[
+    { "type" : "function",
+      "function" :
     {
       "name": "wikipedia_summary",
       "description": "Holt eine Zusammenfassung für einen bestimmten Wikipedia-Artikel",
@@ -54,7 +56,9 @@ core_functions(){
         },
         "required": ["name"]
       }
-    },
+    }},
+    { "type" : "function",
+      "function" :
     {
       "name": "command_line_command",
       "description": "Führt einen Befehl auf der bash shell aus und gibt den gesamten output von stdout und stderr zurück.",
@@ -68,7 +72,9 @@ core_functions(){
         },
         "required": ["command"]
       }
-    },
+    }},
+    { "type" : "function",
+      "function" :
     {
       "name": "document_search",
       "description": "Sucht mit Embeddings in einem Dokument und gibt ein JSON array mit relevanten Zeilen im Dokument zurück.",
@@ -86,7 +92,9 @@ core_functions(){
         },
         "required": ["name", "search"]
       }
-    },
+    }},
+    { "type" : "function",
+      "function" :
     {
       "name": "document_lines",
       "description": "Holt einen Teil eines Dokuments auf Basis einer angegebenen Zeilennummer.",
@@ -108,7 +116,7 @@ core_functions(){
         },
         "required": ["name", "line_number", "surrounding"]
       }
-    }
+    }}
   ]'
 }
 
