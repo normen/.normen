@@ -26,19 +26,6 @@ command_line_command(){
   fi
 }
 
-document_search(){
-  dokumentname=$(echo "$1"|jq --compact-output -r '.name')
-  suche=$(echo "$1"|jq --compact-output -r '.search')
-  ~/.normen/bin/gpt-memory get-document-memory "$dokumentname" "$suche"
-}
-
-document_lines(){
-  dokumentname=$(echo "$1"|jq --compact-output -r '.name')
-  line_number=$(echo "$1"|jq --compact-output -r '.line_number')
-  surrounding=$(echo "$1"|jq --compact-output -r '.surrounding')
-  ~/.normen/bin/gpt-memory get-document-memory-lines "$dokumentname" "$line_number" "$surrounding"
-}
-
 core_functions(){
   echo '[
     { "type" : "function",
@@ -71,50 +58,6 @@ core_functions(){
           }
         },
         "required": ["command"]
-      }
-    }},
-    { "type" : "function",
-      "function" :
-    {
-      "name": "document_search",
-      "description": "Sucht mit Embeddings in einem Dokument und gibt ein JSON array mit relevanten Zeilen im Dokument zurück.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Der Name des Dokuments, ein kompletter Pfad mit Dateiname und Endung. z.B. `"
-          },
-          "search": {
-            "type": "string",
-            "description": "Der oder die Suchbegriffe die im Dokument per Embeddings gesucht werden soll."
-          }
-        },
-        "required": ["name", "search"]
-      }
-    }},
-    { "type" : "function",
-      "function" :
-    {
-      "name": "document_lines",
-      "description": "Holt einen Teil eines Dokuments auf Basis einer angegebenen Zeilennummer.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Der Name des Dokuments, ein kompletter Pfad mit Dateiname und Endung."
-          },
-          "line_number": {
-            "type": "number",
-            "description": "Die angefragte Zeilennummer die vom Dokument ausgeben werden soll."
-          },
-          "surrounding": {
-            "type": "number",
-            "description": "Die Anzahl von Zeilen vor und nach der angefragten Zeile die ausgegeben werden sollen. Leere Zeilen werden mit gezählt aber nicht mit ausgegeben, daher sollten immer ein paar Zeilen zusätzlich ausgegeben werden."
-          }
-        },
-        "required": ["name", "line_number", "surrounding"]
       }
     }}
   ]'
