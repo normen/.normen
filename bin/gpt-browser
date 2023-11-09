@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+# pip3 install selenium google-custom-search
+# brew install geckodriver
+
+# import json
+import os
+import configparser
+import click
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.common.by import By
+import google_custom_search
+
+# load api keys
+CONFIG_DIR = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
+API_KEYS_LOCATION = os.path.join(CONFIG_DIR, 'openaiapirc')
+config = configparser.ConfigParser()
+config.read(API_KEYS_LOCATION)
+google_key = config['google']['google_key'].strip('"').strip("'")
+google_id = config['google']['google_id'].strip('"').strip("'")
+
+# Konfigurieren von Firefox, um im Headless-Modus zu laufen
+options = Options()
+options.add_argument("--headless")
+
+# Pfad zum geckodriver (Firefox WebDriver) setzen
+s = Service('/usr/local/bin/geckodriver')
+
+# Initialisiere den Firefox WebDriver
+driver = webdriver.Firefox(service=s, options=options)
+
+google = google_custom_search.CustomSearch(apikey=google_key, engine_id=google_id)
+
+
+@click.group()
+@click.option('--verbose', is_flag=True, help='Print more information.')
+@click.pass_context
+def cli(ctx, verbose):
+    ctx.ensure_object(dict)
+    ctx.obj['verbose'] = verbose
+
+
+@cli.command()
+@click.pass_context
+def help(ctx):
+    """
+    List usage and options
+    """
+    click.echo(ctx.parent.get_help())
+
+
+@cli.command()
+@click.argument('url')
+@click.pass_context
+def get_page_content(ctx, url):
+    # URL aufrufen
+    driver.get(url)
+    # Den Text der Webseite abrufen
+    text = driver.find_element(By.TAG_NAME, "body").text
+    print(text)
+
+    # Alle Link-Elemente auf der Webseite finden
+    links = driver.find_elements(By.TAG_NAME, "a")
+
+    # Durch die gefundenen Links iterieren und Informationen extrahieren
+    for link in links:
+        link_text = link.text
+        link_url = link.get_attribute("href")
+        print(f"Link: {link_text} ({link_url})\n")
+
+    # Browser schließen
+    driver.quit()
+
+
+@cli.command()
+@click.argument('search')
+@click.pass_context
+def search_google(ctx, search):
+    results = google.search(search)
+    for item in results:
+        print(f"{item.title} ({item.url})\n{item.snippet}\n\n")
+
+
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+
+if __name__ == '__main__':
+    cli(obj={})

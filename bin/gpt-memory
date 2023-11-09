@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# pip3 install openai chromadb click
+# pip3 install openai chromadb-client click
 
 # command line tool to access a memory database based on an embeddings db
 
@@ -36,8 +36,9 @@ openai_ef = embedding_functions.OpenAIEmbeddingFunction(
 
 @click.group()
 @click.option('--verbose', is_flag=True, help='Print more information.')
+@click.option('--clientid', default="", help='Client ID string to use private memory.')
 @click.pass_context
-def cli(ctx, verbose):
+def cli(ctx, verbose, clientid):
     ctx.ensure_object(dict)
     ctx.obj['verbose'] = verbose
     # eprint(client.heartbeat())
@@ -81,6 +82,20 @@ def help(ctx):
 
 
 @cli.command()
+@click.pass_context
+def clear(ctx):
+    """
+    Clear database
+    """
+    eprint("Clearing Database..")
+    client.delete_collection("core_memories")
+    client.delete_collection("archival_memory")
+    client.delete_collection("historical_memory")
+    client.delete_collection("wikipedia_memory")
+    client.delete_collection("document_memory")
+
+
+@cli.command()
 @click.argument('name')
 @click.argument('memory')
 @click.pass_context
@@ -92,9 +107,12 @@ def set_core_memory(ctx, name, memory):
     # click.echo('Adding memory: name = {}, memory = {}'.format(name, memory))
     collection = client.get_collection(
         name="core_memories", embedding_function=openai_ef)
-    collection.add(documents=[memory],
-                   metadatas=[{"type": "core"}],
-                   ids=[name])
+    try:
+        collection.add(documents=[memory],
+                       metadatas=[{"type": "core"}],
+                       ids=[name])
+    except ValueError as err:
+        eprint(err)
 
 
 @cli.command()

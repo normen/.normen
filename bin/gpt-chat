@@ -43,7 +43,7 @@ remove_conversation_functions(){
 load_functions(){
   basename="$1"
   # TODO: check if exists
-  source ~/.normen/bin/gpt-functions-$basename
+  source ~/.normen/bin/gpt-functions/$basename
   cur_func=$("${basename}_functions" | jq -c .)
   function_description=$(echo "$function_description" | jq -c --argjson func "$cur_func" '. += $func')
 }

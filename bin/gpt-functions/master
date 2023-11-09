@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+sub_agent_wikipedia(){
+  suche=$(echo "$1"|jq --compact-output -r '.search')
+  echo "Starting Wikipedia agent for $suche">&2
+  echo "$suche" | ~/.normen/bin/gpt-chat -xq -f core -f wikipedia -M "gpt-3.5-turbo-1106" -s "Du bist ein freundlicher KI Assistent der stets mit akkuraten Informationen zur Hilfe steht. Du beantwortest die gestellten Fragen direkt und ohne Nachfragen. Nutze Deine Wikipedia funktionen intensiv und oft um korrekte Informationen zu liefern, gerne auch mehrmals in Folge. Denke daran dass Du Artikelnamen für Deine Wikipedia funktion verwendest die existieren müssen. Findest Du auch nach intensiver Suche und mehreren Versuchen keine Informationen auf Wikipedia machst Du keine Vermutungen sondern sagst dass Du keine Informationen finden konntest."
+}
+
+sub_agent_browser(){
+  suche=$(echo "$1"|jq --compact-output -r '.search')
+  echo "Starting Browser agent for $suche">&2
+  echo "$suche" | ~/.normen/bin/gpt-chat -xq -f core -f browser -M "gpt-3.5-turbo-1106" -s "Du bist ein freundlicher KI Assistent der stets mit akkuraten Informationen zur Hilfe steht. Du beantwortest die gestellten Fragen direkt und ohne Nachfragen. Nutze Deine Google- und Browserfunktionen intensiv und oft um korrekte Informationen zu liefern, gerne auch mehrmals in Folge. Lade den Inhalt von Webseiten nach einer Google Suche. Findest Du auch nach intensiver Suche und mehreren Versuchen keine Informationen machst Du keine Vermutungen sondern sagst dass Du keine Informationen finden konntest. Es ist WICHTIG dass Du zumindest eine Webseite direkt besucht hast und Dich nicht mit einer einfachen Google Suche zufrieden gibst, bitte!"
+}
+
+master_functions(){
+  echo '[
+    { "type" : "function",
+      "function" :
+    {
+      "name": "sub_agent_wikipedia",
+      "description": "Startet einen KI Assistenten der eine Frage mittels Wikipedia beantwortet. Er hat erweiterte Funktionen und kann ganze Artikel durchsuchen. Es sind keine Rückfragen möglich also sollte die initiale Frage klar formuliert sein.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string",
+            "description": "Die Suchanfrage, z.B. `Wie viele Einwohner hat Deutschland?`"
+          }
+        },
+        "required": ["search"]
+      }
+    }},
+    { "type" : "function",
+      "function" :
+    {
+      "name": "sub_agent_browser",
+      "description": "Startet einen KI Assistenten der eine Frage mittels Google Suchen und Abfrage von Webseiten beantwortet. Er hat erweiterte Funktionen und kann ganze Webseiten durchsuchen. Es sind keine Rückfragen möglich also sollte die initiale Frage klar formuliert sein.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string",
+            "description": "Die Suchanfrage, z.B. `Wie viele Einwohner hat Deutschland?`"
+          }
+        },
+        "required": ["search"]
+      }
+    }}
+  ]'
+}
+

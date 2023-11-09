@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+
+browser_load_url(){
+  url=$(echo "$1"|jq --compact-output -r '.url')
+  ~/.normen/bin/gpt-browser get-page-content "$url"
+}
+
+browser_web_search(){
+  search=$(echo "$1"|jq --compact-output -r '.search')
+  ~/.normen/bin/gpt-browser search-google "$search"
+}
+
+browser_article_search(){
+  artikelname=$(echo "$1"|jq --compact-output -r '.name')
+  suche=$(echo "$1"|jq --compact-output -r '.search')
+  ~/.normen/bin/gpt-memory get-browser-memory "$artikelname" "$suche"
+}
+
+browser_article_lines(){
+  artikelname=$(echo "$1"|jq --compact-output -r '.name')
+  line_number=$(echo "$1"|jq --compact-output -r '.line_number')
+  surrounding=$(echo "$1"|jq --compact-output -r '.surrounding')
+  ~/.normen/bin/gpt-memory get-browser-memory-lines "$artikelname" "$line_number" "$surrounding"
+}
+
+browser_functions(){
+  echo '[
+    { "type" : "function",
+      "function" :
+    {
+      "name": "browser_load_url",
+      "description": "Läd den Text einer angegebenen Website URL und gibt ihn zurück.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Die URL die abgerufen werden soll."
+          }
+        },
+        "required": ["url"]
+      }
+    }},
+    { "type" : "function",
+      "function" :
+    {
+      "name": "browser_web_search",
+      "description": "Sucht mittels Google im Web und gibt die Ergebnisse zurück.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string",
+            "description": "Die Suchanfrage für Google."
+          }
+        },
+        "required": ["search"]
+      }
+    }}
+  ]'
+}
+
