@@ -40,7 +40,7 @@ master_functions(){
         "properties": {
           "search": {
             "type": "string",
-            "description": "Die Suchanfrage, z.B. `Wie viele Einwohner hat Deutschland?`"
+            "description": "Die Suchanfrage, z.B. `Wie sind die Öffnungszeiten vom Edeka in Westerland auf Sylt?`"
           }
         },
         "required": ["search"]
