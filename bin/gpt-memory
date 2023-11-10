@@ -108,9 +108,9 @@ def set_core_memory(ctx, name, memory):
     collection = client.get_collection(
         name="core_memories", embedding_function=openai_ef)
     try:
-        collection.add(documents=[memory],
-                       metadatas=[{"type": "core"}],
-                       ids=[name])
+        collection.upsert(documents=[memory],
+                          metadatas=[{"type": "core"}],
+                          ids=[name])
     except ValueError as err:
         eprint(err)
 
@@ -226,7 +226,7 @@ def load_wikipedia_article(collection, name):
             ids.append(f"{name} - {i}")
             metadatas.append({"line_number": i, "article_name": name})
             lines.append(line)
-    collection.add(
+    collection.upsert(
         ids=ids,
         metadatas=metadatas,
         documents=lines,
@@ -307,7 +307,7 @@ def load_document(collection, name):
             ids.append(f"{name} - {i}")
             metadatas.append({"line_number": i, "document_name": name})
             lines.append(line)
-    collection.add(
+    collection.upsert(
         ids=ids,
         metadatas=metadatas,
         documents=lines,
