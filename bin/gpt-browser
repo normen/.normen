@@ -27,9 +27,6 @@ options.add_argument("--headless")
 # Pfad zum geckodriver (Firefox WebDriver) setzen
 s = Service('/usr/local/bin/geckodriver')
 
-# Initialisiere den Firefox WebDriver
-driver = webdriver.Firefox(service=s, options=options)
-
 google = google_custom_search.CustomSearch(apikey=google_key, engine_id=google_id)
 
 
@@ -54,6 +51,9 @@ def help(ctx):
 @click.argument('url')
 @click.pass_context
 def get_page_content(ctx, url):
+    # Initialisiere den Firefox WebDriver
+    driver = webdriver.Firefox(service=s, options=options)
+
     # URL aufrufen
     driver.get(url)
     # Den Text der Webseite abrufen

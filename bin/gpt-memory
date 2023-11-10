@@ -216,7 +216,7 @@ def get_wikipedia_memory_lines(ctx, name, line_number, surrounding):
 
 def load_wikipedia_article(collection, name):
     eprint("Loading Wikipedia Article to Memory")
-    result = os.popen('wikigrab -w 10000 -l de -p "'+name+'"').read()
+    result = os.popen('wikigrab -w 10000 -l de -r "'+name+'"').read()
     output = result.strip()
     ids = []
     lines = []
