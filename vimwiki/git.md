@@ -10,6 +10,9 @@ git config credential.helper store
 # git always rebase
 git config --global --bool pull.rebase true
 
+# git handle cr/lf windows/linux
+git config --global core.autocrlf true
+
 # commit
 git add -A // or -u for already added files
 git commit -m 'Stuff'
