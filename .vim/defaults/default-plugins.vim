@@ -29,6 +29,7 @@ Plug 'sotte/presenting.vim'
 Plug 'normen/DrawIt'
 Plug 'ojroques/vim-oscyank'
 Plug 'dbeniamine/cheat.sh-vim'
+Plug 'chamindra/marvim'
 " build systems
 Plug 'normen/vim-pio'
 " filetypes (no lsp)
@@ -85,6 +86,8 @@ let g:vimwiki_global_ext = 0
 " cheat.sh
 let g:CheatSheetDoNotMap=1
 let g:CheatDoNotReplaceKeywordPrg=1
+" marvim
+let g:marvim_store = $NORMEN . '/.vim/templates/marvim'
 " signify
 let g:signify_sign_change='~'
 " drawit
@@ -264,7 +267,7 @@ augroup plugin_autocommands
 augroup END
 
 " add ccls to LSP
-if executable('ccls')
+if executable('accls')
 augroup ccls_register
   au!
   if g:my_versionlong < g:min_lsp_ver
