@@ -1,40 +1,35 @@
 #!/bin/bash
 set -e
 secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
+input=$(cat)
 instruction="Complete this skeleton code to fully functioning code with annotations."
+system_message="You are a smart code companion that helps its user improve and edit his code. You will be given instructions and a markdown code block and you give back a proper markdown code block with the requested changes."
 temperature=1
-# check for arguments
-while getopts ":hi:t:" option; do
+#max_tokens=3600
+while getopts ":ht:m:i:" option; do
   case $option in
     h)
       echo "gpt-edit"
       echo ""
       echo "-i <instruction>"
       echo "-t <temperature>"
+      #echo "-m <max_tokens>"
       echo ""
       exit;;
     i) instruction="$OPTARG";;
     t) temperature="$OPTARG";;
+    #m) max_tokens="$OPTARG";;
     \?)
       echo "Error: Invalid option, use -h for help."
       exit;;
   esac
 done
-
-server_response=$(jq -sR --arg instruction "$instruction" --argjson temperature $temperature '{
-    "model": "text-davinci-edit-001",
-    "input": .,
-    "instruction": $instruction,
-    "temperature": $temperature
-  }'| \
-  curl -s https://api.openai.com/v1/edits \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer ${secret_key}" \
-    -d @-)
-error_message=$(echo "$server_response" | jq -r '.error.message')
-if [ "$error_message" != "null" ]; then
-  echo "Error: $error_message"
-else
-  output=$(echo "$server_response"|jq -r '.choices[0].text')
-fi
+new_input=$(echo -e "$instruction\n\`\`\`\n$input\n\`\`\`")
+#output=$(echo "$new_input" | ~/.normen/bin/gpt-chat -M "gpt-4-1106-preview" -s "$system_message" -m $max_tokens -t $temperature -xr 2>/dev/null)
+output=$(echo "$new_input" | ~/.normen/bin/gpt-chat -M "gpt-4-1106-preview" -s "$system_message" -t $temperature -xr 2>/dev/null)
+case "$output" in 
+  *\`\`\`*)
+    output=$(echo "$output" | awk '/^```/{flag=!flag; next} flag')
+    ;;
+esac
 echo "$output"
