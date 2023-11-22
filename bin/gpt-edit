@@ -25,8 +25,7 @@ while getopts ":ht:m:i:" option; do
   esac
 done
 new_input=$(echo -e "$instruction\n\`\`\`\n$input\n\`\`\`")
-#output=$(echo "$new_input" | ~/.normen/bin/gpt-chat -M "gpt-4-1106-preview" -s "$system_message" -m $max_tokens -t $temperature -xr 2>/dev/null)
-output=$(echo "$new_input" | ~/.normen/bin/gpt-chat -M "gpt-4-1106-preview" -s "$system_message" -t $temperature -xr 2>/dev/null)
+output=$(echo "$new_input" | ~/.normen/bin/gpt-chat -x -M "gpt-4-1106-preview" -s "$system_message" -t $temperature -r 2>/dev/null)
 case "$output" in 
   *\`\`\`*)
     output=$(echo "$output" | awk '/^```/{flag=!flag; next} flag')

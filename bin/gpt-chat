@@ -436,7 +436,7 @@ while getopts ":hqrxCDSc:f:p:m:s:t:H:M:" option; do
       echo "-f <functionset> use functions from set (e.g. wikipedia)"
       echo ""
       echo "Commands:"
-      echo "-r read in question from stdin, display answer and exit"
+      echo "-r read in question from stdin, display answer and exit (set after other options)"
       echo "-D delete last message and exit"
       echo "-C compact conversation by letting gpt make a summary and exit"
       echo "-H API host to use for completion (https://api.openai.com)"
