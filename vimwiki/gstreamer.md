@@ -1,5 +1,9 @@
 ## gstreamer
 ```bash
+# debug DOT file of connections
+GST_DEBUG_DUMP_DOT_DIR="xxx" gst-launch-1.0 ...
+# use graphviz to convert dump to svg
+dot -Tsvg xxx.dot > xxx.svg
 # install on raspi
 # install a missing dependency
 sudo apt-get install libx264-dev libjpeg-dev
