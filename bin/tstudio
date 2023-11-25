@@ -1,0 +1,107 @@
+#!/usr/bin/env zsh
+SCRIPT_PATH=$(cd $(dirname "${BASH_SOURCE:-$0}") && pwd)
+TIME_TAG=$(date +"%Y-%m-%d-%H_%M_%S")
+TMP_DIR=$(mktemp -d)
+
+# load settings
+source "$SCRIPT_PATH/tstudio.conf"
+
+# create main menu
+main_menu(){
+  while : ; do
+    clear
+    TIME_TAG=$(date +"%Y-%m-%d-%H_%M_%S")
+    source "$SCRIPT_PATH/tstudio.conf"
+    IFS=
+    echo "\e[1;32m"
+    echo " _____               ___ _           _ _     "
+    echo "|_   _| __ _  ___ __/ __| |_ _  _ __| (_)___ "
+    echo "  | || '  \\ || \\ \\ /\\__ \\  _| || / _\` | / _ \\"
+    echo "  |_||_|_|_\\_,_/_\\_\\|___/\\__|\\_,_\\__,_|_\\___/"
+    echo "\e[1;0m"
+    echo "             -- \e[1;32mProcess Manager\e[0m --"
+    echo ""
+    echo "\e[1;34mCommands:\e[0m"
+    echo "\e[33m'1'\e[0m - $COMMAND_1_TITLE"
+    echo "\e[33m'2'\e[0m - $COMMAND_2_TITLE"
+    echo "\e[33m'3'\e[0m - $COMMAND_3_TITLE"
+    echo "\e[33m'4'\e[0m - $COMMAND_4_TITLE"
+    echo "\e[33m'5'\e[0m - $COMMAND_5_TITLE"
+    echo "\e[33m'6'\e[0m - $COMMAND_6_TITLE"
+    echo "\e[33m'7'\e[0m - $COMMAND_7_TITLE"
+    echo "\e[33m'8'\e[0m - $COMMAND_8_TITLE"
+    echo "\e[33m'9'\e[0m - $COMMAND_9_TITLE"
+    echo ""
+    echo "Press \e[33m'c'\e[0m to edit config"
+    echo "Press \e[33m'q'\e[0m to exit"
+    echo ""
+    echo "\e[2mTime: $TIME_TAG\e[0m"
+    echo ""
+    read -rsk 1 k
+    # bash
+    #read -rsn 1 k
+    if [ "$k" = "q" ] ; then
+      rm -rf "$TMP_DIR"
+      break
+    elif [ "$k" = "c" ] ; then
+      vim "$SCRIPT_PATH/tstudio.conf"
+    elif [ "$k" = "1" ] ; then
+      toggle_process "$COMMAND_1_TITLE" "$COMMAND_1" "$COMMAND_1_QUIT" "1"
+    elif [ "$k" = "2" ] ; then
+      toggle_process "$COMMAND_2_TITLE" "$COMMAND_2" "$COMMAND_2_QUIT" "2"
+    elif [ "$k" = "3" ] ; then
+      toggle_process "$COMMAND_3_TITLE" "$COMMAND_3" "$COMMAND_3_QUIT" "3"
+    elif [ "$k" = "4" ] ; then
+      toggle_process "$COMMAND_4_TITLE" "$COMMAND_4" "$COMMAND_4_QUIT" "4"
+    elif [ "$k" = "5" ] ; then
+      toggle_process "$COMMAND_5_TITLE" "$COMMAND_5" "$COMMAND_5_QUIT" "5"
+    elif [ "$k" = "6" ] ; then
+      toggle_process "$COMMAND_6_TITLE" "$COMMAND_6" "$COMMAND_6_QUIT" "6"
+    elif [ "$k" = "7" ] ; then
+      toggle_process "$COMMAND_7_TITLE" "$COMMAND_7" "$COMMAND_7_QUIT" "7"
+    elif [ "$k" = "8" ] ; then
+      toggle_process "$COMMAND_8_TITLE" "$COMMAND_8" "$COMMAND_8_QUIT" "8"
+    elif [ "$k" = "9" ] ; then
+      toggle_process "$COMMAND_9_TITLE" "$COMMAND_9" "$COMMAND_9_QUIT" "9"
+    fi
+  done
+}
+
+# start process in new tmux window
+start_process() {
+  tmux new-window -n "$1" "$2"
+  set +e # might fail cause its same
+  tmux move-window -t "$4"
+  set -e
+  tmux select-window -t "T-STUDIO"
+  # TODO: workaround for not detecting fails above
+  # and moving ourselves to the commands slot instead
+  set +e # might fail cause its same
+  tmux move-window -t 0
+  set -e
+}
+
+# stop process - sends specified key command to window
+stop_process() {
+  tmux send-keys -t "$1" $2
+}
+
+toggle_process() {
+  if tmux list-windows -F "#{window_name}" | grep -q "^$1\$"; then
+    stop_process "$1" "$3"
+  else
+    start_process "$1" "$2" "$3" "$4"
+  fi
+}
+
+# check for TMUX and start TMUX session or run main menu
+if [ -z $TMUX ]; then
+  echo "Starting tmux session.."
+  tmux new-session -s "STUDIO" -n "T-STUDIO" "$SCRIPT_PATH/tstudio"
+  exit
+else
+  tmux rename-window "T-STUDIO"
+  tmux move-window -t 0
+  set -e
+  main_menu
+fi

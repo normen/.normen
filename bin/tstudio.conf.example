@@ -1,0 +1,47 @@
+# $TIME_TAG = current date/time without spaces
+# $TMP_DIR = temp directory
+
+COMMAND_1_TITLE="SCREEN CAP"
+COMMAND_1="gst-launch-1.0 \
+  avfvideosrc capture-screen=true ! videoscale ! video/x-raw,width=1920,height=1080 ! queue ! \
+  ndisinkcombiner name=combiner ! \
+  ndisink ndi-name='Screen Capture'"
+COMMAND_1_QUIT="C-c"
+
+COMMAND_2_TITLE="MacBook Audio"
+COMMAND_2="while true; do gst-launch-1.0 \
+  ndisrc ndi-name='NORMENS-MACBOOK (macOS AV Output)' ! ndisrcdemux name='demux' \
+  demux.audio ! queue ! audioconvert ! audioresample ! osxaudiosink device=114 \
+  ; done"
+COMMAND_2_QUIT="C-c"
+
+COMMAND_3_TITLE="FF-REC Cam 1"
+COMMAND_3="ffmpeg -hide_banner -loglevel warning -stats -probesize 10000k -analyzeduration 10000k -y \
+  -i rtsp://192.168.2.17:554/live/av0 \
+  -vcodec copy -acodec copy \
+  test-$TIME_TAG.ts"
+COMMAND_3_QUIT="q"
+
+COMMAND_4_TITLE="-"
+COMMAND_4=""
+COMMAND_4_QUIT="C-c"
+
+COMMAND_5_TITLE="-"
+COMMAND_5=""
+COMMAND_5_QUIT="C-c"
+
+COMMAND_6_TITLE="-"
+COMMAND_6=""
+COMMAND_6_QUIT="C-c"
+
+COMMAND_7_TITLE="-"
+COMMAND_7=""
+COMMAND_7_QUIT="C-c"
+
+COMMAND_8_TITLE="-"
+COMMAND_8=""
+COMMAND_8_QUIT="C-c"
+
+COMMAND_9_TITLE="-"
+COMMAND_9=""
+COMMAND_9_QUIT="C-c"
