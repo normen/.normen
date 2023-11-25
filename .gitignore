@@ -19,7 +19,7 @@ vimwiki/diary/**
 .weechat/weechat_fifo
 build/**
 bin/all/starship
-bin/tstudio.conf
+bin/all/tstudio.conf
 session.vim
 plugin-update.local
 update.local
