@@ -1,5 +1,8 @@
 # $TIME_TAG = current date/time without spaces
 # $TMP_DIR = temp directory
+OUTPUT_DIR="$HOME/Videos"
+FILE_CMD="vifm"
+FILE_PARAM="-c only"
 
 COMMAND_1_TITLE="SCREEN CAP"
 COMMAND_1="gst-launch-1.0 \
@@ -19,7 +22,7 @@ COMMAND_3_TITLE="FF-REC Cam 1"
 COMMAND_3="ffmpeg -hide_banner -loglevel warning -stats -probesize 10000k -analyzeduration 10000k -y \
   -i rtsp://192.168.2.17:554/live/av0 \
   -vcodec copy -acodec copy \
-  test-$TIME_TAG.ts"
+  $OUTPUT_DIR/test-$TIME_TAG.ts"
 COMMAND_3_QUIT="q"
 
 COMMAND_4_TITLE="-"

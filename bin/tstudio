@@ -33,9 +33,11 @@ main_menu(){
     echo "\e[33m'9'\e[0m - $COMMAND_9_TITLE"
     echo ""
     echo "Press \e[33m'c'\e[0m to edit config"
+    echo "Press \e[33m'f'\e[0m to show files"
     echo "Press \e[33m'q'\e[0m to exit"
     echo ""
     echo "\e[2mTime: $TIME_TAG\e[0m"
+    echo "\e[2mOutput: $OUTPUT_DIR\e[0m"
     echo ""
     read -rsk 1 k
     # bash
@@ -45,6 +47,8 @@ main_menu(){
       break
     elif [ "$k" = "c" ] ; then
       vim "$SCRIPT_PATH/tstudio.conf"
+    elif [ "$k" = "f" ] ; then
+      $FILE_CMD $FILE_PARAM "$OUTPUT_DIR"
     elif [ "$k" = "1" ] ; then
       toggle_process "$COMMAND_1_TITLE" "$COMMAND_1" "$COMMAND_1_QUIT" "1"
     elif [ "$k" = "2" ] ; then
