@@ -3,26 +3,31 @@
 OUTPUT_DIR="$HOME/Movies"
 FILE_CMD="vifm"
 FILE_PARAM="-c only"
+FFMPEG_CMD="ffmpeg"
+GST_CMD="gst-launch-1.0"
+
 
 COMMAND_1_TITLE="SCREEN CAP"
-COMMAND_1="gst-launch-1.0 \
+COMMAND_1="'$GST_CMD' \
   avfvideosrc capture-screen=true ! videoscale ! video/x-raw,width=1920,height=1080 ! queue ! \
   ndisinkcombiner name=combiner ! \
   ndisink ndi-name='Screen Capture'"
 COMMAND_1_QUIT="C-c"
 
 COMMAND_2_TITLE="MacBook Audio"
-COMMAND_2="while true; do gst-launch-1.0 \
+COMMAND_2="while true; do '$GST_CMD' \
   ndisrc ndi-name='NORMENS-MACBOOK (macOS AV Output)' ! ndisrcdemux name='demux' \
-  demux.audio ! queue ! audioconvert ! audioresample ! osxaudiosink device=114 \
-  ; done"
+  demux.audio ! queue ! audioconvert ! audioresample ! osxaudiosink device=114 ; \
+  if [ $? -eq 0 ]; then break; fi; \
+  done"
 COMMAND_2_QUIT="C-c"
 
 COMMAND_3_TITLE="FF-REC Cam 1"
-COMMAND_3="ffmpeg -hide_banner -loglevel warning -stats -probesize 10000k -analyzeduration 10000k -y \
+COMMAND_3="cd '$OUTPUT_DIR'; \
+  '$FFMPEG_CMD' -hide_banner -loglevel warning -stats -probesize 10000k -analyzeduration 10000k -y \
   -i rtsp://192.168.2.17:554/live/av0 \
   -vcodec copy -acodec copy \
-  '$OUTPUT_DIR/test-$TIME_TAG.ts'"
+  'test-$TIME_TAG.ts'"
 COMMAND_3_QUIT="q"
 
 COMMAND_4_TITLE="-"
