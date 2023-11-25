@@ -15,10 +15,10 @@ COMMAND_1="'$GST_CMD' \
 COMMAND_1_QUIT="C-c"
 
 COMMAND_2_TITLE="MacBook Audio"
-COMMAND_2="while true; do '$GST_CMD' \
+COMMAND_2="trap 'exit' INT; \
+  while true; do '$GST_CMD' \
   ndisrc ndi-name='NORMENS-MACBOOK (macOS AV Output)' ! ndisrcdemux name='demux' \
   demux.audio ! queue ! audioconvert ! audioresample ! osxaudiosink device=114 ; \
-  if [ $? -eq 0 ]; then break; fi; \
   done"
 COMMAND_2_QUIT="C-c"
 
