@@ -1,6 +1,7 @@
 # $TIME_TAG = current date/time without spaces
 # $TMP_DIR = temp directory
 OUTPUT_DIR="$HOME/Movies"
+EDIT_CMD="vim"
 FILE_CMD="vifm"
 FILE_PARAM="-c only"
 FFMPEG_CMD="ffmpeg"

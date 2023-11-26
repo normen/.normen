@@ -46,7 +46,7 @@ main_menu(){
       rm -rf "$TMP_DIR"
       break
     elif [ "$k" = "c" ] ; then
-      vim "$SCRIPT_PATH/tstudio.conf"
+      $EDIT_CMD "$SCRIPT_PATH/tstudio.conf"
     elif [ "$k" = "f" ] ; then
       $FILE_CMD $FILE_PARAM "$OUTPUT_DIR"
     elif [ "$k" = "1" ] ; then
