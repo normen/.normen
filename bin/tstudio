@@ -98,16 +98,6 @@ toggle_process() {
   fi
 }
 
-run_cmd() {
-  command=$1
-  shift
-  "$command" "$@" &
-  cmd_pid=$!
-  wait $cmd_pid
-  trap 'echo Killing $cmd_pid; kill -TERM $cmd_pid; exit' INT TERM
-  wait $cmd_pid
-}
-
 # check for TMUX and start TMUX session or run main menu
 if [ -z $TMUX ]; then
   echo "Starting tmux session.."

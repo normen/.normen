@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+command=$1
+shift
+"$command" "$@" &
+cmd_pid=$!
+wait $cmd_pid
+trap 'echo Killing $cmd_pid; kill -TERM $cmd_pid; exit' INT TERM
+wait $cmd_pid
