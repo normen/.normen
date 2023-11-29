@@ -47,6 +47,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 else
 Plug 'yegappan/lsp'
 Plug 'normen/vim-lsp-settings-adapter'
+Plug 'github/copilot.vim'
 endif
 Plug 'mattn/vim-lsp-settings'
 " snip
