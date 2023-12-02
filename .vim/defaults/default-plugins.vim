@@ -186,6 +186,14 @@ vnoremap <Leader>tr :Twrite right<CR>
 " codex
 nnoremap  <C-x><C-i> :CreateCompletion<CR>
 inoremap  <C-x><C-i> <Esc>li<C-g>u<Esc>l:CreateCompletion<CR>
+" copilot
+inoremap <F11> <Plug>(copilot-previous)
+inoremap <F12> <Plug>(copilot-next)
+let g:copilot_filetypes = {
+    \ 'gitcommit': v:true,
+    \ 'markdown': v:true,
+    \ 'yaml': v:true
+    \ }
 " vsnip
 nmap <C-s> :VsnipShowShortcuts<CR>
 imap <C-s> <C-o>:VsnipShowShortcuts<CR>
@@ -200,8 +208,10 @@ imap <silent><expr> <S-TAB>
   \ pumvisible() ? "\<C-p>" :
   \ <SID>check_back_space() ? "\<S-TAB>" :
   \ "\<C-x><C-o>"
-" handled by lsp
-"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+" handled by lsp in vim < 9
+if g:my_versionlong > g:min_lsp_ver
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+endif
 smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
 imap <c-space> <C-x><C-o>
