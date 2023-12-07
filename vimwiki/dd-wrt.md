@@ -13,6 +13,14 @@ https://ftp.dd-wrt.com/dd-wrtv2/downloads/betas/2023/12-04-2023-r54420/broadcom/
 #-match plugin state --state NEW connection (not ESTABLISHED)
 iptables -I FORWARD -i br0 -d $(nvram get wan_ipaddr)/$(nvram get wan_netmask) -m state --state NEW -j DROP
 
+# update firmware tftp (192.168.1.1)
+tftp 192.168.1.1
+binary
+rexmt 1
+timeout 60
+trace
+put dd-wrt.v24_micro_generic.bin
+
 # VLANS sensibly
 #https://www.flashrouters.com/blog/2015/04/06/what-is-a-vlan-how-to-setup-vlan-ddwrt/
 #set VLANS, set unbridged per port, set IP per port
