@@ -3,19 +3,15 @@
 http://dd-wrt.com/
 
 # HAUSROUTER Netgear R6400 v2
-DD-WRT v3.0-r39654 std (04/25/19)
-#Bonjour Broken in "stable" 2018-10-10 https://svn.dd-wrt.com/ticket/6319
-https://dd-wrt.com/support/other-downloads/?path=betas
-
-#old installs
-DD-WRT v3.0-r39296 std (03/27/19)
-DD-WRT v3.0-r36247 std (06/29/18) <- avail thru web download
-DD-WRT v3.0-r36410 std (07/28/18) <- longest time
+# netgear 6400v2 download:
+https://ftp.dd-wrt.com/dd-wrtv2/downloads/betas/2023/12-04-2023-r54420/netgear-r6400v2/
 
 # GASTROUTER Linksys WRT54GL v1.1
-DD-WRT v3.0-r37305 std (10/10/18)
-#old installs
-DD-WRT v24-sp2 (10/10/09) std
+# linksys 54g download:
+https://ftp.dd-wrt.com/dd-wrtv2/downloads/betas/2023/12-04-2023-r54420/broadcom/
+# block traffic from WAN local network (add via Admin->Firewall)
+#-match plugin state --state NEW connection (not ESTABLISHED)
+iptables -I FORWARD -i br0 -d $(nvram get wan_ipaddr)/$(nvram get wan_netmask) -m state --state NEW -j DROP
 
 # VLANS sensibly
 #https://www.flashrouters.com/blog/2015/04/06/what-is-a-vlan-how-to-setup-vlan-ddwrt/
@@ -44,10 +40,6 @@ hdparm -y /dev/sda
 #USB hd shutdown
 opkg install sdparm
 sdparm --flexible --command=stop /dev/sda
-
-# block traffic from WAN local network (add via Admin->Firewall)
-#-match plugin state --state NEW connection (not ESTABLISHED)
-iptables -I FORWARD -i br0 -d $(nvram get wan_ipaddr)/$(nvram get wan_netmask) -m state --state NEW -j DROP
 
 # restart web interface
 stopservice httpd
