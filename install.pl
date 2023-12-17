@@ -587,7 +587,7 @@ sub install_apps {
     unless ( -x $app_exe ) {
       given ( $Config{osname} ) {
         when ("linux") {
-          die if system("sudo apt install $app_name");
+          die if system("sudo apt install -y $app_name");
         }
         when ("MSWin32") {
           die if system("winget install -h $app_name");
