@@ -217,7 +217,7 @@ sub install_node {
   #my $n = qx{curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n};
   #system(qq{bash -c $n bash 17});
   say "Installing node via package manager";
-  install_apps("node");
+  install_apps("nodejs");
 }
 
 # install go for current platform
