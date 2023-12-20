@@ -14,7 +14,47 @@
 * [raspi/audiorec](raspi/audiorec.md)
 * [raspi pi cam](raspi/pi-cam.md)
 
-## General Raspi Info
+## Quick Setup Pi (Pi Imager does this)
+```bash
+python3 -m pip install tflite-runtime
+#first boot direct
+touch ssh
+vim wpa_supplicant.conf
+<<CONTENT
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=DE
+
+network={
+    ssid="wifi_ssid"
+    psk="wifi_password"
+}
+CONTENT
+# add ssh key
+scp ~/.ssh/authorized_keys pi@raspberrypi:~/.ssh/
+# install .normen
+perl <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install.pl)
+```
+
+## BACKUP TO NAS
+```bash
+sudo apt install smbclient cifs-utils
+sudo mkdir /backup
+sudo vim /etc/fstab
+<<CONTENT
+//hausrouter/backup /backup cifs defaults,noauto,nofail,vers=2.0,credentials=/home/pi/.smblogin,x-systemd.automount,x-systemd.requires=network-online.target    0    0
+//hausrouter/backup /backup cifs defaults,uid=pi,file_mode=0777,dir_mode=0777,noauto,nofail,vers=2.0,credentials=/home/pi/.smblogin,x-systemd.automount,x-systemd.requires=network-online.target    0    0
+CONTENT
+# add uid=pi,file_mode=0777,dir_mode=0777 for universal access
+sudo vim /home/pi/.smblogin
+<<CONTENT
+username=backup
+password=password
+workgroup=WORKGROUP
+CONTENT
+```
+
+## USB Over IP / dd-wrt
 ```bash
 # usb-over ip from dd-wrt
 # dd-wrt: enable usb-over-ip
@@ -49,28 +89,10 @@ RestartSec=5s
 [Install]
 WantedBy=multi-user.target
 CONTENT
+```
 
-python3 -m pip install tflite-runtime
-#first boot direct
-touch ssh
-vim wpa_supplicant.conf
-<<CONTENT
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-country=DE
-
-network={
-    ssid="wifi_ssid"
-    psk="wifi_password"
-}
-CONTENT
-
-# add ssh key
-rsync -azv ~/.ssh/authorized_keys pi@raspberrypi:~/.ssh/
-
-# install .normen
-bash <(curl -s https://raw.githubusercontent.com/normen/.normen/master/install)
-
+## Random Hardware
+```bash
 #1024x600 HDMI:
 #/boot/config.txt
 <<CONTENT
@@ -115,7 +137,10 @@ scan on
 scan off
 trust 50:E6:66:2E:59:EB
 connect 50:E6:66:2E:59:EB
+```
 
+## Desktop install
+```bash
 #install desktop
 sudo apt install raspberrypi-ui-mods
 #for startx
@@ -136,7 +161,10 @@ CONTENT
 sudo vim /etc/ssh/sshd_config
 ChallengeResponseAuthentication no
 PasswordAuthentication no
+```
 
+## Random
+```bash
 #image to disk osx:
 df -h
 #/dev/disk2s1 -> /dev/rdisk2
@@ -147,11 +175,6 @@ vcgencmd get_throttled
 
 #readonly
 sudo raspi-config
-#wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/read-only-fs.sh
-#sudo bash read-only-fs.sh
-#sudo vim /etc/fstab
-#tmpfs /usr/lib/node_modules/cncjs/dist/cnc/app/sessions tmpfs nodev,nosuid 0 0
-#tmpfs /home/pi/cncdata tmpfs nodev,nosuid 0 0
 
 # COMMANDS
 #find version
@@ -166,21 +189,6 @@ sudo n 10
 #Need compile after node update (in each module folder)
 sudo npm rebuild --unsafe-perm
 
-# BACKUP TO NAS
-sudo apt install smbclient cifs-utils
-sudo mkdir /backup
-sudo vim /etc/fstab
-<<CONTENT
-//hausrouter/backup /backup cifs defaults,noauto,nofail,vers=2.0,credentials=/home/pi/.smblogin,x-systemd.automount,x-systemd.requires=network-online.target    0    0
-//hausrouter/backup /backup cifs defaults,uid=pi,file_mode=0777,dir_mode=0777,noauto,nofail,vers=2.0,credentials=/home/pi/.smblogin,x-systemd.automount,x-systemd.requires=network-online.target    0    0
-CONTENT
-# add uid=pi,file_mode=0777,dir_mode=0777 for universal access
-sudo vim /home/pi/.smblogin
-<<CONTENT
-username=backup
-password=password
-workgroup=WORKGROUP
-CONTENT
 curl -s -L -O https://www.linux-tips-and-tricks.de/raspiBackupInstallUI.sh && sudo bash raspiBackupInstallUI.sh
 raspiBackup.sh
 
@@ -200,12 +208,12 @@ frontend public
         default_backend octoprint
 
 backend octoprint
-        reqrep ^([^\ :]*)\ /(.*)     \1\ /\2
+        http-request replace-path ^([^\ :]*)\ /(.*)     \1\ /\2
         option forwardfor
         server octoprint1 127.0.0.1:5000
 
 backend webcam
-        reqrep ^([^\ :]*)\ /webcam/(.*)     \1\ /\2
+        http-request replace-path ^([^\ :]*)\ /webcam/(.*)     \1\ /\2
         server webcam1  127.0.0.1:8080
 CONTENT
 
