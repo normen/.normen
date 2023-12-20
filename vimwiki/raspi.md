@@ -54,6 +54,15 @@ workgroup=WORKGROUP
 CONTENT
 ```
 
+## RaspiBackup
+```bash
+curl -o install -L https://raw.githubusercontent.com/framps/raspiBackup/master/installation/install.sh; sudo bash ./install
+#Restore on some connected raspi with SD inserted (USB on /dev/sda)
+#find device
+lsblk 
+sudo raspiBackup -d /dev/sda /backup/homebridge/homebridge-tar-backup-xxx/
+```
+
 ## USB Over IP / dd-wrt
 ```bash
 # usb-over ip from dd-wrt
@@ -188,14 +197,6 @@ sudo n 10
 
 #Need compile after node update (in each module folder)
 sudo npm rebuild --unsafe-perm
-
-curl -s -L -O https://www.linux-tips-and-tricks.de/raspiBackupInstallUI.sh && sudo bash raspiBackupInstallUI.sh
-raspiBackup.sh
-
-#Restore on some connected raspi with SD inserted (USB on /dev/sda)
-#find device
-lsblk 
-sudo raspiBackup.sh -d /dev/sda /backup/homebridge/homebridge-tar-backup-xxx/
 
 # HAPROXY
 #-> Port 80
