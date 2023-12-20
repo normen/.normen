@@ -16,7 +16,38 @@
 
 ## General Raspi Info
 ```bash
-#
+# usb-over ip from dd-wrt
+# dd-wrt: enable usb-over-ip
+usbip list -l
+# dd-wrt add usb script:
+usbip bind -b 1-1
+
+# raspberry pi
+sudo apt install usbip hwdata
+# enable driver
+sudoedit /etc/modules
+<<CONTENT
+vhci_hcd
+CONTENT
+
+# start "mount" withs service
+sudoedit /etc/systemd/system/usbip-client.service
+<<CONTENT
+[Unit]
+Description=usbip client daemon
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/sbin/usbip attach -r studiorouter -b 2-2
+ExecStop=/usr/sbin/usbip detach -p 00
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+CONTENT
+
 python3 -m pip install tflite-runtime
 #first boot direct
 touch ssh
