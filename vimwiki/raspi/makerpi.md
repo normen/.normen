@@ -90,3 +90,13 @@ port 8000: cncjs
 # list node.js servers (cncjs)
 p2m list
 ```
+
+## Recreate octoprint + venv from backup
+```bash
+pip3 env -p python3 venv
+venv/bin/pip3 install OctoPrint
+venv/bin/octoprint plugin backup:restore backupname.zip
+```
+```
+
+
