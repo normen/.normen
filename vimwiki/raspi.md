@@ -98,6 +98,10 @@ RestartSec=5s
 [Install]
 WantedBy=multi-user.target
 CONTENT
+
+# make sure its mounted when router reboots:
+sudo crontab -e
+0 * * * * /usr/sbin/usbip attach -r studiorouter -b 2-2
 ```
 
 ## Random Hardware

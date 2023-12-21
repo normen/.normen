@@ -1,4 +1,17 @@
 ## Homebridge
+
+### Update 2023
+#### Apps'n'Servers
+- mosquitto
+- FHEM
+- Homebridge
+- ps4-waker
+- playactor
+- ffmpeg
+- nut
+- haproxy
+- miio
+
 ```bash
 !!------------------------!!
 !! GPIO 0+2 of RPi Broken !!
