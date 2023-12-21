@@ -1,28 +1,14 @@
 ## Pi cam
 
-## Build ffmpeg for arm6:
 ```bash
-#!/usr/bin/env bash
-# install build tools
-sudo apt-get install pkg-config autoconf automake libtool libx264-dev libasound2-dev
-
-# download and build fdk-aac
-git clone https://github.com/mstorsjo/fdk-aac.git || echo "Already downloaded fdk-aac"
-cd fdk-aac
-./autogen.sh
-./configure --prefix=/usr/local --enable-shared --enable-static
-make
-sudo make install
-sudo ldconfig
-cd ..
-
-# download and build ffmpeg
-git clone https://github.com/FFmpeg/FFmpeg.git || echo "Already downloaded ffmpeg"
-cd FFmpeg
-#./configure --prefix=/usr/local --arch=armel --target-os=linux --enable-omx-rpi --enable-nonfree --enable-gpl --enable-libfdk-aac --enable-mmal --enable-libx264 --enable-decoder=h264 --enable-network --enable-protocol=tcp --enable-demuxer=rtsp
-./configure --prefix=/usr/local --enable-nonfree --enable-gpl --enable-libfdk-aac --enable-mmal --enable-libx264 --enable-decoder=h264 --enable-network --enable-protocol=tcp --enable-demuxer=rtsp
-make
-sudo make install
+sudo apt update
+sudo apt upgrade -y
+# enable camera
+sudo raspi-config
+v4l2-ctl --set-ctrl video_bitrate=300000
+curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | sudo bash -s lts
+npm install homebridge homebridge-camera-ffmpeg ffmpeg-for-homebridge
+vim ~/.homebridge/config.json
 ```
 
 ## Homebridge
@@ -61,12 +47,12 @@ WantedBy=multi-user.target
   "platforms": [
     {
       "name": "Camera ffmpeg",
+      "videoProcessor": "/usr/local/lib/node_modules/ffmpeg-for-homebridge/ffmpeg",
       "cameras": [
         {
           "name": "Pi-Cam-1",
           "unbridge": false,
           "videoConfig": {
-            "videoProcessor": "/usr/local/bin/ffmpeg",
             "sourceX": "-f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0",
             "source": "-f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0 -f alsa -channels 1 -i plughw:1",
             "stillImageSource": "-f video4linux2 -input_format mjpeg -video_size 1280x720 -i /dev/video0 -vframes 1 -r 1 -f mjpeg",
@@ -86,4 +72,29 @@ WantedBy=multi-user.target
     }
   ]
 }
+```
+
+## Build ffmpeg for arm6:
+```bash
+#!/usr/bin/env bash
+# install build tools
+sudo apt-get install pkg-config autoconf automake libtool libx264-dev libasound2-dev
+
+# download and build fdk-aac
+git clone https://github.com/mstorsjo/fdk-aac.git || echo "Already downloaded fdk-aac"
+cd fdk-aac
+./autogen.sh
+./configure --prefix=/usr/local --enable-shared --enable-static
+make
+sudo make install
+sudo ldconfig
+cd ..
+
+# download and build ffmpeg
+git clone https://github.com/FFmpeg/FFmpeg.git || echo "Already downloaded ffmpeg"
+cd FFmpeg
+#./configure --prefix=/usr/local --arch=armel --target-os=linux --enable-omx-rpi --enable-nonfree --enable-gpl --enable-libfdk-aac --enable-mmal --enable-libx264 --enable-decoder=h264 --enable-network --enable-protocol=tcp --enable-demuxer=rtsp
+./configure --prefix=/usr/local --enable-nonfree --enable-gpl --enable-libfdk-aac --enable-mmal --enable-libx264 --enable-decoder=h264 --enable-network --enable-protocol=tcp --enable-demuxer=rtsp
+make
+sudo make install
 ```

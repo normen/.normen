@@ -12,7 +12,7 @@
 * [raspi/amiga](raspi/amiga.md)
 * [raspi/autostart](raspi/autostart.md)
 * [raspi/audiorec](raspi/audiorec.md)
-* [raspi pi cam](raspi/pi-cam.md)
+* [raspi/pi-cam](raspi/pi-cam.md)
 
 ## Quick Setup Pi (Pi Imager does this)
 ```bash
