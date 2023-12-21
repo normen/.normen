@@ -74,6 +74,46 @@ WantedBy=multi-user.target
 }
 ```
 
+## Start script with/without audio
+```bash
+#!/usr/bin/env bash
+# use jq to change the homebridge-ffmepg-camera settings
+# based on the availability of an audio interface
+# then start homebridge
+set -e
+
+# check if card 1 is available using arecord -l
+audio_in=$(arecord -l | grep "card 1" | awk '{print $2}' | sed 's/://g' | head -1)
+if [ "$audio_in" == "1" ]; then
+  # card 1 input is available
+  if [ "$(jq '.platforms[].cameras[].videoConfig.audio' /home/pi/.homebridge/config.json)" != "true" ]; then
+    jq '.platforms[].cameras[].videoConfig.audio = true' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
+    mv /home/pi/.homebridge/config.json.tmp /home/pi/.homebridge/config.json
+    jq '.platforms[].cameras[].videoConfig.source = "-f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0 -f alsa -channels 1 -i plughw:1"' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
+    mv /home/pi/.homebridge/config.json.tmp /home/pi/.homebridge/config.json
+  fi
+else
+  # card 1 input is not available
+  if [ "$(jq '.platforms[].cameras[].videoConfig.audio' /home/pi/.homebridge/config.json)" != "false" ]; then
+    jq '.platforms[].cameras[].videoConfig.audio = false' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
+    mv /home/pi/.homebridge/config.json.tmp /home/pi/.homebridge/config.json
+    jq '.platforms[].cameras[].videoConfig.source = "-f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0"' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
+    mv /home/pi/.homebridge/config.json.tmp /home/pi/.homebridge/config.json
+  fi
+fi
+audio_out=$(aplay -l | grep "card 1" | awk '{print $2}' | sed 's/://g' | head -1)
+if [ "$audio_out" == "1" ]; then
+  # card 1 output is available
+  jq '.platforms[].cameras[].videoConfig.returnAudioTarget = "-f alsa plughw:1"' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
+  mv /home/pi/.homebridge/config.json.tmp /home/pi/.homebridge/config.json
+else
+  # card 1 output is not available
+  jq 'del(.platforms[].cameras[].videoConfig.returnAudioTarget)' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
+  mv /home/pi/.homebridge/config.json.tmp /home/pi/.homebridge/config.json
+fi
+
+/usr/local/bin/homebridge
+```
 ## Build ffmpeg for arm6:
 ```bash
 #!/usr/bin/env bash
