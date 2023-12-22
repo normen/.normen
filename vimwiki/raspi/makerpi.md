@@ -2,6 +2,42 @@
 ```bash
 #https://github.com/foosel/OctoPrint/wiki/Controlling-a-relay-board-from-your-RPi
 
+# upgrade sfter dist-upgrade
+cd OctoPrint
+python3 -m venv --upgrade venv
+
+# compile camera-streamer:
+git clone https://github.com/ayufan-research/camera-streamer.git --recursive
+apt-get -y install libavformat-dev libavutil-dev libavcodec-dev libcamera-dev liblivemedia-dev v4l-utils pkg-config xxd build-essential cmake libssl-dev
+cd camera-streamer/
+make
+sudo make install
+sudoedit /etc/systemd/system/camera-streamer.service
+<<CONTENT
+[Unit]
+Description=camera-streamer web camera for Pi Camera v2.1 8MP on Raspberry PI
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/camera-streamer \
+  --camera-video.disabled \
+  --http-listen=0.0.0.0
+
+DynamicUser=yes
+SupplementaryGroups=video i2c
+Restart=always
+RestartSec=10
+Nice=10
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+CPUWeight=20
+AllowedCPUs=1-2
+MemoryMax=250M
+
+[Install]
+WantedBy=multi-user.target
+CONTENT
+
 # updated buster
 cd OctoPrint
 virtualenv -p python3 venv
