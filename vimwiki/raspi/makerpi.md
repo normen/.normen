@@ -2,6 +2,10 @@
 ```bash
 #https://github.com/foosel/OctoPrint/wiki/Controlling-a-relay-board-from-your-RPi
 
+# replaced plugins
+- https://github.com/mdziekon/OctoPrint-SpoolManager/zip/refs/heads/master
+- https://github.com/9mrcookie9/OctoPrint-TouchUI/zip/refs/heads/master
+
 # upgrade sfter dist-upgrade
 cd OctoPrint
 python3 -m venv --upgrade venv
