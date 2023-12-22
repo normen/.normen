@@ -213,12 +213,12 @@ frontend public
         default_backend octoprint
 
 backend octoprint
-        http-request replace-path ^([^\ :]*)\ /(.*)     \1\ /\2
+        http-request replace-path /(.*)   /\1
         option forwardfor
         server octoprint1 127.0.0.1:5000
 
 backend webcam
-        http-request replace-path ^([^\ :]*)\ /webcam/(.*)     \1\ /\2
+        http-request replace-path /webcam/(.*)   /\1
         server webcam1  127.0.0.1:8080
 CONTENT
 
