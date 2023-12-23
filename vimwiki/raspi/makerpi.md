@@ -2,6 +2,10 @@
 ```bash
 #https://github.com/foosel/OctoPrint/wiki/Controlling-a-relay-board-from-your-RPi
 
+# backup sync
+crontab -e
+0 * * * * rsync -avz /home/pi/.octoprint/data/backup/ /backup/octoprint/backup/
+
 # replaced plugins
 - https://github.com/mdziekon/OctoPrint-SpoolManager/zip/refs/heads/master
 - https://github.com/9mrcookie9/OctoPrint-TouchUI/zip/refs/heads/master
