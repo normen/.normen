@@ -11,6 +11,12 @@ npm install homebridge homebridge-camera-ffmpeg ffmpeg-for-homebridge
 vim ~/.homebridge/config.json
 ```
 
+```bash
+# alsa mixer
+alsamixer -c 1
+# save mixer settings
+sudo alsactl store 1
+
 ## Homebridge
 
 `/etc/systemd/system/homebridge.service`
