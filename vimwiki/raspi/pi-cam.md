@@ -19,6 +19,7 @@ vim ~/.homebridge/config.json
 alsamixer -c 1
 # save mixer settings
 sudo alsactl store 1
+```
 
 ## Homebridge
 
