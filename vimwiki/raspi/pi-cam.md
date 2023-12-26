@@ -5,7 +5,10 @@ sudo apt update
 sudo apt upgrade -y
 # enable camera
 sudo raspi-config
-v4l2-ctl --set-ctrl video_bitrate=300000
+# crontab for video bitrate
+crontab -e
+@reboot v4l2-ctl --set-ctrl video_bitrate=300000
+
 curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | sudo bash -s lts
 npm install homebridge homebridge-camera-ffmpeg ffmpeg-for-homebridge
 vim ~/.homebridge/config.json
