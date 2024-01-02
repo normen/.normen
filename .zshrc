@@ -156,17 +156,22 @@ else
 fi
 
 # ai completion..
+secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
+if [[ ! -z ${secret_key} ]]; then
+  export OPENAI_API_KEY=${secret_key}
+fi
 create_ai_completion() {
   text=${BUFFER}
   if [[ $text = \#* ]] ; then
-    secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
+    #secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
     promp="# This converts text to single line shell commands.\n\n# list all files in current directory\nls -p | grep -v\n# new tmux session named hurz\ntmux new -s hurz\n# unpack myfile.tar.gz\ntar -xvzf myfile.tar.gz\n# list all docker containers\ndocker ps -a\n# initialize git repository and add all files\ngit init && git add -a\n${BUFFER}\n"
     completion=$(curl -s https://api.openai.com/v1/completions \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer ${secret_key}" \
-      -d "{ \"model\": \"text-davinci-003\", \"prompt\": \"${promp}\", \"stop\": [\"#\"], \"max_tokens\": 256, \"temperature\": 0 }" \
+      -d "{ \"model\": \"gpt-3.5-turbo-instruct\", \"prompt\": \"${promp}\", \"max_tokens\": 256, \"temperature\": 0 }" \
       | sed -n -e 's/.*"text": *"\([^"]*\)".*/\1/p' \
-      | sed 's/\\n/\n/g'
+      | sed 's/\\n/\n/g' \
+      | head -n 1
     )
     secret_key=""
     BUFFER="${text}
