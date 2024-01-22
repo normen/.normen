@@ -21,7 +21,7 @@ connection: &con00
   accepter: tcp,20108
   connector: serialdev,/dev/ttyUSB0,11520081,local
 CONTENT
-/opt/etc/init.d/S50ser2net start
+/opt/etc/init.d/S50ser2net restart
 
 # in zigbee2mqtt.yaml:
 # serial:
