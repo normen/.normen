@@ -19,7 +19,7 @@ vi /opt/etc/ser2net/ser2net.yaml
 <<CONTENT
 connection: &con00
   accepter: tcp,20108
-  connector: serialdev,/dev/ttyUSB0,11520081,local
+  connector: serialdev,/dev/ttyUSB0,115200n81,local
 CONTENT
 /opt/etc/init.d/S50ser2net restart
 
