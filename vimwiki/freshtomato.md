@@ -10,7 +10,7 @@ entware-install.sh
 # driver for USB Serial from extras (CP210x)
 curl https://freshtomato.org/downloads/freshtomato-arm/2023/2023.5/extras-arm.tar.gz > extras.tar.gz
 cd /opt
-tar xcvf extras.tar.gz
+tar -xzvf extras.tar.gz
 modprobe usbserial
 insmod /opt/extras/cp210x.ko
 
