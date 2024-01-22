@@ -35,6 +35,7 @@ echo "LABEL=ENTWARE /opt ext3 rw,noatime 1 1" >> /etc/fstab
 mount /opt
 modprobe usbserial
 insmod /opt/extras/cp210x.ko
+sleep 10
 /opt/etc/init.d/rc.unslung start
 
 ```
