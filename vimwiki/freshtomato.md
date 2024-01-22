@@ -30,6 +30,8 @@ CONTENT
 
 # run init script:
 echo "LABEL=ENTWARE /opt ext3 rw,noatime 1 1" >> /etc/fstab
+# manual:
+# mount -o bind /mnt/data/opt /opt
 
 # run all on mount:
 mount /opt
@@ -37,5 +39,13 @@ modprobe usbserial
 insmod /opt/extras/cp210x.ko
 sleep 10
 /opt/etc/init.d/rc.unslung start
+
+# unmount:
+#!/bin/sh
+/opt/etc/init.d/rc.unslung stop
+sleep 15
+for i in `cat /proc/mounts | awk '/ext3/{print($1)}'` ; do
+  mount -o remount,ro $i
+done
 
 ```
