@@ -35,6 +35,7 @@
 * [dendrite](dendrite.md)
 * [aerc](aerc.md)
 * [dd-wrt](dd-wrt.md)
+* [freshtomato](freshtomato.md)
 * [marlin](marlin.md)
 * [midi](midi.md)
 * [opencv](opencv.md)
