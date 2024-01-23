@@ -19,6 +19,7 @@
 * [media](media.md)
 ## Random
 * [chordpro](chordpro.md)
+* [ipv6](ipv6.md)
 * [audiovideo](audiovideo.md)
 * [fhem](fhem.md)
 * [tools](tools.md)
