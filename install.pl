@@ -165,6 +165,7 @@ sub install_links {
   link_in( "$npath/.inputrc",        "$root/.inputrc" );
   link_in( "$npath/.ctags",          "$root/.ctags" );
   link_in( "$npath/.nethackrc",      "$root/.nethackrc" );
+  link_in( "$npath/.toprc",          "$root/.toprc" );
 
   # add $NORMEN to profile if not in default location
   my $pro_file = "$hpath/.profile";
