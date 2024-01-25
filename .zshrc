@@ -148,7 +148,8 @@ if command -v "starship" &> /dev/null; then
   eval "$(starship init zsh)"
 else
   antigen bundle spaceship-prompt/spaceship-vi-mode@main
-  antigen theme spaceship-prompt/spaceship-prompt
+  #antigen theme spaceship-prompt/spaceship-prompt
+  antigen bundle spaceship-prompt/spaceship-prompt
   antigen apply
   # fix mode indicator
   spaceship add --before char vi_mode
