@@ -64,9 +64,9 @@ WantedBy=multi-user.target
           "unbridge": false,
           "videoConfig": {
             "sourceX": "-f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0",
-            "source": "-f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0 -f alsa -channels 1 -i plughw:1",
+            "source": "-f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0 -f alsa -thread_queue_size 4096 -channels 1 -i plughw:1",
             "stillImageSource": "-f video4linux2 -input_format mjpeg -video_size 1280x720 -i /dev/video0 -vframes 1 -r 1 -f mjpeg",
-            "returnAudioTarget": "-f alsa plughw:1",
+            "returnAudioTarget": "-f alsa -thread_queue_size 4096 plughw:1",
             "audio": true,
             "vcodec": "copy",
             "maxStreams": 1,
