@@ -99,7 +99,7 @@ if [ "$audio_in" == "1" ]; then
   if [ "$(jq '.platforms[].cameras[].videoConfig.audio' /home/pi/.homebridge/config.json)" != "true" ]; then
     jq '.platforms[].cameras[].videoConfig.audio = true' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
     mv /home/pi/.homebridge/config.json.tmp /home/pi/.homebridge/config.json
-    jq '.platforms[].cameras[].videoConfig.source = "-f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0 -f alsa -channels 1 -i plughw:1"' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
+    jq '.platforms[].cameras[].videoConfig.source = "-f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0 -f alsa -thread_queue_size 4096 -channels 1 -i plughw:1"' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
     mv /home/pi/.homebridge/config.json.tmp /home/pi/.homebridge/config.json
   fi
 else
@@ -114,7 +114,7 @@ fi
 audio_out=$(aplay -l | grep "card 1" | awk '{print $2}' | sed 's/://g' | head -1)
 if [ "$audio_out" == "1" ]; then
   # card 1 output is available
-  jq '.platforms[].cameras[].videoConfig.returnAudioTarget = "-f alsa plughw:1"' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
+  jq '.platforms[].cameras[].videoConfig.returnAudioTarget = "-f alsa -thread_queue_size 4096 plughw:1"' /home/pi/.homebridge/config.json > /home/pi/.homebridge/config.json.tmp
   mv /home/pi/.homebridge/config.json.tmp /home/pi/.homebridge/config.json
 else
   # card 1 output is not available

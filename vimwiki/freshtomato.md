@@ -47,5 +47,54 @@ sleep 15
 for i in `cat /proc/mounts | awk '/ext3/{print($1)}'` ; do
   mount -o remount,ro $i
 done
-
 ```
+
+#### Samba
+
+```bash
+# samba users + mounts per user
+# make init script:
+
+#!/bin/sh
+# Check to see if there are any FTP users.  If there are then create a Samba user for each one
+# Put these commands in the background so the system isn't waiting for this script to finish
+(
+  FTPUSERS=`nvram get ftp_users`
+  if [ -n "$FTPUSERS" ]
+  then
+    # Now we can wait for the sysup flag...
+    while [ ! -f /var/notice/sysup ]; do sleep 2; done
+    OLDIFS=$IFS
+    IFS='>'
+    USERID=100
+    for USER in $FTPUSERS
+    do
+      USERNAME=`echo $USER | cut -d'<' -f1`
+      PASSWORD=`echo $USER | cut -d'<' -f2`
+      USERID=$(($USERID + 100))
+      echo $USERNAME:x:$USERID:$USERID:user:/dev/null:/dev/null >> /etc/passwd.custom
+      /usr/bin/smbpasswd $USERNAME $PASSWORD
+    done
+    IFS=$OLDIFS
+    service samba restart
+  fi
+)&
+
+# add mounts to samba custom config:
+<<CONTENT
+[User2Folder]
+comment =
+path = /tmp/mnt/Folder/Folder/User2Folder
+writable = yes
+delete readonly = yes
+valid users = username2
+
+[User3Folder]
+comment =
+path = /tmp/mnt/Folder/Folder/User3Folder
+writable = yes
+delete readonly = yes
+valid users = username3
+CONTENT
+```
+
