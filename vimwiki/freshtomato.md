@@ -47,6 +47,14 @@ sleep 15
 for i in `cat /proc/mounts | awk '/ext3/{print($1)}'` ; do
   mount -o remount,ro $i
 done
+
+# VPN firewall:
+# allow forwarding for VPN
+iptables -I FORWARD 1 --source 10.6.0.0/24 -j ACCEPT
+# masquerading for VPN
+iptables -t nat -A POSTROUTING -s 10.6.0.0/24 -o br0 -j MASQUERADE
+# freshtomato: disable DNS advertising
+
 ```
 
 #### Samba
