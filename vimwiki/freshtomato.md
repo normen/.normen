@@ -48,7 +48,7 @@ for i in `cat /proc/mounts | awk '/ext3/{print($1)}'` ; do
   mount -o remount,ro $i
 done
 
-# VPN firewall:
+# VPN firewall: custom
 # allow forwarding for VPN
 iptables -I FORWARD 1 --source 10.6.0.0/24 -j ACCEPT
 # masquerading for VPN
