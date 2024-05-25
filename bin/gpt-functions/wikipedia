@@ -15,9 +15,9 @@ wikipedia_article_lines(){
 
 wikipedia_functions(){
   echo '[
-    { "type" : "function",
-      "function" :
-    {
+  {
+    "type": "function",
+    "function": {
       "name": "wikipedia_article_search",
       "description": "Sucht mit Embeddings in einem Wikipedia Artikel und gibt ein JSON array mit relevanten Zeilen im Artikel zurück.",
       "parameters": {
@@ -32,12 +32,16 @@ wikipedia_functions(){
             "description": "Der oder die Suchbegriffe die im Artikel per Embeddings gesucht werden soll."
           }
         },
-        "required": ["name", "search"]
+        "required": [
+          "name",
+          "search"
+        ]
       }
-    }},
-    { "type" : "function",
-      "function" :
-    {
+    }
+  },
+  {
+    "type": "function",
+    "function": {
       "name": "wikipedia_article_lines",
       "description": "Holt einen Teil eines Wikipedia Artikels auf Basis einer angegebenen Zeilennummer.",
       "parameters": {
@@ -56,9 +60,14 @@ wikipedia_functions(){
             "description": "Die Anzahl von Zeilen vor und nach der angefragten Zeile die ausgegeben werden sollen. Leere Zeilen werden mit gezählt aber nicht mit ausgegeben, daher sollten immer ein paar Zeilen zusätzlich ausgegeben werden."
           }
         },
-        "required": ["name", "line_number", "surrounding"]
+        "required": [
+          "name",
+          "line_number",
+          "surrounding"
+        ]
       }
-    }}
-  ]'
+    }
+  }
+]'
 }
 

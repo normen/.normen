@@ -26,9 +26,9 @@ document_lines(){
 
 memory_functions(){
   echo '[
-    { "type" : "function",
-      "function" :
-    {
+  {
+    "type": "function",
+    "function": {
       "name": "document_search",
       "description": "Sucht mit Embeddings in einem Dokument und gibt ein JSON array mit relevanten Zeilen im Dokument zurück.",
       "parameters": {
@@ -43,12 +43,16 @@ memory_functions(){
             "description": "Der oder die Suchbegriffe die im Dokument per Embeddings gesucht werden soll."
           }
         },
-        "required": ["name", "search"]
+        "required": [
+          "name",
+          "search"
+        ]
       }
-    }},
-    { "type" : "function",
-      "function" :
-    {
+    }
+  },
+  {
+    "type": "function",
+    "function": {
       "name": "document_lines",
       "description": "Holt einen Teil eines Dokuments auf Basis einer angegebenen Zeilennummer.",
       "parameters": {
@@ -67,9 +71,14 @@ memory_functions(){
             "description": "Die Anzahl von Zeilen vor und nach der angefragten Zeile die ausgegeben werden sollen. Leere Zeilen werden mit gezählt aber nicht mit ausgegeben, daher sollten immer ein paar Zeilen zusätzlich ausgegeben werden."
           }
         },
-        "required": ["name", "line_number", "surrounding"]
+        "required": [
+          "name",
+          "line_number",
+          "surrounding"
+        ]
       }
-    }}
-  ]'
+    }
+  }
+]'
 }
 

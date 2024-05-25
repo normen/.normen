@@ -14,9 +14,9 @@ sub_agent_browser(){
 
 master_functions(){
   echo '[
-    { "type" : "function",
-      "function" :
-    {
+  {
+    "type": "function",
+    "function": {
       "name": "sub_agent_wikipedia",
       "description": "Startet einen KI Assistenten der eine Frage mittels Wikipedia beantwortet. Er hat erweiterte Funktionen und kann ganze Artikel durchsuchen. Es sind keine Rückfragen möglich also sollte die initiale Frage klar formuliert sein.",
       "parameters": {
@@ -27,12 +27,15 @@ master_functions(){
             "description": "Die Suchanfrage, z.B. `Wie viele Einwohner hat Deutschland?`"
           }
         },
-        "required": ["search"]
+        "required": [
+          "search"
+        ]
       }
-    }},
-    { "type" : "function",
-      "function" :
-    {
+    }
+  },
+  {
+    "type": "function",
+    "function": {
       "name": "sub_agent_browser",
       "description": "Startet einen KI Assistenten der eine Frage mittels Google Suchen und Abfrage von Webseiten beantwortet. Er hat erweiterte Funktionen und kann ganze Webseiten durchsuchen. Es sind keine Rückfragen möglich also sollte die initiale Frage klar formuliert sein.",
       "parameters": {
@@ -43,9 +46,12 @@ master_functions(){
             "description": "Die Suchanfrage, z.B. `Wie sind die Öffnungszeiten vom Edeka in Westerland auf Sylt?`"
           }
         },
-        "required": ["search"]
+        "required": [
+          "search"
+        ]
       }
-    }}
-  ]'
+    }
+  }
+]'
 }
 

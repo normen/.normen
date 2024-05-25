@@ -28,9 +28,9 @@ command_line_command(){
 
 core_functions(){
   echo '[
-    { "type" : "function",
-      "function" :
-    {
+  {
+    "type": "function",
+    "function": {
       "name": "wikipedia_summary",
       "description": "Holt eine Zusammenfassung für einen bestimmten Wikipedia-Artikel",
       "parameters": {
@@ -41,12 +41,15 @@ core_functions(){
             "description": "Der Name des Artikels, der Artikel muss auf Wikipedia existieren. Namen wie `Deutschland` haben eine höhere Wahrscheinlichkeit zu existieren als Artikel wie `Einwohnerzahl von Deutschland`."
           }
         },
-        "required": ["name"]
+        "required": [
+          "name"
+        ]
       }
-    }},
-    { "type" : "function",
-      "function" :
-    {
+    }
+  },
+  {
+    "type": "function",
+    "function": {
       "name": "command_line_command",
       "description": "Führt einen Befehl auf der bash shell aus und gibt den gesamten output von stdout und stderr zurück.",
       "parameters": {
@@ -57,9 +60,12 @@ core_functions(){
             "description": "Der Befehl inklusive der Argumente."
           }
         },
-        "required": ["command"]
+        "required": [
+          "command"
+        ]
       }
-    }}
-  ]'
+    }
+  }
+]'
 }
 
