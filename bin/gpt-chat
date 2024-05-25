@@ -27,8 +27,6 @@ check_python_env(){
     python3 -m venv "$NORMEN/.pyenv"
     source "$NORMEN/.pyenv/bin/activate"
     pip3 install openai chromadb-client click starlette
-  else
-    echo "Python environment found"
   fi
 
 }
