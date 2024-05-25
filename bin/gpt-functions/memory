@@ -2,26 +2,26 @@
 # unix_timestamp=$(date +%s)
 
 get_core_memories(){
-  ~/.normen/bin/gpt-memory get-core-memories|jq -r '.[] | "\(.name): \(.content)"'
+  ~/.normen/.pyenv/bin/python ~/.normen/bin/gpt-memory get-core-memories|jq -r '.[] | "\(.name): \(.content)"'
 }
 
 set_core_memory(){
   name=$(echo "$1"|jq --compact-output -r '.name')
   content=$(echo "$1"|jq --compact-output -r '.content')
-  ~/.normen/bin/gpt-memory set-core-memory "$name" "$content"
+  ~/.normen/.pyenv/bin/python ~/.normen/bin/gpt-memory set-core-memory "$name" "$content"
 }
 
 document_search(){
   dokumentname=$(echo "$1"|jq --compact-output -r '.name')
   suche=$(echo "$1"|jq --compact-output -r '.search')
-  ~/.normen/bin/gpt-memory get-document-memory "$dokumentname" "$suche"
+  ~/.normen/.pyenv/bin/python ~/.normen/bin/gpt-memory get-document-memory "$dokumentname" "$suche"
 }
 
 document_lines(){
   dokumentname=$(echo "$1"|jq --compact-output -r '.name')
   line_number=$(echo "$1"|jq --compact-output -r '.line_number')
   surrounding=$(echo "$1"|jq --compact-output -r '.surrounding')
-  ~/.normen/bin/gpt-memory get-document-memory-lines "$dokumentname" "$line_number" "$surrounding"
+  ~/.normen/.pyenv/bin/python ~/.normen/bin/gpt-memory get-document-memory-lines "$dokumentname" "$line_number" "$surrounding"
 }
 
 memory_functions(){

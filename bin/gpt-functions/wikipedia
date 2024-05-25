@@ -3,14 +3,14 @@
 wikipedia_article_search(){
   artikelname=$(echo "$1"|jq --compact-output -r '.name')
   suche=$(echo "$1"|jq --compact-output -r '.search')
-  ~/.normen/bin/gpt-memory get-wikipedia-memory "$artikelname" "$suche"
+  ~/.normen/.pyenv/bin/python ~/.normen/bin/gpt-memory get-wikipedia-memory "$artikelname" "$suche"
 }
 
 wikipedia_article_lines(){
   artikelname=$(echo "$1"|jq --compact-output -r '.name')
   line_number=$(echo "$1"|jq --compact-output -r '.line_number')
   surrounding=$(echo "$1"|jq --compact-output -r '.surrounding')
-  ~/.normen/bin/gpt-memory get-wikipedia-memory-lines "$artikelname" "$line_number" "$surrounding"
+  ~/.normen/.pyenv/bin/python ~/.normen/bin/gpt-memory get-wikipedia-memory-lines "$artikelname" "$line_number" "$surrounding"
 }
 
 wikipedia_functions(){

@@ -22,6 +22,17 @@ if ! which jq>/dev/null; then
   exit 1
 fi
 
+check_python_env(){
+  if [ -d "$NORMEN/.pyenv" ]; then
+    python3 -m venv "$NORMEN/.pyenv"
+    source "$NORMEN/.pyenv/bin/activate"
+    pip3 install openai chromadb-client click starlette
+  else
+    echo "Python environment found"
+  fi
+
+}
+
 add_conversation_functions(){
   load_config
   create_conversation
@@ -484,4 +495,5 @@ shift $((OPTIND-1))
 
 create_folders
 create_config
+check_python_env
 do_loop

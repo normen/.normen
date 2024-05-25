@@ -1,4 +1,5 @@
 .DS_Store
+.pyenv/**
 .antigen/**
 .vim/pack/**
 .vim/plugged/**

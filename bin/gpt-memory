@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# pip3 install openai chromadb-client click
+# pip3 install openai chromadb-client click starlette
 
 # command line tool to access a memory database based on an embeddings db
 
@@ -31,7 +31,7 @@ client = chromadb.HttpClient(
 # openai embedding client
 openai_ef = embedding_functions.OpenAIEmbeddingFunction(
     api_key=api_key,
-    model_name="text-embedding-ada-002")
+    model_name="text-embedding-3-small")
 
 
 @click.group()
