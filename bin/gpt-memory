@@ -233,6 +233,10 @@ def load_wikipedia_article(collection, name):
     )
 
 
+def create_uuidv4():
+    return os.popen('uuidgen').read().strip()
+
+
 @cli.command()
 @click.argument('name')
 @click.argument('search')

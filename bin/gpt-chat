@@ -22,8 +22,13 @@ if ! which jq>/dev/null; then
   exit 1
 fi
 
+# set $NORMEN if not exists to ~/.normen
+if [ -z "$NORMEN" ]; then
+  export NORMEN="$HOME/.normen"
+fi
+
 check_python_env(){
-  if [ -d "$NORMEN/.pyenv" ]; then
+  if [ ! -d "$NORMEN/.pyenv" ]; then
     python3 -m venv "$NORMEN/.pyenv"
     source "$NORMEN/.pyenv/bin/activate"
     pip3 install openai chromadb-client click starlette
