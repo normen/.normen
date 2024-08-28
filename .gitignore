@@ -3,7 +3,7 @@
 .antigen/**
 .vim/pack/**
 .vim/plugged/**
-.vim/plugins.vim
+.vim/local.vim
 .vim/coc-settings.json
 vimwiki/diary/**
 .vim/.netrwhist

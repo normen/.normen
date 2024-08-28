@@ -266,3 +266,4 @@ endif
 " load optional/local files
 call SourceIfExists("$NORMEN/.vim/plugins.vim")
 call SourceIfExists("$NORMEN/.vim/commands.vim")
+call SourceIfExists("$NORMEN/.vim/local.vim")
