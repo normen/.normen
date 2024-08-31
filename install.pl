@@ -117,7 +117,7 @@ EOF
 # install the basic commands
 sub install_base_apps {
   given ( $Config{osname} ) {
-    system("curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir $npath/bin/all -y");
+    system("curl -sS https://starship.rs/install.sh | sh -s -- -y --bin-dir $npath/bin/all");
     when ("linux") {
       install_apps( "git", "zsh", "vim", "vifm", "mosh", "tmux", "jq", "rlwrap", "pandoc" );
       my $zsh_exe = qx{which zsh};
