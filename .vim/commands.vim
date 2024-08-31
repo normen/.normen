@@ -62,6 +62,11 @@ command! -nargs=+ GH  call <SID>OpenTermOnce('gh ' . <q-args>, "GitHub CLI")
 command! GHNewIssue :terminal gh issue create
 command! GHIssueList call <SID>RunShellCommand('gh issue list')
 
+" TEA
+command! -nargs=+ Tea  call <SID>OpenTermOnce('tea ' . <q-args>, "Gitea CLI")
+command! TeaNewIssue :terminal tea issues create
+command! TeaIssueList call <SID>RunShellCommand('tea issues')
+
 " image2ascii (go version)
 " go get github.com/qeesung/image2ascii
 command! -nargs=+ -complete=file Image2Ascii exec 'read !image2ascii -r=0.1 -f ' . <q-args> . ' -c=false'
