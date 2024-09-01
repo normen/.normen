@@ -55,8 +55,8 @@ EOF
     print color("reset");
     say "1) Install base applications";
     say "2) Checkout .normen to $npath";
-    say "3) Set default app configurations";
-    say "4) Link dot files to $hpath";
+    say "3) Link dot files to $hpath";
+    say "4) Set default app configurations";
     say "5) Install node";
     say "6) Install golang to ~/.go";
     say "7) Build/update app in ~/src";
@@ -75,12 +75,12 @@ EOF
         checkout_normen();
       }
       when (3) {
+        install_links();
+      }
+      when (4) {
         install_vim_defaults();
         configure_vifm();
         configure_tmux();
-      }
-      when (4) {
-        install_links();
       }
       when (5) {
         install_node();
