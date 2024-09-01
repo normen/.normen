@@ -386,7 +386,7 @@ sub update_plugins {
   system("$npath/.tmux/plugins/tpm/bin/update_plugins all");
   system("zsh -c 'source $npath/.zshrc;antigen update'");
   system("vim +PlugUpdate +qa");
-  system("curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir $npath/bin/all");
+  system("curl -sS https://starship.rs/install.sh | sh -s -- -y --bin-dir $npath/bin/all");
   my $local_update = "$npath/plugin-update.local";
   if ( -x $local_update ) {
     system($local_update);
