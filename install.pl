@@ -213,12 +213,14 @@ sub configure_vifm {
 
 # install node.js
 sub install_node {
-  #curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
-  # TODO: can't even
-  #my $n = qx{curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n};
-  #system(qq{bash -c $n bash 17});
-  say "Installing node via package manager";
-  install_apps("nodejs");
+  # install node via n
+  my $n = qx{curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n};
+  chomp $n;
+  # qq to escape the string
+  system(("sudo", "bash", "-c", qq{$n}, "-s", "lts"));
+  #system(("sudo", "bash", "-c", qq{$n}, "-s", "uninstall"));
+  #say "Installing node via package manager";
+  #install_apps("nodejs");
 }
 
 # install go for current platform
