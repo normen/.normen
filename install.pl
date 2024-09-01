@@ -145,7 +145,7 @@ sub checkout_normen {
 
 # link in the defaults
 sub install_vim_defaults {
-  link_in( "$npath/.vim/defaults/default-plugins.vim", "$npath/.vim/plugins.vim" );
+  #link_in( "$npath/.vim/defaults/default-plugins.vim", "$npath/.vim/plugins.vim" );
   #link_in("$npath/.vim/defaults/default-coc-settings.json", "$npath/.vim/coc-settings.json");
 }
 
