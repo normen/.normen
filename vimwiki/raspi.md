@@ -17,6 +17,8 @@
 ## Quick Setup Pi (Pi Imager does this)
 ```bash
 python3 -m pip install tflite-runtime
+# network manager
+sudo nmtui
 #first boot direct
 touch ssh
 vim wpa_supplicant.conf
