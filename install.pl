@@ -217,7 +217,8 @@ sub install_node {
   my $n = qx{curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n};
   chomp $n;
   # qq to escape the string
-  system(("sudo", "bash", "-c", qq{$n}, "-s", "lts"));
+  die if system(("sudo", "bash", "-c", qq{$n}, "-s", "lts"));
+  die if system(("sudo", "npm", "install", "-g", "n"));
   #system(("sudo", "bash", "-c", qq{$n}, "-s", "uninstall"));
   #say "Installing node via package manager";
   #install_apps("nodejs");
