@@ -156,8 +156,11 @@ else
   eval spaceship_vi_mode_enable
 fi
 
+# secrets..
+source ~/.secrets 2>/dev/null || true
+
 # ai completion..
-secret_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
+secret_key=$(cat ~/.config/openaiapirc 2>/dev/null | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
 if [[ ! -z ${secret_key} ]]; then
   export OPENAI_API_KEY=${secret_key}
 fi
