@@ -7,6 +7,8 @@
 - [✓] Legacy
 #### OCC
 ```bash
+# add iCloud column to iCloud passwords export to allow using as folder
+sed 's/$/,iCloud/' passwords.csv > passwords_new.csv
 #notification
 php occ notification:generate -l "Long Message" normen "Short Message"
 
