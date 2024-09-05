@@ -1,6 +1,6 @@
 ## WebPage-RasPi
 ```bash
-sudo apt install xorg --no-install-recommends lightdm x11-xserver-utils
+sudo apt install xorg --no-install-recommends lightdm x11-xserver-utils firefox
 sudo vim /etc/lightdm/lightdm.conf
 <<CONTENT
 autologin-user=pi
@@ -12,8 +12,14 @@ sudo vim /usr/share/xsessions/kiosk.desktop
 Encoding=UTF-8
 Name=kiosk
 Type=Application
-Exec=/home/pi/start-amiberry
+Exec=/home/pi/start
 CONTENT
+vim /home/pi/start
+<<CONTENT
+#!/usr/bin/env bash
+firefox --kiosk http://mypage
+CONTENT
+chmod +x /home/pi/start
 # nice boot screen
 sudo vim /boot/cmdline.txt 
 # change console=tty3 and append:
