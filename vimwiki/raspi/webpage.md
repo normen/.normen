@@ -20,6 +20,12 @@ vim /home/pi/start
 firefox --kiosk http://mypage
 CONTENT
 chmod +x /home/pi/start
+# disable power save
+sudo vim /etc/lightdm/lightdm.conf
+<<CONTENT
+[SEAT:*]
+xserver-command=X -s 0 -dpms
+CONTENT
 # nice boot screen
 sudo vim /boot/cmdline.txt 
 # change console=tty3 and append:
