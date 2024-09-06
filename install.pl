@@ -89,7 +89,7 @@ EOF
         install_go();
       }
       when (7) {
-        print("Name (mosh, tmux, vim, vifm): ");
+        print("Name (mosh, tmux, vim, vifm, dry, tea, gotop): ");
         my $app_to_build = <>;
         chomp $app_to_build;
         build_app($app_to_build);
@@ -401,17 +401,17 @@ sub build_app {
   given ($name) {
     when ("gotop") {
       $command = <<END;
-go install github.com/xxxserxxx/gotop/v4/cmd/gotop@latest
+go install github.com/xxxserxxx/gotop/v4/cmd/gotop\@latest
 END
     }
     when ("dry") {
       $command = <<END;
-go install github.com/moncho/dry@latest
+go install github.com/moncho/dry\@latest
 END
     }
     when ("tea") {
       $command = <<END;
-go install code.gitea.io/tea@v0.9
+go install code.gitea.io/tea\@v0.9
 END
     }
     when ("mosh") {
