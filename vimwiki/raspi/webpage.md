@@ -1,6 +1,6 @@
 ## WebPage-RasPi
 ```bash
-sudo apt install xorg --no-install-recommends lightdm x11-xserver-utils firefox
+sudo apt install xorg --no-install-recommends lightdm x11-xserver-utils chromium-browser
 sudo vim /etc/lightdm/lightdm.conf
 <<CONTENT
 autologin-user=pi
@@ -12,14 +12,9 @@ sudo vim /usr/share/xsessions/kiosk.desktop
 Encoding=UTF-8
 Name=kiosk
 Type=Application
-Exec=/home/pi/start
+Exec=chromium-browser --kiosk http://localhost
 CONTENT
-vim /home/pi/start
-<<CONTENT
-#!/usr/bin/env bash
-firefox --kiosk http://mypage
-CONTENT
-chmod +x /home/pi/start
+
 # disable power save
 sudo vim /etc/lightdm/lightdm.conf
 <<CONTENT
