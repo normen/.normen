@@ -399,6 +399,21 @@ sub build_app {
   if ( !$name ) { return; }
   my $command = "";
   given ($name) {
+    when ("gotop") {
+      $command = <<END;
+go install github.com/xxxserxxx/gotop/v4/cmd/gotop@latest
+END
+    }
+    when ("dry") {
+      $command = <<END;
+go install github.com/moncho/dry@latest
+END
+    }
+    when ("tea") {
+      $command = <<END;
+go install code.gitea.io/tea@v0.9
+END
+    }
     when ("mosh") {
       $command = <<END;
 $git clone https://github.com/mobile-shell/mosh ~/src/mosh
