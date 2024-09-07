@@ -21,6 +21,8 @@ sudo vim /etc/lightdm/lightdm.conf
 [SEAT:*]
 xserver-command=X -s 0 -dpms
 CONTENT
+# hide mouse cursor when not moved
+sudo apt install unclutter
 # nice boot screen
 sudo vim /boot/cmdline.txt 
 # change console=tty3 and append:
