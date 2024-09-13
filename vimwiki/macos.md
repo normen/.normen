@@ -14,6 +14,14 @@ brctl log -wtl 6 //no debug
 chown -R normenhansen:staff ~/Library/Mobile\ Documents/
 chmod -R 755 ~/Library/Mobile\ Documents/
 
+# reset spotlight index
+mdutil -i off
+mdutil -E
+sudo mdutil -i off
+sudo mdutil -E
+mdutil -i on
+sudo mdutil -i on
+
 # quicklook
 brew install qlcommonmark qlstephen
 xattr -cr ~/Library/QuickLook/QLStephen.qlgenerator
