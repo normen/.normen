@@ -1,4 +1,6 @@
 ## Linux
+- [linux/minecraft](linux/minecraft.md)
+
 ```bash
 # disk mount
 sudo fdisk -l

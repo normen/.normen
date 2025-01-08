@@ -18,6 +18,7 @@
 * [hardware](hardware.md)
 * [media](media.md)
 ## Random
+* [minecraft](minecraft.md)
 * [chordpro](chordpro.md)
 * [ipv6](ipv6.md)
 * [audiovideo](audiovideo.md)
