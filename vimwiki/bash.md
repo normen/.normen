@@ -20,6 +20,9 @@ if [[ "$x" =~ $pattern ]]; then
   echo "Match found"
 fi
 
+# loop over lines in text and use as variable
+for i in $(cat domains.txt); do plesk bin dns -d $i -txt "specific record"; done
+
 # one-key input
 read -rsn 1 k
 echo "pressed $k"
