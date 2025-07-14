@@ -2,6 +2,10 @@
 - [linux/minecraft](linux/minecraft.md)
 
 ```bash
+# keyboard ctrl
+sudoedit /etc/defaults/keyboard
+XKBOPTIONS=ctrl:nocaps 
+
 # disk mount
 sudo fdisk -l
 sudo mount /dev/sda1 /mnt/usb -o uid=pi,gid=pi

@@ -57,3 +57,5 @@ npm install @minecraft/server-gametest
     - data_driven_items: 1b
     - gametest: 1b
     - upcoming_creator_features: 1b
+- data/config/default/permissions.json
+  - add `@minecraft/server-net` to the list
