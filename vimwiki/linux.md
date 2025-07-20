@@ -6,6 +6,11 @@
 sudoedit /etc/defaults/keyboard
 XKBOPTIONS=ctrl:nocaps 
 
+# keyboard esc+ctrl (X/wayland)
+sudo apt install input-remapper
+# remap Ctrl-Ä in input-remapper,
+# remap Caps Lock to Ctrl in Gnome Tweaks
+
 # disk mount
 sudo fdisk -l
 sudo mount /dev/sda1 /mnt/usb -o uid=pi,gid=pi
