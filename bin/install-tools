@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+go install code.gitea.io/tea@v0.9
+go install github.com/xxxserxxx/gotop/v4/cmd/gotop@latest
+go install github.com/moncho/dry@latest
+go install github.com/minio/mc@latest
