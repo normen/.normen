@@ -14,7 +14,7 @@ mount /dev/sda /mnt/Disk
 # add disk(s)
 btrfs device add /dev/sdb /mnt/Disk
 # balance to raid1 (add -mconvert to also convert meta to raid)
-btrfs filesystem balance start -dconvert=raid1 /mnt/Disk
+btrfs filesystem balance start -convert=raid1 /mnt/Disk
 
 # fix when broken
 # mount in degraded mode
