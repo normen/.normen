@@ -23,6 +23,7 @@
 * [ipv6](ipv6.md)
 * [audiovideo](audiovideo.md)
 * [fhem](fhem.md)
+* [btrfs](btrfs.md)
 * [tools](tools.md)
 * [brew](brew.md)
 * [gstreamer](gstreamer.md)
