@@ -17,6 +17,7 @@ function fish_user_key_bindings
   bind -M default 'dd' tmux_delete_line
 
   # and make sure 'p' in COMMAND mode pastes via fish_clipboard_paste
-  bind -M default 'p' fish_clipboard_paste
+  bind -M default 'p' tmux_paste
+  bind -M default 'P' tmux_paste_before
 end
 
