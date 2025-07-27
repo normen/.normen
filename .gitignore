@@ -21,6 +21,7 @@ vimwiki/diary/**
 build/**
 bin/all/starship
 bin/all/tstudio.conf
+fish/fish_variables
 session.vim
 plugin-update.local
 update.local
