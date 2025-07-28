@@ -117,12 +117,17 @@ EOF
 # install the basic commands
 sub install_base_apps {
   given ( $Config{osname} ) {
-    system("curl -sS https://starship.rs/install.sh | sh -s -- -y --bin-dir $npath/bin/all");
+    if ( -x $npath . "/bin/all/starship" ) {
+      say "Starship already installed";
+    } else {
+      say "Installing starship";
+      system("curl -sS https://starship.rs/install.sh | sh -s -- -y --bin-dir $npath/bin/all");
+    }
     when ("linux") {
-      install_apps( "git", "zsh", "vim", "vifm", "mosh", "tmux", "jq", "rlwrap", "pandoc" );
-      my $zsh_exe = qx{which zsh};
-      chomp $zsh_exe;
-      die if system("chsh -s $zsh_exe");
+      install_apps( "curl", "bc", "git", "zsh", "vim", "vifm", "mosh", "tmux", "jq", "rlwrap", "pandoc" );
+      #my $zsh_exe = qx{which zsh};
+      #chomp $zsh_exe;
+      #die if system("chsh -s $zsh_exe");
     }
     when ("MSWin32") {
       install_apps( "vim.vim", "Git.Git" );
@@ -166,6 +171,8 @@ sub install_links {
   link_in( "$npath/.ctags",          "$root/.ctags" );
   link_in( "$npath/.nethackrc",      "$root/.nethackrc" );
   link_in( "$npath/.toprc",          "$root/.toprc" );
+  link_in( "$npath/fish",            "$root/.config/fish" );
+  link_in( "$npath/alacritty",       "$root/.config/alacritty" );
 
   # add $NORMEN to profile if not in default location
   my $pro_file = "$hpath/.profile";
