@@ -1,8 +1,13 @@
 ## CachyOS
+
+### Install (pacman)
+```bash
+sudo pacman -S timeshift
+```
+
 ### Install (yay)
 ```bash
 yay -S input-remapper
-yay -S icloud-wrapper-bin
 yay -S realvnc-vnc-viewer
 ```
 
@@ -24,4 +29,11 @@ sudo pacman -Rus
 sudo pacman -Qm
 # remove unneeded
 sudo pacman -Rns $(pacman -Qdtq)
+```
+
+#### Update Script (snapshot)
+```bash
+update_date=$(date)
+sudo timeshift --create --comment "System Update on $update_date"
+sudo pacman -Suy
 ```
