@@ -29,6 +29,7 @@ function fish_user_key_bindings
   end
   # now bind our tmux helpers into the COMMAND mode table
   bind -M default 'yy' tmux_yank_line
+  bind -M default 'yw' tmux_yank_word
   bind -M visual 'y' tmux_yank_selection
   bind -M default 'dd' tmux_delete_line
   # and make sure 'p' in COMMAND mode pastes via fish_clipboard_paste
