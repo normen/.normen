@@ -15,6 +15,7 @@
 * [linux](linux.md)
 * [macos](macos.md)
 * [windows](windows.md)
+* [cachyos](cachyos.md)
 * [hardware](hardware.md)
 * [media](media.md)
 ## Random
