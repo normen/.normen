@@ -393,6 +393,7 @@ sub update_plugins {
   system("$npath/.tmux/plugins/tpm/bin/update_plugins all");
   system("zsh -c 'source $npath/.zshrc;antigen update'");
   system("vim +PlugUpdate +qa");
+  system("fish -c 'fisher update'");
   system("curl -sS https://starship.rs/install.sh | sh -s -- -y --bin-dir $npath/bin/all");
   my $local_update = "$npath/plugin-update.local";
   if ( -x $local_update ) {
@@ -613,7 +614,16 @@ sub install_apps {
     unless ( -x $app_exe ) {
       given ( $Config{osname} ) {
         when ("linux") {
-          die if system("sudo apt install -y $app_name");
+          # check if apt or pacman
+          my $pkg_mgr = qx{command -v apt pacman};
+          chomp $pkg_mgr;
+          if ( $pkg_mgr =~ /pacman/ ) {
+            die if system("sudo pacman -S --noconfirm $app_name");
+          } else {
+            # assume apt
+            say "Installing $app_name via apt";
+            die if system("sudo apt install -y $app_name");
+          }
         }
         when ("MSWin32") {
           die if system("winget install -h $app_name");
