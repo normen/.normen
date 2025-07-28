@@ -85,3 +85,7 @@ end
 if test -f $HOME/.profile_fish
   source $HOME/.profile_fish
 end
+# add .profile via fenv
+if test -f $HOME/.profile
+  fenv $HOME/.profile
+end
