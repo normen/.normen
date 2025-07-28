@@ -3,9 +3,15 @@
 # init repo + add remote
 git init
 git remote add origin https://github.com/normen/blah.git
+# push to remote
+git push -u origin master
+
+# config user
+git config --global user.name Normen
+git config --global user.email normen667@gmail.com
 
 # save credentials
-git config credential.helper store
+git config --global credential.helper store
 
 # git always rebase
 git config --global --bool pull.rebase true
@@ -145,4 +151,7 @@ git rebase -i $to || $SHELL
 git checkout $to
 git pull . ${from}_tmp
 git branch -d ${from}_tmp
+
+# config git
+
 ```
