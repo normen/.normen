@@ -15,9 +15,19 @@ alias gst-list="gst-inspect-1.0 | fzf | awk '{print substr(\$2, 1, length(\$2)-1
 
 # overwrite greeting
 # potentially disabling fastfetch
-#function fish_greeting
-#    # smth smth
-#end
+function fish_greeting
+  # if fastfetch is installed, use it
+  if type -q fastfetch
+    fastfetch
+  else if type -q neofetch
+    neofetch
+  else if type -q screenfetch
+    screenfetch
+  else
+    echo "Welcome to $(hostname) on $(uname -r) running $(uname -s) $(uname -m)!"
+  end
+    # smth smth
+end
 
 # initializes user key bindings, called by fish
 function fish_user_key_bindings
