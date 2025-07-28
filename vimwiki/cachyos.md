@@ -22,4 +22,6 @@ sudo pacman -Rcs
 sudo pacman -Rus
 # show non-repo installs
 sudo pacman -Qm
+# remove unneeded
+sudo pacman -Rns $(pacman -Qdtq)
 ```
