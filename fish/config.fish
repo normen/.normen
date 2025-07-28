@@ -49,7 +49,7 @@ end
 
 # secrets
 if test -f ~/.secrets
-  source ~/.secrets 2>/dev/null
+  fenv ~/.secrets
 end
 # editor
 set -gx EDITOR (which vim)
