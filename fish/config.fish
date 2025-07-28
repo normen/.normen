@@ -47,10 +47,6 @@ function fish_user_key_bindings
   bind -M default 'P' tmux_paste_before
 end
 
-# secrets
-if test -f ~/.secrets
-  fenv ~/.secrets
-end
 # editor
 set -gx EDITOR (which vim)
 # find os type
@@ -87,5 +83,9 @@ if test -f $HOME/.profile_fish
 end
 # add .profile via fenv
 if test -f $HOME/.profile
-  fenv $HOME/.profile
+  fenv source $HOME/.profile
+end
+# secrets
+if test -f ~/.secrets
+  fenv source ~/.secrets
 end
