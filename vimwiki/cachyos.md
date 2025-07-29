@@ -9,6 +9,8 @@ sudo pacman -S timeshift
 ```bash
 yay -S input-remapper
 yay -S realvnc-vnc-viewer
+# run on login:
+input-remapper-control --command autoload
 ```
 
 ### Firefox Setup
