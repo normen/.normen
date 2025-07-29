@@ -5,6 +5,8 @@ end
 alias start='sudo systemctl start'
 alias stop='sudo systemctl stop'
 alias restart='sudo systemctl restart'
+alias enable='sudo systemctl enable'
+alias disable='sudo systemctl disable'
 alias log='sudo journalctl -f -u'
 alias :e='vim'
 alias :q=exit
