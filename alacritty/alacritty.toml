@@ -131,6 +131,11 @@ mode = "~Alt"
 action = "ScrollToBottom"
 
 [[keyboard.bindings]]
+key = "N"
+mods = "Control|Shift"
+action = "SpawnNewInstance"
+
+[[keyboard.bindings]]
 key = "V"
 mods = "Control|Shift"
 action = "Paste"
