@@ -1,5 +1,9 @@
 #!/bin/sh
-WIDTH=$(tput cols)
+if [ -z "$TMUX" ]; then
+  WIDTH=$(tput cols)
+else
+  WIDTH=tmux display -p "#{pane_width}"
+fi
 #echo $WIDTH
 pandoc --columns=$WIDTH -f html -t plain
 # aerc filter which runs w3m using socksify (from the dante package) to prevent
