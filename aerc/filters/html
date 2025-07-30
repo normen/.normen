@@ -1,11 +1,21 @@
 #!/bin/sh
-if [ -z "$TMUX" ]; then
+#if [ -z "$TMUX" ]; then
   WIDTH=$(tput cols)
+  # get with one subtracted
+  WIDTH=$((WIDTH - 1))
+#else
+  #WIDTH=tmux display -p "#{pane_width}"
+#fi
+# use html2text or pandoc to convert html to plain text
+if command -v html2text >/dev/null 2>&1; then
+  html2text --reference-links
+  #pandoc --columns=$WIDTH -f html -t plain
+elif command -v pandoc >/dev/null 2>&1; then
+  pandoc --columns=$WIDTH -f html -t plain
 else
-  WIDTH=tmux display -p "#{pane_width}"
+  echo "No suitable HTML to text converter found (html2text or pandoc required)"
+  exit 1
 fi
-#echo $WIDTH
-pandoc --columns=$WIDTH -f html -t plain
 # aerc filter which runs w3m using socksify (from the dante package) to prevent
 # any phoning home by rendered emails
 #export SOCKS_SERVER="127.0.0.1:1"
