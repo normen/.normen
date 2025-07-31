@@ -3,11 +3,14 @@
 ### Install (pacman)
 ```bash
 sudo pacman -S timeshift
+sudo pacman -S touchegg
+# run on login:
+touchegg --client
 ```
 
 ### Install (yay)
 ```bash
-yay -S input-remapper
+yay -S input-remapper-bin
 yay -S realvnc-vnc-viewer
 # run on login:
 input-remapper-control --command autoload
