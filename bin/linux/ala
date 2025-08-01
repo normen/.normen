@@ -1,0 +1,9 @@
+#!/bin/bash
+# run with domain parameter
+server=$1
+if [ -z "$server" ]; then
+  echo "Please specify server"
+else
+  alacritty --title "$server" --command mosh $server tmux attach &
+fi
+
