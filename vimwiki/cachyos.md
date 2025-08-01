@@ -42,3 +42,16 @@ update_date=$(date)
 sudo timeshift --create --comment "System Update on $update_date"
 sudo pacman -Suy
 ```
+
+#### Systemd-Boot
+```bash
+sudo lsblk
+sudo blkid /dev/sdb
+vim /boot/loader/entries/sdcard.conf
+<<CONTENT
+title Linux Cachyos
+options root=UUID=af0ef3d4-0374-4f1e-b816-a0af7218e925 rw
+linux /vmlinuz-linux-cachyos
+initrd /initramfs-linux-cachyos.img
+CONTENT
+```
