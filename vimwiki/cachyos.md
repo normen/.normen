@@ -43,6 +43,12 @@ sudo timeshift --create --comment "System Update on $update_date"
 sudo pacman -Suy
 ```
 
+#### Boot screen no text
+```bash
+sudoedit /boot/loader/entries/linux-cachyos.conf
+# append: splash quiet bgrt_disable
+```
+
 #### Systemd-Boot
 ```bash
 sudo lsblk
