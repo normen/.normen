@@ -49,6 +49,16 @@ sudoedit /boot/loader/entries/linux-cachyos.conf
 # append: splash quiet bgrt_disable
 ```
 
+#### Fingerprint login
+```bash
+sudo cp /usr/lib/pam.d/polkit-1 /etc/pam.d/
+vim /etc/pam.d/polkit-1
+<<CONTENT
+auth [success=1 default=ignore] pam_succeeded_if.so service in sudo:su:su-1 tty in :unknown
+auth sufficient pam_fprintd.so
+CONTENT
+```
+
 #### Systemd-Boot
 ```bash
 sudo lsblk
