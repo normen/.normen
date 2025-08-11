@@ -69,7 +69,8 @@ CONTENT
 
 #### Limine (Snapshots)
 ```bash
-sudo pacman -S limine limine-snapper-sync
+sudo pacman -S limine-mkinitcpio-hook
+sudo pacman -S limine-snapper-sync
 sudo systemctl enable limine-snapper-sync
 ```
 
