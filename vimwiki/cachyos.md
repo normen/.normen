@@ -85,3 +85,23 @@ linux /vmlinuz-linux-cachyos
 initrd /initramfs-linux-cachyos.img
 CONTENT
 ```
+
+#### AES67
+```bash
+# install linuxptp
+yay -S linuxptp
+# copy config from /usr/share/pipewire/pipewire-aes67.conf to ~/.config/pipewire/pipewire-aes67.conf
+cp /usr/share/pipewire/pipewire-aes67.conf ~/.config/pipewire/pipewire-aes67.conf
+# change the interface name in the config file
+vim ~/.config/pipewire/pipewire-aes67.conf
+# add udev rule to access ptp device
+sudoedit /etc/udev/rules.d/90-pipewire-aes67-ptp.rules
+<<CONTENT
+KERNEL=="ptp[0-9]*", MODE="0644"
+CONTENT
+sudo udevadm control --reload-rules
+# start ptp4l (root)
+sudo ptp4l -i enp0s31f6  -s -l 7 -m -q
+# start pipewire-aes67
+pipewire-aes67
+```
