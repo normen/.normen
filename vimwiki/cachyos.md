@@ -36,6 +36,14 @@ sudo pacman -Qm
 sudo pacman -Rns $(pacman -Qdtq)
 ```
 
+#### Debtap (install .deb packages)
+```bash
+yay -S debtap
+sudo debtap -u
+debtap package.deb
+sudo pacman -U package.pkg
+```
+
 #### Update Script (snapshot)
 ```bash
 update_date=$(date)
