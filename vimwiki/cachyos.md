@@ -104,4 +104,19 @@ sudo udevadm control --reload-rules
 sudo ptp4l -i enp0s31f6  -s -l 7 -m -q
 # start pipewire-aes67
 pipewire-aes67
+
+# systemd service for ptp4l
+<<CONTENT
+[Unit]
+Description=PTP4L Service
+After=network.target
+[Service]
+Type=simple
+ExecStart=/usr/bin/ptp4l -i enp0s31f6 -s
+Restart=always
+[Install]
+WantedBy=multi-user.target
+CONTENT
+sudo systemctl enable ptp4l.service
+sudo systemctl start ptp4l.service
 ```
