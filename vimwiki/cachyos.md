@@ -103,6 +103,21 @@ CONTENT
 sudo udevadm control --reload-rules
 # start ptp4l (root)
 sudo ptp4l -i enp0s31f6  -s -l 7 -m -q
+# alt: use aes67.conf for ptp4l
+<<CONTENT
+[global]
+# Avoid becoming the Grandmaster
+priority1 255
+# Converge faster when time jumps
+step_threshold 1
+## AES67 Profile options
+# Send Sync messages more often
+logSyncInterval -3
+# QoS
+dscp_event 46
+dscp_general 34
+CONTENT
+ptp4l -mq -i enp0s31f6 -f aes67.conf
 # start pipewire-aes67
 pipewire-aes67
 
