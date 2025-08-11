@@ -67,6 +67,12 @@ auth sufficient pam_fprintd.so
 CONTENT
 ```
 
+#### Limine (Snapshots)
+```bash
+sudo pacman -S limine limine-snapper-sync
+sudo systemctl enable limine-snapper-sync
+```
+
 #### Systemd-Boot
 ```bash
 sudo lsblk
