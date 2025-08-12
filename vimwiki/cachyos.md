@@ -122,6 +122,7 @@ ptp4l -mq -i enp0s31f6 -f aes67.conf
 pipewire-aes67
 
 # systemd service for ptp4l
+sudoedit /etc/systemd/system/ptp4l.service
 <<CONTENT
 [Unit]
 Description=PTP4L Service
