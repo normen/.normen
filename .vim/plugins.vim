@@ -84,6 +84,8 @@ let g:vifm_embed_term=1
 let g:vimwiki_list = [{'path': '$NORMEN/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }]
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
+" remove tab key mapping
+let g:vimwiki_key_mappings = { 'table_mappings': 0 }
 " cheat.sh
 let g:CheatSheetDoNotMap=1
 let g:CheatDoNotReplaceKeywordPrg=1
