@@ -72,6 +72,8 @@ CONTENT
 sudo pacman -S limine-mkinitcpio-hook
 sudo pacman -S limine-snapper-sync
 sudo systemctl enable limine-snapper-sync
+sudoedit /etc/kernel/cmdline
+# add bgrt_disable
 ```
 
 #### Systemd-Boot
