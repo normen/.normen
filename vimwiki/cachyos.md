@@ -139,3 +139,21 @@ CONTENT
 sudo systemctl enable ptp4l.service
 sudo systemctl start ptp4l.service
 ```
+
+#### JACK (Pipewire)
+```bash
+# install pipewire-jack
+sudo pacman -S pipewire-jack
+# install qpwgraph
+sudo pacman -S qpwgraph
+# run ardour8 with 128 samples / 44100 Hz
+pw-jack -s 44100 -p 128 ardour8
+# OR set globally for pipewire
+sudoedit /etc/pipewire/pipewire.conf
+<<CONTENT
+default.clock.quantum = 128
+default.clock.rate = 44100
+CONTENT
+# or use pw-metadata
+pw-metadata -n settings 0 clock force-quantum 128
+pw-metadata -n settings 0 clock force-rate 44100

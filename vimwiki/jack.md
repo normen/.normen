@@ -1,5 +1,6 @@
 ## jack / alsa
 ```bash
+usermod -aG audio <username>
 sudo apt install jack-tools
 jack_control ds alsa
 jack_control dp
