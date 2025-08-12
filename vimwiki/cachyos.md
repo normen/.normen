@@ -148,12 +148,13 @@ sudo pacman -S pipewire-jack
 sudo pacman -S qpwgraph
 # run ardour8 with 128 samples / 44100 Hz
 pw-jack -s 44100 -p 128 ardour8
+# or use pw-metadata (until restart)
+pw-metadata -n settings 0 clock force-quantum 128
+pw-metadata -n settings 0 clock force-rate 44100
 # OR set globally for pipewire
-sudoedit /etc/pipewire/pipewire.conf
+mkdir -p ~/.config/pipewire/pipewire.conf.d
+vim ~/.config/pipewire/pipewire.conf.d/custom.conf
 <<CONTENT
 default.clock.quantum = 128
 default.clock.rate = 44100
 CONTENT
-# or use pw-metadata
-pw-metadata -n settings 0 clock force-quantum 128
-pw-metadata -n settings 0 clock force-rate 44100
