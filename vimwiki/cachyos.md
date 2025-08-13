@@ -155,6 +155,12 @@ pw-metadata -n settings 0 clock force-rate 44100
 mkdir -p ~/.config/pipewire/pipewire.conf.d
 vim ~/.config/pipewire/pipewire.conf.d/custom.conf
 <<CONTENT
-default.clock.quantum = 128
-default.clock.rate = 44100
+context.properties = {
+  default.clock.quantum = 128
+  default.clock.rate = 44100
+}
 CONTENT
+
+# ardour plugins
+sudo pacman -S lsp-plugins-lv2
+```
