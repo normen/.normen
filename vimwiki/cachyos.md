@@ -163,4 +163,23 @@ CONTENT
 
 # ardour plugins
 sudo pacman -S lsp-plugins-lv2
+
+#airplay
+sudo pacman -S pipewire-zeroconf
+vim ~/.config/pipewire/pipewire.conf.d/custom.conf
+<<CONTENT
+context.modules = [
+  {
+    name = libpipewire-module-raop-discover
+    args = { }
+  }
+]
+CONTENT
+```
+
+### Emulation (qemu)
+```bash
+sudo pacman -S qemu-full virt-manager virt-viewer
+sudo systemctl enable libvirtd
+sudo systemctl start libvirtd
 ```
