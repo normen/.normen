@@ -151,4 +151,13 @@ CONTENT
 sudo systemctl start myfirst
 sudo systemctl enable myfirst
 sudo systemctl stop myfirst
+
+# systemd user-level
+# same structure, files in 
+vim .config/systemd/user/myservice.service
+sudo systemctl --user daemon-reload
+sudo systemctl --user enable myservice
+sudo systemctl --user start myservice
+# load services without login
+sudo loginctl enable-linger username
 ```
