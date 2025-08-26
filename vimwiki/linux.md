@@ -158,6 +158,6 @@ vim .config/systemd/user/myservice.service
 sudo systemctl --user daemon-reload
 sudo systemctl --user enable myservice
 sudo systemctl --user start myservice
-# load services without login
+# load services without login (target default.target)
 sudo loginctl enable-linger username
 ```
