@@ -184,14 +184,13 @@ sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 ```
 
-### VNC (tigervnc)
+### VNC (krfb)
 ```bash
-sudo pacman -S tigervnc
-vncpasswd
-sudoedit /etc/tigervnc/vncserver.users
+sudo pacman -S krfb
+# add to autostart, set user password
+vim ~/.config/krfbrc
 <<CONTENT
-:0=username
+[MainWindow]
+startMinimized=true
 CONTENT
-sudo systemctl enable vncserver@:0.service
-sudo systemctl start vncserver@:0.service
 ```
