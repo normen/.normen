@@ -3,6 +3,7 @@
 ### Touch Pad (pacman)
 ```bash
 sudo pacman -S touchegg
+yay -S touche
 # run on login:
 touchegg --client
 ```
