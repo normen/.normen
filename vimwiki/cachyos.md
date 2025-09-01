@@ -7,11 +7,22 @@ sudo pacman -S touchegg
 touchegg --client
 ```
 
-### Input Remap (Ctrl-Ä) (yay)
+### Input Remap (Ctrl-Ä)
 ```bash
-yay -S input-remapper-bin
-# run on login:
-input-remapper-control --command autoload
+sudo pacman -S keyd
+sudoedit /etc/keyd/default.conf
+<<CONTENT
+[ids]
+*
+
+[main]
+capslock = layer(control)
+
+[control]
+' = esc
+CONTENT
+sudo systemctl enable keyd
+sudo systemctl start keyd
 ```
 
 ### Firefox Setup
