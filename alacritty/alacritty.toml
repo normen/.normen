@@ -55,19 +55,19 @@ white   = '#ebdbb2'
 size = 12
 
 [font.normal]
-family = "Liberation Mono"
+family = "LiterationMono Nerd Font"
 style = "Regular"
 
 [font.bold]
-family = "Liberation Mono"
+family = "LiterationMono Nerd Font"
 style = "Bold"
 
 [font.italic]
-family = "Liberation Mono"
+family = "LiterationMono Nerd Font"
 style = "Italic"
 
 [font.bold_italic]
-family = "Liberation Mono"
+family = "LiterationMono Nerd Font"
 style = "Bold Italic"
 
 [selection]
