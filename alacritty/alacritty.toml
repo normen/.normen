@@ -55,19 +55,19 @@ white   = '#ebdbb2'
 size = 12
 
 [font.normal]
-family = "Liberation Mono for Powerline"
+family = "Liberation Mono"
 style = "Regular"
 
 [font.bold]
-family = "Liberation Mono for Powerline"
+family = "Liberation Mono"
 style = "Bold"
 
 [font.italic]
-family = "Liberation Mono for Powerline"
+family = "Liberation Mono"
 style = "Italic"
 
 [font.bold_italic]
-family = "Liberation Mono for Powerline"
+family = "Liberation Mono"
 style = "Bold Italic"
 
 [selection]
