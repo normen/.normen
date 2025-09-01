@@ -25,6 +25,11 @@ sudo systemctl enable keyd
 sudo systemctl start keyd
 ```
 
+### Font
+```bash
+sudo pacman -S ttf-liberation-mono-nerd
+``` 
+
 ### Firefox Setup
 - Vimium
 - NC Passwords
