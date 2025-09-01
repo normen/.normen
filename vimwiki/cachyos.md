@@ -1,17 +1,15 @@
 ## CachyOS
 
-### Install (pacman)
+### Touch Pad (pacman)
 ```bash
-sudo pacman -S timeshift
 sudo pacman -S touchegg
 # run on login:
 touchegg --client
 ```
 
-### Install (yay)
+### Input Remap (Ctrl-Ä) (yay)
 ```bash
 yay -S input-remapper-bin
-yay -S realvnc-vnc-viewer
 # run on login:
 input-remapper-control --command autoload
 ```
@@ -44,19 +42,6 @@ debtap package.deb
 sudo pacman -U package.pkg
 ```
 
-#### Update Script (snapshot)
-```bash
-update_date=$(date)
-sudo timeshift --create --comment "System Update on $update_date"
-sudo pacman -Suy
-```
-
-#### Boot screen no text
-```bash
-sudoedit /boot/loader/entries/linux-cachyos.conf
-# append: splash quiet bgrt_disable
-```
-
 #### Fingerprint login
 ```bash
 sudo cp /usr/lib/pam.d/polkit-1 /etc/pam.d/
@@ -73,7 +58,7 @@ sudo pacman -S limine-mkinitcpio-hook
 sudo pacman -S limine-snapper-sync
 sudo systemctl enable limine-snapper-sync
 sudoedit /etc/kernel/cmdline
-# add bgrt_disable
+# append: splash quiet bgrt_disable
 ```
 
 #### Systemd-Boot
@@ -87,6 +72,9 @@ options root=UUID=af0ef3d4-0374-4f1e-b816-a0af7218e925 rw
 linux /vmlinuz-linux-cachyos
 initrd /initramfs-linux-cachyos.img
 CONTENT
+#### Boot screen no text
+sudoedit /boot/loader/entries/linux-cachyos.conf
+# append: splash quiet bgrt_disable
 ```
 
 #### AES67
@@ -193,4 +181,6 @@ vim ~/.config/krfbrc
 [MainWindow]
 startMinimized=true
 CONTENT
+# client: tigervnc
+sudo pacman -S tigervnc
 ```
