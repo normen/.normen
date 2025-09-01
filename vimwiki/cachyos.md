@@ -183,3 +183,15 @@ sudo pacman -S qemu-full virt-manager virt-viewer
 sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 ```
+
+### VNC (tigervnc)
+```bash
+sudo pacman -S tigervnc
+vncpasswd
+sudoedit /etc/tigervnc/vncserver.users
+<<CONTENT
+:0=username
+CONTENT
+sudo systemctl enable vncserver@:0.service
+sudo systemctl start vncserver@:0.service
+```
