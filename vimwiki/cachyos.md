@@ -184,6 +184,8 @@ CONTENT
 sudo ufw allow 6001/udp comment AirPlay
 sudo ufw allow 6002/udp comment AirPlay
 sudo ufw allow 5353/udp comment "mDNS AirPlay" 
+sudo ufw allow 319/udp comment "AirPlay"
+sudo ufw allow 320/udp comment "AirPlay"
 # start airplay temporarily
 pactl load-module module-raop-discover
 ```
