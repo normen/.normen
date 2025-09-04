@@ -207,3 +207,25 @@ CONTENT
 # client: tigervnc
 sudo pacman -S tigervnc
 ```
+
+### CPU Performance Mode
+```bash
+sudo pacman -S auto-cpufreq
+sudoedit /etc/auto-cpufreq.conf
+<<CONTENT
+[charger]
+governor = performance
+energy_performance_preference = performance
+energy_perf_bias = performance
+scaling_min_freq = 1200000
+turbo = always
+[battery]
+governor = performance
+energy_performance_preference = performance
+energy_perf_bias = performance
+scaling_min_freq = 1200000
+turbo = always
+CONTENT
+sudo systemctl enable auto-cpufreq
+sudo systemctl start auto-cpufreq
+```
