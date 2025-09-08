@@ -208,6 +208,11 @@ CONTENT
 sudo pacman -S tigervnc
 ```
 
+### Printer (cups)
+```bash
+sudo pacman -S cups system-config-printer
+```
+
 ### CPU Performance Mode
 ```bash
 sudo pacman -S auto-cpufreq
