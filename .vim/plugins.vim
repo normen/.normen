@@ -81,7 +81,7 @@ let g:gruvbox_transparent_bg=1
 " vifm
 let g:vifm_embed_term=1
 " vimwiki
-let g:vimwiki_list = [{'path': '$NORMEN/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }]
+let g:vimwiki_list = [{'path': '$NORMEN/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }, {'path': '$HOME/Nextcloud/Documents/IFFMA', 'syntax': 'markdown', 'ext': '.md' }]
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_global_ext = 0
 " remove tab key mapping
