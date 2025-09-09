@@ -190,7 +190,7 @@ pactl load-module module-raop-discover
 
 ### Wine
 ```bash
-sudo pacman -S wine-cachyos winetricks
+sudo pacman -S wine-cachyos-opt winetricks
 ```
 
 ### Emulation (qemu)
@@ -239,3 +239,12 @@ CONTENT
 sudo systemctl enable auto-cpufreq
 sudo systemctl start auto-cpufreq
 ```
+
+### TTS (piper)
+```bash
+#sudo pacman -S festival
+#sudo pacman -S festival-english
+yay -S piper-voices-de-de piper-voices-en-us piper-tts
+flatpak install com.mikeasoft.pied.flatpak
+```
+
