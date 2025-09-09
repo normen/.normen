@@ -188,6 +188,11 @@ sudo ufw allow 319:320/udp comment "AirPlay"
 pactl load-module module-raop-discover
 ```
 
+### Wine
+```bash
+sudo pacman -S wine-cachyos winetricks
+```
+
 ### Emulation (qemu)
 ```bash
 sudo pacman -S qemu-full virt-manager virt-viewer
