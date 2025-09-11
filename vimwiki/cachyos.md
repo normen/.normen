@@ -256,5 +256,11 @@ AddVoice      "en-US" "MALE1" "en_US-ryan-high"
 AddVoice      "de-DE" "MALE1" "de_DE-thorsten-high"
 DefaultVoice  "en_US-ryan-high"
 CONTENT
+vim .config/speech-dispatcher/speechd.conf
+# add line and change DefaultModule
+<<CONTENT
+ AddModule "piper-tts-generic" "sd_generic" "piper-tts-generic.conf"
+ DefaultModule   piper-tts-generic
+CONTENT
 ```
 
