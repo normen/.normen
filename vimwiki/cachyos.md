@@ -245,12 +245,14 @@ sudo systemctl start auto-cpufreq
 yay -S piper-voices-de-de piper-voices-en-us piper-tts
 vim .config/speech-dispatcher/modules/piper-tts-generic.conf
 <<CONTENT
-GenericExecuteSynth "case \"$VOICE\" in \
-    en_US-ryan-high) MODEL=/usr/share/piper-voices/en/en_US/ryan/high/en_US-ryan-high.onnx ;; \
-    de_DE-thorsten-high) MODEL=/usr/share/piper-voices/de/de_DE/thorsten/high/de_DE-thorsten-high.onnx ;; \
-    *) MODEL=/usr/share/piper-voices/en/en_US/ryan/high/en_US-ryan-high.onnx ;; \
-esac ; \
-echo \"$DATA\" | piper-tts -m \"$MODEL\" -f - | mpv --volume=80 --no-terminal --keep-open=no -"
+GenericExecuteSynth "\
+LANG_CODE=\$(printf %s \"\$VOICE\" | cut -d- -f1) ; \
+SPEAKER=\$(printf %s \"\$VOICE\" | cut -d- -f2) ; \
+QUALITY=\$(printf %s \"\$VOICE\" | cut -d- -f3) ; \
+LANG_MAIN=\$(printf %s \"\$LANG_CODE\" | cut -d_ -f1) ; \
+MODEL_PATH=\"/usr/share/piper-voices/\$LANG_MAIN/\$LANG_CODE/\$SPEAKER/\$QUALITY/\$VOICE.onnx\" ; \
+echo \"\$DATA\" | piper-tts -m \"\$MODEL_PATH\" -f - | mpv --no-terminal --keep-open=no - \
+"
 ### Declare voices
 AddVoice      "en-US" "MALE1" "en_US-ryan-high"
 AddVoice      "de-DE" "MALE1" "de_DE-thorsten-high"
