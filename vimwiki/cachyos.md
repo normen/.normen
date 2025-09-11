@@ -242,9 +242,19 @@ sudo systemctl start auto-cpufreq
 
 ### TTS (piper)
 ```bash
-#sudo pacman -S festival
-#sudo pacman -S festival-english
 yay -S piper-voices-de-de piper-voices-en-us piper-tts
-flatpak install com.mikeasoft.pied.flatpak
+vim .config/speech-dispatcher/modules/piper-tts-generic.conf
+<<CONTENT
+GenericExecuteSynth "case \"$VOICE\" in \
+    en_US-ryan-high) MODEL=/usr/share/piper-voices/en/en_US/ryan/high/en_US-ryan-high.onnx ;; \
+    de_DE-thorsten-high) MODEL=/usr/share/piper-voices/de/de_DE/thorsten/high/de_DE-thorsten-high.onnx ;; \
+    *) MODEL=/usr/share/piper-voices/en/en_US/ryan/high/en_US-ryan-high.onnx ;; \
+esac ; \
+echo \"$DATA\" | piper-tts -m \"$MODEL\" -f - | mpv --volume=80 --no-terminal --keep-open=no -"
+### Declare voices
+AddVoice      "en-US" "MALE1" "en_US-ryan-high"
+AddVoice      "de-DE" "MALE1" "de_DE-thorsten-high"
+DefaultVoice  "en_US-ryan-high"
+CONTENT
 ```
 
