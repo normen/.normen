@@ -214,7 +214,9 @@ sub configure_vifm {
   add_config_lines( $f,
     "colorscheme gruvbox",
     "nnoremap <C-e> :q<CR>",
-    "nmap ö :" ) if -f $f;
+    "nmap ö :",
+    "nnoremap yf :!echo -n %c:p | tmux load-buffer -<CR>"
+  ) if -f $f;
   say "Configured vifm";
 }
 
