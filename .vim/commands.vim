@@ -43,8 +43,10 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 :command SCADInstallLSP !cargo install openscad-lsp
 :command SCADOpen !openscad "%"&
 :command SCADOpenTab !open "%";
-:command -nargs=* SCADExport Start! openscad --backend manifold <args> -o "%:r.stl" "%"
-:command -nargs=* SCADPrint Start! openscad --backend manifold -D print_view=true <args> -o "%:r.stl" "%";open "%:r.stl"
+":command -nargs=* SCADExport Start! openscad --backend manifold <args> -o "%:r.stl" "%"
+":command -nargs=* SCADPrint Start! openscad --backend manifold -D print_view=true <args> -o "%:r.stl" "%";open "%:r.stl"
+:command -nargs=* SCADExport Start! openscad <args> -o "%:r.stl" "%"
+:command -nargs=* SCADPrint Start! openscad --D print_view=true <args> -o "%:r.stl" "%";open "%:r.stl"
 
 " NPM
 command! -nargs=+ NPM  call <SID>OpenTermOnce('npm ' . <q-args>, "NPM Package Manager")
