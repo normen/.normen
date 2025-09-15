@@ -5,7 +5,7 @@
 # - optionally uses rlwrap
 #
 set -e
-api_server_url="https://api.openai.com"
+api_server_url="https://chat.bitwaves.de/api"
 
 # list of available commands
 command_list=":name :models :model :temperature :max_tokens :enable_functions :disable_functions :last :first :deletelast :compact :save"
@@ -108,9 +108,19 @@ create_config(){
       "loop_question":"Noch etwas?",
       "current_conversation": "conversation"
     }' > "$cloud_path/config.json"
-    api_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
+    # get API key from WEBUI_API_KEY env var, if not available try openaiapirc
+    if [ -z "$WEBUI_API_KEY" ]; then
+      if [ -z "$OPENAI_API_KEY" ]; then
+        api_key="$OPENAI_API_KEY"
+      else
+        api_key=$(cat ~/.config/openaiapirc | sed -n -e 's/^secret_key *= *\(.*\)$/\1/p')
+      fi
+    else
+      api_key="$WEBUI_API_KEY"
+    fi
+
     if [ "$api_key" == "" ];then
-      echo "Error: No API key found at ~/.config/openaiapirc (secret_key=xxx)"
+      echo "Error: No API key found, set WEBUI_API_KEY, OPENAI_API_KEY or add openaiapirc"
       exit 1
     fi
     set_config api_key "$api_key"
