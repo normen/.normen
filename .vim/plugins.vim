@@ -185,6 +185,8 @@ vnoremap <Leader>tt :Twrite top<CR>
 vnoremap <Leader>tb :Twrite bottom<CR>
 vnoremap <Leader>tl :Twrite left<CR>
 vnoremap <Leader>tr :Twrite right<CR>
+" table mode
+nnoremap <Leader>tm :TableModeToggle<CR>
 " codex
 nnoremap  <C-x><C-i> :CreateCompletion<CR>
 inoremap  <C-x><C-i> <Esc>li<C-g>u<Esc>l:CreateCompletion<CR>
