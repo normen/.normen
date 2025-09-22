@@ -266,3 +266,9 @@ vim .config/speech-dispatcher/speechd.conf
 CONTENT
 ```
 
+### Gstreamer NDI
+```bash
+yay -S ndi-sdk gst-plugins-rs-git
+#yay -S ndi-sdk gst-plugin-ndi-git
+```
+
