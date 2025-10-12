@@ -274,3 +274,12 @@ yay -S ndi-sdk gst-plugins-rs-git
 #yay -S ndi-sdk gst-plugin-ndi-git
 ```
 
+### Docling
+```bash
+cd ~
+python -m venv .venv
+sudo mount -o remount,size=16G /tmp/
+.venv/bin/pip install docling
+mkdir -p .local/bin
+ln -rs .venv/bin/docling .local/bin/
+```
