@@ -17,6 +17,13 @@ model = "qwen3-coder:30b"
 [profiles.qwen3-30b-ollama]
 model_provider = "ollama"
 model = "qwen3:30b"
+
+[model_providers.lms]
+name = "LM Studio"
+base_url = "http://localhost:1234/v1"
+[profiles.gpt-oss-120b-lms]
+model_provider = "lms"
+model = "gpt-oss:120b"
 CONTENT
 
 # run codex:
