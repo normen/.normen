@@ -16,6 +16,7 @@
 * [macos](macos.md)
 * [windows](windows.md)
 * [cachyos](cachyos.md)
+* [strix-halo](strix-halo.md)
 * [hardware](hardware.md)
 * [media](media.md)
 ## Random

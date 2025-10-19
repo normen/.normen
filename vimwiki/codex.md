@@ -35,13 +35,3 @@ codex --profile qwen3-30b-ollama
 yay -S github-copilot
 ```
 
-### GPU memory
-```bash
-# kernel params:
-# strix halo:
-# amd_iommu=on amdgpu.gttsize=81920 ttm.pages_limit=20480000 ttm.page_tool_size=20480000
-# gtt size: (Size in GB * 1024)
-# ttm size: (Size in GB * 1024 * 1024) / 4,096
-# e.g. 80 GB VRAM: 81920 20480000
-```
-
