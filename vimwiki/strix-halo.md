@@ -17,10 +17,9 @@
 # 1 (Compute): 10s (was 60s wtf)
 # 2 (SDMA): 10s (was 10s)
 # 3 (Video): 5s (was 10s)
-# amdgpu.lockup_timeout=5000,10000,10000,5000 \
 
 # Enable GPU reset and relax lockup timeout:
-# amdgpu.gpu_recovery=1 amdgpu.lockup_timeout=10000
+# amdgpu.gpu_recovery=1 amdgpu.lockup_timeout=60000,60000,60000,60000
 
 # Keep IOMMU (data flow checks) on and use pass-through for
 # performance and SVM stability:
