@@ -29,6 +29,11 @@
 # amdgpu.vm_update_mode=0
 ```
 
+## Hard Restart
+```bash
+sudo sh -c "echo b > /proc/sysrq-trigger"
+```
+
 ## Ollama settings
 ```bash
 # Ollama env vars (esp disabling SDMA):
