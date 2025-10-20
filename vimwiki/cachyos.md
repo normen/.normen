@@ -76,7 +76,7 @@ sudoedit /etc/pam.d/sudo
 sudo pacman -S limine-mkinitcpio-hook
 sudo pacman -S limine-snapper-sync
 sudo systemctl enable limine-snapper-sync
-sudoedit /etc/kernel/cmdline
+sudoedit /etc/default/limine
 # append: splash quiet bgrt_disable
 ```
 
