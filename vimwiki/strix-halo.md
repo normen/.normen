@@ -1,6 +1,8 @@
 # AMD Ryzen AI Max+ 395
 
-## GPU kernel memory
+## GPU kernel memory - GTT
+We need to assign enough GTT memory for large models to load properly.
+Set the VRAM size in BIOS to minimum (1GB) to maximize GTT size.
 ```bash
 # kernel params to assign GTT memory:
 # ttm size: (Size in GB * 1024 * 1024) / 4,096
@@ -8,7 +10,8 @@
 # ttm.pages_limit=20480000 ttm.page_tool_size=20480000
 ```
 
-## GPU kernel stability
+## GPU kernel parameters - stability
+These paraters help with GPU stability.
 ```bash
 # kernel params for stability:
 
@@ -30,18 +33,22 @@
 ```
 
 ## Hard Restart
+If the GPU hangs, you can trigger a hard restart of the whole system via sysrq:
+Still need to find a way to only reset the GPU... The user space tools don't work reliably.
 ```bash
 sudo sh -c "echo b > /proc/sysrq-trigger"
 ```
 
-## Ollama settings
+## Ollama settings (Disable SDMA for now)
+**Note:** Ollama still has issues getting the memory size when loading / unloading models
+and thus loads models into CPU memory instead of GPU memory.
 ```bash
 # Ollama env vars (esp disabling SDMA):
 # OLLAMA_HOST=0.0.0.0 \
 # OLLAMA_KEEP_ALIVE=-1 \
 # OLLAMA_MAX_LOADED_MODELS=1 \
 # OLLAMA_CONTEXT_LENGTH=120000 \
-# OLLAMA_NUM_GPU_LAYERS=9999 \
+# OLLAMA_NUM_GPU_LAYERS=256 \
 # OLLAMA_FLASH_ATTENTION=1 \
 # OLLAMA_BATCH_SIZE=512 \
 # OLLAMA_NOPRUNE=1 \
@@ -50,4 +57,36 @@ sudo sh -c "echo b > /proc/sysrq-trigger"
 # HIP_VISIBLE_DEVICES=0 \
 # HSA_ENABLE_SDMA=0 \ 
 
+```
+
+## Ollama service (limits!)
+Create a systemd service to run ollama on boot with proper limits:
+```bash
+<<CONTENT
+[Unit]
+Description=Ollama LLM Server
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+LimitMEMLOCK=infinity
+LimitNOFILE=1048576
+ExecStart=/home/normen/ollama-run.sh
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
+CONTENT
+```
+
+## Max map counts
+We need to increase the max map counts for large models to work properly,
+otherwise you get errors like: "failed to sample token"
+```bash
+# increase max map counts for memory access:
+sudoedit /etc/sysctl.d/99-llm.conf
+<<CONTENT
+vm.max_map_count=1048576
+CONTENT
 ```
