@@ -42,6 +42,7 @@ sudo sh -c "echo b > /proc/sysrq-trigger"
 ## Ollama settings (Disable SDMA for now)
 **Note:** Ollama still has issues getting the memory size when loading / unloading models
 and thus loads models into CPU memory instead of GPU memory.
+Unload models manually, avoid changing model parameters on the fly.
 ```bash
 # Ollama env vars (esp disabling SDMA):
 # OLLAMA_HOST=0.0.0.0 \
