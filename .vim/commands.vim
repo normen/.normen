@@ -9,7 +9,10 @@ vnoremap <Leader>ip :!$NORMEN/bin/gptj-python<CR>
 " tools
 :command SudoWrite :execute ':silent w !sudo tee % > /dev/null' | :edit!
 :command -nargs=* Search :vim /<args>/g %<bar>cw
-:command -nargs=* SearchFiles :vim /<args>/g **/*<bar>cw
+:command -nargs=+ SearchFiles
+      \ silent! execute 'grep -rnw . -e ' . shellescape(<q-args>)
+      \ | cwindow
+:command ToggleQuickFix :call QuickFix_toggle
 :command FixLineEndings :%s//\r/g
 :command FixAdditionalLineEndings :%s///g
 :command FixTrailingWhitespace :%s/\s\+$//e
