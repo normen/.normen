@@ -80,6 +80,11 @@ sudoedit /etc/default/limine
 # append: splash quiet bgrt_disable
 ```
 
+#### Samba
+```bash
+sudo pacman -S kdenetwork-filesharing
+```
+
 #### Systemd-Boot
 ```bash
 sudo lsblk
