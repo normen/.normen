@@ -24,10 +24,10 @@ These paraters help with GPU stability.
 # kernel params for stability:
 
 # Lockup Timeout
-# 0 (GFX): 5s (was 10s)
-# 1 (Compute): 10s (was 60s wtf)
-# 2 (SDMA): 10s (was 10s)
-# 3 (Video): 5s (was 10s)
+# 0 (GFX)
+# 1 (Compute)
+# 2 (SDMA)
+# 3 (Video)
 
 # Enable GPU reset and relax lockup timeout:
 # amdgpu.gpu_recovery=1 amdgpu.lockup_timeout=60000,60000,60000,60000
