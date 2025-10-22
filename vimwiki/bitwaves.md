@@ -1,6 +1,12 @@
 # bitwaves.de
-- [coturn](coturn.md)
+
 ```bash
+# openvpn
+cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn/
+# copy clientconfig to same folder
+# change address in config
+# rename ca.pem ca.crt
+
 # peertube runner
 peertube-runner register --url https://tube.bitwaves.de --registration-token test --runner-name hp-windows
 # watchdog 60s 
