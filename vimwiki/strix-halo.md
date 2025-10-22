@@ -1,5 +1,11 @@
 # AMD Ryzen AI Max+ 395
 
+## CachyOS (Arch Linux)
+Using Arch Linux based CachyOS for best performance and latest ROCm support.
+```bash
+pacman -S ollama-rocm
+```
+
 ## GPU kernel memory - GTT
 We need to assign enough GTT memory for large models to load properly.
 Set the VRAM size in BIOS to minimum (1GB) to maximize GTT size.
@@ -45,19 +51,23 @@ sudo sh -c "echo b > /proc/sysrq-trigger"
 **Note:** Ollama still has issues getting the memory size when loading / unloading models
 and thus loads models into CPU memory instead of GPU memory.
 Unload models manually, avoid changing model parameters on the fly.
+
+Important parameter is HSA_ENABLE_SDMA=0 to disable SDMA engine which seems to cause issues.
+512 GPU layers seems to be the default for a lot of tools, so we keep that to avoid reloading.
 ```bash
 # Ollama env vars (esp disabling SDMA):
 # OLLAMA_HOST=0.0.0.0 \
 # OLLAMA_KEEP_ALIVE=-1 \
 # OLLAMA_MAX_LOADED_MODELS=1 \
-# OLLAMA_CONTEXT_LENGTH=120000 \
-# OLLAMA_NUM_GPU_LAYERS=256 \
+# OLLAMA_CONTEXT_LENGTH=40960 \
+# OLLAMA_NUM_GPU_LAYERS=512 \
 # OLLAMA_FLASH_ATTENTION=1 \
 # OLLAMA_BATCH_SIZE=512 \
 # OLLAMA_NOPRUNE=1 \
 # OLLAMA_LOAD_TIMEOUT=5m \
 # OLLAMA_LLM_LIBRARY=ROCm \
 # HIP_VISIBLE_DEVICES=0 \
+# ROCR_VISIBLE_DEVICES=0 \
 # HSA_ENABLE_SDMA=0 \ 
 
 ```
@@ -74,7 +84,7 @@ After=syslog.target network-online.target
 Type=simple
 LimitMEMLOCK=infinity
 LimitNOFILE=1048576
-ExecStart=/home/normen/ollama-run.sh
+ExecStart=/home/normen/ai-server/ollama-run.sh
 Restart=on-failure
 RestartSec=10
 
