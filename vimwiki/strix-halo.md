@@ -8,6 +8,8 @@ Set the VRAM size in BIOS to minimum (1GB) to maximize GTT size.
 # ttm size: (Size in GB * 1024 * 1024) / 4,096
 # e.g. 80 GB GTT: 20480000
 # ttm.pages_limit=20480000 ttm.page_tool_size=20480000
+# e.g. 120GB 
+# ttm.pages_limit=30720000 ttm.page_tool_size=30720000
 ```
 
 ## GPU kernel parameters - stability
