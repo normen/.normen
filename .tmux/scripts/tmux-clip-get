@@ -1,9 +1,12 @@
 #!/bin/bash
 #tmux save-buffer -|ssh -x normenhansen@Normens-MacBook.local -i ~/.ssh/id_rsa -C 'pbcopy'
 set -eu
+# catch exceptions and display error message in tmux
+trap 'tmux display-message "Error on line $LINENO: $BASH_COMMAND"' ERR
 buf=$( tmux save-buffer - )
 buflen=$( printf %s "$buf" | wc -c )
-maxlen=74994
+# 1MB limit
+maxlen=1048576
 if [ "$buflen" -gt "$maxlen" ]; then
   tmux display-message "input is %d bytes too long" "$(( buflen - maxlen ))" >&2
 fi
