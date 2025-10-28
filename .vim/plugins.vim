@@ -26,6 +26,7 @@ Plug 'vifm/vifm.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'sotte/presenting.vim'
+Plug 'normen/vim-mermaid-ascii'
 Plug 'normen/DrawIt'
 Plug 'ojroques/vim-oscyank'
 Plug 'dbeniamine/cheat.sh-vim'
@@ -48,6 +49,7 @@ else
 Plug 'yegappan/lsp'
 Plug 'normen/vim-lsp-settings-adapter'
 Plug 'github/copilot.vim', { 'on': 'Copilot' }
+Plug 'gergap/vim-ollama'
 endif
 Plug 'mattn/vim-lsp-settings'
 " snip
@@ -190,6 +192,18 @@ nnoremap <Leader>tm :TableModeToggle<CR>
 " codex
 nnoremap  <C-x><C-i> :CreateCompletion<CR>
 inoremap  <C-x><C-i> <Esc>li<C-g>u<Esc>l:CreateCompletion<CR>
+" ollama
+let g:ollama_use_venv = 1
+let g:ollama_host = 'http://192.168.2.26:11434'
+let g:ollama_model = 'qwen3-coder:30b'
+let g:ollama_chat_model = 'gpt-oss:120b'
+let g:ollama_edit_model = 'qwen3-coder:30b'
+let g:ollama_no_tab_map = 1
+let g:ollama_enabled = 0
+"let g:ollama_debug = 4
+"let g:ollama_logfile = '/tmp/logs/vim-ollama.log'
+"let g:ollama_review_logfile = '/tmp/logs/vim-ollama-review.log'
+"let g:ollama_use_inline_diff = 0
 " copilot
 inoremap <F11> <Plug>(copilot-previous)
 inoremap <F12> <Plug>(copilot-next)
@@ -198,6 +212,8 @@ let g:copilot_filetypes = {
     \ 'markdown': v:true,
     \ 'yaml': v:true
     \ }
+"let g:copilot_proxy = 'http://192.168.2.26:11435'
+"let g:copilot_proxy_strict_ssl = v:false
 " vsnip
 nmap <C-s> :VsnipShowShortcuts<CR>
 imap <C-s> <C-o>:VsnipShowShortcuts<CR>
@@ -206,7 +222,8 @@ imap <silent><expr> <TAB>
   \ vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' :
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
-  \ "\<C-x><C-o>"
+  \ '<Plug>(ollama-tab-completion)'
+  "\ "\<C-x><C-o>"
 imap <silent><expr> <S-TAB>
   \ vsnip#available(-1) ? '<Plug>(vsnip-expand-or-jump)' :
   \ pumvisible() ? "\<C-p>" :
