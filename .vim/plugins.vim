@@ -194,7 +194,7 @@ nnoremap  <C-x><C-i> :CreateCompletion<CR>
 inoremap  <C-x><C-i> <Esc>li<C-g>u<Esc>l:CreateCompletion<CR>
 " ollama
 let g:ollama_use_venv = 1
-let g:ollama_host = 'http://192.168.2.26:11434'
+let g:ollama_host = 'http://192.168.2.25:11434'
 let g:ollama_model = 'qwen3-coder:30b'
 let g:ollama_chat_model = 'gpt-oss:120b'
 let g:ollama_edit_model = 'qwen3-coder:30b'
@@ -212,7 +212,7 @@ let g:copilot_filetypes = {
     \ 'markdown': v:true,
     \ 'yaml': v:true
     \ }
-"let g:copilot_proxy = 'http://192.168.2.26:11435'
+"let g:copilot_proxy = 'http://192.168.2.25:11435'
 "let g:copilot_proxy_strict_ssl = v:false
 " vsnip
 nmap <C-s> :VsnipShowShortcuts<CR>
