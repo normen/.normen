@@ -26,6 +26,11 @@ sudo systemctl enable keyd
 sudo systemctl start keyd
 ```
 
+### Fix cursor lag
+```bash
+sudo udevadm trigger --subsystem-match=input --action=change
+```
+
 ### Font
 ```bash
 sudo pacman -S ttf-liberation-mono-nerd
