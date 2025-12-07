@@ -255,26 +255,54 @@ sudo systemctl start auto-cpufreq
 ### TTS (piper)
 ```bash
 yay -S piper-voices-de-de piper-voices-en-us piper-tts
-vim .config/speech-dispatcher/modules/piper-tts-generic.conf
+vim .config/speech-dispatcher/modules/piper.conf
 <<CONTENT
 GenericExecuteSynth "\
+if command -v sox > /dev/null; then\
+  PROCESS=\'sox -r 22050 -c 1 -b 16 -e signed-integer -t raw - -t wav - tempo $RATE pitch $PITCH norm\';\
+  if command -v paplay > /dev/null; then\
+    OUTPUT=\'$PLAY_COMMAND\';\
+  else\
+    OUTPUT=\'aplay\';\
+  fi;\
+elif command -v paplay > /dev/null; then\
+  PROCESS=\'cat\'; OUTPUT=\'$PLAY_COMMAND --raw --channels 1 --rate 22050\';\
+else\
+  PROCESS=\'cat\'; OUTPUT=\'aplay -t raw -c 1 -r 22050 -f S16_LE\';\
+fi;\
 LANG_CODE=\$(printf %s \"\$VOICE\" | cut -d- -f1) ; \
 SPEAKER=\$(printf %s \"\$VOICE\" | cut -d- -f2) ; \
 QUALITY=\$(printf %s \"\$VOICE\" | cut -d- -f3) ; \
 LANG_MAIN=\$(printf %s \"\$LANG_CODE\" | cut -d_ -f1) ; \
 MODEL_PATH=\"/usr/share/piper-voices/\$LANG_MAIN/\$LANG_CODE/\$SPEAKER/\$QUALITY/\$VOICE.onnx\" ; \
-echo \"\$DATA\" | piper-tts -m \"\$MODEL_PATH\" -f - | mpv --no-terminal --keep-open=no - \
+echo \"\$DATA\" | piper-tts -m \"\$MODEL_PATH\" --output-raw -f - | $PROCESS | $OUTPUT ; \
 "
+
+# settings
+GenericRateAdd 1
+GenericPitchAdd 1
+GenericVolumeAdd 1
+GenericRateMultiply 1
+GenericPitchMultiply 1000
 ### Declare voices
 AddVoice      "en-US" "MALE1" "en_US-ryan-high"
 AddVoice      "de-DE" "MALE1" "de_DE-thorsten-high"
+
 DefaultVoice  "en_US-ryan-high"
 CONTENT
 vim .config/speech-dispatcher/speechd.conf
-# add line and change DefaultModule
+# replace content
 <<CONTENT
- AddModule "piper-tts-generic" "sd_generic" "piper-tts-generic.conf"
- DefaultModule   piper-tts-generic
+SymbolsPreproc "char"
+SymbolsPreprocFile "gender-neutral.dic"
+SymbolsPreprocFile "font-variants.dic"
+SymbolsPreprocFile "symbols.dic"
+SymbolsPreprocFile "emojis.dic"
+SymbolsPreprocFile "orca.dic"
+SymbolsPreprocFile "orca-chars.dic"
+AddModule "piper" "sd_generic" "piper.conf"
+DefaultModule "piper"
+Include "clients/*.conf"
 CONTENT
 ```
 
