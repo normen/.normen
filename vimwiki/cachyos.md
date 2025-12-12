@@ -212,17 +212,13 @@ sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 ```
 
-### VNC (krfb)
+### RDM (VNC)
 ```bash
-sudo pacman -S krfb
-# add to autostart, set user password
-vim ~/.config/krfbrc
-<<CONTENT
-[MainWindow]
-startMinimized=true
-CONTENT
-# client: tigervnc
-sudo pacman -S tigervnc
+# client
+sudo pacman -S libvncserver remmina
+# server 
+sudo pacman -S krdp
+# enable in settings "remote desktop"
 ```
 
 ### Printer (cups)
