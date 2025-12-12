@@ -212,7 +212,7 @@ sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 ```
 
-### RDM (VNC)
+### RDP (VNC)
 ```bash
 # client
 sudo pacman -S libvncserver remmina
