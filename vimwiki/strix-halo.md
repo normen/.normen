@@ -38,6 +38,9 @@ These paraters help with GPU stability.
 
 # Prefer GFX ring for VM updates (helps when SDMA is disabled):
 # amdgpu.vm_update_mode=0
+
+# Fix HIP / Memory errors
+# amdgpu.cwsr_enable=0
 ```
 
 ## Hard Restart
