@@ -24,4 +24,6 @@ pip install markdown2
 cal
 # id3
 brew install id3lib
+# pdfbook
+pdfbook --booklet input.pdf
 ```
