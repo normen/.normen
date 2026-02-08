@@ -25,5 +25,5 @@ cal
 # id3
 brew install id3lib
 # pdfbook
-pdfbook --booklet input.pdf
+pdfbook --booklet true input.pdf
 ```
