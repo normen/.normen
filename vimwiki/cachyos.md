@@ -36,6 +36,24 @@ sudo udevadm trigger --subsystem-match=input --action=change
 sudo pacman -S ttf-liberation-mono-nerd
 ``` 
 
+### Script in dolphin right-click
+```bash
+vim ~/.local/share/kio/servicemenus/process-file.desktop
+<<CONTENT
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream;inode/directory;all/allfiles;
+Actions=ProcessWithMyScript;
+
+[Desktop Action ProcessWithMyScript]
+Name=Run my script on file(s)
+Icon=utilities-terminal
+Exec=konsole -e bash -lc '~/bin/process-file.sh %F'
+CONTENT
+```
+chmod +x ~/.local/share/kio/servicemenus/process-file.desktop
+
 ### Firefox Setup
 - Vimium
 - NC Passwords
