@@ -47,6 +47,8 @@ function fish_user_key_bindings
   # and make sure 'p' in COMMAND mode pastes via fish_clipboard_paste
   bind -M default 'p' tmux_paste
   bind -M default 'P' tmux_paste_before
+  bind -M insert 'ctrl-p' _fish_ai_codify_or_explain
+  bind -M insert 'ctrl-space' _fish_ai_autocomplete_or_fix
 end
 
 # editor
