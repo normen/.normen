@@ -30,6 +30,8 @@ sudo systemctl start keyd
 ```bash
 sudo pacman -S downgrade
 sudo downgrade packagename
+# edit ignore list
+sudo vim /etc/pacman.conf
 ```
 
 
