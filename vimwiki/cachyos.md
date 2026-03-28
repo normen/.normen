@@ -26,6 +26,13 @@ sudo systemctl enable keyd
 sudo systemctl start keyd
 ```
 
+# downgrade
+```bash
+sudo pacman -S downgrade
+sudo downgrade packagename
+```
+
+
 ### Fix cursor lag
 ```bash
 sudo udevadm trigger --subsystem-match=input --action=change
