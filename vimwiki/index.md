@@ -21,6 +21,7 @@
 * [media](media.md)
 ## Random
 * [minecraft](minecraft.md)
+* [openmediavault](openmediavault.md)
 * [codex](codex.md)
 * [chordpro](chordpro.md)
 * [ipv6](ipv6.md)
