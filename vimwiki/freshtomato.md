@@ -1,4 +1,14 @@
 ## FreshTomato
+### Setup from blank freshtomato:
+- set IP
+- set wifi area / boost
+- set wifi pass/channel
+- set ipv6 default
+- set DNS/DHCP ipv6 announce off
+- set ipv6 with prefix, accept from LAN/WAN
+- set wan port to default VLAN
+
+### Infos
 ```bash
 # install entware on external USB drive (ENTWARE, mounted)
 fdisk -l
