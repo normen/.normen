@@ -66,6 +66,7 @@ iptables -t nat -A POSTROUTING -s 10.6.0.0/24 -o br0 -j MASQUERADE
 # freshtomato: disable DNS advertising
 
 # use Encrypt Channel v2
+# use UDP6
 # custom VPN settings:
 remote-cert-tls client
 
