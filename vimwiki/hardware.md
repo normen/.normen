@@ -5,6 +5,7 @@
 * [hardware/Roomba](hardware/Roomba.md)
 * [hardware/solar](hardware/solar.md)
 * [hardware/h264encoder](hardware/h264encoder.md)
+* [hardware/vonets](hardware/vonets.md)
 
 ## Home Device Infos
 ```bash
