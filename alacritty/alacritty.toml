@@ -17,6 +17,9 @@ lines = 30
 instance = "Alacritty"
 general = "Alacritty"
 
+[bell]
+command = "None"
+
 [scrolling]
 history = 10000
 multiplier = 3
