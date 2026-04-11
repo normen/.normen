@@ -1,5 +1,7 @@
 ## docker
 ```bash
+# user access
+sudo usermod -aG docker $USER && newgrp docker
 # avoid file access issues: add :z to mount
 # build from dockerfile (myimage:v3)
 docker build -t myimage .
