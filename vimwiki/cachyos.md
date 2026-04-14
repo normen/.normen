@@ -34,6 +34,16 @@ sudo downgrade packagename
 sudo vim /etc/pacman.conf
 ```
 
+# STT
+```bash
+yay -S whispers-bin
+sudo modprobe uinput
+echo uinput | sudo tee /etc/modules-load.d/uinput.conf
+echo 'KERNEL=="uinput", SUBSYSTEM=="misc", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/99-uinput.rules
+sudo udevadm control --reload
+sudo udevadm trigger --subsystem-match=misc --sysname-match=uinput
+# set keyboard shortcut to "whispers"
+```
 
 ### Fix cursor lag
 ```bash
