@@ -1,5 +1,32 @@
 ## macos
 ```bash
+# Launchctl create automatic launch agent
+vim ~/Library/LaunchAgents/com.normenhansen.myagent.plist
+<<CONTENT
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.normenhansen.myagent</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/path/to/script.sh</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+CONTENT
+# Load the agent
+launchctl load ~/Library/LaunchAgents/com.normenhansen.myagent.plist
+# Unload the agent
+launchctl unload ~/Library/LaunchAgents/com.normenhansen.myagent.plist
+# Start the agent manually
+launchctl start com.normenhansen.myagent
+# Stop the agent manually
+launchctl stop com.normenhansen.myagent
+
 # log all
 sudo log stream --style compact --predicate 'messageType == "error" || messageType == "fault"'
 
