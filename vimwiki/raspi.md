@@ -201,6 +201,9 @@ cd n
 sudo make install
 sudo n 10
 
+# remove tmp mount to ram:
+sudo systemctl mask tmp.mount
+
 #Need compile after node update (in each module folder)
 sudo npm rebuild --unsafe-perm
 
