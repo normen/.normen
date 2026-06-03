@@ -46,6 +46,11 @@ sudo parted /dev/sda mklabel gpt
 sudo parted -a opt /dev/sda mkpart primary ext4 0% 100%
 sudo mkfs.ext4 -L datapartition /dev/sda1
 
+# edit timer
+sudo systemctl edit btrbk.timer
+sudo systemctl daemon-reload
+sudo systemctl restart btrbk.timer
+
 #mount fstab
 sudo blkid
 sudo vim /etc/fstab
