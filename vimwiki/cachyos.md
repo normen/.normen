@@ -48,6 +48,7 @@ volume /
     snapshot_create always
     target ssh://192.168.2.98/srv/dev-disk-by-uuid-123a3bd1-73e0-44b6-bb93-4cb48c75aba2/disk-backup/ThinkPad-X13-Yoga
 CONTENT
+# add key to /etc/btrbk/ssh/id_rsa
 ```
 
 # STT
