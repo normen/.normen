@@ -34,6 +34,22 @@ sudo downgrade packagename
 sudo vim /etc/pacman.conf
 ```
 
+# Backup
+- use btrbk
+```bash
+sudo pacman -S btrbk
+# append to btrbk-example.conf
+sudoedit /etc/btrbk/btrbk.conf
+<<CONTENT
+# Backup data to external disk as well as remote host
+volume /
+  # Always create snapshot, even if targets are unreachable
+  subvolume home
+    snapshot_create always
+    target ssh://192.168.2.98/srv/dev-disk-by-uuid-123a3bd1-73e0-44b6-bb93-4cb48c75aba2/disk-backup/ThinkPad-X13-Yoga
+CONTENT
+```
+
 # STT
 ```bash
 yay -S whispers-bin
