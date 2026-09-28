@@ -33,6 +33,19 @@ ssh -N -R 9401:localhost:22 root@bitwaves.de
 # prepare local ssh with key
 ssh-keygen -t rsa -b 4096
 
+# ubutu samba share
+sudo apt install samba
+sudo systemctl enable --now smbd
+sudoedit /etc/samba/smb.conf
+sudo smbpasswd -a sambausername
+<<CONTENT
+[ShareName]
+  path = /path/to/share
+  browseable = yes
+  read only = no
+  guest ok = no
+CONTENT
+
 #tar.gz
 tar -xvzf myfile.tar.gz
 # start process and get PID
