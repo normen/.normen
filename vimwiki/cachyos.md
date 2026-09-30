@@ -51,6 +51,9 @@ CONTENT
 # add key to /etc/btrbk/ssh/id_rsa
 ```
 
+# SMB GUI automount
+sudo pacman -S gigolo gvfs-smb
+
 # STT
 ```bash
 yay -S whispers-bin
