@@ -52,7 +52,7 @@ CONTENT
 ```
 
 # SMB GUI automount
-sudo pacman -S gigolo gvfs-smb
+sudo pacman -S smb4k
 
 # STT
 ```bash
