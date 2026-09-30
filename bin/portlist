@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Temporary files to store netstat and lsof output
+LSOF_OUT="/tmp/lsof.out"
+
+# Get netstat and lsof output
+sudo lsof -i -P -n +c 15 > $LSOF_OUT
+
+# AWK script to parse and format the output
+awk '
+# Initialize arrays
+BEGIN {
+    print "Port  Proto   Prozess        IP"
+    print "--------------------------------------------------"
+}
+
+/^.*/ && !/^COMMAND/ {
+    # Extract protocol and port
+    proto = $8;
+    if ($8 ~ /^(TCP|UDP)/) {
+        if($9 ~ /.*->.*/){
+          next;
+        }
+        split($9, adda, ":");
+        port = adda[length(adda)];
+        iptype = $5;
+        fullip = $9;
+    } else {
+        next;
+    }
+    cmd = $1;
+    if (port == "*") {
+        next;
+    }
+    listeners[proto iptype fullip] = port "\t" proto "/" iptype "\t" cmd "\t" $9 " " $10;
+}
+
+END {
+    for (key in listeners) {
+      print listeners[key];
+    }
+}
+' $LSOF_OUT | sort -k1,1n -k2,2 - | less # | fzf
