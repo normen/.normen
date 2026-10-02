@@ -374,3 +374,8 @@ sudo mount -o remount,size=16G /tmp/
 mkdir -p .local/bin
 ln -rs .venv/bin/docling .local/bin/
 ```
+
+### MagicHD
+```bash
+QT_QPA_PLATFORM=xcb ./runmagichd.sh
+```
