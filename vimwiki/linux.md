@@ -178,4 +178,12 @@ sudo systemctl --user enable myservice
 sudo systemctl --user start myservice
 # load services without login (target default.target)
 sudo loginctl enable-linger username
+
+# ydotool
+sudo apt install ydotool
+sudo usermod -aG input $USER
+systemctl --user enable --now ydotool.service
+cat /usr/include/linux/input-event-codes.h
+# send alt-tab
+ydotool 56:1 15:1 15:0 56:0
 ```
